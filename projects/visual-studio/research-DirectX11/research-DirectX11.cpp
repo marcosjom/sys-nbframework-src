@@ -21,6 +21,7 @@
 //
 #include "nb/core/NBMngrProcess.h"
 #include "nb/core/NBMngrStructMaps.h"
+#include "nb/core/NBThread.h"
 #include "nb/scene/NBScnRenderJob_hlsl.h"
 #include "nb/scene/NBScnRenderJob_cs_5_0.h"
 #include "nb/research/research-scn-compute.h"
@@ -269,11 +270,9 @@ bool App_d3d_compute_map_buffer_data(STApp* app, ID3D11Buffer* buff, ID3D11Buffe
 void App_d3d_compute_run_in_samples(STApp* app, const STNBScnRenderJobTree* src, const float compareMaxDiffAbs) {
 	HRESULT hr;
 	const unsigned int spacesPerLvl = 4;
-	LARGE_INTEGER osFreq;
-	LARGE_INTEGER cpuFwdTime = { 0 }, cpuBwdTime = { 0 }, cpuBwd2Time = { 0 }, gpuBwdTimeExec = { 0 }, gpuBwdTimeMapping = { 0 }, gpuBwdTimeCpying = { 0 };
+	NBTHREAD_CLOCK osFreq = NBThread_clocksPerSec();
+	NBTHREAD_CLOCK cpuFwdTime = 0, cpuBwdTime = 0, cpuBwd2Time = 0, gpuBwdTimeExec = 0, gpuBwdTimeMapping = 0, gpuBwdTimeCpying = 0;
 	STNBScnRenderJobPlain cpuFwdRR, cpuBwdRR, cpuBwdRR2, gpuBwdRRMapped, gpuBwdRRCopied;
-	//
-	QueryPerformanceFrequency(&osFreq);
 	//
 	NBScnRenderJobPlain_init(&cpuFwdRR);
 	NBScnRenderJobPlain_init(&cpuBwdRR);
@@ -290,64 +289,64 @@ void App_d3d_compute_run_in_samples(STApp* app, const STNBScnRenderJobTree* src,
 	//Run in CPU
 	{
 		{
-			LARGE_INTEGER startTime, endTime;
-			QueryPerformanceCounter(&startTime);
+			NBTHREAD_CLOCK startTime, endTime;
+			startTime = NBThread_clock();
 			{
 				NBScnRenderJob_convertTreeToPlainForwardToDst(src, &cpuFwdRR);
 			}
-			QueryPerformanceCounter(&endTime);
-			cpuFwdTime.QuadPart = endTime.QuadPart - startTime.QuadPart;
+			endTime = NBThread_clock();
+			cpuFwdTime = endTime - startTime;
 			//printf("RESULTS :: CPU :: forward execution:\n");
 			//printf("---------------------->\n");
 			//research_scn_compute_print_flat_job(&cpuFwdRR, spacesPerLvl);
 			//printf("<----------------------\n");
 		}
 		{
-			LARGE_INTEGER startTime, endTime;
-			QueryPerformanceCounter(&startTime);
+			NBTHREAD_CLOCK startTime, endTime;
+			startTime = NBThread_clock();
 			{
 				NBScnRenderJob_convertTreeToPlainBackwardToDst(src, &cpuBwdRR);
 			}
-			QueryPerformanceCounter(&endTime);
-			cpuBwdTime.QuadPart = endTime.QuadPart - startTime.QuadPart;
+			endTime = NBThread_clock();
+			cpuBwdTime = endTime - startTime;
 			//printf("RESULTS :: CPU :: backward execution:\n");
 			//printf("---------------------->\n");
 			//research_scn_compute_print_flat_job(&cpuBwdRR, spacesPerLvl);
 			//printf("<----------------------\n");
 		}
 		{
-			LARGE_INTEGER startTime, endTime;
-			QueryPerformanceCounter(&startTime);
+			NBTHREAD_CLOCK startTime, endTime;
+			startTime = NBThread_clock();
 			{
 				research_scn_compute_convertTreeToPlainGpuAlgorithmToDst(src, &cpuBwdRR2);
 			}
-			QueryPerformanceCounter(&endTime);
-			cpuBwd2Time.QuadPart = endTime.QuadPart - startTime.QuadPart;
+			endTime = NBThread_clock();
+			cpuBwd2Time = endTime - startTime;
 			//printf("RESULTS :: CPU :: backward execution:\n");
 			//printf("---------------------->\n");
 			//research_scn_compute_print_flat_job(&cpuBwdRR, spacesPerLvl);
 			//printf("<----------------------\n");
 		}
 		{
-			LARGE_INTEGER startTime, endTime;
-			QueryPerformanceCounter(&startTime);
-			endTime = startTime;
-			if (0 == research_scn_compute_compare(&cpuFwdRR, &cpuBwdRR, compareMaxDiffAbs, src)) {
-				QueryPerformanceCounter(&endTime);
-				printf("cpu_forward vs cpu_backwards: MATCH (%.4fms).\n", (float)(endTime.QuadPart - startTime.QuadPart) / (float)(osFreq.QuadPart / 1000));
+			float matchRel = 0.0f;
+			NBTHREAD_CLOCK startTime, endTime;
+			endTime = startTime = NBThread_clock();
+			if ((matchRel = research_scn_compute_compare(&cpuFwdRR, &cpuBwdRR, compareMaxDiffAbs, src)) > 0.9f) {
+				endTime = NBThread_clock();
+				printf("cpu_forward vs cpu_backwards: MATCH (%.4fms; %.2f%%).\n", (float)(endTime - startTime) / (float)(osFreq / 1000), 100.0f * matchRel);
 			} else {
-				printf("cpu_forward vs cpu_backwards: DO NOT MATCH <---(!).\n");
+				printf("cpu_forward vs cpu_backwards: DO NOT MATCH %.2f%% <---(!).\n", 100.0f * matchRel);
 			}
 		}
 		{
-			LARGE_INTEGER startTime, endTime;
-			QueryPerformanceCounter(&startTime);
-			endTime = startTime;
-			if (0 == research_scn_compute_compare(&cpuFwdRR, &cpuBwdRR2, compareMaxDiffAbs, src)) {
-				QueryPerformanceCounter(&endTime);
-				printf("cpu_forward vs gpu_backwards_on_cpu: MATCH (%.4fms).\n", (float)(endTime.QuadPart - startTime.QuadPart) / (float)(osFreq.QuadPart / 1000));
+			float matchRel = 0.0f;
+			NBTHREAD_CLOCK startTime, endTime;
+			endTime = startTime = NBThread_clock();
+			if ((matchRel = research_scn_compute_compare(&cpuFwdRR, &cpuBwdRR2, compareMaxDiffAbs, src)) > 0.9f) {
+				endTime = NBThread_clock();
+				printf("cpu_forward vs gpu_backwards_on_cpu: MATCH (%.4fms; %.2f%%).\n", (float)(endTime - startTime) / (float)(osFreq / 1000), 100.0f * matchRel);
 			} else {
-				printf("cpu_forward vs gpu_backwards_on_cpu: DO NOT MATCH <---(!).\n");
+				printf("cpu_forward vs gpu_backwards_on_cpu: DO NOT MATCH %.2f%% <---(!).\n", 100.0f * matchRel);
 			}
 		}
 	}
@@ -417,9 +416,8 @@ void App_d3d_compute_run_in_samples(STApp* app, const STNBScnRenderJobTree* src,
 			&& fltNodesBuffVw != NULL && fltV0BuffVw != NULL && fltV1BuffVw != NULL && fltV2BuffVw != NULL && fltV3BuffVw != NULL
 			)
 		{
-			LARGE_INTEGER startTime, midTime, midTime2, endTime;
-			QueryPerformanceCounter(&startTime);
-			midTime = midTime2 = endTime = startTime;
+			NBTHREAD_CLOCK startTime, midTime, midTime2, endTime;
+			midTime = midTime2 = endTime = startTime = NBThread_clock();
 			App_d3d_compute_print_msgs_queue(app, "before-run");
 			//Dispatch ComputeShader in groups
 			{
@@ -521,9 +519,8 @@ void App_d3d_compute_run_in_samples(STApp* app, const STNBScnRenderJobTree* src,
 			//copy results
 			{
 				//ID3D11Buffer* fltNodesBuffMapped = NULL, * fltV0BuffMapped = NULL, * fltV1BuffMapped = NULL, * fltV2BuffMapped = NULL, * fltV3BuffMapped = NULL;
-				QueryPerformanceCounter(&midTime);
-				midTime2 = endTime = midTime;
-				gpuBwdTimeExec.QuadPart = midTime.QuadPart - startTime.QuadPart;
+				midTime2 = endTime = midTime = NBThread_clock();
+				gpuBwdTimeExec = midTime - startTime;
 				//
 				//printf("D3D, shader executed (%d units).\n", srcCount);
 				//map buffers data
@@ -545,9 +542,8 @@ void App_d3d_compute_run_in_samples(STApp* app, const STNBScnRenderJobTree* src,
 					NBASSERT(src->verts.v2.use == gpuBwdRRMapped.verts.v2.use);
 					NBASSERT(src->verts.v3.use == gpuBwdRRMapped.verts.v3.use);
 					//analyze results
-					QueryPerformanceCounter(&midTime2);
-					endTime = midTime2;
-					gpuBwdTimeMapping.QuadPart = midTime2.QuadPart - midTime.QuadPart;
+					endTime = midTime2 = NBThread_clock();
+					gpuBwdTimeMapping = midTime2 - midTime;
 					//copy
 					{
 						{
@@ -562,31 +558,31 @@ void App_d3d_compute_run_in_samples(STApp* app, const STNBScnRenderJobTree* src,
 							NBArray_addItems(&gpuBwdRRCopied.verts.v2, NBArray_dataPtr(&gpuBwdRRMapped.verts.v2, const STNBScnVertexTex2F), sizeof(STNBScnVertexTex2F), gpuBwdRRMapped.verts.v2.use);
 							NBArray_addItems(&gpuBwdRRCopied.verts.v3, NBArray_dataPtr(&gpuBwdRRMapped.verts.v3, const STNBScnVertexTex3F), sizeof(STNBScnVertexTex3F), gpuBwdRRMapped.verts.v3.use);
 						}
-						QueryPerformanceCounter(&endTime);
-						gpuBwdTimeCpying.QuadPart = endTime.QuadPart - midTime2.QuadPart;
+						endTime = NBThread_clock();
+						gpuBwdTimeCpying = endTime - midTime2;
 					}
 					//compare
 					{
-						LARGE_INTEGER startTime, endTime;
-						QueryPerformanceCounter(&startTime);
-						endTime = startTime;
-						if (0 == research_scn_compute_compare(&gpuBwdRRMapped, &cpuBwdRR, compareMaxDiffAbs, src)) {
-							QueryPerformanceCounter(&endTime);
-							printf("gpu_backwards_maped vs cpu_backwards: MATCH (%.4fms).\n", (float)(endTime.QuadPart - startTime.QuadPart) / (float)(osFreq.QuadPart / 1000));
+						float matchRel = 0.0f;
+						NBTHREAD_CLOCK startTime, endTime;
+						endTime = startTime = NBThread_clock();
+						if ((matchRel = research_scn_compute_compare(&gpuBwdRRMapped, &cpuBwdRR, compareMaxDiffAbs, src)) > 0.9f) {
+							endTime = NBThread_clock();
+							printf("gpu_backwards_maped vs cpu_backwards: MATCH (%.4fms; %.2f%%).\n", (float)(endTime - startTime) / (float)(osFreq / 1000), 100.0f * matchRel);
 							//compare with processing time in copied
 							{
-								LARGE_INTEGER startTime, endTime;
-								QueryPerformanceCounter(&startTime);
-								endTime = startTime;
-								if (0 == research_scn_compute_compare(&gpuBwdRRCopied, &cpuBwdRR, compareMaxDiffAbs, src)) {
-									QueryPerformanceCounter(&endTime);
-									printf("gpu_backwards_copied vs cpu_backwards: MATCH (%.4fms).\n", (float)(endTime.QuadPart - startTime.QuadPart) / (float)(osFreq.QuadPart / 1000));
+								float matchRel = 0.0f;
+								NBTHREAD_CLOCK startTime, endTime;
+								endTime = startTime = NBThread_clock();
+								if ((matchRel = research_scn_compute_compare(&gpuBwdRRCopied, &cpuBwdRR, compareMaxDiffAbs, src)) > 0.9f) {
+									endTime = NBThread_clock();
+									printf("gpu_backwards_copied vs cpu_backwards: MATCH (%.4fms; %.2f%%).\n", (float)(endTime - startTime) / (float)(osFreq / 1000), 100.0f * matchRel);
 								} else {
-									printf("gpu_backwards_copied vs cpu_backwards: DO NOT MATCH <---(!).\n");
+									printf("gpu_backwards_copied vs cpu_backwards: DO NOT MATCH %.2f%% <---(!).\n", 100.0f * matchRel);
 								}
 							}
 						} else {
-							printf("gpu_backwards_maped vs cpu_backwards: DO NOT MATCH <---(!).\n");
+							printf("gpu_backwards_maped vs cpu_backwards: DO NOT MATCH %.2f%% <---(!).\n", 100.0f * matchRel);
 						}
 					}
 				}
@@ -625,12 +621,12 @@ void App_d3d_compute_run_in_samples(STApp* app, const STNBScnRenderJobTree* src,
 	}
 	printf("Execution times (%d elems): cpu_fwd(%.4fms), cpu_bwd(%.4fms), gpu_bwd_on_cpu(%.4fms), gpu_bwd(%.4fms exc, +%.4fms map, +%.4fms cpy).\n"
 		, src->nodes.use
-		, (float)(cpuFwdTime.QuadPart) / (float)(osFreq.QuadPart / 1000)
-		, (float)(cpuBwdTime.QuadPart) / (float)(osFreq.QuadPart / 1000)
-		, (float)(cpuBwd2Time.QuadPart) / (float)(osFreq.QuadPart / 1000)
-		, (float)(gpuBwdTimeExec.QuadPart) / (float)(osFreq.QuadPart / 1000)
-		, (float)(gpuBwdTimeMapping.QuadPart) / (float)(osFreq.QuadPart / 1000)
-		, (float)(gpuBwdTimeCpying.QuadPart) / (float)(osFreq.QuadPart / 1000)
+		, (float)(cpuFwdTime) / (float)(osFreq / 1000)
+		, (float)(cpuBwdTime) / (float)(osFreq / 1000)
+		, (float)(cpuBwd2Time) / (float)(osFreq / 1000)
+		, (float)(gpuBwdTimeExec) / (float)(osFreq / 1000)
+		, (float)(gpuBwdTimeMapping) / (float)(osFreq / 1000)
+		, (float)(gpuBwdTimeCpying) / (float)(osFreq / 1000)
 	);
 	//	printf("Info, OS-Window created.\n");
 	NBScnRenderJobPlain_release(&cpuFwdRR);

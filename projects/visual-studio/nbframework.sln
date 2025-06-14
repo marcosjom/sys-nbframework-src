@@ -12,7 +12,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nbframework-test-win", "nbf
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "research-openGLES2", "research-openGLES2\research-openGLES2.vcxproj", "{6A7FB019-1548-4CD2-97AC-B55CA1B74479}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "research-DirectX", "research-DirectX\research-DirectX.vcxproj", "{422B3FEE-E880-4616-A634-7ACE5177C70A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "research-DirectX11", "research-DirectX11\research-DirectX11.vcxproj", "{422B3FEE-E880-4616-A634-7ACE5177C70A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "research-Vulkan", "research-Vulkan\research-Vulkan.vcxproj", "{E4F4B961-0F7C-4425-9697-4B07CF2836CC}"
 EndProject

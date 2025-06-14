@@ -367,7 +367,7 @@ bool App_metal_compute_create(STApp* app){
 void App_metal_compute_run_in_samples(STApp* app, const STNBScnRenderJobTree* src, const float compareMaxDiffAbs) {
     //const unsigned int spacesPerLvl = 4;
     NBTHREAD_CLOCK osFreq = NBThread_clocksPerSec();
-    NBTHREAD_CLOCK cpuFwdTime = { 0 }, cpuBwdTime = { 0 }, cpuBwd2Time = { 0 }, gpuBwdTimeExec = { 0 }, gpuBwdTimeMapping = { 0 }, gpuBwdTimeCpying = { 0 };
+    NBTHREAD_CLOCK cpuFwdTime = 0, cpuBwdTime = 0, cpuBwd2Time = 0, gpuBwdTimeExec = 0, gpuBwdTimeMapping = 0, gpuBwdTimeCpying = 0;
     STNBScnRenderJobPlain cpuFwdRR, cpuBwdRR, cpuBwdRR2, gpuBwdRRMapped, gpuBwdRRCopied;
     //
     //QueryPerformanceFrequency(&osFreq);
