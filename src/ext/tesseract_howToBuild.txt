@@ -1,0 +1,73 @@
+##################
+# System's version
+##################
+
+#install 'libtesseract-dev' package
+#add 'NB_USE_LOCAL_LIB_TESSERACT=1' at 'make' command
+
+#############
+# From source (v5.2.0)
+#############
+
+# unzip at 'ext/tesseract' (v5.2.0)
+
+#----------------------------------
+# for MacOS and XCode
+#----------------------------------
+
+- Install 'pkg-config':
+    LDFLAGS="-framework CoreFoundation -framework Carbon" ./configure --with-internal-glib
+    make
+    sudo make install
+
+- Install 'autoconf':
+    ./configure
+    make
+    install
+
+- Install 'automake':
+    ./configure
+    make
+    install
+
+- Install 'libtool':
+    ./configure
+    make
+    install
+
+- Install 'libtonica':
+    ./configure --without-zlib --without-libpng --without-jpeg --without-giflib --without-libtiff --without-libwebp --without-libopenjpeg --disable-programs --disable-silent-rules
+    make
+    install
+
+- Install 'tesseract':
+    export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
+    ./autogen.sh
+    ./configure --disable-graphics --disable-tessdata-prefix
+    make
+
+
+#############
+# From source (v3.05.02)
+#############
+
+# unzip at 'ext/tesseract' (v3.05.02)
+
+#----------------------------------
+# for MacOS and XCode
+#----------------------------------
+
+- Download-src, configure, make and install: pkg-config.
+  Note: cd Des
+  Note: required by PKG_CHECK_MODULES check.
+
+- Download-src, configure, make and install: autoconf, automake and libtool.
+  Note: pkg-config must be compiled first, to make PKG_CHECK_MODULES macro available.
+
+- Download-src, configure, make and install: libtonica.
+  Note: ./configure --without-zlib --without-libpng --without-jpeg --without-giflib --without-libtiff --without-libwebp --without-libopenjpeg --disable-programs --disable-silent-rules
+
+$ ./autogen.sh
+$ ./configure --disable-graphics --disable-cube --disable-tessdata-prefix
+$ make
+

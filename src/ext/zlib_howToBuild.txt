@@ -1,0 +1,69 @@
+##################
+# System's version
+##################
+
+#install 'zlibc-dev' package
+#add 'NB_USE_LOCAL_LIB_ZLIB=1' at 'make' command
+
+#############
+# From source
+#############
+
+# unzip at 'ext/zlib' (v1.3.1)
+# ovewritting with the files that are part of the nbframework repo.
+# copy 'zconf.h' to 'include/ext/zlib'
+# delete 'zconf.h' from 'src/ext/zlib' 
+
+#############
+# From source (old, fails to compile in XCode 2025)
+#############
+
+# unzip at 'ext/zlib' (v1.2.13)
+# ovewritting with the files that are part of the nbframework repo.
+
+# for i386
+#----------------------------------
+./Configure --const --static --prefix=../zlib-bld --archs="-arch i386"
+
+
+# for x86_64
+#----------------------------------
+./Configure --const --static --prefix=../zlib-bld --archs="-arch x86_64"
+
+
+# for iOS-simulator (..., i386, x86_64)
+#----------------------------------
+export P_XCODE_ROOT="/Applications/Xcode.app/Contents/Developer"
+export P_SDK_TARGET="11.2"
+export P_SDK_MIN="11.2"
+export CC=clang
+export CC_BASENAME=clang
+export CXX=clang++
+export CXX_BASENAME=clang++
+export PATH="${P_XCODE_ROOT}/Toolchains/XcodeDefault.xctoolchain/usr/bin:$PATH"
+export CFLAGS="-O3 -arch x86_64 -isysroot ${P_XCODE_ROOT}/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator${P_SDK_TARGET}.sdk -mios-simulator-version-min=${P_SDK_MIN} -Wno-error-implicit-function-declaration"
+export CXXFLAGS="$CFLAGS"
+./configure --const --static --prefix=../zlib-bld
+#
+#Note: "-arch i386" was removed from Xcode9
+#      Add it if you are testing or compiling for older target.
+
+
+# for iOS (..., armv7, armv7s, arm64)
+#----------------------------------
+export P_XCODE_ROOT="/Applications/Xcode.app/Contents/Developer"
+export P_SDK_TARGET="11.2"
+export P_SDK_MIN="11.2"
+export CC=clang
+export CC_BASENAME=clang
+export CXX=clang++
+export CXX_BASENAME=clang++
+export PATH="${P_XCODE_ROOT}/Toolchains/XcodeDefault.xctoolchain/usr/bin:$PATH"
+export CFLAGS="-O3 -arch arm64 -isysroot ${P_XCODE_ROOT}/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS${P_SDK_TARGET}.sdk -mios-version-min=${P_SDK_MIN} -Wno-error-implicit-function-declaration"
+export CXXFLAGS="$CFLAGS"
+./configure --const --static --prefix=../zlib-bld
+#
+#Note: "-arch armv6 -arch armv7 -arch armv7s" were removed from Xcode9
+#      Add them if you are testing or compiling for older target.
+
+

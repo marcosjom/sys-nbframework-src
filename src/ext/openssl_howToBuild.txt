@@ -1,0 +1,100 @@
+##################
+# System's version
+##################
+
+#install 'libssl-dev' package
+#add 'NB_USE_LOCAL_LIB_SSL=1' at 'make' command
+
+#############
+# From source
+#############
+
+# unzip at 'ext/openssl' (v1.1.1)
+
+#----------------------------------
+# for Windows and VisualStudio
+#----------------------------------
+
+# Install "ActiveState Perl" (see "NOTES.WIN" file).
+# Run following commands from VisualStudio's DeveloperCommandPrompt (it will set the environment values).
+
+perl Configure VC-WIN32 no-ssl3 no-comp no-asm no-shared no-dso no-hw no-engine no-threads no-autoload-config --prefix=C:\Users\mortegam\Desktop\openssl-bld-win32 --openssldir=C:\Users\mortegam\Desktop\openssl-bld-win32
+nmake
+
+perl Configure VC-WIN64A no-ssl3 no-comp no-asm no-shared no-dso no-hw no-engine no-threads no-autoload-config --prefix=C:\Users\mortegam\Desktop\openssl-bld-win64a --openssldir=C:\Users\mortegam\Desktop\openssl-bld-win64a
+nmake
+
+#----------------------------------
+# for Linux
+#----------------------------------
+
+./config no-ssl3 no-comp no-asm no-shared no-dso no-hw no-engine no-threads no-autoload-config --prefix=/Users/mortegam/Desktop/openssl-bld-lnx --openssldir=/Users/mortegam/Desktop/openssl-bld-lnx
+make
+
+#----------------------------------
+# for MacOS and XCode
+#----------------------------------
+
+./Configure darwin64-x86_64-cc no-ssl3 no-comp no-asm no-shared no-dso no-hw no-engine no-threads no-autoload-config --prefix=/Users/mortegam/Desktop/openssl-bld-osx64 --openssldir=/Users/mortegam/Desktop/openssl-bld-osx64
+make
+
+#----------------------------------
+# for iOS and XCode
+#----------------------------------
+
+#ios-cross
+export CROSS_COMPILE=`xcode-select --print-path`/Toolchains/XcodeDefault.xctoolchain/usr/bin/
+export CROSS_TOP=`xcode-select --print-path`/Platforms/iPhoneOS.platform/Developer
+export CROSS_SDK=iPhoneOS.sdk
+./Configure ios-cross no-ssl3 no-comp no-asm no-shared no-dso no-hw no-engine no-threads no-autoload-config --prefix=/Users/mortegam/Desktop/openssl-bld-ios-cross --openssldir=/Users/mortegam/Desktop/openssl-bld-ios-cross
+make
+
+#ios64-cross
+export CROSS_COMPILE=`xcode-select --print-path`/Toolchains/XcodeDefault.xctoolchain/usr/bin/
+export CROSS_TOP=`xcode-select --print-path`/Platforms/iPhoneOS.platform/Developer
+export CROSS_SDK=iPhoneOS.sdk
+./Configure ios64-cross no-ssl3 no-comp no-asm no-shared no-dso no-hw no-engine no-threads no-autoload-config --prefix=/Users/mortegam/Desktop/openssl-bld-ios64-cross --openssldir=/Users/mortegam/Desktop/openssl-bld-ios64-cross
+make
+
+
+#----------------------------------
+# for Android and NDK (on linux)
+# See NOTES.ANDROID file inside openssl folder.
+# 64-bits started at api-21.
+#----------------------------------
+
+# android-arm (API 14+)
+export ANDROID_NDK=/home/mortegam/Desktop/android-ndk-r16b
+PATH=$ANDROID_NDK/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/bin:$PATH
+./Configure android-arm -D__ANDROID_API__=14 no-ssl3 no-comp no-asm no-shared no-dso no-hw no-engine no-threads no-autoload-config --prefix=/Users/mortegam/Desktop/openssl-bld-android-arm --openssldir=/Users/mortegam/Desktop/openssl-bld-android-arm
+make
+
+# android-mips (API 14+)
+export ANDROID_NDK=/home/mortegam/Desktop/android-ndk-r16b
+PATH=$ANDROID_NDK/toolchains/mipsel-linux-android-4.9/prebuilt/linux-x86_64/bin:$PATH
+./Configure android-mips -D__ANDROID_API__=14 no-ssl3 no-comp no-asm no-shared no-dso no-hw no-engine no-threads no-autoload-config --prefix=/Users/mortegam/Desktop/openssl-bld-android-mips --openssldir=/Users/mortegam/Desktop/openssl-bld-android-mips
+make
+
+# android-x86 (API 14+)
+export ANDROID_NDK=/home/mortegam/Desktop/android-ndk-r16b
+PATH=$ANDROID_NDK/toolchains/x86-4.9/prebuilt/linux-x86_64/bin:$PATH
+./Configure android-x86 -D__ANDROID_API__=14 no-ssl3 no-comp no-asm no-shared no-dso no-hw no-engine no-threads no-autoload-config --prefix=/Users/mortegam/Desktop/openssl-bld-android-x86 --openssldir=/Users/mortegam/Desktop/openssl-bld-android-x86
+make
+
+# android-arm64 (API 21+)
+export ANDROID_NDK=/home/mortegam/Desktop/android-ndk-r16b
+PATH=$ANDROID_NDK/toolchains/aarch64-linux-android-4.9/prebuilt/linux-x86_64/bin:$PATH
+./Configure android-arm64 -D__ANDROID_API__=21 no-ssl3 no-comp no-asm no-shared no-dso no-hw no-engine no-threads no-autoload-config --prefix=/Users/mortegam/Desktop/openssl-bld-android-arm64 --openssldir=/Users/mortegam/Desktop/openssl-bld-android-arm64
+make
+
+# android-mips64 (API 21+)
+export ANDROID_NDK=/home/mortegam/Desktop/android-ndk-r16b
+PATH=$ANDROID_NDK/toolchains/mips64el-linux-android-4.9/prebuilt/linux-x86_64/bin:$PATH
+./Configure android-mips64 -D__ANDROID_API__=21 no-ssl3 no-comp no-asm no-shared no-dso no-hw no-engine no-threads no-autoload-config --prefix=/Users/mortegam/Desktop/openssl-bld-android-mip64 --openssldir=/Users/mortegam/Desktop/openssl-bld-android-mip64
+make
+
+# android-x86_64 (API 21+)
+export ANDROID_NDK=/home/mortegam/Desktop/android-ndk-r16b
+PATH=$ANDROID_NDK/toolchains/x86_64-4.9/prebuilt/linux-x86_64/bin:$PATH
+./Configure android-x86_64 -D__ANDROID_API__=21 no-ssl3 no-comp no-asm no-shared no-dso no-hw no-engine no-threads no-autoload-config --prefix=/Users/mortegam/Desktop/openssl-bld-android-x86_64 --openssldir=/Users/mortegam/Desktop/openssl-bld-android-x86_64
+make

@@ -1,0 +1,13 @@
+##################
+# System's version
+##################
+
+#install 'liblz4-dev' package
+#add 'NB_USE_LOCAL_LIB_LZ4=1' at 'make' command
+
+#############
+# From source
+#############
+
+# unzip at 'ext/lz4' (v1.10.0)
+# unzip at 'ext/lz4' (v1.9.3)

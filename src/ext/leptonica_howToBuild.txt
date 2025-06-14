@@ -1,0 +1,19 @@
+##################
+# System's version
+##################
+
+#install 'libleptonica-dev' package
+#add 'NB_USE_LOCAL_LIB_LEPTONICA=1' at 'make' command
+
+#############
+# From source
+#############
+
+# unzip at 'ext/leptonica' (v1.77.0)
+
+#----------------------------------
+# for MacOS and XCode
+#----------------------------------
+
+./configure --without-zlib --without-libpng --without-jpeg --without-giflib --without-libtiff --without-libwebp --without-libopenjpeg --disable-programs --disable-silent-rules
+make

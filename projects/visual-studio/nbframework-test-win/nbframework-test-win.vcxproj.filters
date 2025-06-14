@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="nbframework-test-win">
+      <UniqueIdentifier>{787cbaf3-1507-4a80-ba7a-c621cd757450}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\nbframework-test\main.c">
+      <Filter>nbframework-test-win</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\nbframework-test\test_textMetrics.c">
+      <Filter>nbframework-test-win</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\src\nbframework-test\test_textMetrics.h">
+      <Filter>nbframework-test-win</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,10 @@
+#############
+# From source
+#############
+
+Download Quirc from:
+https://github.com/dlbeer/quirc/tree/master/lib
+
+Copy the lib source files to 'ext/quirc'
+
+

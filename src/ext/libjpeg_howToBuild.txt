@@ -1,0 +1,12 @@
+##################
+# System's version
+##################
+
+#install 'libjpeg-dev' package
+#add 'NB_USE_LOCAL_LIB_JPEG=1' at 'make' command
+
+#############
+# From source
+#############
+
+# unzip at 'ext/libjpeg' (v.9a)

@@ -1,0 +1,12 @@
+##################
+# System's version
+##################
+
+#install 'libfreetype-dev' package
+#add 'NB_USE_LOCAL_LIB_FREETYPE=1' at 'make' command
+
+#############
+# From source
+#############
+
+# unzip at 'ext/freetype' (v2.x)
