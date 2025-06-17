@@ -368,21 +368,21 @@ void App_metal_compute_run_in_samples(STApp* app, const STNBScnRenderJobTree* sr
     //const unsigned int spacesPerLvl = 4;
     NBTHREAD_CLOCK osFreq = NBThread_clocksPerSec();
     NBTHREAD_CLOCK cpuFwdTime = 0, cpuBwdTime = 0, cpuBwd2Time = 0, gpuBwdTimeExec = 0, gpuBwdTimeMapping = 0, gpuBwdTimeCpying = 0;
-    STNBScnRenderJobPlain cpuFwdRR, cpuBwdRR, cpuBwdRR2, gpuBwdRRMapped, gpuBwdRRCopied;
+    STNBScnRenderJobFlat cpuFwdRR, cpuBwdRR, cpuBwdRR2, gpuBwdRRMapped, gpuBwdRRCopied;
     //
     //QueryPerformanceFrequency(&osFreq);
     //
-    NBScnRenderJobPlain_init(&cpuFwdRR);
-    NBScnRenderJobPlain_init(&cpuBwdRR);
-    NBScnRenderJobPlain_init(&cpuBwdRR2);    //gpu shader code running in cpu
-    NBScnRenderJobPlain_init(&gpuBwdRRMapped);
-    NBScnRenderJobPlain_init(&gpuBwdRRCopied);
+    NBScnRenderJobFlat_init(&cpuFwdRR);
+    NBScnRenderJobFlat_init(&cpuBwdRR);
+    NBScnRenderJobFlat_init(&cpuBwdRR2);    //gpu shader code running in cpu
+    NBScnRenderJobFlat_init(&gpuBwdRRMapped);
+    NBScnRenderJobFlat_init(&gpuBwdRRCopied);
     //
-    NBScnRenderJobPlain_prepare(&cpuFwdRR, src); //preallocate (cpu)
-    NBScnRenderJobPlain_prepare(&cpuBwdRR, src); //preallocate (cpu)
-    NBScnRenderJobPlain_prepare(&cpuBwdRR2, src); //preallocate (cpu)
-    //NBScnRenderJobPlain_prepare(&cpuBwdRRMapped, src); //do not preallocate mapped version (will point to gpu buffers)
-    NBScnRenderJobPlain_prepare(&gpuBwdRRCopied, src); //preallocate (gpu)
+    NBScnRenderJobFlat_prepare(&cpuFwdRR, src); //preallocate (cpu)
+    NBScnRenderJobFlat_prepare(&cpuBwdRR, src); //preallocate (cpu)
+    NBScnRenderJobFlat_prepare(&cpuBwdRR2, src); //preallocate (cpu)
+    //NBScnRenderJobFlat_prepare(&cpuBwdRRMapped, src); //do not preallocate mapped version (will point to gpu buffers)
+    NBScnRenderJobFlat_prepare(&gpuBwdRRCopied, src); //preallocate (gpu)
     //
     //Run in CPU
     {
@@ -646,10 +646,10 @@ void App_metal_compute_run_in_samples(STApp* app, const STNBScnRenderJobTree* sr
         , (float)(gpuBwdTimeCpying) / (float)(osFreq / 1000)
     );
     //    printf("Info, OS-Window created.\n");
-    NBScnRenderJobPlain_release(&cpuFwdRR);
-    NBScnRenderJobPlain_release(&cpuBwdRR);
-    NBScnRenderJobPlain_release(&gpuBwdRRMapped);
-    NBScnRenderJobPlain_release(&gpuBwdRRCopied);
+    NBScnRenderJobFlat_release(&cpuFwdRR);
+    NBScnRenderJobFlat_release(&cpuBwdRR);
+    NBScnRenderJobFlat_release(&gpuBwdRRMapped);
+    NBScnRenderJobFlat_release(&gpuBwdRRCopied);
 }
 
 //app

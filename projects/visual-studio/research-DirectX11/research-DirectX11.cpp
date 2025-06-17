@@ -22,8 +22,8 @@
 #include "nb/core/NBMngrProcess.h"
 #include "nb/core/NBMngrStructMaps.h"
 #include "nb/core/NBThread.h"
-#include "nb/scene/NBScnRenderJob_hlsl.h"
-#include "nb/scene/NBScnRenderJob_cs_5_0.h"
+#include "nb/scene/shaders/NBScnRenderJob_hlsl.h"
+#include "nb/scene/shaders/NBScnRenderJob_cs_5_0.h"
 #include "nb/research/research-scn-compute.h"
 //
 #pragma comment(lib,"d3d11.lib")
@@ -227,7 +227,7 @@ int main() {
 		}
 		//generated samples
 		{
-			const int amm[] = { 100, 1000, 10000, 100000, 100000, 1000000 };
+			const int amm[] = { 100, 1000, 10000, 100000, 1000000 };
 			int i; for (i = 0; i < (sizeof(amm) / sizeof(amm[0])); i++) {
 				STNBScnRenderJobTree tree;
 				NBScnRenderJobTree_init(&tree);
@@ -265,26 +265,43 @@ int main() {
 #	endif
 }
 
-bool App_d3d_compute_map_buffer_data(STApp* app, ID3D11Buffer* buff, ID3D11Buffer** dstBuffMapped, STNBArray* dst, const int sizePerItm, const int dstDataSz);
+bool App_d3d_compute_map_buffer_data(STApp* app, ID3D11Buffer* buff, ID3D11Buffer** dstBuffMapped, void** dstPtr, const int dstDataSz);
 
 void App_d3d_compute_run_in_samples(STApp* app, const STNBScnRenderJobTree* src, const float compareMaxDiffAbs) {
 	HRESULT hr;
 	const unsigned int spacesPerLvl = 4;
 	NBTHREAD_CLOCK osFreq = NBThread_clocksPerSec();
 	NBTHREAD_CLOCK cpuFwdTime = 0, cpuBwdTime = 0, cpuBwd2Time = 0, gpuBwdTimeExec = 0, gpuBwdTimeMapping = 0, gpuBwdTimeCpying = 0;
-	STNBScnRenderJobPlain cpuFwdRR, cpuBwdRR, cpuBwdRR2, gpuBwdRRMapped, gpuBwdRRCopied;
+	STNBScnRenderJobFlat cpuFwdRR, cpuBwdRR, cpuBwdRR2, gpuBwdRRMapped, gpuBwdRRCopied;
 	//
-	NBScnRenderJobPlain_init(&cpuFwdRR);
-	NBScnRenderJobPlain_init(&cpuBwdRR);
-	NBScnRenderJobPlain_init(&cpuBwdRR2);	//gpu shader code running in cpu
-	NBScnRenderJobPlain_init(&gpuBwdRRMapped);
-	NBScnRenderJobPlain_init(&gpuBwdRRCopied);
+	STNBScnRenderJobLimits limits;
+	NBMemory_setZeroSt(limits, STNBScnRenderJobLimits);
+	limits.header.alignment = 16; //constant buffers must be multiple of 16
+	limits.buffer.alignment = 128; //basedon Vulkan 'limits.nonCoherentAtomSize' Ryzen-5700G-iGPU value
+	limits.dispatch.maxThreads = 65535; //defined in DX11 documentation
 	//
-	NBScnRenderJobPlain_prepare(&cpuFwdRR, src); //preallocate (cpu)
-	NBScnRenderJobPlain_prepare(&cpuBwdRR, src); //preallocate (cpu)
-	NBScnRenderJobPlain_prepare(&cpuBwdRR2, src); //preallocate (cpu)
-	//NBScnRenderJobPlain_prepare(&cpuBwdRRMapped, src); //do not preallocate mapped version (will point to gpu buffers)
-	NBScnRenderJobPlain_prepare(&gpuBwdRRCopied, src); //preallocate (gpu)
+	STNBScnRenderBuffRngs treeRngs, flatRngs;
+	const UI32 treeBuffSz = NBScnRenderJobTree_getDispatchBufferRngs(src, &limits, 0, &treeRngs);
+	const UI32 flatBuffSz = NBScnRenderJobFlat_getDispatchBufferRngs(src, &limits, 0, &flatRngs);
+	BYTE* treeBuffDataTmp = (BYTE*)malloc(treeBuffSz);
+	//copy tree data
+	NBMemory_copy(&treeBuffDataTmp[treeRngs.nodes.offset], (void*)NBArray_dataPtr(&src->nodes, STNBScnTreeNode*), sizeof(STNBScnTreeNode) * src->nodes.use);
+	NBMemory_copy(&treeBuffDataTmp[treeRngs.verts.v.offset], (void*)NBArray_dataPtr(&src->verts.v, STNBScnVertex*), sizeof(STNBScnVertex) * src->verts.v.use);
+	NBMemory_copy(&treeBuffDataTmp[treeRngs.verts.v1.offset], (void*)NBArray_dataPtr(&src->verts.v1, STNBScnVertexTex*), sizeof(STNBScnVertexTex) * src->verts.v1.use);
+	NBMemory_copy(&treeBuffDataTmp[treeRngs.verts.v2.offset], (void*)NBArray_dataPtr(&src->verts.v2, STNBScnVertexTex2*), sizeof(STNBScnVertexTex2) * src->verts.v2.use);
+	NBMemory_copy(&treeBuffDataTmp[treeRngs.verts.v3.offset], (void*)NBArray_dataPtr(&src->verts.v3, STNBScnVertexTex3*), sizeof(STNBScnVertexTex3) * src->verts.v3.use);
+	//
+	NBScnRenderJobFlat_init(&cpuFwdRR);
+	NBScnRenderJobFlat_init(&cpuBwdRR);
+	NBScnRenderJobFlat_init(&cpuBwdRR2);	//gpu shader code running in cpu
+	NBScnRenderJobFlat_init(&gpuBwdRRMapped);
+	NBScnRenderJobFlat_init(&gpuBwdRRCopied);
+	//
+	NBScnRenderJobFlat_prepare(&cpuFwdRR, src, &limits, 0, NULL); //preallocate (cpu)
+	NBScnRenderJobFlat_prepare(&cpuBwdRR, src, &limits, 0, NULL); //preallocate (cpu)
+	NBScnRenderJobFlat_prepare(&cpuBwdRR2, src, &limits, 0, NULL); //preallocate (cpu)
+	//NBScnRenderJobFlat_prepare(&gpuBwdRRMapped, src, &limits, 0, NULL); //do not preallocate mapped version (will point to gpu buffers)
+	NBScnRenderJobFlat_prepare(&gpuBwdRRCopied, src, &limits, 0, NULL); //preallocate (gpu)
 	//
 	//Run in CPU
 	{
@@ -292,7 +309,7 @@ void App_d3d_compute_run_in_samples(STApp* app, const STNBScnRenderJobTree* src,
 			NBTHREAD_CLOCK startTime, endTime;
 			startTime = NBThread_clock();
 			{
-				NBScnRenderJob_convertTreeToPlainForwardToDst(src, &cpuFwdRR);
+				NBScnRenderJobFlat_dispatchForwards(&cpuFwdRR, src, &limits);
 			}
 			endTime = NBThread_clock();
 			cpuFwdTime = endTime - startTime;
@@ -305,7 +322,7 @@ void App_d3d_compute_run_in_samples(STApp* app, const STNBScnRenderJobTree* src,
 			NBTHREAD_CLOCK startTime, endTime;
 			startTime = NBThread_clock();
 			{
-				NBScnRenderJob_convertTreeToPlainBackwardToDst(src, &cpuBwdRR);
+				NBScnRenderJobFlat_dispatchBackwards(&cpuBwdRR, src, &limits, 0, src->nodes.use);
 			}
 			endTime = NBThread_clock();
 			cpuBwdTime = endTime - startTime;
@@ -318,13 +335,18 @@ void App_d3d_compute_run_in_samples(STApp* app, const STNBScnRenderJobTree* src,
 			NBTHREAD_CLOCK startTime, endTime;
 			startTime = NBThread_clock();
 			{
-				research_scn_compute_convertTreeToPlainGpuAlgorithmToDst(src, &cpuBwdRR2);
+				STNBScnRenderDispatchHeader hdr;
+				NBMemory_setZeroSt(hdr, STNBScnRenderDispatchHeader);
+				hdr.iNodeOffset = 0;
+				hdr.src = treeRngs;
+				hdr.dst = flatRngs;
+				research_scn_compute_convertTreeToPlainGpuAlgorithmToDst((const BYTE*)&hdr, (const BYTE*)treeBuffDataTmp, (BYTE*)cpuBwdRR2.buff.data, src->nodes.use);
 			}
 			endTime = NBThread_clock();
 			cpuBwd2Time = endTime - startTime;
 			//printf("RESULTS :: CPU :: backward execution:\n");
 			//printf("---------------------->\n");
-			//research_scn_compute_print_flat_job(&cpuBwdRR, spacesPerLvl);
+			//research_scn_compute_print_flat_job(&cpuBwdRR2, spacesPerLvl);
 			//printf("<----------------------\n");
 		}
 		{
@@ -352,87 +374,41 @@ void App_d3d_compute_run_in_samples(STApp* app, const STNBScnRenderJobTree* src,
 	}
 	//Run in GPU
 	{
-		ID3D11Buffer *treNodesBuff = NULL, *treV0Buff = NULL, *treV1Buff = NULL, * treV2Buff = NULL, * treV3Buff = NULL;
-		ID3D11Buffer* fltNodesBuff = NULL, *fltV0Buff = NULL, *fltV1Buff = NULL, *fltV2Buff = NULL, *fltV3Buff = NULL;
-		ID3D11Buffer* fltNodesBuffMapped = NULL, * fltV0BuffMapped = NULL, * fltV1BuffMapped = NULL, * fltV2BuffMapped = NULL, * fltV3BuffMapped = NULL;
-		ID3D11ShaderResourceView *treNodesBuffVw = NULL, *treV0BuffVw = NULL, *treV1BuffVw = NULL, *treV2BuffVw = NULL, *treV3BuffVw = NULL;
-		ID3D11UnorderedAccessView *fltNodesBuffVw = NULL, *fltV0BuffVw = NULL, *fltV1BuffVw = NULL, *fltV2BuffVw = NULL, *fltV3BuffVw = NULL;
+		ID3D11Buffer *treeBuff = NULL, *flatBuff = NULL, *fltBuff = NULL, *flatBuffMapped = NULL;
+		ID3D11ShaderResourceView *treeBuffVw = NULL;
+		ID3D11UnorderedAccessView *flatBuffVw = NULL;
+		//allocate buffers
 		{
-			//treNodesBuff
-			if (!App_d3d_compute_create_raw_buff(app->d3d.compute.dev.obj, sizeof(STNBScnTreeNode) * src->nodes.use + 32, (void*)NBArray_dataPtr(&src->nodes, STNBScnTreeNode*), &treNodesBuff)) {
-				printf("D3D, error, treNodesBuff allocation failed.\n");
-			} else if (!App_d3d_compute_create_buff_shad_res_view(app->d3d.compute.dev.obj, treNodesBuff, &treNodesBuffVw)) {
-				printf("D3D, error, treNodesBuffVw allocation failed.\n");
-				//treV0Buff
-			} else if (!App_d3d_compute_create_raw_buff(app->d3d.compute.dev.obj, sizeof(STNBScnVertex) * src->verts.v.use + 32, (void*)NBArray_dataPtr(&src->verts.v, STNBScnVertex*), &treV0Buff)) {
-				printf("D3D, error, treV0Buff allocation failed.\n");
-			} else if (!App_d3d_compute_create_buff_shad_res_view(app->d3d.compute.dev.obj, treV0Buff, &treV0BuffVw)) {
-				printf("D3D, error, treV0BuffVw allocation failed.\n");
-				//treV1Buff
-			} else if (!App_d3d_compute_create_raw_buff(app->d3d.compute.dev.obj, sizeof(STNBScnVertexTex) * src->verts.v1.use + 32, (void*)NBArray_dataPtr(&src->verts.v1, STNBScnVertexTex*), &treV1Buff)) {
-				printf("D3D, error, treV1Buff allocation failed.\n");
-			} else if (!App_d3d_compute_create_buff_shad_res_view(app->d3d.compute.dev.obj, treV1Buff, &treV1BuffVw)) {
-				printf("D3D, error, treV1BuffVw allocation failed.\n");
-				//treV2Buff
-			} else if (!App_d3d_compute_create_raw_buff(app->d3d.compute.dev.obj, sizeof(STNBScnVertexTex2) * src->verts.v2.use + 32, (void*)NBArray_dataPtr(&src->verts.v2, STNBScnVertexTex2*), &treV2Buff)) {
-				printf("D3D, error, treV2Buff allocation failed.\n");
-			} else if (!App_d3d_compute_create_buff_shad_res_view(app->d3d.compute.dev.obj, treV2Buff, &treV2BuffVw)) {
-				printf("D3D, error, treV2BuffVw allocation failed.\n");
-				//treV3Buff
-			} else if (!App_d3d_compute_create_raw_buff(app->d3d.compute.dev.obj, sizeof(STNBScnVertexTex3) * src->verts.v3.use + 32, (void*)NBArray_dataPtr(&src->verts.v3, STNBScnVertexTex3*), &treV3Buff)) {
-				printf("D3D, error, treV3Buff allocation failed.\n");
-			} else if (!App_d3d_compute_create_buff_shad_res_view(app->d3d.compute.dev.obj, treV3Buff, &treV3BuffVw)) {
-				printf("D3D, error, treV3BuffVw allocation failed.\n");
-				//fltNodesBuff
-			} else if (!App_d3d_compute_create_raw_buff(app->d3d.compute.dev.obj, sizeof(STNBScnFlatNode) * src->nodes.use, NULL, &fltNodesBuff)) {
-				printf("D3D, error, fltNodesBuff allocation failed.\n");
-			} else if (!App_d3d_compute_create_buff_unord_accs_view(app->d3d.compute.dev.obj, fltNodesBuff, &fltNodesBuffVw)) {
-				printf("D3D, error, fltNodesBuffVw allocation failed.\n");
-				//fltV0Buff
-			} else if (!App_d3d_compute_create_raw_buff(app->d3d.compute.dev.obj, sizeof(STNBScnVertexF) * src->verts.v.use + 32, NULL, &fltV0Buff)) {
-				printf("D3D, error, fltV0Buff allocation failed.\n");
-			} else if (!App_d3d_compute_create_buff_unord_accs_view(app->d3d.compute.dev.obj, fltV0Buff, &fltV0BuffVw)) {
-				printf("D3D, error, fltV0BuffVw allocation failed.\n");
-				//fltV1Buff
-			} else if (!App_d3d_compute_create_raw_buff(app->d3d.compute.dev.obj, sizeof(STNBScnVertexTexF) * src->verts.v1.use + 32, NULL, &fltV1Buff)) {
-				printf("D3D, error, fltV1Buff allocation failed.\n");
-			} else if (!App_d3d_compute_create_buff_unord_accs_view(app->d3d.compute.dev.obj, fltV1Buff, &fltV1BuffVw)) {
-				printf("D3D, error, fltV1BuffVw allocation failed.\n");
-				//fltV2Buff
-			} else if (!App_d3d_compute_create_raw_buff(app->d3d.compute.dev.obj, sizeof(STNBScnVertexTex2F) * src->verts.v2.use + 32, NULL, &fltV2Buff)) {
-				printf("D3D, error, fltV2Buff allocation failed.\n");
-			} else if (!App_d3d_compute_create_buff_unord_accs_view(app->d3d.compute.dev.obj, fltV2Buff, &fltV2BuffVw)) {
-				printf("D3D, error, fltV2BuffVw allocation failed.\n");
-				//fltV3Buff
-			} else if (!App_d3d_compute_create_raw_buff(app->d3d.compute.dev.obj, sizeof(STNBScnVertexTex3F) * src->verts.v3.use + 32, NULL, &fltV3Buff)) {
-				printf("D3D, error, fltV3Buff allocation failed.\n");
-			} else if (!App_d3d_compute_create_buff_unord_accs_view(app->d3d.compute.dev.obj, fltV3Buff, &fltV3BuffVw)) {
-				printf("D3D, error, fltV3BuffVw allocation failed.\n");
+			if (!App_d3d_compute_create_raw_buff(app->d3d.compute.dev.obj, treeBuffSz, (void*)treeBuffDataTmp, &treeBuff)) {
+				printf("D3D, error, treeBuff allocation failed.\n");
+			} else if (!App_d3d_compute_create_buff_shad_res_view(app->d3d.compute.dev.obj, treeBuff, &treeBuffVw)) {
+				printf("D3D, error, treeBuffVw allocation failed.\n");
+				//flatBuff
+			} else if (!App_d3d_compute_create_raw_buff(app->d3d.compute.dev.obj, flatBuffSz, NULL, &flatBuff)) {
+				printf("D3D, error, flatBuff allocation failed.\n");
+			} else if (!App_d3d_compute_create_buff_unord_accs_view(app->d3d.compute.dev.obj, flatBuff, &flatBuffVw)) {
+				printf("D3D, error, flatBuffVw allocation failed.\n");
 			}
 		}
 		//
-		if (
-			treNodesBuffVw != NULL && treV0BuffVw != NULL && treV1BuffVw != NULL && treV2BuffVw != NULL && treV3BuffVw != NULL
-			&& fltNodesBuffVw != NULL && fltV0BuffVw != NULL && fltV1BuffVw != NULL && fltV2BuffVw != NULL && fltV3BuffVw != NULL
-			)
-		{
+		if (treeBuffVw != NULL && flatBuffVw){
 			NBTHREAD_CLOCK startTime, midTime, midTime2, endTime;
 			midTime = midTime2 = endTime = startTime = NBThread_clock();
 			App_d3d_compute_print_msgs_queue(app, "before-run");
 			//Dispatch ComputeShader in groups
 			{
+				const UI32 headerPaddedSz	= NBScnRenderJobFlat_getDispatchHeaderPaddedSz(src, &limits);
+				const UI32 ammDispatchCalls	= NBScnRenderJobFlat_getDispatcCallsNeeded(src, &limits);
+				const UI32 headersBuffSz	= (headerPaddedSz * ammDispatchCalls);
 				ID3D11Buffer* execBuff = NULL;
-				typedef struct ExecConstantBuffer_ {
-					unsigned int iNodeOffset; //nodes already executed on previous Dispatch() calls
-					unsigned char padding[12];	//constant buffers must be multiple of 16
-				} ExecConstantBuffer;
-				//
-				ExecConstantBuffer execPrms;
-				NBMemory_setZeroSt(execPrms, ExecConstantBuffer);
-				execPrms.iNodeOffset = 0;
+				STNBScnRenderDispatchHeader hdr;
+				NBMemory_setZeroSt(hdr, STNBScnRenderDispatchHeader);
+				hdr.iNodeOffset = 0;
+				hdr.src = treeRngs;
+				hdr.dst = flatRngs;
 				//
 				D3D11_BUFFER_DESC cbDesc;
-				cbDesc.ByteWidth = sizeof(execPrms);
+				cbDesc.ByteWidth = headersBuffSz;
 				cbDesc.Usage = D3D11_USAGE_DYNAMIC;
 				cbDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 				cbDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
@@ -440,14 +416,14 @@ void App_d3d_compute_run_in_samples(STApp* app, const STNBScnRenderJobTree* src,
 				cbDesc.StructureByteStride = 0;
 				// Fill in the subresource data.
 				D3D11_SUBRESOURCE_DATA InitData;
-				InitData.pSysMem = &execPrms;
+				InitData.pSysMem = &hdr;
 				InitData.SysMemPitch = 0;
 				InitData.SysMemSlicePitch = 0;
 				if ((hr = app->d3d.compute.dev.obj->CreateBuffer(&cbDesc, &InitData, &execBuff)) < 0) {
 					printf("D3D, error, CreateBuffer failed.\n");
 				} else {
-					ID3D11ShaderResourceView* readVws[] = { treNodesBuffVw, treV0BuffVw, treV1BuffVw, treV2BuffVw, treV3BuffVw };
-					ID3D11UnorderedAccessView* writeVws[] = {fltNodesBuffVw, fltV0BuffVw, fltV1BuffVw, fltV2BuffVw, fltV3BuffVw};
+					ID3D11ShaderResourceView* readVws[] = { treeBuffVw };
+					ID3D11UnorderedAccessView* writeVws[] = { flatBuffVw };
 					//set state
 					{
 						//shader
@@ -467,17 +443,17 @@ void App_d3d_compute_run_in_samples(STApp* app, const STNBScnRenderJobTree* src,
 					{
 						const unsigned int maxValPerDispatch = 65535;
 						unsigned int execCount = 0;
-						while (execPrms.iNodeOffset < src->nodes.use) {
-							execCount = src->nodes.use - execPrms.iNodeOffset;
+						while (hdr.iNodeOffset < src->nodes.use) {
+							execCount = src->nodes.use - hdr.iNodeOffset;
 							if (execCount > maxValPerDispatch) {
 								execCount = maxValPerDispatch;
 							}
 							//update index
-							if(execPrms.iNodeOffset > 0){
+							if(hdr.iNodeOffset > 0){
 								D3D11_MAPPED_SUBRESOURCE MappedResource;
 								app->d3d.compute.dev.ctx->Map(execBuff, 0, D3D11_MAP_WRITE_DISCARD, 0, &MappedResource);
 								{
-									memcpy(MappedResource.pData, &execPrms, sizeof(execPrms));
+									memcpy(MappedResource.pData, &hdr, sizeof(hdr));
 								}
 								app->d3d.compute.dev.ctx->Unmap(execBuff, 0);
 							}
@@ -487,29 +463,31 @@ void App_d3d_compute_run_in_samples(STApp* app, const STNBScnRenderJobTree* src,
 								App_d3d_compute_print_msgs_queue(app, "Dispatch");
 							}
 							//next
-							execPrms.iNodeOffset += execCount;
+							hdr.iNodeOffset += execCount;
 						}
 						//flush messages
-						App_d3d_compute_print_msgs_queue(app, "Dispatch");
+						App_d3d_compute_print_msgs_queue(app, "End-of-loop");
 					}
 					//unset state
 					{
 						ID3D11Buffer* buffNullptr = nullptr;
-						ID3D11UnorderedAccessView* outNullptr = nullptr;
-						ID3D11ShaderResourceView* inNullPtr = nullptr;
 						//shader
 						app->d3d.compute.dev.ctx->CSSetShader(nullptr, nullptr, 0);
+						App_d3d_compute_print_msgs_queue(app, "CSSetShader(null)");
 						//constants buffer
 						app->d3d.compute.dev.ctx->CSSetConstantBuffers(0, 1, &buffNullptr);
+						App_d3d_compute_print_msgs_queue(app, "CSSetConstantBuffers(null)");
 						//input buffer
 						memset(readVws, 0, sizeof(readVws));
 						app->d3d.compute.dev.ctx->CSSetShaderResources(0, sizeof(readVws) / sizeof(readVws[0]), readVws);
+						App_d3d_compute_print_msgs_queue(app, "CSSetShaderResources(null)");
 						//output buffer
 						memset(writeVws, 0, sizeof(writeVws));
 						app->d3d.compute.dev.ctx->CSSetUnorderedAccessViews(0, sizeof(writeVws) / sizeof(writeVws[0]), writeVws, nullptr);
+						App_d3d_compute_print_msgs_queue(app, "CSSetUnorderedAccessViews(null)");
 					}
 					//flush messages
-					App_d3d_compute_print_msgs_queue(app, "Dispatch");
+					App_d3d_compute_print_msgs_queue(app, "End-of-execution");
 				}
 				if (execBuff != NULL) {
 					execBuff->Release();
@@ -518,46 +496,27 @@ void App_d3d_compute_run_in_samples(STApp* app, const STNBScnRenderJobTree* src,
 			}
 			//copy results
 			{
-				//ID3D11Buffer* fltNodesBuffMapped = NULL, * fltV0BuffMapped = NULL, * fltV1BuffMapped = NULL, * fltV2BuffMapped = NULL, * fltV3BuffMapped = NULL;
 				midTime2 = endTime = midTime = NBThread_clock();
 				gpuBwdTimeExec = midTime - startTime;
 				//
 				//printf("D3D, shader executed (%d units).\n", srcCount);
 				//map buffers data
-				//App_d3d_compute_map_buffer_data(STApp* app, ID3D11Buffer* buff, ID3D11Buffer** dstBuffMapped, STNBArray* dst, const int sizePerItm, const int dstDataSz)
-				if (!App_d3d_compute_map_buffer_data(app, fltNodesBuff, &fltNodesBuffMapped, &gpuBwdRRMapped.nodes, sizeof(STNBScnFlatNode), sizeof(STNBScnFlatNode) * src->nodes.use)) {
-					printf("D3D, error, could not copy result buffer: fltNodesBuff(%d itms).\n", src->nodes.use);
-				} else if (src->verts.v.use > 0 && !App_d3d_compute_map_buffer_data(app, fltV0Buff, &fltV0BuffMapped, &gpuBwdRRMapped.verts.v, sizeof(STNBScnVertexF), sizeof(STNBScnVertexF) * src->verts.v.use)) {
-					printf("D3D, error, could not copy result buffer: fltNodesBuff.\n");
-				} else if (src->verts.v1.use > 0 && !App_d3d_compute_map_buffer_data(app, fltV1Buff, &fltV1BuffMapped, &gpuBwdRRMapped.verts.v1, sizeof(STNBScnVertexTexF), sizeof(STNBScnVertexTexF) * src->verts.v1.use)) {
-					printf("D3D, error, could not copy result buffer: treV1Buff.\n");
-				} else if (src->verts.v2.use > 0 && !App_d3d_compute_map_buffer_data(app, fltV2Buff, &fltV2BuffMapped, &gpuBwdRRMapped.verts.v2, sizeof(STNBScnVertexTex2F), sizeof(STNBScnVertexTex2F) * src->verts.v2.use)) {
-					printf("D3D, error, could not copy result buffer: treV2Buff.\n");
-				} else if (src->verts.v3.use > 0 && !App_d3d_compute_map_buffer_data(app, fltV3Buff, &fltV3BuffMapped, &gpuBwdRRMapped.verts.v3, sizeof(STNBScnVertexTex3F), sizeof(STNBScnVertexTex3F) * src->verts.v3.use)) {
-					printf("D3D, error, could not copy result buffer: treV2Buff.\n");
+				void* flatBuffMappedPtr = NULL;
+				if (!App_d3d_compute_map_buffer_data(app, flatBuff, &flatBuffMapped, &flatBuffMappedPtr, flatBuffSz)) {
+					printf("D3D, error, could not copy result buffer: flatBuff(%d itms).\n", src->nodes.use);
 				} else {
-					NBASSERT(src->nodes.use == gpuBwdRRMapped.nodes.use);
-					NBASSERT(src->verts.v.use == gpuBwdRRMapped.verts.v.use);
-					NBASSERT(src->verts.v1.use == gpuBwdRRMapped.verts.v1.use);
-					NBASSERT(src->verts.v2.use == gpuBwdRRMapped.verts.v2.use);
-					NBASSERT(src->verts.v3.use == gpuBwdRRMapped.verts.v3.use);
+					STNBScnRenderBuffRngs rngs;
+					const UI32 buffSz = NBScnRenderJobFlat_getDispatchBufferRngs(src, &limits, 0, &rngs);
+					gpuBwdRRMapped.buff.data = (BYTE*)flatBuffMappedPtr;
+					gpuBwdRRMapped.buff.sz = flatBuffSz;
+					gpuBwdRRMapped.buff.use = flatBuffSz;
+					NBScnRenderJobFlatMap_build(&gpuBwdRRMapped.map, gpuBwdRRMapped.buff.data, &rngs);
 					//analyze results
 					endTime = midTime2 = NBThread_clock();
 					gpuBwdTimeMapping = midTime2 - midTime;
 					//copy
 					{
-						{
-							NBArray_empty(&gpuBwdRRCopied.nodes);
-							NBArray_empty(&gpuBwdRRCopied.verts.v);
-							NBArray_empty(&gpuBwdRRCopied.verts.v1);
-							NBArray_empty(&gpuBwdRRCopied.verts.v2);
-							NBArray_empty(&gpuBwdRRCopied.verts.v3);
-							NBArray_addItems(&gpuBwdRRCopied.nodes, NBArray_dataPtr(&gpuBwdRRMapped.nodes, const STNBScnFlatNode), sizeof(STNBScnFlatNode), gpuBwdRRMapped.nodes.use);
-							NBArray_addItems(&gpuBwdRRCopied.verts.v, NBArray_dataPtr(&gpuBwdRRMapped.verts.v, const STNBScnVertexF), sizeof(STNBScnVertexF), gpuBwdRRMapped.verts.v.use);
-							NBArray_addItems(&gpuBwdRRCopied.verts.v1, NBArray_dataPtr(&gpuBwdRRMapped.verts.v1, const STNBScnVertexTexF), sizeof(STNBScnVertexTexF), gpuBwdRRMapped.verts.v1.use);
-							NBArray_addItems(&gpuBwdRRCopied.verts.v2, NBArray_dataPtr(&gpuBwdRRMapped.verts.v2, const STNBScnVertexTex2F), sizeof(STNBScnVertexTex2F), gpuBwdRRMapped.verts.v2.use);
-							NBArray_addItems(&gpuBwdRRCopied.verts.v3, NBArray_dataPtr(&gpuBwdRRMapped.verts.v3, const STNBScnVertexTex3F), sizeof(STNBScnVertexTex3F), gpuBwdRRMapped.verts.v3.use);
-						}
+						NBMemory_copy(gpuBwdRRCopied.buff.data, flatBuffMappedPtr, flatBuffSz);
 						endTime = NBThread_clock();
 						gpuBwdTimeCpying = endTime - midTime2;
 					}
@@ -585,39 +544,22 @@ void App_d3d_compute_run_in_samples(STApp* app, const STNBScnRenderJobTree* src,
 							printf("gpu_backwards_maped vs cpu_backwards: DO NOT MATCH %.2f%% <---(!).\n", 100.0f * matchRel);
 						}
 					}
+					//remove mapped data (memory is not owned by this object)
+					{
+						gpuBwdRRMapped.buff.data = NULL;
+						gpuBwdRRMapped.buff.use = NULL;
+						gpuBwdRRMapped.buff.sz = NULL;
+						NBScnRenderJobFlatMap_reset(&gpuBwdRRMapped.map);
+					}
 				}
 			}
 		}
 		//release
-		if (fltNodesBuffVw != NULL) { fltNodesBuffVw->Release(); fltNodesBuffVw = NULL; }
-		if (fltV0BuffVw != NULL) { fltV0BuffVw->Release(); fltV0BuffVw = NULL; }
-		if (fltV1BuffVw != NULL) { fltV1BuffVw->Release(); fltV1BuffVw = NULL; }
-		if (fltV2BuffVw != NULL) { fltV2BuffVw->Release(); fltV2BuffVw = NULL; }
-		if (fltV3BuffVw != NULL) { fltV3BuffVw->Release(); fltV3BuffVw = NULL; }
-		//
-		if (treNodesBuffVw != NULL) { treNodesBuffVw->Release(); treNodesBuffVw = NULL; }
-		if (treV0BuffVw != NULL) { treV0BuffVw->Release(); treV0BuffVw = NULL; }
-		if (treV1BuffVw != NULL) { treV1BuffVw->Release(); treV1BuffVw = NULL; }
-		if (treV2BuffVw != NULL) { treV2BuffVw->Release(); treV2BuffVw = NULL; }
-		if (treV3BuffVw != NULL) { treV3BuffVw->Release(); treV3BuffVw = NULL; }
-		//
-		if (fltNodesBuffMapped != NULL) { app->d3d.compute.dev.ctx->Unmap(fltNodesBuffMapped, 0); fltNodesBuffMapped->Release(); fltNodesBuffMapped = NULL; }
-		if (fltV0BuffMapped != NULL) { app->d3d.compute.dev.ctx->Unmap(fltV0BuffMapped, 0); fltV0BuffMapped->Release(); fltV0BuffMapped = NULL; }
-		if (fltV1BuffMapped != NULL) { app->d3d.compute.dev.ctx->Unmap(fltV1BuffMapped, 0); fltV1BuffMapped->Release(); fltV1BuffMapped = NULL; }
-		if (fltV2BuffMapped != NULL) { app->d3d.compute.dev.ctx->Unmap(fltV2BuffMapped, 0); fltV2BuffMapped->Release(); fltV2BuffMapped = NULL; }
-		if (fltV3BuffMapped != NULL) { app->d3d.compute.dev.ctx->Unmap(fltV3BuffMapped, 0); fltV3BuffMapped->Release(); fltV3BuffMapped = NULL; }
-		//
-		if (fltNodesBuff != NULL) { fltNodesBuff->Release(); fltNodesBuff = NULL; }
-		if (fltV0Buff != NULL) { fltV0Buff->Release(); fltV0Buff = NULL; }
-		if (fltV1Buff != NULL) { fltV1Buff->Release(); fltV1Buff = NULL; }
-		if (fltV2Buff != NULL) { fltV2Buff->Release(); fltV2Buff = NULL; }
-		if (fltV3Buff != NULL) { fltV3Buff->Release(); fltV3Buff = NULL; }
-		//
-		if (treNodesBuff != NULL) { treNodesBuff->Release(); treNodesBuff = NULL; }
-		if (treV0Buff != NULL) { treV0Buff->Release(); treV0Buff = NULL; }
-		if (treV1Buff != NULL) { treV1Buff->Release(); treV1Buff = NULL; }
-		if (treV2Buff != NULL) { treV2Buff->Release(); treV2Buff = NULL; }
-		if (treV3Buff != NULL) { treV3Buff->Release(); treV3Buff = NULL; }
+		if (flatBuffVw != NULL) { flatBuffVw->Release(); flatBuffVw = NULL; }
+		if (treeBuffVw != NULL) { treeBuffVw->Release(); treeBuffVw = NULL; }
+		if (flatBuffMapped != NULL) { app->d3d.compute.dev.ctx->Unmap(flatBuffMapped, 0); flatBuffMapped->Release(); flatBuffMapped = NULL; }
+		if (flatBuff != NULL) { flatBuff->Release(); flatBuff = NULL; }
+		if (treeBuff != NULL) { treeBuff->Release(); treeBuff = NULL; }
 	}
 	printf("Execution times (%d elems): cpu_fwd(%.4fms), cpu_bwd(%.4fms), gpu_bwd_on_cpu(%.4fms), gpu_bwd(%.4fms exc, +%.4fms map, +%.4fms cpy).\n"
 		, src->nodes.use
@@ -629,15 +571,19 @@ void App_d3d_compute_run_in_samples(STApp* app, const STNBScnRenderJobTree* src,
 		, (float)(gpuBwdTimeCpying) / (float)(osFreq / 1000)
 	);
 	//	printf("Info, OS-Window created.\n");
-	NBScnRenderJobPlain_release(&cpuFwdRR);
-	NBScnRenderJobPlain_release(&cpuBwdRR);
-	NBScnRenderJobPlain_release(&gpuBwdRRMapped);
-	NBScnRenderJobPlain_release(&gpuBwdRRCopied);
+	NBScnRenderJobFlat_release(&cpuFwdRR);
+	NBScnRenderJobFlat_release(&cpuBwdRR);
+	NBScnRenderJobFlat_release(&gpuBwdRRMapped);
+	NBScnRenderJobFlat_release(&gpuBwdRRCopied);
+	if (treeBuffDataTmp != NULL) {
+		free(treeBuffDataTmp);
+		treeBuffDataTmp = NULL;
+	}
 }
 
-bool App_d3d_compute_map_buffer_data(STApp* app, ID3D11Buffer* buff, ID3D11Buffer** dstBuffMapped, STNBArray* dst, const int sizePerItm, const int dstDataSz) {
+bool App_d3d_compute_map_buffer_data(STApp* app, ID3D11Buffer* buff, ID3D11Buffer** dstBuffMapped, void** dstPtr, const int dstDataSz) {
 	bool r = false;
-	if (buff != NULL && dstBuffMapped != NULL && dst != NULL && sizePerItm > 0 && dstDataSz > 0) {
+	if (buff != NULL && dstBuffMapped != NULL && dstPtr != NULL && dstDataSz > 0) {
 		ID3D11Buffer* buffTmp = NULL;
 		HRESULT hr;
 		D3D11_BUFFER_DESC desc = {};
@@ -658,9 +604,7 @@ bool App_d3d_compute_map_buffer_data(STApp* app, ID3D11Buffer* buff, ID3D11Buffe
 			if ((hr = app->d3d.compute.dev.ctx->Map(buffTmp, 0, D3D11_MAP_READ, 0, &mapRes)) < 0) {
 				printf("D3D, error, results buffer mapping failed.\n");
 			} else {
-				NBArray_release(dst);
-				NBArray_initWithExternalBuffer(dst, sizePerItm, NULL, (BYTE*)mapRes.pData);
-				dst->use = (dstDataSz / sizePerItm);
+				if (dstPtr != NULL) *dstPtr = mapRes.pData;
 				*dstBuffMapped = buffTmp; buffTmp = NULL; //consume 
 				r = true;
 			}
@@ -870,21 +814,13 @@ bool App_d3d_compute_create_raw_buff(ID3D11Device* pDevice, UINT uSize, void* pI
 	desc.BindFlags = D3D11_BIND_UNORDERED_ACCESS | D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_INDEX_BUFFER | D3D11_BIND_VERTEX_BUFFER;
 	desc.ByteWidth = uSize;
 	desc.MiscFlags = D3D11_RESOURCE_MISC_BUFFER_ALLOW_RAW_VIEWS;
-
-	if (pInitData) {
-		D3D11_SUBRESOURCE_DATA InitData;
-		InitData.pSysMem = pInitData;
-		if ((hr = pDevice->CreateBuffer(&desc, &InitData, ppBufOut)) < 0) {
-			printf("D3D, error, CreateBuffer failed.\n");
-		} else {
-			r = true;
-		}
+	//
+	D3D11_SUBRESOURCE_DATA InitData;
+	InitData.pSysMem = pInitData;
+	if ((hr = pDevice->CreateBuffer(&desc, (pInitData ? &InitData : nullptr), ppBufOut)) < 0) {
+		printf("D3D, error, CreateBuffer failed.\n");
 	} else {
-		if ((hr = pDevice->CreateBuffer(&desc, nullptr, ppBufOut)) < 0) {
-			printf("D3D, error, CreateBuffer failed.\n");
-		} else {
-			r = true;
-		}
+		r = true;
 	}
 	return r;
 }
@@ -1152,13 +1088,13 @@ void App_win_loop(STApp* obj) {
 			SendMessage(obj->win.hWnd, WM_PAINT, 0, 0);
 		}
 		if (curSecAccumMs >= 1000) {
-			/*if (curSecAccumMsgs > 0 && obj->win.curSec.msgsCountPaint > 0) {
+			if (curSecAccumMsgs > 0 && obj->win.curSec.msgsCountPaint > 0) {
 				printf("WIN, %d frames, %d messages processed.\n", (int)obj->win.curSec.msgsCountPaint, (int)curSecAccumMsgs);
 			} else if (obj->win.curSec.msgsCountPaint > 0) {
 				printf("WIN, %d frames processed.\n", (int)obj->win.curSec.msgsCountPaint);
 			} else if (curSecAccumMsgs > 0) {
 				printf("WIN, %d messages processed.\n", (int)curSecAccumMsgs);
-			}*/
+			}
 			obj->win.curSec.msgsCountPaint = 0;
 			curSecAccumMsgs = 0;
 			curSecAccumMs %= 1000;

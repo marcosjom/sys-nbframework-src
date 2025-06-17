@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\shaders">
+      <UniqueIdentifier>{80d318c3-03d1-4af1-93e6-242f651aa9b6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="research-Vulkan.cpp">
@@ -28,16 +31,13 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\xcode\nbframework\research-Metal\research-Metal.m">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="..\..\..\src\scene\NBScnRenderJob.glsl">
-      <Filter>Source Files</Filter>
+    <None Include="..\..\..\src\scene\shaders\NBScnRenderJob.glsl">
+      <Filter>Source Files\shaders</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="..\..\..\src\scene\NBScnRenderJob.hlsl">
-      <Filter>Source Files</Filter>
+    <FxCompile Include="..\..\..\src\scene\shaders\NBScnRenderJob.hlsl">
+      <Filter>Source Files\shaders</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

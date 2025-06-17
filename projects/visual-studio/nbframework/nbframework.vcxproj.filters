@@ -373,6 +373,9 @@
     <Filter Include="nbframework\scene">
       <UniqueIdentifier>{132d7345-78e9-4f20-8fa9-ab37ec136c6e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="nbframework\scene\shaders">
+      <UniqueIdentifier>{0f270175-47a2-4cf9-a435-6298ba4901a6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\ext\zlib\crc32.h">
@@ -1899,14 +1902,35 @@
     <ClInclude Include="..\..\..\include\nb\core\NBMngrProcess.h">
       <Filter>nbframework\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\nb\scene\NBScnRenderJob.h">
+    <ClInclude Include="..\..\..\include\nb\scene\NBScnRenderJobDefs.h">
       <Filter>nbframework\scene</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\nb\scene\NBScnRenderJob_cs_5_0.h">
+    <ClInclude Include="..\..\..\include\nb\scene\NBScnRenderJobFlat.h">
       <Filter>nbframework\scene</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\nb\scene\NBScnRenderJob_hlsl.h">
+    <ClInclude Include="..\..\..\include\nb\scene\NBScnRenderJobTree.h">
       <Filter>nbframework\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\nb\scene\shaders\NBScnRenderJob_cs_5_0.h">
+      <Filter>nbframework\scene\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\nb\scene\shaders\NBScnRenderJob_glsl.h">
+      <Filter>nbframework\scene\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\nb\scene\shaders\NBScnRenderJob_hlsl.h">
+      <Filter>nbframework\scene\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\nb\scene\shaders\NBScnRenderJob_opengl4_5_430.h">
+      <Filter>nbframework\scene\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\nb\scene\shaders\NBScnRenderJob_vulkan1_0_310es.h">
+      <Filter>nbframework\scene\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\nb\scene\shaders\NBScnRenderJob_vulkan1_0_430.h">
+      <Filter>nbframework\scene\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\nb\scene\shaders\NBScnRenderJob_cs_4_0.h">
+      <Filter>nbframework\scene\shaders</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -5861,18 +5885,24 @@
     <ClCompile Include="..\..\..\src\core\NBMngrProcess.c">
       <Filter>nbframework\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\scene\NBScnRenderJob.c">
+    <ClCompile Include="..\..\..\src\scene\NBScnRenderJobDefs.c">
+      <Filter>nbframework\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\scene\NBScnRenderJobFlat.c">
+      <Filter>nbframework\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\scene\NBScnRenderJobTree.c">
       <Filter>nbframework\scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="..\..\..\src\scene\NBScnRenderJob.hlsl">
-      <Filter>nbframework\scene</Filter>
-    </FxCompile>
+    <None Include="..\..\..\src\scene\shaders\NBScnRenderJob.glsl">
+      <Filter>nbframework\scene\shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\src\scene\NBScnRenderJob.glsl">
-      <Filter>nbframework\scene</Filter>
-    </None>
+    <FxCompile Include="..\..\..\src\scene\shaders\NBScnRenderJob.hlsl">
+      <Filter>nbframework\scene\shaders</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

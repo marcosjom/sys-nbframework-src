@@ -6,6 +6,7 @@ xcuserdata
 .vs
 *.vcxproj.user
 
+*.bin
 *.gz
 *.zip
 *.rar
@@ -23,3 +24,4 @@ src/ext/tesseract
 src/ext/lz4
 src/ext/quirc/
 src/ext/libjpeg/
+

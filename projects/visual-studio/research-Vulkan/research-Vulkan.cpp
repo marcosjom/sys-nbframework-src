@@ -16,7 +16,7 @@
 #include "nb/core/NBMngrProcess.h"
 #include "nb/core/NBMngrStructMaps.h"
 #include "nb/core/NBThread.h"
-#include "nb/scene/NBScnRenderJob_vulkan1_0_430.h"
+#include "nb/scene/shaders/NBScnRenderJob_vulkan1_0_430.h"
 #include "nb/research/research-scn-compute.h"
 
 static VKAPI_ATTR VkBool32 VKAPI_CALL vulkan_debug_callback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity, VkDebugUtilsMessageTypeFlagsEXT messageType, const VkDebugUtilsMessengerCallbackDataEXT* callbackData, void* userData){
@@ -42,6 +42,10 @@ typedef struct STNBVulkanBuff_ {
 
 void NBVulkanBuff_init(STNBVulkanBuff* obj);
 void NBVulkanBuff_release(STNBVulkanBuff* obj);
+//
+void* NBVulkanBuff_map(STNBVulkanBuff* obj);
+bool NBVulkanBuff_mappedFlushAll(STNBVulkanBuff* obj);
+void NBVulkanBuff_unmap(STNBVulkanBuff* obj);
 
 //----------------
 //-- App
@@ -111,9 +115,7 @@ void App_win_loop(STApp* obj);
 //
 bool App_vulkan_compute_create(STApp* app);
 
-bool App_vulkan_compute_create_src_buffer(STApp* app, const unsigned int sz, void* data, STNBVulkanBuff* dst, const bool printBuffTypeSelected);
-bool App_vulkan_compute_create_dst_buffer(STApp* app, const unsigned int sz, STNBVulkanBuff* dst, const bool printBuffTypeSelected);
-bool App_vulkan_compute_create_uniform_buffer(STApp* app, const unsigned int sz, STNBVulkanBuff* dst, const bool printBuffTypeSelected);
+bool App_vulkan_compute_create_buffer(STApp* app, const char* dbgName, STNBVulkanBuff* dst, const unsigned int sz, VkBufferUsageFlags usage, VkMemoryPropertyFlags props, const bool printBuffTypeSelected);
 void App_vulkan_compute_run_in_samples(STApp* app, const STNBScnRenderJobTree* src, const float compareMaxDiffAbs);
 
 int main(){
@@ -131,7 +133,6 @@ int main(){
 	NBMngrProcess_init();
 	NBMngrStructMaps_init();
 	//
-	HRESULT hr;
 	STApp app;
 	App_init(&app);
 	if (!App_win_create(&app, "NBFramework - OpenGL ES 2.0 research", 800, 600)) {
@@ -190,7 +191,7 @@ int main(){
 		}
 		//generated samples
 		{
-			const int amm[] = { 10 , 100, 1000, 10000, 100000, 100000, 1000000 };
+			const int amm[] = { 10 , 100, 1000, 10000, 100000, 1000000 };
 			int i; for (i = 0; i < (sizeof(amm) / sizeof(amm[0])); i++) {
 				STNBScnRenderJobTree tree;
 				NBScnRenderJobTree_init(&tree);
@@ -253,6 +254,41 @@ void NBVulkanBuff_release(STNBVulkanBuff* obj) {
 		obj->dev = NULL;
 	}
 	obj->memFlags = 0;
+}
+
+void* NBVulkanBuff_map(STNBVulkanBuff* obj) {
+	if (obj->mapped == NULL) {
+		void* mapped = NULL;
+		if (VK_SUCCESS != vkMapMemory(obj->dev, obj->mem, 0, obj->mappedSz, 0, &mapped)) {
+			printf("Vulkan, error, src-buffer vkMapMemory(%d bytes) falied.\n", obj->mappedSz);
+		} else {
+			obj->mapped = mapped;
+		}
+	}
+	return obj->mapped;
+}
+
+bool NBVulkanBuff_mappedFlushAll(STNBVulkanBuff* obj) {
+	bool r = false;
+	VkMappedMemoryRange rng = {
+		VK_STRUCTURE_TYPE_MAPPED_MEMORY_RANGE
+		, NULL
+		, obj->mem //memory
+		, 0 //offset;
+		, obj->mappedSz //size;
+	};
+	if (VK_SUCCESS != vkFlushMappedMemoryRanges(obj->dev, 1, &rng)) {
+		printf("Vulkan, error, vkFlushMappedMemoryRanges failed.\n");
+		r = true;
+	}
+	return r;
+}
+
+void NBVulkanBuff_unmap(STNBVulkanBuff* obj) {
+	if (obj->mapped != NULL) {
+		vkUnmapMemory(obj->dev, obj->mem);
+		obj->mapped = NULL;
+	}
 }
 
 //app
@@ -494,7 +530,7 @@ bool App_vulkan_compute_create(STApp* app) {
 													, mh->flags& VK_MEMORY_HEAP_MULTI_INSTANCE_BIT_KHR ? " | multi_instance_khr" : ""
 												);
 											} else {
-												printf("             memory-heap-#%d/%d: %u bytes flgs(%d) %s%s%s%s.\n", i + 1, mp.memoryTypeCount, mh->size, mh->flags
+												printf("             memory-heap-#%d/%d: %u bytes flgs(%d) %s%s%s%s.\n", i + 1, (int)mp.memoryTypeCount, (int)mh->size, (int)mh->flags
 													, mh->flags& VK_MEMORY_HEAP_DEVICE_LOCAL_BIT ? " | device_local" : ""
 													//VK_VERSION_1_1
 													, mh->flags& VK_MEMORY_HEAP_MULTI_INSTANCE_BIT ? " | multi_instance" : "" //in a logical device that groups multiple phisical devices, the allocation is replicated to all devices.
@@ -688,24 +724,107 @@ bool App_vulkan_compute_create(STApp* app) {
 	return r;
 }
 
+#define NB_VK_RESULT_STR(V) ( \
+(V) == VK_SUCCESS ? "VK_SUCCESS" : \
+(V) == VK_NOT_READY ? "VK_NOT_READY" : \
+(V) == VK_TIMEOUT ? "VK_TIMEOUT" : \
+(V) == VK_EVENT_SET ? "VK_EVENT_SET" : \
+(V) == VK_EVENT_RESET ? "VK_EVENT_RESET" : \
+(V) == VK_INCOMPLETE ? "VK_INCOMPLETE" : \
+(V) == VK_ERROR_OUT_OF_HOST_MEMORY ? "VK_ERROR_OUT_OF_HOST_MEMORY" : \
+(V) == VK_ERROR_OUT_OF_DEVICE_MEMORY ? "VK_ERROR_OUT_OF_DEVICE_MEMORY" : \
+(V) == VK_ERROR_INITIALIZATION_FAILED ? "VK_ERROR_INITIALIZATION_FAILED" : \
+(V) == VK_ERROR_DEVICE_LOST ? "VK_ERROR_DEVICE_LOST" : \
+(V) == VK_ERROR_MEMORY_MAP_FAILED ? "VK_ERROR_MEMORY_MAP_FAILED" : \
+(V) == VK_ERROR_LAYER_NOT_PRESENT ? "VK_ERROR_LAYER_NOT_PRESENT" : \
+(V) == VK_ERROR_EXTENSION_NOT_PRESENT ? "VK_ERROR_EXTENSION_NOT_PRESENT" : \
+(V) == VK_ERROR_FEATURE_NOT_PRESENT ? "VK_ERROR_FEATURE_NOT_PRESENT" : \
+(V) == VK_ERROR_INCOMPATIBLE_DRIVER ? "VK_ERROR_INCOMPATIBLE_DRIVER" : \
+(V) == VK_ERROR_TOO_MANY_OBJECTS ? "VK_ERROR_TOO_MANY_OBJECTS" : \
+(V) == VK_ERROR_FORMAT_NOT_SUPPORTED ? "VK_ERROR_FORMAT_NOT_SUPPORTED" : \
+(V) == VK_ERROR_FRAGMENTED_POOL ? "VK_ERROR_FRAGMENTED_POOL" : \
+(V) == VK_ERROR_UNKNOWN ? "VK_ERROR_UNKNOWN" : \
+(V) == VK_ERROR_OUT_OF_POOL_MEMORY ? "VK_ERROR_OUT_OF_POOL_MEMORY" : \
+(V) == VK_ERROR_INVALID_EXTERNAL_HANDLE ? "VK_ERROR_INVALID_EXTERNAL_HANDLE" : \
+(V) == VK_ERROR_FRAGMENTATION ? "VK_ERROR_FRAGMENTATION" : \
+(V) == VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS ? "VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS" : \
+(V) == VK_PIPELINE_COMPILE_REQUIRED ? "VK_PIPELINE_COMPILE_REQUIRED" : \
+(V) == VK_ERROR_NOT_PERMITTED ? "VK_ERROR_NOT_PERMITTED" : \
+(V) == VK_ERROR_SURFACE_LOST_KHR ? "VK_ERROR_SURFACE_LOST_KHR" : \
+(V) == VK_ERROR_NATIVE_WINDOW_IN_USE_KHR ? "VK_ERROR_NATIVE_WINDOW_IN_USE_KHR" : \
+(V) == VK_SUBOPTIMAL_KHR ? "VK_SUBOPTIMAL_KHR" : \
+(V) == VK_ERROR_OUT_OF_DATE_KHR ? "VK_ERROR_OUT_OF_DATE_KHR" : \
+(V) == VK_ERROR_INCOMPATIBLE_DISPLAY_KHR ? "VK_ERROR_INCOMPATIBLE_DISPLAY_KHR" : \
+(V) == VK_ERROR_VALIDATION_FAILED_EXT ? "VK_ERROR_VALIDATION_FAILED_EXT" : \
+(V) == VK_ERROR_INVALID_SHADER_NV ? "VK_ERROR_INVALID_SHADER_NV" : \
+(V) == VK_ERROR_IMAGE_USAGE_NOT_SUPPORTED_KHR ? "VK_ERROR_IMAGE_USAGE_NOT_SUPPORTED_KHR" : \
+(V) == VK_ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR ? "VK_ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR" : \
+(V) == VK_ERROR_VIDEO_PROFILE_OPERATION_NOT_SUPPORTED_KHR ? "VK_ERROR_VIDEO_PROFILE_OPERATION_NOT_SUPPORTED_KHR" : \
+(V) == VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR ? "VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR" : \
+(V) == VK_ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR ? "VK_ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR" : \
+(V) == VK_ERROR_VIDEO_STD_VERSION_NOT_SUPPORTED_KHR ? "VK_ERROR_VIDEO_STD_VERSION_NOT_SUPPORTED_KHR" : \
+(V) == VK_ERROR_INVALID_DRM_FORMAT_MODIFIER_PLANE_LAYOUT_EXT ? "VK_ERROR_INVALID_DRM_FORMAT_MODIFIER_PLANE_LAYOUT_EXT" : \
+(V) == VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT ? "VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT" : \
+(V) == VK_THREAD_IDLE_KHR ? "VK_THREAD_IDLE_KHR" : \
+(V) == VK_THREAD_DONE_KHR ? "VK_THREAD_DONE_KHR" : \
+(V) == VK_OPERATION_DEFERRED_KHR ? "VK_OPERATION_DEFERRED_KHR" : \
+(V) == VK_OPERATION_NOT_DEFERRED_KHR ? "VK_OPERATION_NOT_DEFERRED_KHR" : \
+(V) == VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR ? "VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR" : \
+(V) == VK_ERROR_COMPRESSION_EXHAUSTED_EXT ? "VK_ERROR_COMPRESSION_EXHAUSTED_EXT" : \
+(V) == VK_INCOMPATIBLE_SHADER_BINARY_EXT ? "VK_INCOMPATIBLE_SHADER_BINARY_EXT" : \
+(V) == VK_PIPELINE_BINARY_MISSING_KHR ? "VK_PIPELINE_BINARY_MISSING_KHR" : \
+(V) == VK_ERROR_NOT_ENOUGH_SPACE_KHR ? "VK_ERROR_NOT_ENOUGH_SPACE_KHR" : \
+(V) == VK_ERROR_OUT_OF_POOL_MEMORY_KHR ? "VK_ERROR_OUT_OF_POOL_MEMORY_KHR" : \
+(V) == VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR ? "VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR" : \
+(V) == VK_ERROR_FRAGMENTATION_EXT ? "VK_ERROR_FRAGMENTATION_EXT" : \
+(V) == VK_ERROR_NOT_PERMITTED_EXT ? "VK_ERROR_NOT_PERMITTED_EXT" : \
+(V) == VK_ERROR_NOT_PERMITTED_KHR ? "VK_ERROR_NOT_PERMITTED_KHR" : \
+(V) == VK_ERROR_INVALID_DEVICE_ADDRESS_EXT ? "VK_ERROR_INVALID_DEVICE_ADDRESS_EXT" : \
+(V) == VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR ? "VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR" : \
+(V) == VK_PIPELINE_COMPILE_REQUIRED_EXT ? "VK_PIPELINE_COMPILE_REQUIRED_EXT" : \
+(V) == VK_ERROR_PIPELINE_COMPILE_REQUIRED_EXT ? "VK_ERROR_PIPELINE_COMPILE_REQUIRED_EXT" : \
+(V) == VK_ERROR_INCOMPATIBLE_SHADER_BINARY_EXT ? "VK_ERROR_INCOMPATIBLE_SHADER_BINARY_EXT" : \
+(V) == VK_RESULT_MAX_ENUM ? "VK_RESULT_MAX_ENUM" : \
+"UNKNOWN_VALUE")
+
+
+//#define DBG_NB_VK_BYPASS_STAGE_BUFFER_FORCED	//if defined the stage buffers are ignored, used to test buffer copy process code
+
 void App_vulkan_compute_run_in_samples(STApp* app, const STNBScnRenderJobTree* src, const float compareMaxDiffAbs) {
-	HRESULT hr;
+	VkResult vr = VK_SUCCESS;
 	const unsigned int spacesPerLvl = 4;
 	NBTHREAD_CLOCK osFreq = NBThread_clocksPerSec();
 	NBTHREAD_CLOCK cpuFwdTime = 0, cpuBwdTime = 0, cpuBwd2Time = 0, gpuBwdTimeExec = 0, gpuBwdTimeMapping = 0, gpuBwdTimeCpying = 0;
-	STNBScnRenderJobPlain cpuFwdRR, cpuBwdRR, cpuBwdRR2, gpuBwdRRMapped, gpuBwdRRCopied;
+	STNBScnRenderJobFlat cpuFwdRR, cpuBwdRR, cpuBwdRR2, gpuBwdRRMapped, gpuBwdRRCopied;
 	//
-	NBScnRenderJobPlain_init(&cpuFwdRR);
-	NBScnRenderJobPlain_init(&cpuBwdRR);
-	NBScnRenderJobPlain_init(&cpuBwdRR2);	//gpu shader code running in cpu
-	NBScnRenderJobPlain_init(&gpuBwdRRMapped);
-	NBScnRenderJobPlain_init(&gpuBwdRRCopied);
+	STNBScnRenderJobLimits limits;
+	NBMemory_setZeroSt(limits, STNBScnRenderJobLimits);
+	limits.header.alignment	= app->vlkn.dev.hw.props.limits.minUniformBufferOffsetAlignment;
+	limits.buffer.alignment = app->vlkn.dev.hw.props.limits.nonCoherentAtomSize;
+	limits.dispatch.maxThreads = app->vlkn.dev.hw.props.limits.maxComputeWorkGroupCount[0];
 	//
-	NBScnRenderJobPlain_prepare(&cpuFwdRR, src); //preallocate (cpu)
-	NBScnRenderJobPlain_prepare(&cpuBwdRR, src); //preallocate (cpu)
-	NBScnRenderJobPlain_prepare(&cpuBwdRR2, src); //preallocate (cpu)
-	//NBScnRenderJobPlain_prepare(&cpuBwdRRMapped, src); //do not preallocate mapped version (will point to gpu buffers)
-	NBScnRenderJobPlain_prepare(&gpuBwdRRCopied, src); //preallocate (gpu)
+	STNBScnRenderBuffRngs treeRngs, flatRngs;
+	const UI32 treeBuffSz = NBScnRenderJobTree_getDispatchBufferRngs(src, &limits, 0, &treeRngs);
+	const UI32 flatBuffSz = NBScnRenderJobFlat_getDispatchBufferRngs(src, &limits, 0, &flatRngs);
+	BYTE* treeBuffDataTmp = (BYTE*)malloc(treeBuffSz);
+	//copy tree data
+	NBMemory_copy(&treeBuffDataTmp[treeRngs.nodes.offset], (void*)NBArray_dataPtr(&src->nodes, STNBScnTreeNode*), sizeof(STNBScnTreeNode) * src->nodes.use);
+	NBMemory_copy(&treeBuffDataTmp[treeRngs.verts.v.offset], (void*)NBArray_dataPtr(&src->verts.v, STNBScnVertex*), sizeof(STNBScnVertex) * src->verts.v.use);
+	NBMemory_copy(&treeBuffDataTmp[treeRngs.verts.v1.offset], (void*)NBArray_dataPtr(&src->verts.v1, STNBScnVertexTex*), sizeof(STNBScnVertexTex) * src->verts.v1.use);
+	NBMemory_copy(&treeBuffDataTmp[treeRngs.verts.v2.offset], (void*)NBArray_dataPtr(&src->verts.v2, STNBScnVertexTex2*), sizeof(STNBScnVertexTex2) * src->verts.v2.use);
+	NBMemory_copy(&treeBuffDataTmp[treeRngs.verts.v3.offset], (void*)NBArray_dataPtr(&src->verts.v3, STNBScnVertexTex3*), sizeof(STNBScnVertexTex3) * src->verts.v3.use);
+	//
+	NBScnRenderJobFlat_init(&cpuFwdRR);
+	NBScnRenderJobFlat_init(&cpuBwdRR);
+	NBScnRenderJobFlat_init(&cpuBwdRR2);	//gpu shader code running in cpu
+	NBScnRenderJobFlat_init(&gpuBwdRRMapped);
+	NBScnRenderJobFlat_init(&gpuBwdRRCopied);
+	//
+	NBScnRenderJobFlat_prepare(&cpuFwdRR, src, &limits, 0, NULL); //preallocate (cpu)
+	NBScnRenderJobFlat_prepare(&cpuBwdRR, src, &limits, 0, NULL); //preallocate (cpu)
+	NBScnRenderJobFlat_prepare(&cpuBwdRR2, src, &limits, 0, NULL); //preallocate (cpu)
+	//NBScnRenderJobFlat_prepare(&gpuBwdRRMapped, src, &limits, 0, NULL); //do not preallocate mapped version (will point to gpu buffers)
+	NBScnRenderJobFlat_prepare(&gpuBwdRRCopied, src, &limits, 0, NULL); //preallocate (gpu)
 	//
 	//Run in CPU
 	{
@@ -713,7 +832,7 @@ void App_vulkan_compute_run_in_samples(STApp* app, const STNBScnRenderJobTree* s
 			NBTHREAD_CLOCK startTime, endTime;
 			startTime = NBThread_clock();
 			{
-				NBScnRenderJob_convertTreeToPlainForwardToDst(src, &cpuFwdRR);
+				NBScnRenderJobFlat_dispatchForwards(&cpuFwdRR, src, &limits);
 			}
 			endTime = NBThread_clock();
 			cpuFwdTime = endTime - startTime;
@@ -726,7 +845,7 @@ void App_vulkan_compute_run_in_samples(STApp* app, const STNBScnRenderJobTree* s
 			NBTHREAD_CLOCK startTime, endTime;
 			startTime = NBThread_clock();
 			{
-				NBScnRenderJob_convertTreeToPlainBackwardToDst(src, &cpuBwdRR);
+				NBScnRenderJobFlat_dispatchBackwards(&cpuBwdRR, src, &limits, 0, src->nodes.use);
 			}
 			endTime = NBThread_clock();
 			cpuBwdTime = endTime - startTime;
@@ -739,13 +858,18 @@ void App_vulkan_compute_run_in_samples(STApp* app, const STNBScnRenderJobTree* s
 			NBTHREAD_CLOCK startTime, endTime;
 			startTime = NBThread_clock();
 			{
-				research_scn_compute_convertTreeToPlainGpuAlgorithmToDst(src, &cpuBwdRR2);
+				STNBScnRenderDispatchHeader hdr;
+				NBMemory_setZeroSt(hdr, STNBScnRenderDispatchHeader);
+				hdr.iNodeOffset = 0;
+				hdr.src = treeRngs;
+				hdr.dst = flatRngs;
+				research_scn_compute_convertTreeToPlainGpuAlgorithmToDst((const BYTE*)&hdr, (const BYTE*)treeBuffDataTmp, (BYTE*)cpuBwdRR2.buff.data, src->nodes.use);
 			}
 			endTime = NBThread_clock();
 			cpuBwd2Time = endTime - startTime;
 			//printf("RESULTS :: CPU :: backward execution:\n");
 			//printf("---------------------->\n");
-			//research_scn_compute_print_flat_job(&cpuBwdRR, spacesPerLvl);
+			//research_scn_compute_print_flat_job(&cpuBwdRR2, spacesPerLvl);
 			//printf("<----------------------\n");
 		}
 		{
@@ -773,61 +897,109 @@ void App_vulkan_compute_run_in_samples(STApp* app, const STNBScnRenderJobTree* s
 	}
 	//Run in GPU
 	{
-		typedef struct STParams_ {
-			UI32 iNodeOffset; //nodes already executed on previous Dispatch() calls
-		} STParams;
-		const unsigned long paramsPaddedSz = (sizeof(STParams) + app->vlkn.dev.hw.props.limits.minUniformBufferOffsetAlignment - 1) / app->vlkn.dev.hw.props.limits.minUniformBufferOffsetAlignment * app->vlkn.dev.hw.props.limits.minUniformBufferOffsetAlignment;
-		const unsigned long maxValPerDispatch = app->vlkn.dev.hw.props.limits.maxComputeWorkGroupCount[0];
-		const unsigned long ammDispatchCalls = (src->nodes.use + maxValPerDispatch - 1) / maxValPerDispatch;
-		STNBVulkanBuff paramsBuff;
-		STNBVulkanBuff treNodesBuff, treV0Buff, treV1Buff, treV2Buff, treV3Buff;
-		STNBVulkanBuff fltNodesBuff, fltV0Buff, fltV1Buff, fltV2Buff, fltV3Buff;
-		NBVulkanBuff_init(&treNodesBuff); NBVulkanBuff_init(&treV0Buff); NBVulkanBuff_init(&treV1Buff); NBVulkanBuff_init(&treV2Buff); NBVulkanBuff_init(&treV3Buff);
-		NBVulkanBuff_init(&fltNodesBuff); NBVulkanBuff_init(&fltV0Buff); NBVulkanBuff_init(&fltV1Buff); NBVulkanBuff_init(&fltV2Buff); NBVulkanBuff_init(&fltV3Buff);
+		const UI32 headerPaddedSz = NBScnRenderJobFlat_getDispatchHeaderPaddedSz(src, &limits);
+		const UI32 ammDispatchCalls = NBScnRenderJobFlat_getDispatcCallsNeeded(src, &limits);
+		const UI32 headersBuffSz = (headerPaddedSz * ammDispatchCalls);
 		//
-		if (!App_vulkan_compute_create_uniform_buffer(app, paramsPaddedSz * ammDispatchCalls, &paramsBuff, true)) {
-			printf("Vulkan, error, paramsBuff allocation failed.\n");
-			//
-			//
-		} else if (!App_vulkan_compute_create_src_buffer(app, sizeof(STNBScnTreeNode) * src->nodes.use, (void*)NBArray_dataPtr(&src->nodes, STNBScnTreeNode*), &treNodesBuff, true)) {
-			printf("Vulkan, error, treNodesBuff allocation failed.\n");
-		} else if (!App_vulkan_compute_create_src_buffer(app, sizeof(STNBScnVertex) * src->verts.v.use, (void*)NBArray_dataPtr(&src->verts.v, STNBScnVertex*), &treV0Buff, false)) {
-			printf("Vulkan, error, treV0Buff allocation failed.\n");
-		} else if (!App_vulkan_compute_create_src_buffer(app, sizeof(STNBScnVertexTex) * src->verts.v1.use, (void*)NBArray_dataPtr(&src->verts.v1, STNBScnVertexTex*), &treV1Buff, false)) {
-			printf("Vulkan, error, treV1Buff allocation failed.\n");
-		} else if (!App_vulkan_compute_create_src_buffer(app, sizeof(STNBScnVertexTex2) * src->verts.v2.use, (void*)NBArray_dataPtr(&src->verts.v2, STNBScnVertexTex2*), &treV2Buff, false)) {
-			printf("Vulkan, error, treV2Buff allocation failed.\n");
-		} else if (!App_vulkan_compute_create_src_buffer(app, sizeof(STNBScnVertexTex3) * src->verts.v3.use, (void*)NBArray_dataPtr(&src->verts.v3, STNBScnVertexTex3*), &treV3Buff, false)) {
-			printf("Vulkan, error, treV3Buff allocation failed.\n");
-			//
-			//
-		} else if (!App_vulkan_compute_create_dst_buffer(app, sizeof(STNBScnFlatNode) * src->nodes.use, &fltNodesBuff, true)) {
-			printf("Vulkan, error, fltNodesBuff allocation failed.\n");
-		} else if (!App_vulkan_compute_create_dst_buffer(app, sizeof(STNBScnVertexF) * src->verts.v.use, &fltV0Buff, false)) {
-			printf("Vulkan, error, fltV0Buff allocation failed.\n");
-		} else if (!App_vulkan_compute_create_dst_buffer(app, sizeof(STNBScnVertexTexF) * src->verts.v1.use, &fltV1Buff, false)) {
-			printf("Vulkan, error, fltV1Buff allocation failed.\n");
-		} else if (!App_vulkan_compute_create_dst_buffer(app, sizeof(STNBScnVertexTex2F) * src->verts.v2.use, &fltV2Buff, false)) {
-			printf("Vulkan, error, fltV2Buff allocation failed.\n");
-		} else if (!App_vulkan_compute_create_dst_buffer(app, sizeof(STNBScnVertexTex3F) * src->verts.v3.use, &fltV3Buff, false)) {
-			printf("Vulkan, error, fltV3Buff allocation failed.\n");
+		STNBVulkanBuff cpyBuffHost, hdrsBuffDev, srcBuffDev, dstBuffDev, dstBuffHost;
+		NBVulkanBuff_init(&cpyBuffHost); NBVulkanBuff_init(&srcBuffDev);
+		NBVulkanBuff_init(&hdrsBuffDev); NBVulkanBuff_init(&dstBuffDev); NBVulkanBuff_init(&dstBuffHost);
+		//
+		if (!App_vulkan_compute_create_buffer(app, "src@hst", &cpyBuffHost, headersBuffSz + treeBuffSz, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, false)) {
+			printf("Vulkan, error, headersBuffHost allocation failed.\n");
+		} else if (!App_vulkan_compute_create_buffer(app, "hdr@dev", &hdrsBuffDev, headersBuffSz, VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, false)) {
+			printf("Vulkan, error, headersBuffDev allocation failed.\n");
+		} else if (!App_vulkan_compute_create_buffer(app, "src@dev", &srcBuffDev, treeBuffSz, VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, false)) {
+			printf("Vulkan, error, headersBuffDev allocation failed.\n");
+		} else if (!App_vulkan_compute_create_buffer(app, "dst@dev" , &dstBuffDev, flatBuffSz, VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_TRANSFER_SRC_BIT | VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, false)) {
+			printf("Vulkan, error, strgBuffDev allocation failed.\n");
+		} else if (!App_vulkan_compute_create_buffer(app, "dst@hst", &dstBuffHost, flatBuffSz, VK_BUFFER_USAGE_TRANSFER_DST_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, false)) {
+			printf("Vulkan, error, strgBuffHostFlat allocation failed.\n");
 		} else {
+			//populate copy buffer
+			{
+				STNBVulkanBuff* buffToFeedHdrs	= &cpyBuffHost;
+				STNBVulkanBuff* buffToFeedTree	= &cpyBuffHost;
+				UI32 buffToFeedHdrsPos			= 0;
+				UI32 buffToFeedTreePos			= headersBuffSz;
+#				ifdef DBG_NB_VK_BYPASS_STAGE_BUFFER_FORCED
+				buffToFeedHdrs		= &hdrsBuffDev;
+				buffToFeedTree		= &srcBuffDev;
+				buffToFeedHdrsPos	= 0;
+				buffToFeedTreePos	= 0;
+#				endif
+				BYTE* buffPtr = (BYTE*)NBVulkanBuff_map(buffToFeedHdrs);
+				if (buffPtr == NULL) {
+					printf("Vulkan, error, NBVulkanBuff_map failed for 'buffToFeedHdrs'.\n");
+				} else {
+					//add headers
+					UI32 execCount = 0, iDispacth = 0;
+					STNBScnRenderDispatchHeader hdr;
+					NBMemory_setZeroSt(hdr, STNBScnRenderDispatchHeader);
+					hdr.iNodeOffset = 0;
+					hdr.src = treeRngs;
+					hdr.dst = flatRngs;
+					while (hdr.iNodeOffset < src->nodes.use) {
+						execCount = src->nodes.use - hdr.iNodeOffset;
+						if (execCount > limits.dispatch.maxThreads) {
+							execCount = (UI32)limits.dispatch.maxThreads;
+						}
+						//populate step param
+						*((STNBScnRenderDispatchHeader*)&buffPtr[buffToFeedHdrsPos + (iDispacth * headerPaddedSz)]) = hdr;
+						//next
+						hdr.iNodeOffset += execCount;
+						iDispacth++;
+					}
+					//add src data
+					if(buffToFeedTree == buffToFeedHdrs){
+						NBMemory_copy(&buffPtr[buffToFeedTreePos + treeRngs.nodes.offset], (void*)NBArray_dataPtr(&src->nodes, STNBScnTreeNode*), sizeof(STNBScnTreeNode) * src->nodes.use);
+						NBMemory_copy(&buffPtr[buffToFeedTreePos + treeRngs.verts.v.offset], (void*)NBArray_dataPtr(&src->verts.v, STNBScnVertex*), sizeof(STNBScnVertex) * src->verts.v.use);
+						NBMemory_copy(&buffPtr[buffToFeedTreePos + treeRngs.verts.v1.offset], (void*)NBArray_dataPtr(&src->verts.v1, STNBScnVertexTex*), sizeof(STNBScnVertexTex) * src->verts.v1.use);
+						NBMemory_copy(&buffPtr[buffToFeedTreePos + treeRngs.verts.v2.offset], (void*)NBArray_dataPtr(&src->verts.v2, STNBScnVertexTex2*), sizeof(STNBScnVertexTex2) * src->verts.v2.use);
+						NBMemory_copy(&buffPtr[buffToFeedTreePos + treeRngs.verts.v3.offset], (void*)NBArray_dataPtr(&src->verts.v3, STNBScnVertexTex3*), sizeof(STNBScnVertexTex3) * src->verts.v3.use);
+					}
+					//flush (if necesary)
+					if (!(buffToFeedHdrs->memFlags & VK_MEMORY_PROPERTY_HOST_COHERENT_BIT)) {
+						if (!NBVulkanBuff_mappedFlushAll(buffToFeedHdrs)) {
+							printf("Vulkan, error, vkFlushMappedMemoryRanges(buffToFeedHdrs) failed.\n");
+						} else {
+							printf("Vulkan, note, vkFlushMappedMemoryRanges(buffToFeedHdrs) has to be used.\n");
+						}
+					}
+					NBVulkanBuff_unmap(buffToFeedHdrs);
+					buffPtr = NULL;
+				}
+				//add src data (if separate buffer)
+				if (buffToFeedTree != buffToFeedHdrs) {
+					BYTE* buffPtr = (BYTE*)NBVulkanBuff_map(buffToFeedTree);
+					if (buffPtr == NULL) {
+						printf("Vulkan, error, NBVulkanBuff_map failed for 'buffToFeedTree'.\n");
+					} else {
+						NBMemory_copy(&buffPtr[buffToFeedTreePos + treeRngs.nodes.offset], (void*)NBArray_dataPtr(&src->nodes, STNBScnTreeNode*), sizeof(STNBScnTreeNode) * src->nodes.use);
+						NBMemory_copy(&buffPtr[buffToFeedTreePos + treeRngs.verts.v.offset], (void*)NBArray_dataPtr(&src->verts.v, STNBScnVertex*), sizeof(STNBScnVertex) * src->verts.v.use);
+						NBMemory_copy(&buffPtr[buffToFeedTreePos + treeRngs.verts.v1.offset], (void*)NBArray_dataPtr(&src->verts.v1, STNBScnVertexTex*), sizeof(STNBScnVertexTex) * src->verts.v1.use);
+						NBMemory_copy(&buffPtr[buffToFeedTreePos + treeRngs.verts.v2.offset], (void*)NBArray_dataPtr(&src->verts.v2, STNBScnVertexTex2*), sizeof(STNBScnVertexTex2) * src->verts.v2.use);
+						NBMemory_copy(&buffPtr[buffToFeedTreePos + treeRngs.verts.v3.offset], (void*)NBArray_dataPtr(&src->verts.v3, STNBScnVertexTex3*), sizeof(STNBScnVertexTex3) * src->verts.v3.use);
+						//flush (if necesary)
+						if (!(buffToFeedTree->memFlags & VK_MEMORY_PROPERTY_HOST_COHERENT_BIT)) {
+							if (!NBVulkanBuff_mappedFlushAll(buffToFeedTree)) {
+								printf("Vulkan, error, vkFlushMappedMemoryRanges(buffToFeedTree) failed.\n");
+							} else {
+								printf("Vulkan, note, vkFlushMappedMemoryRanges(buffToFeedTree) has to be used.\n");
+							}
+						}
+						NBVulkanBuff_unmap(buffToFeedTree);
+						buffPtr = NULL;
+					}
+				}
+			}
 			//printf("Vulkan, buffs allocated.\n");
 			VkDescriptorSetLayoutBinding lays[] = {
 				//uniform
 				{ 0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, VK_SHADER_STAGE_COMPUTE_BIT, NULL } //binding, descriptorType, descriptorCount, stageFlags, pImmutableSamplers
-				//src
+				//storage
 				, { 1, VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 1, VK_SHADER_STAGE_COMPUTE_BIT, NULL } //binding, descriptorType, descriptorCount, stageFlags, pImmutableSamplers
 				, { 2, VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 1, VK_SHADER_STAGE_COMPUTE_BIT, NULL } //binding, descriptorType, descriptorCount, stageFlags, pImmutableSamplers
-				, { 3, VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 1, VK_SHADER_STAGE_COMPUTE_BIT, NULL } //binding, descriptorType, descriptorCount, stageFlags, pImmutableSamplers
-				, { 4, VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 1, VK_SHADER_STAGE_COMPUTE_BIT, NULL } //binding, descriptorType, descriptorCount, stageFlags, pImmutableSamplers
-				, { 5, VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 1, VK_SHADER_STAGE_COMPUTE_BIT, NULL } //binding, descriptorType, descriptorCount, stageFlags, pImmutableSamplers
-				//dst
-				, { 6, VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 1, VK_SHADER_STAGE_COMPUTE_BIT, NULL } //binding, descriptorType, descriptorCount, stageFlags, pImmutableSamplers
-				, { 7, VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 1, VK_SHADER_STAGE_COMPUTE_BIT, NULL } //binding, descriptorType, descriptorCount, stageFlags, pImmutableSamplers
-				, { 8, VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 1, VK_SHADER_STAGE_COMPUTE_BIT, NULL } //binding, descriptorType, descriptorCount, stageFlags, pImmutableSamplers
-				, { 9, VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 1, VK_SHADER_STAGE_COMPUTE_BIT, NULL } //binding, descriptorType, descriptorCount, stageFlags, pImmutableSamplers
-				, { 10, VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 1, VK_SHADER_STAGE_COMPUTE_BIT, NULL } //binding, descriptorType, descriptorCount, stageFlags, pImmutableSamplers
 			};
 			VkDescriptorSetLayout layDesc = NULL;
 			VkDescriptorSetLayoutCreateInfo layoutInfo = {
@@ -841,8 +1013,8 @@ void App_vulkan_compute_run_in_samples(STApp* app, const STNBScnRenderJobTree* s
 				printf("Vulkan, error, vkCreateDescriptorSetLayout failed.\n");
 			} else {
 				VkDescriptorPoolSize poolSzs[] = {
-					{ VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, ammDispatchCalls }  //for INLINE_UNIFORM this is the size in bytes
-					, { VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 10 * ammDispatchCalls } //ammount of buffers
+					{ VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, ammDispatchCalls }  //ammount of buffers, for INLINE_UNIFORM this is the size in bytes
+					, { VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, ammDispatchCalls * 2 } //ammount of buffers
 				};
 				VkDescriptorPoolCreateInfo poolCreateInfo = {
 					VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO
@@ -857,6 +1029,8 @@ void App_vulkan_compute_run_in_samples(STApp* app, const STNBScnRenderJobTree* s
 					printf("Vulkan, error, vkCreateDescriptorPool failed.\n");
 				} else {
 					VkDescriptorSetLayout* layDescs = (VkDescriptorSetLayout*)malloc(sizeof(VkDescriptorSetLayout) * ammDispatchCalls);
+					{ int i; for (i = 0; i < ammDispatchCalls; i++) layDescs[i] = layDesc;  }
+					//
 					VkDescriptorSetAllocateInfo descSetAllocInfo = {
 						VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO
 						, NULL
@@ -865,84 +1039,62 @@ void App_vulkan_compute_run_in_samples(STApp* app, const STNBScnRenderJobTree* s
 						, layDescs //pSetLayouts
 					};
 					VkDescriptorSet* descSet = (VkDescriptorSet*)malloc(sizeof(VkDescriptorSet) * ammDispatchCalls);
-					{
-						int i; for (i = 0; i < ammDispatchCalls; i++) layDescs[i] = layDesc;
-					}
 					if (VK_SUCCESS != vkAllocateDescriptorSets(app->vlkn.dev.obj, &descSetAllocInfo, descSet)) {
-						printf("Vulkan, error, vkAllocateDescriptorSets(%d) failed (%d threads per dispatch).\n", ammDispatchCalls, maxValPerDispatch);
+						printf("Vulkan, error, vkAllocateDescriptorSets(%d) failed (%d threads per dispatch).\n", ammDispatchCalls, limits.dispatch.maxThreads);
 					} else {
-						//populate exec params
+						//update descriptor sets
 						{
-							unsigned int execCount = 0, iDispacth = 0;
-							STParams execPrms;
-							NBMemory_setZeroSt(execPrms, STParams);
-							BYTE* params = (BYTE*)malloc(paramsPaddedSz * ammDispatchCalls);
-							VkDescriptorBufferInfo* buffsInfo = (VkDescriptorBufferInfo*)malloc(sizeof(VkDescriptorBufferInfo) * ammDispatchCalls * 11);
+							VkDescriptorBufferInfo* buffsInfo = (VkDescriptorBufferInfo*)malloc(sizeof(VkDescriptorBufferInfo) * ammDispatchCalls * 3);
 							VkWriteDescriptorSet* descsWrite = (VkWriteDescriptorSet*)malloc(sizeof(VkWriteDescriptorSet) * ammDispatchCalls * 2);
-							//
-							memset(params, 0, paramsPaddedSz * ammDispatchCalls);
-							memset(buffsInfo, 0, sizeof(VkDescriptorBufferInfo) * ammDispatchCalls * 11);
-							memset(descsWrite, 0, sizeof(VkWriteDescriptorSet) * ammDispatchCalls * 2);
-							//
-							while (execPrms.iNodeOffset < src->nodes.use) {
-								execCount = src->nodes.use - execPrms.iNodeOffset;
-								if (execCount > maxValPerDispatch) {
-									execCount = (UI32)maxValPerDispatch;
-								}
-								//populate step param
-								*((STParams*)&params[paramsPaddedSz * iDispacth]) = execPrms;
-								//
-								buffsInfo[(iDispacth * 11) + 0] = { paramsBuff.buff, paramsPaddedSz * iDispacth, paramsPaddedSz }; //buffer, offset, range
-								//
-								buffsInfo[(iDispacth * 11) + 1] = { treNodesBuff.buff, 0, treNodesBuff.mappedSz }; //buffer, offset, range
-								buffsInfo[(iDispacth * 11) + 2] = { treV0Buff.buff, 0, treV0Buff.mappedSz }; //buffer, offset, range
-								buffsInfo[(iDispacth * 11) + 3] = { treV1Buff.buff, 0, treV1Buff.mappedSz }; //buffer, offset, range
-								buffsInfo[(iDispacth * 11) + 4] = { treV2Buff.buff, 0, treV2Buff.mappedSz }; //buffer, offset, range
-								buffsInfo[(iDispacth * 11) + 5] = { treV3Buff.buff, 0, treV3Buff.mappedSz }; //buffer, offset, range
-								//
-								buffsInfo[(iDispacth * 11) + 6] = { fltNodesBuff.buff, 0, fltNodesBuff.mappedSz }; //buffer, offset, range
-								buffsInfo[(iDispacth * 11) + 7] = { fltV0Buff.buff, 0, fltV0Buff.mappedSz }; //buffer, offset, range
-								buffsInfo[(iDispacth * 11) + 8] = { fltV1Buff.buff, 0, fltV1Buff.mappedSz }; //buffer, offset, range
-								buffsInfo[(iDispacth * 11) + 9] = { fltV2Buff.buff, 0, fltV2Buff.mappedSz }; //buffer, offset, range
-								buffsInfo[(iDispacth * 11) + 10] = { fltV3Buff.buff, 0 , fltV3Buff.mappedSz }; //buffer, offset, range
-								//
-								// //uniform buffer
-								descsWrite[(iDispacth * 2) + 0] = {
-									VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET
+							if (buffsInfo == NULL) {
+								printf("Vulkan, error, malloc failed for 'buffsInfo'.\n");
+							} else if (descsWrite == NULL) {
+								printf("Vulkan, error, malloc failed for 'descsWrite'.\n");
+							} else {
+								UI32 execCount = 0, iDispacth = 0, iNodeOffset = 0;
+								//build headers and sets
+								memset(buffsInfo, 0, sizeof(VkDescriptorBufferInfo) * ammDispatchCalls * 3);
+								memset(descsWrite, 0, sizeof(VkWriteDescriptorSet) * ammDispatchCalls * 2);
+								while (iNodeOffset < src->nodes.use) {
+									execCount = src->nodes.use - iNodeOffset;
+									if (execCount > limits.dispatch.maxThreads) {
+										execCount = (UI32)limits.dispatch.maxThreads;
+									}
+									//infos
+									buffsInfo[(iDispacth * 3) + 0] = { hdrsBuffDev.buff, iDispacth * headerPaddedSz, headerPaddedSz}; //buffer, offset, range
+									buffsInfo[(iDispacth * 3) + 1] = { srcBuffDev.buff, 0, srcBuffDev.mappedSz }; //buffer, offset, range
+									buffsInfo[(iDispacth * 3) + 2] = { dstBuffDev.buff, 0, dstBuffDev.mappedSz }; //buffer, offset, range
+									//uniform buffer
+									descsWrite[(iDispacth * 2) + 0] = {
+										VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET
+											, NULL
+											, descSet[iDispacth] //dstSet
+											, 0 //dstBinding
+											, 0 //dstArrayElement
+											, 1 //descriptorCount
+											, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER //descriptorType
+											, NULL //pImageInfo
+											, &buffsInfo[(iDispacth * 3) + 0] //pBufferInfo
+											, NULL // pTexelBufferView
+									};
+									//storage
+									descsWrite[(iDispacth * 2) + 1] = {
+										VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET
 										, NULL
 										, descSet[iDispacth] //dstSet
-										, 0 //dstBinding
+										, 1 //dstBinding
 										, 0 //dstArrayElement
-										, 1 //descriptorCount
-										, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER //descriptorType
+										, 2 //descriptorCount
+										, VK_DESCRIPTOR_TYPE_STORAGE_BUFFER //descriptorType
 										, NULL //pImageInfo
-										, &buffsInfo[(iDispacth * 11) + 0] //pBufferInfo
+										, &buffsInfo[(iDispacth * 3) + 1] //pBufferInfo
 										, NULL // pTexelBufferView
-								};
-								//storage
-								descsWrite[(iDispacth * 2) + 1] = {
-									VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET
-									, NULL
-									, descSet[iDispacth] //dstSet
-									, 1 //dstBinding
-									, 0 //dstArrayElement
-									, 10 //descriptorCount
-									, VK_DESCRIPTOR_TYPE_STORAGE_BUFFER //descriptorType
-									, NULL //pImageInfo
-									, &buffsInfo[(iDispacth * 11) + 1] //pBufferInfo
-									, NULL // pTexelBufferView
-								};
-								//next
-								execPrms.iNodeOffset += execCount;
-								iDispacth++;
-							}
-							//
-							memcpy(paramsBuff.mapped, params, paramsPaddedSz * ammDispatchCalls);
-							vkUpdateDescriptorSets(app->vlkn.dev.obj, ammDispatchCalls * 2, descsWrite, 0, NULL);
-							//
-							if (params != NULL) {
-								free(params);
-								params = NULL;
+									};
+									//next
+									iNodeOffset += execCount;
+									iDispacth++;
+								}
+								vkUpdateDescriptorSets(app->vlkn.dev.obj, ammDispatchCalls * 2, descsWrite, 0, NULL);
 							}
 							if (buffsInfo != NULL) {
 								free(buffsInfo);
@@ -1011,36 +1163,166 @@ void App_vulkan_compute_run_in_samples(STApp* app, const STNBScnRenderJobTree* s
 										if (VK_SUCCESS != vkAllocateCommandBuffers(app->vlkn.dev.obj, &cmdBuffAllocInfo, &cmdBuff)) {
 											printf("Vulkan, error, vkAllocateCommandBuffers failed.\n");
 										} else {
-											unsigned int execCount = 0;
-											STParams execPrms;
-											NBMemory_setZeroSt(execPrms, STParams);
-											//
 											NBTHREAD_CLOCK startTime, midTime, midTime2, endTime;
 											midTime = midTime2 = endTime = startTime = NBThread_clock();
 											//
 											VkCommandBufferBeginInfo cmdBuffBeginInfo = {
-														VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO
-														, NULL
-														, 0 //flags;
-														, NULL //pInheritanceInfo;
+												VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO
+												, NULL
+												, 0 //flags;
+												, NULL //pInheritanceInfo;
 											};
 											if (VK_SUCCESS != vkBeginCommandBuffer(cmdBuff, &cmdBuffBeginInfo)) { //implicit reset of the command
 												printf("Vulkan, error, vkBeginCommandBuffer failed.\n");
 											} else {
-												vkCmdBindPipeline(cmdBuff, VK_PIPELINE_BIND_POINT_COMPUTE, pipeln);
-												//
-												while (execPrms.iNodeOffset < src->nodes.use) {
-													execCount = src->nodes.use - execPrms.iNodeOffset;
-													if (execCount > maxValPerDispatch) {
-														execCount = maxValPerDispatch;
+#ifndef 										DBG_NB_VK_BYPASS_STAGE_BUFFER_FORCED
+												//copy src to device
+												{
+													//add copy commands (could start in parallel)
+													{
+														VkBufferCopy rgnBuff[2] = {
+															{
+																0 //srcOffset
+																, 0 //dstOffset
+																, hdrsBuffDev.mappedSz //size;
+															}
+															, {
+																hdrsBuffDev.mappedSz //srcOffset
+																, 0 //dstOffset
+																, srcBuffDev.mappedSz //size;
+															}
+														};
+														vkCmdCopyBuffer(cmdBuff, cpyBuffHost.buff, hdrsBuffDev.buff, 1, &rgnBuff[0]);
+														vkCmdCopyBuffer(cmdBuff, cpyBuffHost.buff, srcBuffDev.buff, 1, &rgnBuff[1]);
 													}
-													//execute
-													vkCmdBindDescriptorSets(cmdBuff, VK_PIPELINE_BIND_POINT_COMPUTE, pipeLay, 0, 1, &descSet[execPrms.iNodeOffset / maxValPerDispatch], 0, 0);
-													vkCmdDispatch(cmdBuff, execCount, 1, 1);
-													//next
-													execPrms.iNodeOffset += execCount;
+													//add barriers to wait copy before starting compute execution
+													{
+														VkBufferMemoryBarrier barriers[] = {
+															{
+																VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER
+																, NULL
+																, VK_ACCESS_TRANSFER_WRITE_BIT //srcAccessMask;
+																, VK_ACCESS_UNIFORM_READ_BIT //dstAccessMask;
+																, VK_QUEUE_FAMILY_IGNORED //srcQueueFamilyIndex;
+																, VK_QUEUE_FAMILY_IGNORED //dstQueueFamilyIndex;
+																, hdrsBuffDev.buff //buffer;
+																, 0 //offset;
+																, VK_WHOLE_SIZE //size;
+															}
+															, {
+																VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER
+																, NULL
+																, VK_ACCESS_TRANSFER_WRITE_BIT //srcAccessMask;
+																, VK_ACCESS_SHADER_READ_BIT //dstAccessMask;
+																, VK_QUEUE_FAMILY_IGNORED //srcQueueFamilyIndex;
+																, VK_QUEUE_FAMILY_IGNORED //dstQueueFamilyIndex;
+																, srcBuffDev.buff //buffer;
+																, 0 //offset;
+																, VK_WHOLE_SIZE //size;
+															}
+														};
+														vkCmdPipelineBarrier(
+															cmdBuff
+															, VK_PIPELINE_STAGE_TRANSFER_BIT	//srcStageMask
+															, VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT //dstStageMask,
+															, 0 //dependencyFlags,
+															, 0 //memoryBarrierCount,
+															, NULL //pMemoryBarriers,
+															, sizeof(barriers) / sizeof(barriers[0]) //bufferMemoryBarrierCount,
+															, barriers //pBufferMemoryBarriers,
+															, 0 //imageMemoryBarrierCount,
+															, NULL //pImageMemoryBarriers
+														);
+													}
 												}
-												//
+#												endif
+												//execution
+												{
+													UI32 iNodeOffset = 0, execCount = 0;
+													vkCmdBindPipeline(cmdBuff, VK_PIPELINE_BIND_POINT_COMPUTE, pipeln);
+													while (iNodeOffset < src->nodes.use) {
+														execCount = src->nodes.use - iNodeOffset;
+														if (execCount > limits.dispatch.maxThreads) {
+															execCount = limits.dispatch.maxThreads;
+														}
+														//execute
+														vkCmdBindDescriptorSets(cmdBuff, VK_PIPELINE_BIND_POINT_COMPUTE, pipeLay, 0, 1, &descSet[iNodeOffset / limits.dispatch.maxThreads], 0, 0);
+														vkCmdDispatch(cmdBuff, execCount, 1, 1);
+														//next
+														iNodeOffset += execCount;
+													}
+												}
+												//copy results back to host
+#												ifndef DBG_NB_VK_BYPASS_STAGE_BUFFER_FORCED
+												{
+													//barrier to wait for execution's end
+													{
+														VkBufferMemoryBarrier barriers[] = {
+															{
+																VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER
+																, NULL
+																, VK_ACCESS_SHADER_WRITE_BIT //srcAccessMask;
+																, VK_ACCESS_TRANSFER_READ_BIT //dstAccessMask;
+																, VK_QUEUE_FAMILY_IGNORED //srcQueueFamilyIndex;
+																, VK_QUEUE_FAMILY_IGNORED //dstQueueFamilyIndex;
+																, dstBuffDev.buff //buffer;
+																, 0 //offset;
+																, VK_WHOLE_SIZE //size;
+															}
+														};
+														vkCmdPipelineBarrier(
+															cmdBuff
+															, VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT	//srcStageMask
+															, VK_PIPELINE_STAGE_TRANSFER_BIT //dstStageMask,
+															, 0 //dependencyFlags,
+															, 0 //memoryBarrierCount,
+															, NULL //pMemoryBarriers,
+															, sizeof(barriers) / sizeof(barriers[0]) //bufferMemoryBarrierCount,
+															, barriers //pBufferMemoryBarriers,
+															, 0 //imageMemoryBarrierCount,
+															, NULL //pImageMemoryBarriers
+														);
+													}
+													//add copy command
+													{
+														VkBufferCopy rgnStrg = {
+															0 //srcOffset
+															, 0 //dstOffset
+															, dstBuffDev.mappedSz //size;
+														};
+														vkCmdCopyBuffer(cmdBuff, dstBuffDev.buff, dstBuffHost.buff, 1, &rgnStrg);
+													}
+													//add barriers to wait copy before reading results
+													{
+														VkBufferMemoryBarrier barriers[] = {
+															{
+																VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER
+																, NULL
+																, VK_ACCESS_TRANSFER_WRITE_BIT //srcAccessMask;
+																, VK_ACCESS_HOST_READ_BIT //dstAccessMask;
+																, VK_QUEUE_FAMILY_IGNORED //srcQueueFamilyIndex;
+																, VK_QUEUE_FAMILY_IGNORED //dstQueueFamilyIndex;
+																, dstBuffHost.buff //buffer;
+																, 0 //offset;
+																, VK_WHOLE_SIZE //size;
+															}
+														};
+														vkCmdPipelineBarrier(
+															cmdBuff
+															, VK_PIPELINE_STAGE_TRANSFER_BIT	//srcStageMask
+															, VK_PIPELINE_STAGE_HOST_BIT //dstStageMask,
+															, 0 //dependencyFlags,
+															, 0 //memoryBarrierCount,
+															, NULL //pMemoryBarriers,
+															, sizeof(barriers) / sizeof(barriers[0]) //bufferMemoryBarrierCount,
+															, barriers //pBufferMemoryBarriers,
+															, 0 //imageMemoryBarrierCount,
+															, NULL //pImageMemoryBarriers
+														);
+													}
+												}
+#												endif
+												//Submit queue
 												if (VK_SUCCESS != vkEndCommandBuffer(cmdBuff) != VK_SUCCESS) {
 													printf("Vulkan, error, vkEndCommandBuffer failed.\n");
 												} else {
@@ -1056,8 +1338,8 @@ void App_vulkan_compute_run_in_samples(STApp* app, const STNBScnRenderJobTree* s
 														, NULL //pSignalSemaphores;
 													};
 													//
-													if (VK_SUCCESS != vkQueueSubmit(app->vlkn.dev.queue, 1, &submtInfo, NULL)) {
-														printf("Vulkan, error, vkQueueSubmit failed.\n");
+													if (VK_SUCCESS != (vr = vkQueueSubmit(app->vlkn.dev.queue, 1, &submtInfo, NULL))) {
+														printf("Vulkan, error, vkQueueSubmit failed(%s).\n", NB_VK_RESULT_STR(vr));
 													} else {
 														printf("Vulkan, waiting for queue enter to iddle state.\n");
 														vkQueueWaitIdle(app->vlkn.dev.queue);
@@ -1068,37 +1350,31 @@ void App_vulkan_compute_run_in_samples(STApp* app, const STNBScnRenderJobTree* s
 											gpuBwdTimeExec = midTime - startTime;
 											//map
 											{
-												NBArray_release(&gpuBwdRRMapped.nodes);
-												NBArray_release(&gpuBwdRRMapped.verts.v);
-												NBArray_release(&gpuBwdRRMapped.verts.v1);
-												NBArray_release(&gpuBwdRRMapped.verts.v2);
-												NBArray_release(&gpuBwdRRMapped.verts.v3);
-												//
-												NBArray_initWithExternalBuffer(&gpuBwdRRMapped.nodes, sizeof(STNBScnFlatNode), NULL, (BYTE*)fltNodesBuff.mapped);
-												gpuBwdRRMapped.nodes.use = src->nodes.use;
-												NBArray_initWithExternalBuffer(&gpuBwdRRMapped.verts.v, sizeof(STNBScnVertexF), NULL, (BYTE*)fltV0Buff.mapped);
-												gpuBwdRRMapped.verts.v.use = src->verts.v.use;
-												NBArray_initWithExternalBuffer(&gpuBwdRRMapped.verts.v1, sizeof(STNBScnVertexTexF), NULL, (BYTE*)fltV1Buff.mapped);
-												gpuBwdRRMapped.verts.v1.use = src->verts.v1.use;
-												NBArray_initWithExternalBuffer(&gpuBwdRRMapped.verts.v2, sizeof(STNBScnVertexTex2F), NULL, (BYTE*)fltV2Buff.mapped);
-												gpuBwdRRMapped.verts.v2.use = src->verts.v2.use;
-												NBArray_initWithExternalBuffer(&gpuBwdRRMapped.verts.v3, sizeof(STNBScnVertexTex3F), NULL, (BYTE*)fltV3Buff.mapped);
-												gpuBwdRRMapped.verts.v3.use = src->verts.v3.use;
+												STNBVulkanBuff* buff = &dstBuffHost;
+#												ifdef DBG_NB_VK_BYPASS_STAGE_BUFFER_FORCED
+												buff = &dstBuffDev;
+#												endif
+												BYTE* stageFlat = (BYTE*)NBVulkanBuff_map(buff);
+												if (stageFlat == NULL) {
+													printf("Vulkan, error, NBVulkanBuff_map failed for 'strgBuffHostFlat'.\n");
+												} else {
+													STNBScnRenderBuffRngs rngs;
+													const UI32 buffSz = NBScnRenderJobFlat_getDispatchBufferRngs(src, &limits, 0, &rngs);
+													//
+													gpuBwdRRMapped.buff.data = stageFlat;
+													gpuBwdRRMapped.buff.sz = buff->mappedSz;
+													gpuBwdRRMapped.buff.use = buff->mappedSz;
+													NBScnRenderJobFlatMap_build(&gpuBwdRRMapped.map, gpuBwdRRMapped.buff.data, &rngs);
+													//
+													NBVulkanBuff_unmap(buff);
+													stageFlat = NULL;
+												}
 											}
 											endTime = midTime2 = NBThread_clock();
 											gpuBwdTimeMapping = midTime2 - midTime;
 											//copy
 											{
-												NBArray_empty(&gpuBwdRRCopied.nodes);
-												NBArray_empty(&gpuBwdRRCopied.verts.v);
-												NBArray_empty(&gpuBwdRRCopied.verts.v1);
-												NBArray_empty(&gpuBwdRRCopied.verts.v2);
-												NBArray_empty(&gpuBwdRRCopied.verts.v3);
-												NBArray_addItems(&gpuBwdRRCopied.nodes, NBArray_dataPtr(&gpuBwdRRMapped.nodes, const STNBScnFlatNode), sizeof(STNBScnFlatNode), gpuBwdRRMapped.nodes.use);
-												NBArray_addItems(&gpuBwdRRCopied.verts.v, NBArray_dataPtr(&gpuBwdRRMapped.verts.v, const STNBScnVertexF), sizeof(STNBScnVertexF), gpuBwdRRMapped.verts.v.use);
-												NBArray_addItems(&gpuBwdRRCopied.verts.v1, NBArray_dataPtr(&gpuBwdRRMapped.verts.v1, const STNBScnVertexTexF), sizeof(STNBScnVertexTexF), gpuBwdRRMapped.verts.v1.use);
-												NBArray_addItems(&gpuBwdRRCopied.verts.v2, NBArray_dataPtr(&gpuBwdRRMapped.verts.v2, const STNBScnVertexTex2F), sizeof(STNBScnVertexTex2F), gpuBwdRRMapped.verts.v2.use);
-												NBArray_addItems(&gpuBwdRRCopied.verts.v3, NBArray_dataPtr(&gpuBwdRRMapped.verts.v3, const STNBScnVertexTex3F), sizeof(STNBScnVertexTex3F), gpuBwdRRMapped.verts.v3.use);
+												NBMemory_copy(gpuBwdRRCopied.buff.data, gpuBwdRRMapped.buff.data, gpuBwdRRCopied.buff.use);
 											}
 											endTime = NBThread_clock();
 											gpuBwdTimeCpying = endTime - midTime2;
@@ -1125,6 +1401,13 @@ void App_vulkan_compute_run_in_samples(STApp* app, const STNBScnRenderJobTree* s
 												} else {
 													printf("gpu_backwards_maped vs cpu_backwards: DO NOT MATCH %.2f%% <---(!).\n", 100.0f * matchRel);
 												}
+											}
+											//remove mapped data (memory is not owned by this object)
+											{
+												gpuBwdRRMapped.buff.data = NULL;
+												gpuBwdRRMapped.buff.use = NULL;
+												gpuBwdRRMapped.buff.sz = NULL;
+												NBScnRenderJobFlatMap_reset(&gpuBwdRRMapped.map);
 											}
 										}
 										if (cmdBuff != NULL) {
@@ -1168,9 +1451,8 @@ void App_vulkan_compute_run_in_samples(STApp* app, const STNBScnRenderJobTree* s
 			}
 		}
 		//release
-		NBVulkanBuff_release(&paramsBuff);
-		NBVulkanBuff_release(&treNodesBuff); NBVulkanBuff_release(&treV0Buff); NBVulkanBuff_release(&treV1Buff); NBVulkanBuff_release(&treV2Buff); NBVulkanBuff_release(&treV3Buff);
-		NBVulkanBuff_release(&fltNodesBuff); NBVulkanBuff_release(&fltV0Buff); NBVulkanBuff_release(&fltV1Buff); NBVulkanBuff_release(&fltV2Buff); NBVulkanBuff_release(&fltV3Buff);
+		NBVulkanBuff_release(&cpyBuffHost); NBVulkanBuff_release(&srcBuffDev);
+		NBVulkanBuff_release(&hdrsBuffDev);  NBVulkanBuff_release(&dstBuffDev); NBVulkanBuff_release(&dstBuffHost);
 	}
 	printf("Execution times (%d elems): cpu_fwd(%.4fms), cpu_bwd(%.4fms), gpu_bwd_on_cpu(%.4fms), gpu_bwd(%.4fms exc, +%.4fms map, +%.4fms cpy).\n"
 		, src->nodes.use
@@ -1182,13 +1464,17 @@ void App_vulkan_compute_run_in_samples(STApp* app, const STNBScnRenderJobTree* s
 		, (float)(gpuBwdTimeCpying) / (float)(osFreq / 1000)
 	);
 	//	printf("Info, OS-Window created.\n");
-	NBScnRenderJobPlain_release(&cpuFwdRR);
-	NBScnRenderJobPlain_release(&cpuBwdRR);
-	NBScnRenderJobPlain_release(&gpuBwdRRMapped);
-	NBScnRenderJobPlain_release(&gpuBwdRRCopied);
+	NBScnRenderJobFlat_release(&cpuFwdRR);
+	NBScnRenderJobFlat_release(&cpuBwdRR);
+	NBScnRenderJobFlat_release(&gpuBwdRRMapped);
+	NBScnRenderJobFlat_release(&gpuBwdRRCopied);
+	if (treeBuffDataTmp != NULL) {
+		free(treeBuffDataTmp);
+		treeBuffDataTmp = NULL;
+	}
 }
 
-bool App_vulkan_compute_create_src_buffer(STApp* app, const unsigned int sz, void* data, STNBVulkanBuff* dst, const bool printBuffTypeSelected) {
+bool App_vulkan_compute_create_buffer(STApp* app, const char* dbgName, STNBVulkanBuff* dst, const unsigned int sz, VkBufferUsageFlags usage, VkMemoryPropertyFlags props, const bool printBuffTypeSelected) {
 	bool r = false;
 	const unsigned int allocSz = (sz == 0 ? app->vlkn.dev.hw.props.limits.nonCoherentAtomSize : (sz + (app->vlkn.dev.hw.props.limits.nonCoherentAtomSize - 1)) / app->vlkn.dev.hw.props.limits.nonCoherentAtomSize * app->vlkn.dev.hw.props.limits.nonCoherentAtomSize);
 	VkBuffer buff = NULL;
@@ -1196,14 +1482,14 @@ bool App_vulkan_compute_create_src_buffer(STApp* app, const unsigned int sz, voi
 		VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO
 		, NULL	//next
 		, 0		//flags
-		, allocSz
-		, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT //usage
+		, allocSz //size
+		, usage //usage
 		, VK_SHARING_MODE_EXCLUSIVE //sharingMode; exclusive: not  shared between family-queues
 		, 0 //queueFamilyIndexCount
 		, NULL //pQueueFamilyIndices
 	};
 	if (VK_SUCCESS != vkCreateBuffer(app->vlkn.dev.obj, &buffInfo, NULL, &buff)) {
-		printf("Vulkan, error, vkCreateBuffer failed for compute_src_buffer(%d bytes).\n", allocSz);
+		printf("Vulkan, error, vkCreateBuffer failed for '%s' buffer(%d bytes).\n", dbgName, allocSz);
 	} else {
 		int iMemoryType = -1;
 		VkMemoryRequirements memReqs;
@@ -1218,23 +1504,18 @@ bool App_vulkan_compute_create_src_buffer(STApp* app, const unsigned int sz, voi
 				const VkMemoryType* mtCur = (iMemoryType == -1 ? NULL : &app->vlkn.dev.hw.mem.props.memoryTypes[iMemoryType]);
 				if (
 					memReqs.memoryTypeBits & (1 << i) //filtered by 'vkGetBufferMemoryRequirements'
-					&& (mt->propertyFlags & VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT) //must be visible to host
-					&& (
-						mtCur == NULL //is first option found
-						|| ((mt->propertyFlags & VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT) && !(mtCur->propertyFlags & VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT)) //always prefer device_local memory (even if we have to sync it)
-						|| ((mt->propertyFlags & VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT) == (mtCur->propertyFlags & VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT) && (mt->propertyFlags & VK_MEMORY_PROPERTY_HOST_COHERENT_BIT) && !(mtCur->propertyFlags & VK_MEMORY_PROPERTY_HOST_COHERENT_BIT)) //under the same device_local value, prefer the host_coherent one
-						)
+					&& (mt->propertyFlags & props)  == props //properties
 					) {
 					iMemoryType = i;
 				}
 			}
 		}
 		if (iMemoryType < 0) {
-			printf("Vulkan, error, could not find memory-type for src-buffer.\n");
+			printf("Vulkan, error, could not find memory-type for '%s' buffer.\n", dbgName);
 		} else {
 			const VkMemoryType* mt = &app->vlkn.dev.hw.mem.props.memoryTypes[iMemoryType];
 			if (printBuffTypeSelected) {
-				printf("Src-buffer selected memory-type-#%d/%d: heap#%d %s%s%s%s%s%s%s%s%s.\n", iMemoryType + 1, app->vlkn.dev.hw.mem.props.memoryTypeCount, (mt->heapIndex + 1)
+				printf("'%s' buffer selected memory-type-#%d/%d: heap#%d %s%s%s%s%s%s%s%s%s.\n", dbgName, iMemoryType + 1, app->vlkn.dev.hw.mem.props.memoryTypeCount, (mt->heapIndex + 1)
 					, mt->propertyFlags & VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT ? " | device_local" : ""
 					, mt->propertyFlags & VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT ? " | host_visible" : ""
 					, mt->propertyFlags & VK_MEMORY_PROPERTY_HOST_COHERENT_BIT ? " | host_coherent" : ""	//vkFlushMappedMemoryRanges and vkInvalidateMappedMemoryRanges are not needed to manage this memory.
@@ -1257,254 +1538,32 @@ bool App_vulkan_compute_create_src_buffer(STApp* app, const unsigned int sz, voi
 				, iMemoryType//memoryTypeIndex
 			};
 			if (VK_SUCCESS != vkAllocateMemory(app->vlkn.dev.obj, &allocInfo, nullptr, &mem)) {
-				printf("Vulkan, error, src-buffer vkAllocateMemory(%d bytes) falied.\n", allocSz);
+				printf("Vulkan, error, '%s' buffer vkAllocateMemory(%d bytes) falied.\n", dbgName, allocSz);
 			} else if (VK_SUCCESS != vkBindBufferMemory(app->vlkn.dev.obj, buff, mem, 0)) {
-				printf("Vulkan, error, src-buffer vkBindBufferMemory(%d bytes) falied.\n", allocSz);
+				printf("Vulkan, error, '%s' buffer vkBindBufferMemory(%d bytes) falied.\n", dbgName, allocSz);
 			} else {
-				void* mapped = NULL;
+				dst->dev = app->vlkn.dev.obj;
+				dst->buff = buff; buff = NULL; //consume
+				dst->mem = mem; mem = NULL; //consume
+				dst->memFlags = mt->propertyFlags;
+				dst->mapped = NULL; //consume
+				dst->mappedDataSz = sz;		//populated data
+				dst->mappedSz = allocSz;	//allocated space
+				dst->alignment = memReqs.alignment;
+				dst->nonCoherentAtomSize = app->vlkn.dev.hw.props.limits.nonCoherentAtomSize;
+				r = true;
+				/*void* mapped = NULL;
 				if (VK_SUCCESS != vkMapMemory(app->vlkn.dev.obj, mem, 0, allocSz, 0, &mapped)) {
 					printf("Vulkan, error, src-buffer vkMapMemory(%d bytes) falied.\n", allocSz);
 				} else {
 					memcpy(mapped, data, (size_t)sz);
 					//
-					dst->dev = app->vlkn.dev.obj;
-					dst->buff = buff; buff = NULL; //consume
-					dst->mem = mem; mem = NULL; //consume
-					dst->memFlags = mt->propertyFlags;
-					dst->mapped = mapped;  mapped = NULL; //consume
-					dst->mappedDataSz = sz;		//populated data
-					dst->mappedSz = allocSz;	//allocated space
-					dst->alignment = memReqs.alignment;
-					dst->nonCoherentAtomSize = app->vlkn.dev.hw.props.limits.nonCoherentAtomSize;
-					r = true;
 				}
 				//unmap (if not consumed)
 				if (mapped != NULL) {
 					vkUnmapMemory(app->vlkn.dev.obj, mem);
 					mapped = NULL;
-				}
-			}
-			//release (if not consumed)
-			if (mem != NULL) {
-				vkFreeMemory(app->vlkn.dev.obj, mem, NULL);
-				mem = NULL;
-			}
-		}
-	}
-	//release (if not consumed)
-	if (buff != NULL) {
-		vkDestroyBuffer(app->vlkn.dev.obj, buff, NULL);
-		buff = NULL;
-	}
-	return r;
-}
-
-bool App_vulkan_compute_create_dst_buffer(STApp* app, const unsigned int sz, STNBVulkanBuff* dst, const bool printBuffTypeSelected) {
-	bool r = false;
-	const unsigned int allocSz = (sz == 0 ? app->vlkn.dev.hw.props.limits.nonCoherentAtomSize : (sz + (app->vlkn.dev.hw.props.limits.nonCoherentAtomSize - 1)) / app->vlkn.dev.hw.props.limits.nonCoherentAtomSize * app->vlkn.dev.hw.props.limits.nonCoherentAtomSize);
-	VkBuffer buff = NULL;
-	VkBufferCreateInfo buffInfo = {
-		VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO
-		, NULL	//next
-		, 0		//flags
-		, allocSz
-		, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_SRC_BIT //usage
-		, VK_SHARING_MODE_EXCLUSIVE //sharingMode; exclusive: not  shared between family-queues
-		, 0 //queueFamilyIndexCount
-		, NULL //pQueueFamilyIndices
-	};
-	if (VK_SUCCESS != vkCreateBuffer(app->vlkn.dev.obj, &buffInfo, NULL, &buff)) {
-		printf("Vulkan, error, vkCreateBuffer failed for compute_dst_buffer(%d bytes).\n", allocSz);
-	} else {
-		int iMemoryType = -1;
-		VkMemoryRequirements memReqs;
-		//memReqs.alignment //requirement for vkBindbufferMemory() and vkBindImageMemory()
-		vkGetBufferMemoryRequirements(app->vlkn.dev.obj, buff, &memReqs);
-		//printf("Vulkan, compute_dst_buffer(%d bytes) requires: size(%u) offset-alignment(%d).\n", allocSz, memReqs.size
-		//	, memReqs.alignment //requirement for vkBindbufferMemory() and vkBindImageMemory()
-		//);
-		{
-			int i; for (i = 0; i < app->vlkn.dev.hw.mem.props.memoryTypeCount; i++) {
-				const VkMemoryType* mt = &app->vlkn.dev.hw.mem.props.memoryTypes[i];
-				const VkMemoryType* mtCur = (iMemoryType == -1 ? NULL : &app->vlkn.dev.hw.mem.props.memoryTypes[iMemoryType]);
-				if (
-					memReqs.memoryTypeBits & (1 << i) //filtered by 'vkGetBufferMemoryRequirements'
-					&& (mt->propertyFlags & VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT) //must be visible to host
-					&& (
-						mtCur == NULL //is first option found
-						|| ((mt->propertyFlags & VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT) && !(mtCur->propertyFlags & VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT)) //always prefer device_local memory (even if we have to sync it)
-						|| ((mt->propertyFlags & VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT) == (mtCur->propertyFlags & VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT) && (mt->propertyFlags & VK_MEMORY_PROPERTY_HOST_COHERENT_BIT) && !(mtCur->propertyFlags & VK_MEMORY_PROPERTY_HOST_COHERENT_BIT)) //under the same device_local value, prefer the host_coherent one
-						)
-					) {
-					iMemoryType = i;
-				}
-			}
-		}
-		if (iMemoryType < 0) {
-			printf("Vulkan, error, could not find memory-type for dst-buffer.\n");
-		} else {
-			const VkMemoryType* mt = &app->vlkn.dev.hw.mem.props.memoryTypes[iMemoryType];
-			if (printBuffTypeSelected) {
-				printf("Dst-buffer selected memory-type-#%d/%d: heap#%d %s%s%s%s%s%s%s%s%s.\n", iMemoryType + 1, app->vlkn.dev.hw.mem.props.memoryTypeCount, (mt->heapIndex + 1)
-					, mt->propertyFlags & VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT ? " | device_local" : ""
-					, mt->propertyFlags & VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT ? " | host_visible" : ""
-					, mt->propertyFlags & VK_MEMORY_PROPERTY_HOST_COHERENT_BIT ? " | host_coherent" : ""	//vkFlushMappedMemoryRanges and vkInvalidateMappedMemoryRanges are not needed to manage this memory.
-					, mt->propertyFlags & VK_MEMORY_PROPERTY_HOST_CACHED_BIT ? " | host_cached" : ""		//memory is cached on the host for faster access
-					, mt->propertyFlags & VK_MEMORY_PROPERTY_LAZILY_ALLOCATED_BIT ? " | lazily_alloc" : ""	//only accesible to device (gpu)
-					//VK_VERSION_1_1
-					, mt->propertyFlags & VK_MEMORY_PROPERTY_PROTECTED_BIT ? " | protected" : ""			//only device's protected queue operations to access the memory.
-					//VK_AMD_device_coherent_memory
-					, mt->propertyFlags & VK_MEMORY_PROPERTY_DEVICE_COHERENT_BIT_AMD ? " | device_coherent_amd" : ""	//device's access and visibility of this memory is automatic
-					, mt->propertyFlags & VK_MEMORY_PROPERTY_DEVICE_UNCACHED_BIT_AMD ? " | device_uncached_amd" : ""	//uncached device memory is always device coherent
-					//VK_NV_external_memory_rdma
-					, mt->propertyFlags & VK_MEMORY_PROPERTY_RDMA_CAPABLE_BIT_NV ? " | rdma_capable_nv" : ""	//external devices can access this memory directly
-				);
-			}
-			VkDeviceMemory mem = NULL;
-			VkMemoryAllocateInfo allocInfo = {
-				allocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO
-				, NULL //next
-				, allocSz //allocationSize
-				, iMemoryType//memoryTypeIndex
-			};
-			if (VK_SUCCESS != vkAllocateMemory(app->vlkn.dev.obj, &allocInfo, nullptr, &mem)) {
-				printf("Vulkan, error, dst-buffer vkAllocateMemory(%d bytes) falied.\n", allocSz);
-			} else if (VK_SUCCESS != vkBindBufferMemory(app->vlkn.dev.obj, buff, mem, 0)) {
-				printf("Vulkan, error, dst-buffer vkBindBufferMemory(%d bytes) falied.\n", allocSz);
-			} else {
-				void* mapped = NULL;
-				if (VK_SUCCESS != vkMapMemory(app->vlkn.dev.obj, mem, 0, allocSz, 0, &mapped)) {
-					printf("Vulkan, error, dst-buffer vkMapMemory(%d bytes) falied.\n", allocSz);
-				} else {
-					//	memcpy(mapped, data, (size_t)sz);
-						//
-					dst->dev = app->vlkn.dev.obj;
-					dst->buff = buff; buff = NULL; //consume
-					dst->mem = mem; mem = NULL; //consume
-					dst->memFlags = mt->propertyFlags;
-					dst->mapped = mapped;  mapped = NULL; //consume
-					dst->mappedDataSz = sz;		//populated data
-					dst->mappedSz = allocSz;	//allocated space
-					dst->alignment = memReqs.alignment;
-					dst->nonCoherentAtomSize = app->vlkn.dev.hw.props.limits.nonCoherentAtomSize;
-					r = true;
-				}
-				//unmap (if not consumed)
-				if (mapped != NULL) {
-					vkUnmapMemory(app->vlkn.dev.obj, mem);
-					mapped = NULL;
-				}
-			}
-			//release (if not consumed)
-			if (mem != NULL) {
-				vkFreeMemory(app->vlkn.dev.obj, mem, NULL);
-				mem = NULL;
-			}
-		}
-	}
-	//release (if not consumed)
-	if (buff != NULL) {
-		vkDestroyBuffer(app->vlkn.dev.obj, buff, NULL);
-		buff = NULL;
-	}
-	return r;
-}
-
-bool App_vulkan_compute_create_uniform_buffer(STApp* app, const unsigned int sz, STNBVulkanBuff* dst, const bool printBuffTypeSelected) {
-	bool r = false;
-	const unsigned int allocSz = (sz == 0 ? app->vlkn.dev.hw.props.limits.nonCoherentAtomSize : (sz + (app->vlkn.dev.hw.props.limits.nonCoherentAtomSize - 1)) / app->vlkn.dev.hw.props.limits.nonCoherentAtomSize * app->vlkn.dev.hw.props.limits.nonCoherentAtomSize);
-	VkBuffer buff = NULL;
-	VkBufferCreateInfo buffInfo = {
-		VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO
-		, NULL	//next
-		, 0		//flags
-		, allocSz
-		, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT //usage
-		, VK_SHARING_MODE_EXCLUSIVE //sharingMode; exclusive: not  shared between family-queues
-		, 0 //queueFamilyIndexCount
-		, NULL //pQueueFamilyIndices
-	};
-	if (VK_SUCCESS != vkCreateBuffer(app->vlkn.dev.obj, &buffInfo, NULL, &buff)) {
-		printf("Vulkan, error, vkCreateBuffer failed for compute_uniform_buffer(%d bytes).\n", allocSz);
-	} else {
-		int iMemoryType = -1;
-		VkMemoryRequirements memReqs;
-		//memReqs.alignment //requirement for vkBindbufferMemory() and vkBindImageMemory()
-		vkGetBufferMemoryRequirements(app->vlkn.dev.obj, buff, &memReqs);
-		//printf("Vulkan, compute_uniform_buffer(%d bytes) requires: size(%u) offset-alignment(%d).\n", allocSz, memReqs.size
-		//	, memReqs.alignment //requirement for vkBindbufferMemory() and vkBindImageMemory()
-		//);
-		{
-			int i; for (i = 0; i < app->vlkn.dev.hw.mem.props.memoryTypeCount; i++) {
-				const VkMemoryType* mt = &app->vlkn.dev.hw.mem.props.memoryTypes[i];
-				const VkMemoryType* mtCur = (iMemoryType == -1 ? NULL : &app->vlkn.dev.hw.mem.props.memoryTypes[iMemoryType]);
-				if (
-					memReqs.memoryTypeBits & (1 << i) //filtered by 'vkGetBufferMemoryRequirements'
-					&& (mt->propertyFlags & VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT) //must be visible to host
-					&& (
-						mtCur == NULL //is first option found
-						|| ((mt->propertyFlags & VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT) && !(mtCur->propertyFlags & VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT)) //always prefer device_local memory (even if we have to sync it)
-						|| ((mt->propertyFlags & VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT) == (mtCur->propertyFlags & VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT) && (mt->propertyFlags & VK_MEMORY_PROPERTY_HOST_COHERENT_BIT) && !(mtCur->propertyFlags & VK_MEMORY_PROPERTY_HOST_COHERENT_BIT)) //under the same device_local value, prefer the host_coherent one
-						)
-					) {
-					iMemoryType = i;
-				}
-			}
-		}
-		if (iMemoryType < 0) {
-			printf("Vulkan, error, could not find memory-type for uniform-buffer.\n");
-		} else {
-			const VkMemoryType* mt = &app->vlkn.dev.hw.mem.props.memoryTypes[iMemoryType];
-			if (printBuffTypeSelected) {
-				printf("Uniform-buffer selected memory-type-#%d/%d: heap#%d %s%s%s%s%s%s%s%s%s.\n", iMemoryType + 1, app->vlkn.dev.hw.mem.props.memoryTypeCount, (mt->heapIndex + 1)
-					, mt->propertyFlags & VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT ? " | device_local" : ""
-					, mt->propertyFlags & VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT ? " | host_visible" : ""
-					, mt->propertyFlags & VK_MEMORY_PROPERTY_HOST_COHERENT_BIT ? " | host_coherent" : ""	//vkFlushMappedMemoryRanges and vkInvalidateMappedMemoryRanges are not needed to manage this memory.
-					, mt->propertyFlags & VK_MEMORY_PROPERTY_HOST_CACHED_BIT ? " | host_cached" : ""		//memory is cached on the host for faster access
-					, mt->propertyFlags & VK_MEMORY_PROPERTY_LAZILY_ALLOCATED_BIT ? " | lazily_alloc" : ""	//only accesible to device (gpu)
-					//VK_VERSION_1_1
-					, mt->propertyFlags & VK_MEMORY_PROPERTY_PROTECTED_BIT ? " | protected" : ""			//only device's protected queue operations to access the memory.
-					//VK_AMD_device_coherent_memory
-					, mt->propertyFlags & VK_MEMORY_PROPERTY_DEVICE_COHERENT_BIT_AMD ? " | device_coherent_amd" : ""	//device's access and visibility of this memory is automatic
-					, mt->propertyFlags & VK_MEMORY_PROPERTY_DEVICE_UNCACHED_BIT_AMD ? " | device_uncached_amd" : ""	//uncached device memory is always device coherent
-					//VK_NV_external_memory_rdma
-					, mt->propertyFlags & VK_MEMORY_PROPERTY_RDMA_CAPABLE_BIT_NV ? " | rdma_capable_nv" : ""	//external devices can access this memory directly
-				);
-			}
-			VkDeviceMemory mem = NULL;
-			VkMemoryAllocateInfo allocInfo = {
-				allocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO
-				, NULL //next
-				, allocSz //allocationSize
-				, iMemoryType//memoryTypeIndex
-			};
-			if (VK_SUCCESS != vkAllocateMemory(app->vlkn.dev.obj, &allocInfo, nullptr, &mem)) {
-				printf("Vulkan, error, uniform-buffer vkAllocateMemory(%d bytes) falied.\n", allocSz);
-			} else if (VK_SUCCESS != vkBindBufferMemory(app->vlkn.dev.obj, buff, mem, 0)) {
-				printf("Vulkan, error, uniform-buffer vkBindBufferMemory(%d bytes) falied.\n", allocSz);
-			} else {
-				void* mapped = NULL;
-				if (VK_SUCCESS != vkMapMemory(app->vlkn.dev.obj, mem, 0, allocSz, 0, &mapped)) {
-					printf("Vulkan, error, uniform-buffer vkMapMemory(%d bytes) falied.\n", allocSz);
-				} else {
-					//memcpy(mapped, data, (size_t)sz);
-					//
-					dst->dev = app->vlkn.dev.obj;
-					dst->buff = buff; buff = NULL; //consume
-					dst->mem = mem; mem = NULL; //consume
-					dst->memFlags = mt->propertyFlags;
-					dst->mapped = mapped;  mapped = NULL; //consume
-					dst->mappedDataSz = sz;		//populated data
-					dst->mappedSz = allocSz;	//allocated space
-					dst->alignment = memReqs.alignment;
-					dst->nonCoherentAtomSize = app->vlkn.dev.hw.props.limits.nonCoherentAtomSize;
-					r = true;
-				}
-				//unmap (if not consumed)
-				if (mapped != NULL) {
-					vkUnmapMemory(app->vlkn.dev.obj, mem);
-					mapped = NULL;
-				}
+				}*/
 			}
 			//release (if not consumed)
 			if (mem != NULL) {
