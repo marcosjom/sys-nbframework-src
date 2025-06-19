@@ -35,9 +35,11 @@
 #define NBFILE_MUTEX_DEACTIVATE(OPQ) NBASSERT(OPQ->mutexLckd) OPQ->mutexLckd = FALSE; NBObject_unlock(OPQ);
 
 #ifdef NB_CONFIG_INCLUDE_ASSERTS
-#	define NBFILE_MUTEX_ASSERT_LOCKED(OPQ)	{ if(!OPQ->mutexLckd){ PRINTF_ERROR("Expected file to be locked: '%s'.\n", opq->dbgPathRef.str); NBASSERT(FALSE) } }
+#	define NBFILE_MUTEX_ASSERT_LOCKED(OPQ)  { if(!(OPQ)->mutexLckd){ PRINTF_ERROR("Expected file to be locked: '%s'.\n", (OPQ)->dbgPathRef.str); NBASSERT(FALSE) } }
+#   define NBFILE_MUTEX_ASSERT_UNLOCKED(OPQ) { if((OPQ)->mutexLckd){ PRINTF_ERROR("Expected file to be unlocked: '%s'.\n", (OPQ)->dbgPathRef.str); NBASSERT(FALSE) } }
 #else
-#	define NBFILE_MUTEX_ASSERT_LOCKED(OPQ)	NBASSERT(OPQ->mutexLckd)
+#	define NBFILE_MUTEX_ASSERT_LOCKED(OPQ)  NBASSERT((OPQ)->mutexLckd)
+#   define NBFILE_MUTEX_ASSERT_UNLOCKED(OPQ) NBASSERT(!(OPQ)->mutexLckd)
 #endif
 
 //HANDLE/INVALID_HANDLE_VALUE CReateFile(strPath, desiredAccess(GENERIC_READ | GENERIC_WRITE), shareMode(0), securityAttributes(NULL), creationDisposition(OPEN_ALWAYS), flagsAndAttributes(FILE_ATTRIBUTE_NORMAL | FILE_FLAG_RANDOM_ACCESS), templateFile(NULL))
@@ -231,9 +233,6 @@ void NBFile_uninitLocked(STNBObject* obj){
 //Mutex
 
 void NBFile_lockOpq_(STNBFileOpq* opq){
-    if(opq->itf.lock != NULL){
-        (*opq->itf.lock)(opq->itfObj);
-    }
     NBFILE_MUTEX_ACTIVATE(opq)
     //Verify position
 #   ifdef NB_CONFIG_INCLUDE_ASSERTS_FILE_POSITION
@@ -242,16 +241,19 @@ void NBFile_lockOpq_(STNBFileOpq* opq){
         NBASSERT(opq->curPos == curPos);
     }
 #   endif
+    if(opq->itf.lock != NULL){
+        (*opq->itf.lock)(opq->itfObj);
+    }
     if(opq->itf.seek != NULL){
         (*opq->itf.seek)(opq->itfObj, opq->curPos, ENNBFileRelative_Start, NULL);
     }
 }
 
 void NBFile_unlockOpq_(STNBFileOpq* opq){
-    NBFILE_MUTEX_DEACTIVATE(opq)
     if(opq->itf.unlock != NULL){
         (*opq->itf.unlock)(opq->itfObj);
     }
+    NBFILE_MUTEX_DEACTIVATE(opq)
 }
 
 void NBFile_lock(STNBFileRef obj){
@@ -719,9 +721,12 @@ BOOL NBFile_openAsStd(STNBFileRef obj, const ENNBFileStd std){
 BOOL NBFile_openAsFileRng(STNBFileRef obj, STNBFileRef parent, const UI32 start, const UI32 size){
 	BOOL r = FALSE;
 	STNBFileOpq* opq = (STNBFileOpq*)obj.opaque; NBASSERT(NBFile_isClass(obj));
-	NBFILE_MUTEX_ACTIVATE(opq)
-	NBASSERT(opq->itfObj == NULL)
-	if(opq->itfObj == NULL){
+    NBFILE_MUTEX_ACTIVATE(opq)
+	NBASSERT(opq->itfObj == NULL && NBFile_isSet(parent))
+	if(opq->itfObj == NULL && NBFile_isSet(parent)){
+        NBASSERT(NBFile_isClass(parent))
+        NBFILE_MUTEX_ASSERT_UNLOCKED((STNBFileOpq*)parent.opaque) //Parent must be unlocked from user
+        //
 		IFileItf itf;
 		NBMemory_setZeroSt(itf, IFileItf);
 		itf.close		= NBFile_close_fileRng_;

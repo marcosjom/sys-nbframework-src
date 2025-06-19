@@ -513,7 +513,7 @@ BOOL NBFontsGlyphsStore_peekFontsInFilepath(STNBFontsGlyphsStoreOpq* opq, const 
 						//PRINTF_ERROR("NBFontsGlyphsStore, Could not peek fonts in filepath: '%s'.\n", filepath);
 						//NBASSERT(FALSE)
 					} else {
-						PRINTF_INFO("FontsGlyphsStore, found font: '%s' '%s' styleMsk(%d%s%s%s%s%s%s%s%s).\n", family.str, subfamily.str, styleMask, (styleMask != 0 ? ":" : ""), (styleMask & ENNBFontStyleBit_Bold) != 0 ? " bold" : "", (styleMask & ENNBFontStyleBit_Italic) != 0 ? " italic" : "", (styleMask & ENNBFontStyleBit_Undelined) != 0 ? " underlined" : "", (styleMask & ENNBFontStyleBit_Striked) != 0 ? " striked" : "", (styleMask & ENNBFontStyleBit_Shadowed) != 0 ? " shadowed" : "", (styleMask & ENNBFontStyleBit_Condensed) != 0 ? " condensed" : "", (styleMask & ENNBFontStyleBit_Extended) != 0 ? " extended" : "");
+						//PRINTF_INFO("FontsGlyphsStore, found font: '%s' '%s' styleMsk(%d%s%s%s%s%s%s%s%s).\n", family.str, subfamily.str, styleMask, (styleMask != 0 ? ":" : ""), (styleMask & ENNBFontStyleBit_Bold) != 0 ? " bold" : "", (styleMask & ENNBFontStyleBit_Italic) != 0 ? " italic" : "", (styleMask & ENNBFontStyleBit_Undelined) != 0 ? " underlined" : "", (styleMask & ENNBFontStyleBit_Striked) != 0 ? " striked" : "", (styleMask & ENNBFontStyleBit_Shadowed) != 0 ? " shadowed" : "", (styleMask & ENNBFontStyleBit_Condensed) != 0 ? " condensed" : "", (styleMask & ENNBFontStyleBit_Extended) != 0 ? " extended" : "");
 						//Add to found
 						{
 							STNBFontsGlyphsStoreFound f;
@@ -568,7 +568,7 @@ BOOL NBFontsGlyphsStore_peekFontsInFilepath(STNBFontsGlyphsStoreOpq* opq, const 
 									if(!NBFontsGlyphsStore_peekFontsInFilePos(opq, file, &family, &subfamily, &styleMask)){
 										r = FALSE; NBASSERT(FALSE)
 									} else {
-										PRINTF_INFO("NBFontsGlyphsStore, Found font: '%s' '%s' styleMsk(%d%s%s%s%s%s%s%s%s).\n", family.str, subfamily.str, styleMask, (styleMask != 0 ? ":" : ""), (styleMask & ENNBFontStyleBit_Bold) != 0 ? " bold" : "", (styleMask & ENNBFontStyleBit_Italic) != 0 ? " italic" : "", (styleMask & ENNBFontStyleBit_Undelined) != 0 ? " underlined" : "", (styleMask & ENNBFontStyleBit_Striked) != 0 ? " striked" : "", (styleMask & ENNBFontStyleBit_Shadowed) != 0 ? " shadowed" : "", (styleMask & ENNBFontStyleBit_Condensed) != 0 ? " condensed" : "", (styleMask & ENNBFontStyleBit_Extended) != 0 ? " extended" : "");
+										//PRINTF_INFO("NBFontsGlyphsStore, Found font: '%s' '%s' styleMsk(%d%s%s%s%s%s%s%s%s).\n", family.str, subfamily.str, styleMask, (styleMask != 0 ? ":" : ""), (styleMask & ENNBFontStyleBit_Bold) != 0 ? " bold" : "", (styleMask & ENNBFontStyleBit_Italic) != 0 ? " italic" : "", (styleMask & ENNBFontStyleBit_Undelined) != 0 ? " underlined" : "", (styleMask & ENNBFontStyleBit_Striked) != 0 ? " striked" : "", (styleMask & ENNBFontStyleBit_Shadowed) != 0 ? " shadowed" : "", (styleMask & ENNBFontStyleBit_Condensed) != 0 ? " condensed" : "", (styleMask & ENNBFontStyleBit_Extended) != 0 ? " extended" : "");
 										//Add to found
 										{
 											STNBFontsGlyphsStoreFound f;
@@ -647,13 +647,13 @@ BOOL NBFontsGlyphsStore_peekFontsInFilePos(STNBFontsGlyphsStoreOpq* opq, STNBFil
 						r = FALSE; NBASSERT(FALSE)
 						break;
 					} else {
-						STNBFileRef subfile = NBFile_alloc(NULL);
+                        NBFile_unlock(file);
+                        STNBFileRef subfile = NBFile_alloc(NULL);
 						if(!NBFile_openAsFileRng(subfile, file, tbl->start, tbl->size)){
 							//PRINTF_ERROR("NBFontsGlyphsStore, Could not open a sub-file to OT header's range.\n");
 							r = FALSE; NBASSERT(FALSE)
 							break;
 						} else {
-							NBFile_unlock(file);
 							NBFile_lock(subfile);
 							{
 								typedef struct STFuenteOTTablaHead_ {
@@ -700,9 +700,9 @@ BOOL NBFontsGlyphsStore_peekFontsInFilePos(STNBFontsGlyphsStoreOpq* opq, STNBFil
 							}
 							NBFile_unlock(subfile);
 							NBFile_close(subfile);
-							NBFile_lock(file);
 						}
 						NBFile_release(&subfile);
+                        NBFile_lock(file);
 					}
 				} else if(tbl->tag[0] == 'n' && tbl->tag[1] == 'a' && tbl->tag[2] == 'm' && tbl->tag[3] == 'e'){
 					_invUI32(&tbl->checksum);
@@ -714,13 +714,13 @@ BOOL NBFontsGlyphsStore_peekFontsInFilePos(STNBFontsGlyphsStoreOpq* opq, STNBFil
 						r = FALSE; NBASSERT(FALSE)
 						break;
 					} else {
-						STNBFileRef subfile = NBFile_alloc(NULL);
+                        NBFile_unlock(file);
+                        STNBFileRef subfile = NBFile_alloc(NULL);
 						if(!NBFile_openAsFileRng(subfile, file, tbl->start, tbl->size)){
 							//PRINTF_ERROR("NBFontsGlyphsStore, Could not open a sub-file to OT header's range.\n");
 							r = FALSE; NBASSERT(FALSE)
 							break;
 						} else {
-							NBFile_unlock(file);
 							NBFile_lock(subfile);
 							//Read format
 							UI16 format = 0; NBFile_read(subfile, &format, sizeof(format)); _invUI16(&format);
@@ -899,9 +899,9 @@ BOOL NBFontsGlyphsStore_peekFontsInFilePos(STNBFontsGlyphsStoreOpq* opq, STNBFil
 							}
 							NBFile_unlock(subfile);
 							NBFile_close(subfile);
-							NBFile_lock(file);
 						}
 						NBFile_release(&subfile);
+                        NBFile_lock(file);
 					}
 				}
 			}

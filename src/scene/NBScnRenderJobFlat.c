@@ -67,7 +67,7 @@ void NBScnRenderJobFlat_init(STNBScnRenderJobFlat* obj) {
 
 void NBScnRenderJobFlat_release(STNBScnRenderJobFlat* obj) {
 	if (obj->buff.data != NULL) {
-		free(obj->buff.data);
+        NBMemory_free(obj->buff.data);
 		obj->buff.data = NULL;
 	}
 	obj->buff.use = obj->buff.sz = 0;
@@ -208,7 +208,7 @@ UI32 NBScnRenderJobFlat_dispatchBackwards(STNBScnRenderJobFlat* obj, const STNBS
 					isDisabled = (isDisabled || NBScnTreeNode_getIsDisabled(n2)) ? 1 : 0;
 					isHidden = (isHidden || NBScnTreeNode_getIsHidden(n2)) ? 1 : 0;
 					//
-					STNBMatrix2D cpy = rr.matrix, prntMatrix = NBMatrix_fromTransforms((const STNBPoint) { n2->transform.x, n2->transform.y }, DEG_2_RAD(n2->transform.deg), (const STNBSize) { n2->transform.sX, n2->transform.sY });
+					STNBMatrix2D prntMatrix = NBMatrix_fromTransforms((const STNBPoint) { n2->transform.x, n2->transform.y }, DEG_2_RAD(n2->transform.deg), (const STNBSize) { n2->transform.sX, n2->transform.sY });
 					rr.matrix = NBMatrix_multiply(&prntMatrix, &rr.matrix);
 					//
 					rr.color.r *= (float)n2->color8.r / 255.0f;
@@ -354,8 +354,8 @@ UI32 NBScnRenderJobFlat_getDispatchHeadersBufferSz(const STNBScnRenderJobTree* s
 	NBASSERT(limits->dispatch.maxThreads != 0)
 	UI32 r = 0;
 	if (limits != NULL && limits->header.alignment != 0 && limits->dispatch.maxThreads != 0) {
-		const unsigned long ammDispatchCalls = (src->nodes.use + limits->dispatch.maxThreads - 1) / limits->dispatch.maxThreads;
-		const unsigned long paramsPaddedSz = (sizeof(STNBScnRenderDispatchHeader) + limits->header.alignment - 1) / limits->header.alignment * limits->header.alignment;
+		const UI32 ammDispatchCalls = (src->nodes.use + limits->dispatch.maxThreads - 1) / limits->dispatch.maxThreads;
+		const UI32 paramsPaddedSz = (sizeof(STNBScnRenderDispatchHeader) + limits->header.alignment - 1) / limits->header.alignment * limits->header.alignment;
 		r = (ammDispatchCalls * paramsPaddedSz);
 	}
 	return r;

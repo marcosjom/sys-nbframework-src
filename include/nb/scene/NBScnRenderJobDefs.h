@@ -2,11 +2,6 @@
 #define NB_SCN_RENDER_JOB_DEFS_H
 
 #include "nb/NBFrameworkDefs.h"
-#include "nb/core/NBArray.h"
-#include "nb/2d/NBMatrix.h"
-#include "nb/2d/NBColor.h"
-//
-#include "nb/scene/NBScnRenderJobMacros.h"
 
 #ifdef __cplusplus
 extern "C" {

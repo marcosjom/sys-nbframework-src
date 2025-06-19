@@ -408,270 +408,6 @@
     <ClInclude Include="..\..\..\src\ext\zlib\zutil.h">
       <Filter>nbframework\ext\zlib</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\services\svbdf.h">
-      <Filter>nbframework\ext\freetype\include\internal\services</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\services\svcid.h">
-      <Filter>nbframework\ext\freetype\include\internal\services</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\services\svgldict.h">
-      <Filter>nbframework\ext\freetype\include\internal\services</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\services\svgxval.h">
-      <Filter>nbframework\ext\freetype\include\internal\services</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\services\svkern.h">
-      <Filter>nbframework\ext\freetype\include\internal\services</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\services\svmm.h">
-      <Filter>nbframework\ext\freetype\include\internal\services</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\services\svotval.h">
-      <Filter>nbframework\ext\freetype\include\internal\services</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\services\svpfr.h">
-      <Filter>nbframework\ext\freetype\include\internal\services</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\services\svpostnm.h">
-      <Filter>nbframework\ext\freetype\include\internal\services</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\services\svprop.h">
-      <Filter>nbframework\ext\freetype\include\internal\services</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\services\svpscmap.h">
-      <Filter>nbframework\ext\freetype\include\internal\services</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\services\svpsinfo.h">
-      <Filter>nbframework\ext\freetype\include\internal\services</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\services\svsfnt.h">
-      <Filter>nbframework\ext\freetype\include\internal\services</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\services\svttcmap.h">
-      <Filter>nbframework\ext\freetype\include\internal\services</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\services\svtteng.h">
-      <Filter>nbframework\ext\freetype\include\internal\services</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\services\svttglyf.h">
-      <Filter>nbframework\ext\freetype\include\internal\services</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\services\svwinfnt.h">
-      <Filter>nbframework\ext\freetype\include\internal\services</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\services\svxf86nm.h">
-      <Filter>nbframework\ext\freetype\include\internal\services</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\autohint.h">
-      <Filter>nbframework\ext\freetype\include\internal</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\ftcalc.h">
-      <Filter>nbframework\ext\freetype\include\internal</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\ftdebug.h">
-      <Filter>nbframework\ext\freetype\include\internal</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\ftdriver.h">
-      <Filter>nbframework\ext\freetype\include\internal</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\ftgloadr.h">
-      <Filter>nbframework\ext\freetype\include\internal</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\ftmemory.h">
-      <Filter>nbframework\ext\freetype\include\internal</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\ftobjs.h">
-      <Filter>nbframework\ext\freetype\include\internal</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\ftpic.h">
-      <Filter>nbframework\ext\freetype\include\internal</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\ftrfork.h">
-      <Filter>nbframework\ext\freetype\include\internal</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\ftserv.h">
-      <Filter>nbframework\ext\freetype\include\internal</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\ftstream.h">
-      <Filter>nbframework\ext\freetype\include\internal</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\fttrace.h">
-      <Filter>nbframework\ext\freetype\include\internal</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\ftvalid.h">
-      <Filter>nbframework\ext\freetype\include\internal</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\internal.h">
-      <Filter>nbframework\ext\freetype\include\internal</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\psaux.h">
-      <Filter>nbframework\ext\freetype\include\internal</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\pshints.h">
-      <Filter>nbframework\ext\freetype\include\internal</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\sfnt.h">
-      <Filter>nbframework\ext\freetype\include\internal</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\t1types.h">
-      <Filter>nbframework\ext\freetype\include\internal</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\tttypes.h">
-      <Filter>nbframework\ext\freetype\include\internal</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\config\ftconfig.h">
-      <Filter>nbframework\ext\freetype\include\config</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\config\ftheader.h">
-      <Filter>nbframework\ext\freetype\include\config</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\config\ftmodule.h">
-      <Filter>nbframework\ext\freetype\include\config</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\config\ftoption.h">
-      <Filter>nbframework\ext\freetype\include\config</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\config\ftstdlib.h">
-      <Filter>nbframework\ext\freetype\include\config</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\freetype.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\ft2build.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\ftadvanc.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\ftautoh.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\ftbbox.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\ftbdf.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\ftbitmap.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\ftbzip2.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\ftcache.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\ftcffdrv.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\ftchapters.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\ftcid.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\fterrdef.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\fterrors.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\ftgasp.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\ftglyph.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\ftgxval.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\ftgzip.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\ftimage.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\ftincrem.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\ftlcdfil.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\ftlist.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\ftlzw.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\ftmac.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\ftmm.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\ftmodapi.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\ftmoderr.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\ftotval.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\ftoutln.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\ftpfr.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\ftrender.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\ftsizes.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\ftsnames.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\ftstroke.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\ftsynth.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\ftsystem.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\fttrigon.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\ftttdrv.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\fttypes.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\ftwinfnt.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\ftxf86.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\t1tables.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\ttnameid.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\tttables.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\tttags.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ext\freetype\include\ttunpat.h">
-      <Filter>nbframework\ext\freetype\include</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\nb\NBClass.h">
       <Filter>nbframework</Filter>
     </ClInclude>
@@ -1931,6 +1667,270 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\nb\scene\shaders\NBScnRenderJob_cs_4_0.h">
       <Filter>nbframework\scene\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\config\ftconfig.h">
+      <Filter>nbframework\ext\freetype\include\config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\config\ftheader.h">
+      <Filter>nbframework\ext\freetype\include\config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\config\ftmodule.h">
+      <Filter>nbframework\ext\freetype\include\config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\config\ftoption.h">
+      <Filter>nbframework\ext\freetype\include\config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\config\ftstdlib.h">
+      <Filter>nbframework\ext\freetype\include\config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\services\svbdf.h">
+      <Filter>nbframework\ext\freetype\include\internal\services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\services\svcid.h">
+      <Filter>nbframework\ext\freetype\include\internal\services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\services\svgldict.h">
+      <Filter>nbframework\ext\freetype\include\internal\services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\services\svgxval.h">
+      <Filter>nbframework\ext\freetype\include\internal\services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\services\svkern.h">
+      <Filter>nbframework\ext\freetype\include\internal\services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\services\svmm.h">
+      <Filter>nbframework\ext\freetype\include\internal\services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\services\svotval.h">
+      <Filter>nbframework\ext\freetype\include\internal\services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\services\svpfr.h">
+      <Filter>nbframework\ext\freetype\include\internal\services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\services\svpostnm.h">
+      <Filter>nbframework\ext\freetype\include\internal\services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\services\svprop.h">
+      <Filter>nbframework\ext\freetype\include\internal\services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\services\svpscmap.h">
+      <Filter>nbframework\ext\freetype\include\internal\services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\services\svpsinfo.h">
+      <Filter>nbframework\ext\freetype\include\internal\services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\services\svsfnt.h">
+      <Filter>nbframework\ext\freetype\include\internal\services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\services\svttcmap.h">
+      <Filter>nbframework\ext\freetype\include\internal\services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\services\svtteng.h">
+      <Filter>nbframework\ext\freetype\include\internal\services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\services\svttglyf.h">
+      <Filter>nbframework\ext\freetype\include\internal\services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\services\svwinfnt.h">
+      <Filter>nbframework\ext\freetype\include\internal\services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\services\svxf86nm.h">
+      <Filter>nbframework\ext\freetype\include\internal\services</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\autohint.h">
+      <Filter>nbframework\ext\freetype\include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\ftcalc.h">
+      <Filter>nbframework\ext\freetype\include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\ftdebug.h">
+      <Filter>nbframework\ext\freetype\include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\ftdriver.h">
+      <Filter>nbframework\ext\freetype\include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\ftgloadr.h">
+      <Filter>nbframework\ext\freetype\include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\ftmemory.h">
+      <Filter>nbframework\ext\freetype\include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\ftobjs.h">
+      <Filter>nbframework\ext\freetype\include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\ftpic.h">
+      <Filter>nbframework\ext\freetype\include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\ftrfork.h">
+      <Filter>nbframework\ext\freetype\include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\ftserv.h">
+      <Filter>nbframework\ext\freetype\include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\ftstream.h">
+      <Filter>nbframework\ext\freetype\include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\fttrace.h">
+      <Filter>nbframework\ext\freetype\include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\ftvalid.h">
+      <Filter>nbframework\ext\freetype\include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\internal.h">
+      <Filter>nbframework\ext\freetype\include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\psaux.h">
+      <Filter>nbframework\ext\freetype\include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\pshints.h">
+      <Filter>nbframework\ext\freetype\include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\sfnt.h">
+      <Filter>nbframework\ext\freetype\include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\t1types.h">
+      <Filter>nbframework\ext\freetype\include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\internal\tttypes.h">
+      <Filter>nbframework\ext\freetype\include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\freetype.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\ft2build.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\ftadvanc.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\ftautoh.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\ftbbox.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\ftbdf.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\ftbitmap.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\ftbzip2.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\ftcache.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\ftcffdrv.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\ftchapters.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\ftcid.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\fterrdef.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\fterrors.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\ftgasp.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\ftglyph.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\ftgxval.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\ftgzip.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\ftimage.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\ftincrem.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\ftlcdfil.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\ftlist.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\ftlzw.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\ftmac.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\ftmm.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\ftmodapi.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\ftmoderr.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\ftotval.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\ftoutln.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\ftpfr.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\ftrender.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\ftsizes.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\ftsnames.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\ftstroke.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\ftsynth.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\ftsystem.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\fttrigon.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\ftttdrv.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\fttypes.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\ftwinfnt.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\ftxf86.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\t1tables.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\ttnameid.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\tttables.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\tttags.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\ext\freetype\include\ttunpat.h">
+      <Filter>nbframework\ext\freetype\include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -3880,48 +3880,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\ext\openssl\ssl\tls_srp.c">
       <Filter>nbframework\ext\openssl\ssl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\ext\freetype\src\sfnt\sfnt.c">
-      <Filter>nbframework\ext\freetype\src\sfnt</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\ext\freetype\src\winfonts\winfnt.c">
-      <Filter>nbframework\ext\freetype\src\winfonts</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\ext\freetype\src\smooth\smooth.c">
-      <Filter>nbframework\ext\freetype\src\smooth</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\ext\freetype\src\cff\cff.c">
-      <Filter>nbframework\ext\freetype\src\cff</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\ext\freetype\src\gzip\ftgzip.c">
-      <Filter>nbframework\ext\freetype\src\gzip</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\ext\freetype\src\autofit\autofit.c">
-      <Filter>nbframework\ext\freetype\src\autofit</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\ext\freetype\src\pshinter\pshinter.c">
-      <Filter>nbframework\ext\freetype\src\pshinter</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\ext\freetype\src\truetype\truetype.c">
-      <Filter>nbframework\ext\freetype\src\truetype</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\ext\freetype\src\raster\raster.c">
-      <Filter>nbframework\ext\freetype\src\raster</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\ext\freetype\src\psnames\psnames.c">
-      <Filter>nbframework\ext\freetype\src\psnames</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\ext\freetype\src\base\ftbase.c">
-      <Filter>nbframework\ext\freetype\src\base</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\ext\freetype\src\base\ftbitmap.c">
-      <Filter>nbframework\ext\freetype\src\base</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\ext\freetype\src\base\ftinit.c">
-      <Filter>nbframework\ext\freetype\src\base</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\ext\freetype\src\base\ftsystem.c">
-      <Filter>nbframework\ext\freetype\src\base</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\2d\NBBezier2.c">
       <Filter>nbframework\2d</Filter>
@@ -5893,6 +5851,48 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\scene\NBScnRenderJobTree.c">
       <Filter>nbframework\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\ext\freetype\src\sfnt\sfnt.c">
+      <Filter>nbframework\ext\freetype\src\sfnt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\ext\freetype\src\winfonts\winfnt.c">
+      <Filter>nbframework\ext\freetype\src\winfonts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\ext\freetype\src\smooth\smooth.c">
+      <Filter>nbframework\ext\freetype\src\smooth</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\ext\freetype\src\cff\cff.c">
+      <Filter>nbframework\ext\freetype\src\cff</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\ext\freetype\src\gzip\ftgzip.c">
+      <Filter>nbframework\ext\freetype\src\gzip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\ext\freetype\src\autofit\autofit.c">
+      <Filter>nbframework\ext\freetype\src\autofit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\ext\freetype\src\pshinter\pshinter.c">
+      <Filter>nbframework\ext\freetype\src\pshinter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\ext\freetype\src\truetype\truetype.c">
+      <Filter>nbframework\ext\freetype\src\truetype</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\ext\freetype\src\raster\raster.c">
+      <Filter>nbframework\ext\freetype\src\raster</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\ext\freetype\src\psnames\psnames.c">
+      <Filter>nbframework\ext\freetype\src\psnames</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\ext\freetype\src\base\ftsystem.c">
+      <Filter>nbframework\ext\freetype\src\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\ext\freetype\src\base\ftbitmap.c">
+      <Filter>nbframework\ext\freetype\src\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\ext\freetype\src\base\ftbase.c">
+      <Filter>nbframework\ext\freetype\src\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\ext\freetype\src\base\ftinit.c">
+      <Filter>nbframework\ext\freetype\src\base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

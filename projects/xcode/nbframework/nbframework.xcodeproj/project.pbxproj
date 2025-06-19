@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -2452,9 +2452,6 @@
 		2CB1F94E211934B7006F716E /* NBFontBitmaps.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CB1F94C211934B7006F716E /* NBFontBitmaps.c */; settings = {COMPILER_FLAGS = "-DNB_FREETYPE -w -I$(SRCROOT)/../../../src/ext/freetype/include"; }; };
 		2CB210AF2DE3623C0014BB12 /* research-scn-compute.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CB210AD2DE3623C0014BB12 /* research-scn-compute.c */; };
 		2CB210B32DE364F00014BB12 /* libnbframework-osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C227E58204B330400D1B813 /* libnbframework-osx.a */; };
-		2CB210B62DE365290014BB12 /* NBScnRenderJob.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CB210B42DE365290014BB12 /* NBScnRenderJob.c */; };
-		2CB210B72DE365290014BB12 /* NBScnRenderJob.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CB210B42DE365290014BB12 /* NBScnRenderJob.c */; };
-		2CB210B92DE365550014BB12 /* NBScnRenderJob.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CB210B82DE365550014BB12 /* NBScnRenderJob.h */; };
 		2CB3AD93225A71DB00E62C1A /* NBLocale.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3AD91225A71DA00E62C1A /* NBLocale.c */; };
 		2CB3AD94225A71DB00E62C1A /* NBLocale.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3AD91225A71DA00E62C1A /* NBLocale.c */; };
 		2CB3ADA0225BA4E800E62C1A /* NBThreadStorage.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CB3AD9E225BA4E700E62C1A /* NBThreadStorage.c */; };
@@ -2463,6 +2460,30 @@
 		2CB6260C22E221EE000257B6 /* NBLocaleCfgAnlz.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6260922E221EE000257B6 /* NBLocaleCfgAnlz.c */; };
 		2CB6261022E2227D000257B6 /* NBLocaleCfg.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6260E22E2227D000257B6 /* NBLocaleCfg.c */; };
 		2CB6261122E2227D000257B6 /* NBLocaleCfg.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CB6260E22E2227D000257B6 /* NBLocaleCfg.c */; };
+		2CB75FD42E01B50100D7E4FE /* NBScnRenderJobFlat.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CB75FCF2E01B50100D7E4FE /* NBScnRenderJobFlat.c */; };
+		2CB75FD52E01B50100D7E4FE /* NBScnRenderJobTree.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CB75FD02E01B50100D7E4FE /* NBScnRenderJobTree.c */; };
+		2CB75FD62E01B50100D7E4FE /* NBScnRenderJobDefs.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CB75FCE2E01B50100D7E4FE /* NBScnRenderJobDefs.c */; };
+		2CB75FD72E01B50100D7E4FE /* NBScnRenderJobFlat.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CB75FCF2E01B50100D7E4FE /* NBScnRenderJobFlat.c */; };
+		2CB75FD82E01B50100D7E4FE /* NBScnRenderJobTree.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CB75FD02E01B50100D7E4FE /* NBScnRenderJobTree.c */; };
+		2CB75FD92E01B50100D7E4FE /* NBScnRenderJobDefs.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CB75FCE2E01B50100D7E4FE /* NBScnRenderJobDefs.c */; };
+		2CB75FDF2E01B52F00D7E4FE /* NBScnRenderJobDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CB75FDA2E01B52F00D7E4FE /* NBScnRenderJobDefs.h */; };
+		2CB75FE02E01B52F00D7E4FE /* NBScnRenderJobFlat.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CB75FDB2E01B52F00D7E4FE /* NBScnRenderJobFlat.h */; };
+		2CB75FE12E01B52F00D7E4FE /* NBScnRenderJobTree.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CB75FDD2E01B52F00D7E4FE /* NBScnRenderJobTree.h */; };
+		2CB75FE92E01B54800D7E4FE /* NBScnRenderJob_opengl4_5_430.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CB75FE62E01B54800D7E4FE /* NBScnRenderJob_opengl4_5_430.h */; };
+		2CB75FEA2E01B54800D7E4FE /* NBScnRenderJob_vulkan1_0_310es.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CB75FE72E01B54800D7E4FE /* NBScnRenderJob_vulkan1_0_310es.h */; };
+		2CB75FEB2E01B54800D7E4FE /* NBScnRenderJob_cs_5_0.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CB75FE32E01B54800D7E4FE /* NBScnRenderJob_cs_5_0.h */; };
+		2CB75FEC2E01B54800D7E4FE /* NBScnRenderJob_glsl.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CB75FE42E01B54800D7E4FE /* NBScnRenderJob_glsl.h */; };
+		2CB75FED2E01B54800D7E4FE /* NBScnRenderJob_hlsl.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CB75FE52E01B54800D7E4FE /* NBScnRenderJob_hlsl.h */; };
+		2CB75FEE2E01B54800D7E4FE /* NBScnRenderJob_cs_4_0.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CB75FE22E01B54800D7E4FE /* NBScnRenderJob_cs_4_0.h */; };
+		2CB75FEF2E01B54800D7E4FE /* NBScnRenderJob_vulkan1_0_430.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CB75FE82E01B54800D7E4FE /* NBScnRenderJob_vulkan1_0_430.h */; };
+		2CB760092E01F39B00D7E4FE /* research-Metal.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB760082E01F39B00D7E4FE /* research-Metal.m */; };
+		2CB7600B2E01F3B700D7E4FE /* NBScnRenderJob.metal in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7600A2E01F3B700D7E4FE /* NBScnRenderJob.metal */; };
+		2CB7600D2E01F3F500D7E4FE /* research-Vulkan.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7600C2E01F3F500D7E4FE /* research-Vulkan.cpp */; };
+		2CBED11A2E02104D008B52D0 /* libnbframework-osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C227E58204B330400D1B813 /* libnbframework-osx.a */; settings = {ATTRIBUTES = (Required, ); }; };
+		2CBED11D2E021437008B52D0 /* research-scn-compute.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CBED11C2E021437008B52D0 /* research-scn-compute.c */; };
+		2CBED1242E021817008B52D0 /* libvulkan.1.4.313.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CBED1222E021748008B52D0 /* libvulkan.1.4.313.dylib */; };
+		2CBED1252E021821008B52D0 /* libvulkan.1.4.313.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2CBED1202E021713008B52D0 /* libvulkan.1.4.313.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		2CBED1272E021958008B52D0 /* libMoltenVK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CBED1262E021958008B52D0 /* libMoltenVK.a */; };
 		2CBFF5C5213660CB0060B73A /* NBX500Name.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CBFF5C4213660CB0060B73A /* NBX500Name.c */; settings = {COMPILER_FLAGS = "-DNB_OPENSSL -w -I$(SRCROOT)/../../../include/nb/ext/openssl/include -I$(SRCROOT)/../../../src/ext/openssl/include"; }; };
 		2CBFF5C6213660CB0060B73A /* NBX500Name.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CBFF5C4213660CB0060B73A /* NBX500Name.c */; settings = {COMPILER_FLAGS = "-DNB_OPENSSL -w -I$(SRCROOT)/../../../include/nb/ext/openssl/include -I$(SRCROOT)/../../../src/ext/openssl/include"; }; };
 		2CBFF5CC21366B750060B73A /* NBEnumMap.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CBFF5CA21366B750060B73A /* NBEnumMap.c */; };
@@ -2678,6 +2699,16 @@
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 1;
+		};
+		2CB75FF22E01F21100D7E4FE /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				2CBED1252E021821008B52D0 /* libvulkan.1.4.313.dylib in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 		2CFF087124522AA40058AEFF /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -3871,8 +3902,6 @@
 		2C375E2420645ED600EDC5CA /* NBFrameworkCfg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBFrameworkCfg.h; path = ../../../include/nb/NBFrameworkCfg.h; sourceTree = SOURCE_ROOT; };
 		2C375E262065A73000EDC5CA /* NBCrc32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBCrc32.h; path = ../../../include/nb/crypto/NBCrc32.h; sourceTree = SOURCE_ROOT; };
 		2C375E272065A73000EDC5CA /* NBCrc32.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = NBCrc32.c; path = ../../../src/crypto/NBCrc32.c; sourceTree = SOURCE_ROOT; };
-		2C38F73A2DFCBFCD0054FC43 /* NBScnRenderJob.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = NBScnRenderJob.glsl; sourceTree = "<group>"; };
-		2C38F73B2DFCBFD90054FC43 /* NBScnRenderJob.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = NBScnRenderJob.hlsl; sourceTree = "<group>"; };
 		2C3CD63828F49D1E00D27B5F /* NBObjectLnk.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NBObjectLnk.c; sourceTree = "<group>"; };
 		2C3CD63B28F49D6700D27B5F /* NBObjectLnk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBObjectLnk.h; path = ../include/nb/NBObjectLnk.h; sourceTree = "<group>"; };
 		2C3DBFDC2BC31CF6002D78BD /* NBThreadStoragePriv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBThreadStoragePriv.h; sourceTree = "<group>"; };
@@ -4432,11 +4461,9 @@
 		2CB1F950211934EF006F716E /* NBFontGlyphs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBFontGlyphs.h; path = ../../../include/nb/fonts/NBFontGlyphs.h; sourceTree = SOURCE_ROOT; };
 		2CB1F95221193522006F716E /* NBFontBitmaps.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBFontBitmaps.h; path = ../../../include/nb/fonts/NBFontBitmaps.h; sourceTree = SOURCE_ROOT; };
 		2CB1F9532119353A006F716E /* NBFontLines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBFontLines.h; path = ../../../include/nb/fonts/NBFontLines.h; sourceTree = SOURCE_ROOT; };
-		2CB210A42DE361AE0014BB12 /* research-Metal */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "research-Metal"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2CB210A42DE361AE0014BB12 /* research-Metal-osx */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "research-Metal-osx"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CB210AD2DE3623C0014BB12 /* research-scn-compute.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "research-scn-compute.c"; sourceTree = "<group>"; };
 		2CB210B02DE362660014BB12 /* research-scn-compute.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "research-scn-compute.h"; path = "../../include/nb/research/research-scn-compute.h"; sourceTree = "<group>"; };
-		2CB210B42DE365290014BB12 /* NBScnRenderJob.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = NBScnRenderJob.c; sourceTree = "<group>"; };
-		2CB210B82DE365550014BB12 /* NBScnRenderJob.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderJob.h; path = "/Users/mortegam/Desktop/NIBSA_proyectos/CltNicaraguaBinary/sys-nbframework/lib-nbframework-src/include/nb/scene/NBScnRenderJob.h"; sourceTree = "<absolute>"; };
 		2CB3AD91225A71DA00E62C1A /* NBLocale.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = NBLocale.c; path = ../../../src/core/NBLocale.c; sourceTree = SOURCE_ROOT; };
 		2CB3AD92225A71DB00E62C1A /* NBLocale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBLocale.h; path = ../../../include/nb/core/NBLocale.h; sourceTree = SOURCE_ROOT; };
 		2CB3AD9E225BA4E700E62C1A /* NBThreadStorage.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = NBThreadStorage.c; path = ../../../src/core/NBThreadStorage.c; sourceTree = SOURCE_ROOT; };
@@ -4445,6 +4472,36 @@
 		2CB6260A22E221EE000257B6 /* NBLocaleCfgAnlz.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBLocaleCfgAnlz.h; path = ../../../include/nb/core/NBLocaleCfgAnlz.h; sourceTree = SOURCE_ROOT; };
 		2CB6260E22E2227D000257B6 /* NBLocaleCfg.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = NBLocaleCfg.c; path = ../../../src/core/NBLocaleCfg.c; sourceTree = SOURCE_ROOT; };
 		2CB6260F22E2227D000257B6 /* NBLocaleCfg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBLocaleCfg.h; path = ../../../include/nb/core/NBLocaleCfg.h; sourceTree = SOURCE_ROOT; };
+		2CB75FCE2E01B50100D7E4FE /* NBScnRenderJobDefs.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = NBScnRenderJobDefs.c; sourceTree = "<group>"; };
+		2CB75FCF2E01B50100D7E4FE /* NBScnRenderJobFlat.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = NBScnRenderJobFlat.c; sourceTree = "<group>"; };
+		2CB75FD02E01B50100D7E4FE /* NBScnRenderJobTree.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = NBScnRenderJobTree.c; sourceTree = "<group>"; };
+		2CB75FD12E01B50100D7E4FE /* NBScnRenderJob.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = NBScnRenderJob.glsl; sourceTree = "<group>"; };
+		2CB75FD22E01B50100D7E4FE /* NBScnRenderJob.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = NBScnRenderJob.hlsl; sourceTree = "<group>"; };
+		2CB75FDA2E01B52F00D7E4FE /* NBScnRenderJobDefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderJobDefs.h; path = "/Users/mortegam/Desktop/NIBSA_proyectos/CltNicaraguaBinary/sys-nbframework/sys-nbframework-src/include/nb/scene/NBScnRenderJobDefs.h"; sourceTree = "<absolute>"; };
+		2CB75FDB2E01B52F00D7E4FE /* NBScnRenderJobFlat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderJobFlat.h; path = "/Users/mortegam/Desktop/NIBSA_proyectos/CltNicaraguaBinary/sys-nbframework/sys-nbframework-src/include/nb/scene/NBScnRenderJobFlat.h"; sourceTree = "<absolute>"; };
+		2CB75FDD2E01B52F00D7E4FE /* NBScnRenderJobTree.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderJobTree.h; path = "/Users/mortegam/Desktop/NIBSA_proyectos/CltNicaraguaBinary/sys-nbframework/sys-nbframework-src/include/nb/scene/NBScnRenderJobTree.h"; sourceTree = "<absolute>"; };
+		2CB75FE22E01B54800D7E4FE /* NBScnRenderJob_cs_4_0.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderJob_cs_4_0.h; path = "/Users/mortegam/Desktop/NIBSA_proyectos/CltNicaraguaBinary/sys-nbframework/sys-nbframework-src/include/nb/scene/shaders/NBScnRenderJob_cs_4_0.h"; sourceTree = "<absolute>"; };
+		2CB75FE32E01B54800D7E4FE /* NBScnRenderJob_cs_5_0.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderJob_cs_5_0.h; path = "/Users/mortegam/Desktop/NIBSA_proyectos/CltNicaraguaBinary/sys-nbframework/sys-nbframework-src/include/nb/scene/shaders/NBScnRenderJob_cs_5_0.h"; sourceTree = "<absolute>"; };
+		2CB75FE42E01B54800D7E4FE /* NBScnRenderJob_glsl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderJob_glsl.h; path = "/Users/mortegam/Desktop/NIBSA_proyectos/CltNicaraguaBinary/sys-nbframework/sys-nbframework-src/include/nb/scene/shaders/NBScnRenderJob_glsl.h"; sourceTree = "<absolute>"; };
+		2CB75FE52E01B54800D7E4FE /* NBScnRenderJob_hlsl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderJob_hlsl.h; path = "/Users/mortegam/Desktop/NIBSA_proyectos/CltNicaraguaBinary/sys-nbframework/sys-nbframework-src/include/nb/scene/shaders/NBScnRenderJob_hlsl.h"; sourceTree = "<absolute>"; };
+		2CB75FE62E01B54800D7E4FE /* NBScnRenderJob_opengl4_5_430.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderJob_opengl4_5_430.h; path = "/Users/mortegam/Desktop/NIBSA_proyectos/CltNicaraguaBinary/sys-nbframework/sys-nbframework-src/include/nb/scene/shaders/NBScnRenderJob_opengl4_5_430.h"; sourceTree = "<absolute>"; };
+		2CB75FE72E01B54800D7E4FE /* NBScnRenderJob_vulkan1_0_310es.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderJob_vulkan1_0_310es.h; path = "/Users/mortegam/Desktop/NIBSA_proyectos/CltNicaraguaBinary/sys-nbframework/sys-nbframework-src/include/nb/scene/shaders/NBScnRenderJob_vulkan1_0_310es.h"; sourceTree = "<absolute>"; };
+		2CB75FE82E01B54800D7E4FE /* NBScnRenderJob_vulkan1_0_430.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderJob_vulkan1_0_430.h; path = "/Users/mortegam/Desktop/NIBSA_proyectos/CltNicaraguaBinary/sys-nbframework/sys-nbframework-src/include/nb/scene/shaders/NBScnRenderJob_vulkan1_0_430.h"; sourceTree = "<absolute>"; };
+		2CB75FF42E01F21100D7E4FE /* research-Vulkan-osx */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "research-Vulkan-osx"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2CB760082E01F39B00D7E4FE /* research-Metal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "research-Metal.m"; path = "../../../src/research/research-Metal.m"; sourceTree = SOURCE_ROOT; };
+		2CB7600A2E01F3B700D7E4FE /* NBScnRenderJob.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; name = NBScnRenderJob.metal; path = ../../../src/scene/shaders/NBScnRenderJob.metal; sourceTree = SOURCE_ROOT; };
+		2CB7600C2E01F3F500D7E4FE /* research-Vulkan.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "research-Vulkan.cpp"; path = "../../../src/research/research-Vulkan.cpp"; sourceTree = SOURCE_ROOT; };
+		2CB7600E2E01F57700D7E4FE /* research-Metal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "research-Metal.m"; sourceTree = "<group>"; };
+		2CB7600F2E01F57700D7E4FE /* research-Vulkan.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "research-Vulkan.cpp"; sourceTree = "<group>"; };
+		2CB760102E01FE6700D7E4FE /* research-DirectX11.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "research-DirectX11.cpp"; sourceTree = "<group>"; };
+		2CB760112E01FF7300D7E4FE /* NBScnRenderJob.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = NBScnRenderJob.metal; sourceTree = "<group>"; };
+		2CB760122E020D6400D7E4FE /* vulkan.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = vulkan.framework; path = ../../../../../../../../VulkanSDK/1.4.313.1/macOS/Frameworks/vulkan.framework; sourceTree = "<group>"; };
+		2CBED11B2E02140B008B52D0 /* research-scn-compute.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "research-scn-compute.h"; path = "../../../include/nb/research/research-scn-compute.h"; sourceTree = SOURCE_ROOT; };
+		2CBED11C2E021437008B52D0 /* research-scn-compute.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "research-scn-compute.c"; path = "../../../src/research/research-scn-compute.c"; sourceTree = SOURCE_ROOT; };
+		2CBED11E2E021613008B52D0 /* libvulkan.1.4.313.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libvulkan.1.4.313.dylib; path = ../../../../../../../../VulkanSDK/1.4.313.1/macOS/lib/libvulkan.1.4.313.dylib; sourceTree = "<group>"; };
+		2CBED1202E021713008B52D0 /* libvulkan.1.4.313.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libvulkan.1.4.313.dylib; path = ../../../../../../../../VulkanSDK/1.4.313.1/macOS/lib/libvulkan.1.4.313.dylib; sourceTree = "<group>"; };
+		2CBED1222E021748008B52D0 /* libvulkan.1.4.313.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libvulkan.1.4.313.dylib; path = ../../../../../../../../VulkanSDK/1.4.313.1/macOS/lib/libvulkan.1.4.313.dylib; sourceTree = "<group>"; };
+		2CBED1262E021958008B52D0 /* libMoltenVK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMoltenVK.a; path = "../../../../../../../../VulkanSDK/1.4.313.1/macOS/lib/MoltenVK.xcframework/macos-arm64_x86_64/libMoltenVK.a"; sourceTree = "<group>"; };
 		2CBFF5C4213660CB0060B73A /* NBX500Name.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBX500Name.c; path = ../../../src/crypto/NBX500Name.c; sourceTree = SOURCE_ROOT; };
 		2CBFF5C7213660E60060B73A /* NBX500Name.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBX500Name.h; path = ../../../include/nb/crypto/NBX500Name.h; sourceTree = SOURCE_ROOT; };
 		2CBFF5C821366B520060B73A /* NBEnumMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBEnumMap.h; path = ../../../include/nb/core/NBEnumMap.h; sourceTree = SOURCE_ROOT; };
@@ -4793,10 +4850,6 @@
 		2CFFE75922419A7400357FCB /* NBZDeflate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBZDeflate.h; path = ../../../include/nb/compress/NBZDeflate.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		2CB210A52DE361AE0014BB12 /* research-Metal */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "research-Metal"; sourceTree = "<group>"; };
-/* End PBXFileSystemSynchronizedRootGroup section */
-
 /* Begin PBXFrameworksBuildPhase section */
 		2C10BCFB204BC4C50076F706 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -4827,6 +4880,16 @@
 				2CB210B32DE364F00014BB12 /* libnbframework-osx.a in Frameworks */,
 				2C7F5A9B2DE9AF43007ADD93 /* Foundation.framework in Frameworks */,
 				2C7F5A992DE9AEEF007ADD93 /* Metal.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2CB75FF12E01F21100D7E4FE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CBED1272E021958008B52D0 /* libMoltenVK.a in Frameworks */,
+				2CBED1242E021817008B52D0 /* libvulkan.1.4.313.dylib in Frameworks */,
+				2CBED11A2E02104D008B52D0 /* libnbframework-osx.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5681,11 +5744,14 @@
 		2C227E08204B2F3000D1B813 = {
 			isa = PBXGroup;
 			children = (
+				2CBED1202E021713008B52D0 /* libvulkan.1.4.313.dylib */,
+				2CBED1222E021748008B52D0 /* libvulkan.1.4.313.dylib */,
 				2C9ACF3126F9421D00203CAA /* Packages */,
 				2C227E0F204B303F00D1B813 /* nbframework */,
 				2C2283D2204B940E00D1B813 /* nbframework-test-osx */,
 				2CFF087424522AA40058AEFF /* nbframework-test-http2-osx */,
-				2CB210A52DE361AE0014BB12 /* research-Metal */,
+				2CB760002E01F2AB00D7E4FE /* research-Metal-osx */,
+				2CB760042E01F2AF00D7E4FE /* research-Vulkan-osx */,
 				2C227E50204B328900D1B813 /* Products */,
 				2CFF087A24522BC10058AEFF /* Frameworks */,
 			);
@@ -5878,7 +5944,8 @@
 				2C2283D1204B940E00D1B813 /* nbframework-test-osx */,
 				2C10BCFE204BC4C50076F706 /* libnbframework-ios.a */,
 				2CFF087324522AA40058AEFF /* nbframework-test-http2-osx */,
-				2CB210A42DE361AE0014BB12 /* research-Metal */,
+				2CB210A42DE361AE0014BB12 /* research-Metal-osx */,
+				2CB75FF42E01F21100D7E4FE /* research-Vulkan-osx */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -7783,6 +7850,9 @@
 			children = (
 				2CB210B02DE362660014BB12 /* research-scn-compute.h */,
 				2CB210AD2DE3623C0014BB12 /* research-scn-compute.c */,
+				2CB7600E2E01F57700D7E4FE /* research-Metal.m */,
+				2CB7600F2E01F57700D7E4FE /* research-Vulkan.cpp */,
+				2CB760102E01FE6700D7E4FE /* research-DirectX11.cpp */,
 			);
 			name = research;
 			path = ../../../src/research;
@@ -7791,14 +7861,53 @@
 		2CB210B52DE365290014BB12 /* scene */ = {
 			isa = PBXGroup;
 			children = (
-				2C38F73B2DFCBFD90054FC43 /* NBScnRenderJob.hlsl */,
-				2C38F73A2DFCBFCD0054FC43 /* NBScnRenderJob.glsl */,
-				2CB210B82DE365550014BB12 /* NBScnRenderJob.h */,
-				2CB210B42DE365290014BB12 /* NBScnRenderJob.c */,
+				2CB75FD32E01B50100D7E4FE /* shaders */,
+				2CB75FDA2E01B52F00D7E4FE /* NBScnRenderJobDefs.h */,
+				2CB75FCE2E01B50100D7E4FE /* NBScnRenderJobDefs.c */,
+				2CB75FDB2E01B52F00D7E4FE /* NBScnRenderJobFlat.h */,
+				2CB75FCF2E01B50100D7E4FE /* NBScnRenderJobFlat.c */,
+				2CB75FDD2E01B52F00D7E4FE /* NBScnRenderJobTree.h */,
+				2CB75FD02E01B50100D7E4FE /* NBScnRenderJobTree.c */,
 			);
 			name = scene;
 			path = ../../../src/scene;
 			sourceTree = SOURCE_ROOT;
+		};
+		2CB75FD32E01B50100D7E4FE /* shaders */ = {
+			isa = PBXGroup;
+			children = (
+				2CB75FD12E01B50100D7E4FE /* NBScnRenderJob.glsl */,
+				2CB75FD22E01B50100D7E4FE /* NBScnRenderJob.hlsl */,
+				2CB760112E01FF7300D7E4FE /* NBScnRenderJob.metal */,
+				2CB75FE22E01B54800D7E4FE /* NBScnRenderJob_cs_4_0.h */,
+				2CB75FE32E01B54800D7E4FE /* NBScnRenderJob_cs_5_0.h */,
+				2CB75FE42E01B54800D7E4FE /* NBScnRenderJob_glsl.h */,
+				2CB75FE52E01B54800D7E4FE /* NBScnRenderJob_hlsl.h */,
+				2CB75FE62E01B54800D7E4FE /* NBScnRenderJob_opengl4_5_430.h */,
+				2CB75FE72E01B54800D7E4FE /* NBScnRenderJob_vulkan1_0_310es.h */,
+				2CB75FE82E01B54800D7E4FE /* NBScnRenderJob_vulkan1_0_430.h */,
+			);
+			path = shaders;
+			sourceTree = "<group>";
+		};
+		2CB760002E01F2AB00D7E4FE /* research-Metal-osx */ = {
+			isa = PBXGroup;
+			children = (
+				2CB7600A2E01F3B700D7E4FE /* NBScnRenderJob.metal */,
+				2CB760082E01F39B00D7E4FE /* research-Metal.m */,
+			);
+			path = "research-Metal-osx";
+			sourceTree = "<group>";
+		};
+		2CB760042E01F2AF00D7E4FE /* research-Vulkan-osx */ = {
+			isa = PBXGroup;
+			children = (
+				2CB7600C2E01F3F500D7E4FE /* research-Vulkan.cpp */,
+				2CBED11B2E02140B008B52D0 /* research-scn-compute.h */,
+				2CBED11C2E021437008B52D0 /* research-scn-compute.c */,
+			);
+			path = "research-Vulkan-osx";
+			sourceTree = "<group>";
 		};
 		2CC7F34B240DF6F4005284A1 /* storage */ = {
 			isa = PBXGroup;
@@ -7895,6 +8004,9 @@
 		2CFF087A24522BC10058AEFF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2CBED1262E021958008B52D0 /* libMoltenVK.a */,
+				2CBED11E2E021613008B52D0 /* libvulkan.1.4.313.dylib */,
+				2CB760122E020D6400D7E4FE /* vulkan.framework */,
 				2C7F5A9A2DE9AF42007ADD93 /* Foundation.framework */,
 				2C7F5A982DE9AEEF007ADD93 /* Metal.framework */,
 			);
@@ -8050,8 +8162,17 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2CB210B92DE365550014BB12 /* NBScnRenderJob.h in Headers */,
+				2CB75FE92E01B54800D7E4FE /* NBScnRenderJob_opengl4_5_430.h in Headers */,
+				2CB75FEA2E01B54800D7E4FE /* NBScnRenderJob_vulkan1_0_310es.h in Headers */,
+				2CB75FEB2E01B54800D7E4FE /* NBScnRenderJob_cs_5_0.h in Headers */,
+				2CB75FEC2E01B54800D7E4FE /* NBScnRenderJob_glsl.h in Headers */,
+				2CB75FED2E01B54800D7E4FE /* NBScnRenderJob_hlsl.h in Headers */,
+				2CB75FEE2E01B54800D7E4FE /* NBScnRenderJob_cs_4_0.h in Headers */,
+				2CB75FEF2E01B54800D7E4FE /* NBScnRenderJob_vulkan1_0_430.h in Headers */,
 				2C8F7E3429F9A4600061A36C /* NBIO.h in Headers */,
+				2CB75FDF2E01B52F00D7E4FE /* NBScnRenderJobDefs.h in Headers */,
+				2CB75FE02E01B52F00D7E4FE /* NBScnRenderJobFlat.h in Headers */,
+				2CB75FE12E01B52F00D7E4FE /* NBScnRenderJobTree.h in Headers */,
 				2C3DBFDD2BC31CF6002D78BD /* NBThreadStoragePriv.h in Headers */,
 				2CF835EC2BE6C04B00CCE771 /* NBHndl.h in Headers */,
 				2CF835F12BE6C30E00CCE771 /* NBHndlNative.h in Headers */,
@@ -8112,9 +8233,9 @@
 			productReference = 2C2283D1204B940E00D1B813 /* nbframework-test-osx */;
 			productType = "com.apple.product-type.tool";
 		};
-		2CB210A32DE361AE0014BB12 /* research-Metal */ = {
+		2CB210A32DE361AE0014BB12 /* research-Metal-osx */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2CB210AA2DE361AE0014BB12 /* Build configuration list for PBXNativeTarget "research-Metal" */;
+			buildConfigurationList = 2CB210AA2DE361AE0014BB12 /* Build configuration list for PBXNativeTarget "research-Metal-osx" */;
 			buildPhases = (
 				2CB210A02DE361AE0014BB12 /* Sources */,
 				2CB210A12DE361AE0014BB12 /* Frameworks */,
@@ -8124,14 +8245,30 @@
 			);
 			dependencies = (
 			);
-			fileSystemSynchronizedGroups = (
-				2CB210A52DE361AE0014BB12 /* research-Metal */,
-			);
-			name = "research-Metal";
+			name = "research-Metal-osx";
 			packageProductDependencies = (
 			);
 			productName = "research-Metal";
-			productReference = 2CB210A42DE361AE0014BB12 /* research-Metal */;
+			productReference = 2CB210A42DE361AE0014BB12 /* research-Metal-osx */;
+			productType = "com.apple.product-type.tool";
+		};
+		2CB75FF32E01F21100D7E4FE /* research-Vulkan-osx */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2CB75FF82E01F21100D7E4FE /* Build configuration list for PBXNativeTarget "research-Vulkan-osx" */;
+			buildPhases = (
+				2CB75FF02E01F21100D7E4FE /* Sources */,
+				2CB75FF12E01F21100D7E4FE /* Frameworks */,
+				2CB75FF22E01F21100D7E4FE /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "research-Vulkan-osx";
+			packageProductDependencies = (
+			);
+			productName = "research-Vulkan";
+			productReference = 2CB75FF42E01F21100D7E4FE /* research-Vulkan-osx */;
 			productType = "com.apple.product-type.tool";
 		};
 		2CFF087224522AA40058AEFF /* nbframework-test-http2-osx */ = {
@@ -8173,6 +8310,11 @@
 					};
 					2CB210A32DE361AE0014BB12 = {
 						CreatedOnToolsVersion = 16.3;
+						ProvisioningStyle = Automatic;
+					};
+					2CB75FF32E01F21100D7E4FE = {
+						CreatedOnToolsVersion = 16.3;
+						ProvisioningStyle = Automatic;
 					};
 					2CFF087224522AA40058AEFF = {
 						CreatedOnToolsVersion = 11.4.1;
@@ -8196,7 +8338,8 @@
 				2C10BCFD204BC4C50076F706 /* nbframework-ios */,
 				2C2283D0204B940E00D1B813 /* nbframework-test-osx */,
 				2CFF087224522AA40058AEFF /* nbframework-test-http2-osx */,
-				2CB210A32DE361AE0014BB12 /* research-Metal */,
+				2CB210A32DE361AE0014BB12 /* research-Metal-osx */,
+				2CB75FF32E01F21100D7E4FE /* research-Vulkan-osx */,
 			);
 		};
 /* End PBXProject section */
@@ -8419,6 +8562,9 @@
 				2C9D17D722409E2700C58D29 /* jcomapi.c in Sources */,
 				2C9D17B522409E2600C58D29 /* jccolor.c in Sources */,
 				2C9D17F222409E2700C58D29 /* jerror.c in Sources */,
+				2CB75FD42E01B50100D7E4FE /* NBScnRenderJobFlat.c in Sources */,
+				2CB75FD52E01B50100D7E4FE /* NBScnRenderJobTree.c in Sources */,
+				2CB75FD62E01B50100D7E4FE /* NBScnRenderJobDefs.c in Sources */,
 				2CB1F94E211934B7006F716E /* NBFontBitmaps.c in Sources */,
 				2C8DD91A2120E9B900FEEA09 /* NBFontCodesMap.c in Sources */,
 				2CB1F9482119346C006F716E /* NBFontGlyphs.c in Sources */,
@@ -8709,7 +8855,6 @@
 				2C10BD88204BC8920076F706 /* x_val.c in Sources */,
 				2C10BD89204BC8970076F706 /* async_null.c in Sources */,
 				2C10BD8A204BC8970076F706 /* async_posix.c in Sources */,
-				2CB210B62DE365290014BB12 /* NBScnRenderJob.c in Sources */,
 				2C10BD8B204BC8970076F706 /* async_win.c in Sources */,
 				2C10BD8C204BC8970076F706 /* async_err.c in Sources */,
 				2C10BD8D204BC8970076F706 /* async_wait.c in Sources */,
@@ -9737,6 +9882,9 @@
 				2C9D17B422409E2600C58D29 /* jccolor.c in Sources */,
 				2C9D17F122409E2700C58D29 /* jerror.c in Sources */,
 				2CB1F94D211934B7006F716E /* NBFontBitmaps.c in Sources */,
+				2CB75FD72E01B50100D7E4FE /* NBScnRenderJobFlat.c in Sources */,
+				2CB75FD82E01B50100D7E4FE /* NBScnRenderJobTree.c in Sources */,
+				2CB75FD92E01B50100D7E4FE /* NBScnRenderJobDefs.c in Sources */,
 				2C8DD9192120E9B900FEEA09 /* NBFontCodesMap.c in Sources */,
 				2CB1F9472119346C006F716E /* NBFontGlyphs.c in Sources */,
 				2CB1F94A21193484006F716E /* NBFontLines.c in Sources */,
@@ -10027,7 +10175,6 @@
 				2C227F21204B3EE900D1B813 /* x_val.c in Sources */,
 				2C227F4A204B3F2400D1B813 /* async_null.c in Sources */,
 				2C227F4B204B3F2400D1B813 /* async_posix.c in Sources */,
-				2CB210B72DE365290014BB12 /* NBScnRenderJob.c in Sources */,
 				2C227F4C204B3F2400D1B813 /* async_win.c in Sources */,
 				2C227F45204B3F0600D1B813 /* async_err.c in Sources */,
 				2C227F43204B3F0600D1B813 /* async_wait.c in Sources */,
@@ -10857,7 +11004,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CB760092E01F39B00D7E4FE /* research-Metal.m in Sources */,
 				2CB210AF2DE3623C0014BB12 /* research-scn-compute.c in Sources */,
+				2CB7600B2E01F3B700D7E4FE /* NBScnRenderJob.metal in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2CB75FF02E01F21100D7E4FE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CB7600D2E01F3F500D7E4FE /* research-Vulkan.cpp in Sources */,
+				2CBED11D2E021437008B52D0 /* research-scn-compute.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -10982,6 +11140,7 @@
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../../../include";
 				USE_HEADERMAP = NO;
 			};
@@ -10992,6 +11151,7 @@
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../../../include";
 				USE_HEADERMAP = NO;
 			};
@@ -11043,7 +11203,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -11091,7 +11250,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -11248,7 +11406,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.4;
+				MTL_COMPILER_FLAGS = "-fmetal-enable-logging";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -11304,7 +11462,129 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.4;
+				MTL_COMPILER_FLAGS = "-fmetal-enable-logging";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		2CB75FF92E01F21100D7E4FE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				FRAMEWORK_SEARCH_PATHS = /Users/mortegam/VulkanSDK/1.4.313.1/macOS/Frameworks;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = /Users/mortegam/VulkanSDK/1.4.313.1/macOS/include;
+				LIBRARY_SEARCH_PATHS = /Users/mortegam/VulkanSDK/1.4.313.1/macOS/lib;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		2CB75FFA2E01F21100D7E4FE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				FRAMEWORK_SEARCH_PATHS = /Users/mortegam/VulkanSDK/1.4.313.1/macOS/Frameworks;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = /Users/mortegam/VulkanSDK/1.4.313.1/macOS/include;
+				LIBRARY_SEARCH_PATHS = /Users/mortegam/VulkanSDK/1.4.313.1/macOS/lib;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -11457,11 +11737,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2CB210AA2DE361AE0014BB12 /* Build configuration list for PBXNativeTarget "research-Metal" */ = {
+		2CB210AA2DE361AE0014BB12 /* Build configuration list for PBXNativeTarget "research-Metal-osx" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2CB210A82DE361AE0014BB12 /* Debug */,
 				2CB210A92DE361AE0014BB12 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2CB75FF82E01F21100D7E4FE /* Build configuration list for PBXNativeTarget "research-Vulkan-osx" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CB75FF92E01F21100D7E4FE /* Debug */,
+				2CB75FFA2E01F21100D7E4FE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

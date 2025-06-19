@@ -123,6 +123,7 @@ BOOL NBFilesPkg_loadFromFile(STNBFilesPkg* obj, STNBFileRef file){
 				if((curPos - sizeof(idxSz) - sizeof(dataSz)) != idxSz){
 					PRINTF_ERROR("Index was not exact-readed.\n");
 				} else {
+                    NBFile_unlock(file);
 					if(!NBFile_openAsFileRng(opq->file, file, (UI32)curPos - idxSz - sizeof(idxSz) - sizeof(dataSz), sizeof(idxSz) + sizeof(dataSz) + idxSz + dataSz)){
 						PRINTF_ERROR("Could not open as subfile of package.\n");
 					} else {
@@ -134,6 +135,7 @@ BOOL NBFilesPkg_loadFromFile(STNBFilesPkg* obj, STNBFileRef file){
 						//PRINTF_INFO("Package loaded from file pointer\n");
 						r = TRUE;
 					}
+                    NBFile_lock(file);
 				}
 			}
 		}

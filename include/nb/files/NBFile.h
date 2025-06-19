@@ -68,7 +68,7 @@ extern "C" {
 	//Open
 	BOOL NBFile_open(STNBFileRef obj, const char* filepath, const ENNBFileMode mode);
     BOOL NBFile_openAsStd(STNBFileRef obj, const ENNBFileStd std);
-	BOOL NBFile_openAsFileRng(STNBFileRef obj, STNBFileRef parent, const UI32 start, const UI32 size);
+	BOOL NBFile_openAsFileRng(STNBFileRef obj, STNBFileRef parent, const UI32 start, const UI32 size); //parent must be unlocked
 	BOOL NBFile_openAsDataRng(STNBFileRef obj, void* data, const UI32 dataSz);
 	BOOL NBFile_openAsString(STNBFileRef obj, struct STNBString_* str);
 	BOOL NBFile_openAsItf(STNBFileRef obj, const IFileItf* itf, void* itfObj);
