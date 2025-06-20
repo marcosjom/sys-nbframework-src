@@ -18,23 +18,22 @@ Projects already built using this includes:
 
 # Features*
 
-- Operating system abstractions, use: `NBSocket`, `NBFile`
-  - `NBIO`, `NBIOPollster`, `NBFont`, `NBSsl`, `NBThread`, `NBMemory`, `NBLog`, `NBString`, `NBLocale`, `NBThreadMutex`, `NBThreadCond`, ...
+- Operating system abstractions, use: `NBSocket`, `NBFile`, `NBIO`, `NBIOPollster`, `NBFont`, `NBSsl`, `NBThread`, `NBMemory`, `NBLog`, `NBString`, `NBLocale`, `NBThreadMutex`, `NBThreadCond`, ...
   - and the library will use the operating-system specifics at compilation time; desktop, mobile, driver/kernel or web.
 
 - Thread-safe by default
 
-- Event driven IO (Input/Output: sockets, files, storage). 
+- Support for event-driven-io (Input/Output: sockets, files, storage). 
 
 - Debug runtime verification:
-  - In debug mode, the framework will `assert` risks for dangerous situations: `freeing-unknown-pointer`, `double-free`, `mutual-thread-locks`, others...
-    - these dangerous code-logic can `randomly` block or crash your program at runtime.
+  - In debug mode, the framework will `assert` risks for dangerous situations like: `freeing-unknown-pointer`, `double-free`, `mutual-thread-locks`, others...
+    - these dangerous code-logic can randomly block or crash your program at runtime.
     - these assertions will force you to refactor your code.
 
 - Files and protocols support: `NBSintaxParser.h` (C99 code), `NBJsonParser`, `NBPlistParser`, `NBXmlParser`, `NBSmtpHeader`, `NBSmtpBody`, `NBNtln`, `NBOAuthClient`, `NBMsExchangeClt`, `NBHttpBuilder`, `NBHttpMessage`, `NBHttp2Parser`, `NBRtsp`, `NBRtcParser`, `NBRtcpParser`, `NBUtlParser`, `NBMp4` (file container), `NBAvc` (H.264 units), `NBPng`, `NBJpeg`, `NBTextMetricsBuilder`, `NBFontGlyphs`, ...
-  - implemented from scratch, as state-machines capable to parse/write even one byte at the time (an detect parsing errors sooner).
+  - implemented from scratch, as state-machines capable to parse/write even one byte at the time (for quick parsing errors detection).
 
-* some features are are work in progress.
+(*) some features are are work in progress.
 
 # How to compile
 
