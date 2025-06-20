@@ -33,7 +33,7 @@ Projects already built using this includes:
 - Files and protocols support: `NBSintaxParser.h` (C99 code), `NBJsonParser`, `NBPlistParser`, `NBXmlParser`, `NBSmtpHeader`, `NBSmtpBody`, `NBNtln`, `NBOAuthClient`, `NBMsExchangeClt`, `NBHttpBuilder`, `NBHttpMessage`, `NBHttp2Parser`, `NBRtsp`, `NBRtcParser`, `NBRtcpParser`, `NBUtlParser`, `NBMp4` (file container), `NBAvc` (H.264 units), `NBPng`, `NBJpeg`, `NBTextMetricsBuilder`, `NBFontGlyphs`, ...
   - implemented from scratch, as state-machines capable to parse/write even one byte at the time (for quick parsing errors detection).
 
-(*) some features are are work in progress.
+(*) some features are work in progress, this framework is a work in progress.
 
 # How to compile
 
@@ -87,6 +87,8 @@ Once all the `Projects`, `Targets` and `Code-groups` were imported, the current 
 Basically is a command-line version of how you manage and build your projects, inspired in how you organize your work in XCode.
 
 The `compiler` and `tool-chain` is selected automatically or explicitly by the `NB_CFG_HOST=` param. As example `NB_CFG_HOST=Android` will compile using `Android NDK` tool-chain.
+
+Check the `MakefileProject.mk` and `Makefile` for implementaiton examples; those files exists in most of my repositories.
 
 # Contact
 
