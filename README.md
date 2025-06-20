@@ -56,7 +56,7 @@ cd sys-nbframework-src
 make NB_CFG_HOST=Android
 ```
 
-Check each project's `Makefile` and `MakefileProject.mk` files, and the [MakefileFuncs.mk](https://github.com/marcosjom/sys-nbframework-src/blob/main/MakefileFuncs.mk) to understand the `make` process, including the accepted flags and targets. 
+Check each project's `Makefile` and `MakefileProject.mk` files, and the [MakefileFuncs.mk](https://github.com/marcosjom/sys-nbframework-src?tab=readme-ov-file#makefilefuncsmk) to understand the `make` process, including the accepted flags and targets. 
 
 ## Linux and Others
 
@@ -67,7 +67,7 @@ cd sys-nbframework-src
 make
 ```
 
-Check each project's `Makefile` and `MakefileProject.mk` files, and the [MakefileFuncs.mk](https://github.com/marcosjom/sys-nbframework-src/blob/main/MakefileFuncs.mk) to understand the `make` process, including the accepted flags and targets.
+Check each project's `Makefile` and `MakefileProject.mk` files, and the [MakefileFuncs.mk](https://github.com/marcosjom/sys-nbframework-src?tab=readme-ov-file#makefilefuncsmk) to understand the `make` process, including the accepted flags and targets.
 
 # MakefileFuncs.mk
 
@@ -88,7 +88,7 @@ Basically is a command-line version of how you manage and build your projects, i
 
 The `compiler` and `tool-chain` is selected automatically or explicitly by the `NB_CFG_HOST=` param. As example `NB_CFG_HOST=Android` will compile using `Android NDK` tool-chain.
 
-Check the `MakefileProject.mk` and `Makefile` for implementaiton examples; those files exists in most of my repositories.
+Check the `MakefileProject.mk` and `Makefile` for implementation examples; those files exists in most of my repositories.
 
 # Contact
 
