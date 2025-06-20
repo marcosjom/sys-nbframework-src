@@ -82,11 +82,11 @@ Its purpose is to describe your project in an structure and be able to set indiv
 
 The `workspace` is the folder you are explicitly calling `make` from. You can import your current project and dependencies from other folders.
 
-Once all the `Projects`, `Targets` and `Code-groups` were imported, the call to make cna build all (or an specific) target; compiling each file with their respective compile flags, merging output files and linking libraries.
+Once all the `Projects`, `Targets` and `Code-groups` were imported, the current call to make will build all (or an specific) target; compiling each file with their respective flags, merging outputs and linking libraries.
 
-Basically is a command-line version of how you manage and build your projects, inspired in XCode.
+Basically is a command-line version of how you manage and build your projects, inspired in how you organize your work in XCode.
 
-The `compiler` and `tool-chain` is selected automatically or explicitly by the `NB_CFG_HOST=` param (as example `NB_CFG_HOST=Android` will compile using Android NDK tool-chain).
+The `compiler` and `tool-chain` is selected automatically or explicitly by the `NB_CFG_HOST=` param. As example `NB_CFG_HOST=Android` will compile using `Android NDK` tool-chain.
 
 # Contact
 
