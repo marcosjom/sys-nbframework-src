@@ -37,6 +37,8 @@ Projects already built using this includes:
 
 # How to compile
 
+Download the repository, and follow the instructions in the `src/ext/*_howToBuild.txt` files to download the source of third-party embedded libraries. Optionally, these libraries can be dynamically linked to the ones installed in the operating system.
+
 The following steps will create static libraries. In your project you should link to the `static-libray` and add a reference to its `include` folder.
 
 ## Windows
@@ -71,7 +73,7 @@ Check each project's `Makefile` and `MakefileProject.mk` files, and the [Makefil
 
 # MakefileFuncs.mk
 
-This is a `make` file containing functions that allows you to describe a workspace similarly to XCode, Visual-Stuido and other IDEs.
+This is a `make` file containing functions that allows you to describe a workspace similarly to XCode, Visual-Studio and other IDEs.
 
 Its purpose is to describe your project in an structure and be able to set individual compiler-flags to each code-group. The structure is:
 
@@ -82,7 +84,7 @@ Its purpose is to describe your project in an structure and be able to set indiv
 
 The `workspace` is the folder you are explicitly calling `make` from. You can import your current project and dependencies from other folders.
 
-Once all the `Projects`, `Targets` and `Code-groups` were imported, the current call to make will build all (or an specific) target; compiling each file with their respective flags, merging outputs and linking libraries.
+Once all the `Projects`, `Targets` and `Code-groups` were imported, the current call to `make` will build all (or a specific) target; compiling each file with their respective flags, merging outputs and linking libraries.
 
 Basically is a command-line version of how you manage and build your projects, inspired in how you organize your work in XCode.
 
