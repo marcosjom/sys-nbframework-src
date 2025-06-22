@@ -58,7 +58,7 @@ cd sys-nbframework-src
 make NB_CFG_HOST=Android
 ```
 
-Check each project's `Makefile` and `MakefileProject.mk` files, and the [MakefileFuncs.mk](https://github.com/marcosjom/sys-nbframework-src?tab=readme-ov-file#makefilefuncsmk) to understand the `make` process, including the accepted flags and targets. 
+Check each project's `Makefile` and `MakefileProject.mk` files, and the [MakefileFuncs.mk](https://github.com/marcosjom/makefile-like-IDE) to understand the `make` process, including the accepted flags and targets. 
 
 ## Linux and Others
 
@@ -69,28 +69,15 @@ cd sys-nbframework-src
 make
 ```
 
-Check each project's `Makefile` and `MakefileProject.mk` files, and the [MakefileFuncs.mk](https://github.com/marcosjom/sys-nbframework-src?tab=readme-ov-file#makefilefuncsmk) to understand the `make` process, including the accepted flags and targets.
+Check each project's `Makefile` and `MakefileProject.mk` files, and the [MakefileFuncs.mk](https://github.com/marcosjom/makefile-like-IDE) to understand the `make` process, including the accepted flags and targets.
 
 # MakefileFuncs.mk
 
-This is a `make` file containing functions that allows you to describe a workspace similarly to XCode, Visual-Studio and other IDEs.
+This is a `make` file containing functions that allows you to describe a workspace similarly to XCode, Visual-Studio and other IDEs. This is useful for complex code structures.
 
-Its purpose is to describe your project in an structure and be able to set individual compiler-flags to each code-group. The structure is:
+I typically work in XCode and Visual-Studio, and once I need to compile my code for other systems (like Linux or Android), I sync my `.mk` project descriptions to the ones in my IDE and run `make`.
 
-- `Workspace`
-  - `Project`
-    - `Target` (exe, lib, so, dlyb)
-      - `Code-group`
-
-The `workspace` is the folder you are explicitly calling `make` from. You can import your current project and dependencies from other folders.
-
-Once all the `Projects`, `Targets` and `Code-groups` were imported, the current call to `make` will build all (or a specific) target; compiling each file with their respective flags, merging outputs and linking libraries.
-
-Basically is a command-line version of how you manage and build your projects, inspired in how you organize your work in XCode.
-
-The `compiler` and `tool-chain` is selected automatically or explicitly by the `NB_CFG_HOST=` param. As example `NB_CFG_HOST=Android` will compile using `Android NDK` tool-chain.
-
-Check the `MakefileProject.mk` and `Makefile` for implementation examples; those files exists in most of my repositories.
+Read more about it in my other repository: [MakefileFuncs.mk](https://github.com/marcosjom/makefile-like-IDE).
 
 # Contact
 
