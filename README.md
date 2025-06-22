@@ -1,3 +1,5 @@
+This repository was moved to Github. My original repository has >7 years of activity from 2018-03-04 to 2025-05-29: https://bitbucket.org/marcosjom/thinstream-src/
+
 # sys-nbframework-src
 
 Framework to build mobile, desktop and web apps in C and their backends.
