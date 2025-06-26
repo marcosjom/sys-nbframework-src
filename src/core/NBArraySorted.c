@@ -246,6 +246,16 @@ void NBArraySorted_growBuffer(STNBArraySorted* obj, const SI32 qItems){
 	}
 }
 
+void NBArraySorted_prepareForGrowth(STNBArraySorted* obj, const SI32 qItems){
+    NBASSERT(!obj->_buffIsExtern)
+    if (qItems > 0 && !obj->_buffIsExtern) {
+        const SI32 nSz = obj->use + qItems;
+        if (nSz > obj->_buffSize) {
+            NBArraySorted_growBuffer(obj, nSz - obj->_buffSize);
+        }
+    }
+}
+
 void* NBArraySorted_add(STNBArraySorted* obj, const void* data, const SI32 itemSize){
 	void* r = NULL;
 	NBASSERT(itemSize == obj->_bytesPerItem)

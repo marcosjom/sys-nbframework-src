@@ -54,6 +54,7 @@ extern "C" {
 	void NBArraySorted_resignToBuffer(STNBArraySorted* obj);
 	void NBArraySorted_empty(STNBArraySorted* obj);
 	void NBArraySorted_growBuffer(STNBArraySorted* obj, const SI32 qItems);
+    void NBArraySorted_prepareForGrowth(STNBArraySorted* obj, const SI32 qItems);
 	void* NBArraySorted_add(STNBArraySorted* obj, const void* data, const SI32 itemSize);
 	void NBArraySorted_addItems(STNBArraySorted* obj, const void* data, const SI32 itemSize, const SI32 itemsCount);
 	//File
