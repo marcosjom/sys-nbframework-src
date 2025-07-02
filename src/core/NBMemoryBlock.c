@@ -17,7 +17,7 @@ const STNBStructMap* NBMemoryBlockCfg_getSharedStructMap(void){
         STNBMemoryBlockCfg s;
         STNBStructMap* map = NBMngrStructMaps_allocTypeM(STNBMemoryBlockCfg);
         NBStructMap_init(map, sizeof(s));
-        NBStructMap_addUIntM(map, s, allocableSz);  //ammount of bytes allocable
+        NBStructMap_addUIntM(map, s, size);         //ammount of bytes allocable (including the idx-0)
         NBStructMap_addUIntM(map, s, sizeAlign);    //whole memory block size alignment
         NBStructMap_addUIntM(map, s, idxsAlign);    //individual pointers alignment
         NBStructMap_addBoolM(map, s, idxZeroIsValid); //idx=0 is an assignable address
@@ -143,17 +143,17 @@ BOOL NBMemoryBlock_validateIndexLockepOpq_(STNBMemoryBlockOpq* opq);
 
 //
 
-BOOL NBMemoryBlock_prepare(STNBMemoryBlockRef ref, const STNBMemoryBlockCfg* cfg){
+BOOL NBMemoryBlock_prepare(STNBMemoryBlockRef ref, const STNBMemoryBlockCfg* cfg, STNBAbsPtr* dstPtrAfterEnd){
     BOOL r = FALSE;
     STNBMemoryBlockOpq* opq = (STNBMemoryBlockOpq*)ref.opaque;
     //
     NBObject_lock(opq);
     if(cfg != NULL && opq->chunk.ptr == NULL){
-        const UI32 sizeAlign = (cfg->sizeAlign > 0 ? cfg->sizeAlign : 4);   //whole memory block size alignment
         const UI32 idxsAlign = (cfg->idxsAlign > 0 ? cfg->idxsAlign : 4);   //individual pointers alignment
+        const UI32 sizeAlign = (cfg->sizeAlign > 0 ? cfg->sizeAlign : idxsAlign > 0 ? idxsAlign : 4);   //whole memory block size alignment
         STNBMemoryBlockChunk chunkN = STNBMemoryBlockChunk_Zero;
         chunkN.rngStart     = (cfg->idxZeroIsValid ? 0 : idxsAlign);
-        chunkN.rngAfterEnd  = (chunkN.rngStart + cfg->allocableSz + idxsAlign - 1) / idxsAlign * idxsAlign;
+        chunkN.rngAfterEnd  = (cfg->size + idxsAlign - 1) / idxsAlign * idxsAlign;
         chunkN.ptrSz        = (chunkN.rngAfterEnd + sizeAlign - 1) / sizeAlign * sizeAlign;
         chunkN.ptr          = (BYTE*)NBMemory_alloc(chunkN.ptrSz);
         if(chunkN.ptr != NULL){
@@ -169,15 +169,17 @@ BOOL NBMemoryBlock_prepare(STNBMemoryBlockRef ref, const STNBMemoryBlockCfg* cfg
             {
                 NBStruct_stRelease(NBMemoryBlockCfg_getSharedStructMap(), &opq->cfg, sizeof(opq->cfg));
                 NBStruct_stClone(NBMemoryBlockCfg_getSharedStructMap(), cfg, sizeof(*cfg), &opq->cfg, sizeof(opq->cfg));
-                opq->cfg.idxsAlign = idxsAlign;
-                opq->cfg.sizeAlign = sizeAlign;
+                opq->cfg.sizeAlign  = sizeAlign;
+                opq->cfg.idxsAlign  = idxsAlign;
+                opq->cfg.size       = chunkN.rngAfterEnd;
             }
             //set initial state
             {
                 NBArraySorted_empty(&opq->ptrs);
                 NBArraySorted_empty(&opq->gaps);
-                //register the whole range as the initial gap
+                //reset state
                 NBMemory_setZeroSt(opq->state, STNBMemoryBlockState);
+                //register the whole range as the initial gap
                 if(chunkN.rngStart < chunkN.rngAfterEnd){
                     STNBMemoryBlockGap gap = STNBMemoryBlockGap_Zero;
                     gap.iStart  = chunkN.rngStart;
@@ -188,6 +190,10 @@ BOOL NBMemoryBlock_prepare(STNBMemoryBlockRef ref, const STNBMemoryBlockCfg* cfg
             }
             //TMP
             //NBMemoryBlock_validateIndexLockepOpq_(opq);
+            if(dstPtrAfterEnd != NULL){
+                dstPtrAfterEnd->idx = chunkN.rngAfterEnd;
+                dstPtrAfterEnd->ptr = chunkN.ptr + chunkN.rngAfterEnd;
+            }
             r = TRUE;
         }
     }
@@ -238,7 +244,7 @@ STNBAbsPtr NBMemoryBlock_malloc(STNBMemoryBlockRef ref, const UI32 usableSz){
                 opq->state.szSmallestMallocFailed = sz;
             }
             //TMP
-            //NBMemoryBlock_validateIndexLockepOpq_(opq);
+            NBMemoryBlock_validateIndexLockepOpq_(opq);
         }
     }
     NBObject_unlock(opq);
@@ -313,6 +319,27 @@ void NBMemoryBlock_prepareForNewMallocsActions(STNBMemoryBlockRef ref, const UI3
     NBObject_lock(opq);
     {
         NBArraySorted_prepareForGrowth(&opq->ptrs, ammActions);
+    }
+    NBObject_unlock(opq);
+}
+
+void NBMemoryBlock_clear(STNBMemoryBlockRef ref){ //clears the index, all pointers are invalid after this call
+    STNBMemoryBlockOpq* opq = (STNBMemoryBlockOpq*)ref.opaque;
+    NBObject_lock(opq);
+    {
+        //set initial state
+        NBArraySorted_empty(&opq->ptrs);
+        NBArraySorted_empty(&opq->gaps);
+        //reset state
+        NBMemory_setZeroSt(opq->state, STNBMemoryBlockState);
+        //register the whole range as the initial gap
+        if(opq->chunk.rngStart < opq->chunk.rngAfterEnd){
+            STNBMemoryBlockGap gap = STNBMemoryBlockGap_Zero;
+            gap.iStart  = opq->chunk.rngStart;
+            gap.sz      = opq->chunk.rngAfterEnd - opq->chunk.rngStart;
+            NBArraySorted_addValue(&opq->gaps, gap);
+            opq->state.szAvail = gap.sz;
+        }
     }
     NBObject_unlock(opq);
 }

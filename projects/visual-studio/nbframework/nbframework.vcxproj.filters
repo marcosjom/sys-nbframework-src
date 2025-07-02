@@ -376,6 +376,9 @@
     <Filter Include="nbframework\scene\shaders">
       <UniqueIdentifier>{0f270175-47a2-4cf9-a435-6298ba4901a6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="nbframework\sintax">
+      <UniqueIdentifier>{0785d16c-a7a8-4f20-9a2c-7e12dd3f21f0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\ext\zlib\crc32.h">
@@ -622,36 +625,6 @@
       <Filter>nbframework\core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\nb\core\NBMngrStoreDefs.h">
-      <Filter>nbframework\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\nb\core\NBSintaxParser.h">
-      <Filter>nbframework\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\nb\core\NBSintaxParserC.h">
-      <Filter>nbframework\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\nb\core\NBSintaxParserCDefs.h">
-      <Filter>nbframework\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\nb\core\NBSintaxParserCPProc.h">
-      <Filter>nbframework\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\nb\core\NBSintaxParserCPProcDefs.h">
-      <Filter>nbframework\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\nb\core\NBSintaxParserCPProcUnit.h">
-      <Filter>nbframework\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\nb\core\NBSintaxParserCTokens.h">
-      <Filter>nbframework\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\nb\core\NBSintaxParserDefs.h">
-      <Filter>nbframework\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\nb\core\NBSintaxParserResults.h">
-      <Filter>nbframework\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\nb\core\NBSintaxParserRules.h">
       <Filter>nbframework\core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\nb\core\NBThreadMutexRW.h">
@@ -1931,6 +1904,36 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\ext\freetype\include\ttunpat.h">
       <Filter>nbframework\ext\freetype\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\nb\sintax\NBSintaxParser.h">
+      <Filter>nbframework\sintax</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\nb\sintax\NBSintaxParserC.h">
+      <Filter>nbframework\sintax</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\nb\sintax\NBSintaxParserCDefs.h">
+      <Filter>nbframework\sintax</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\nb\sintax\NBSintaxParserCPProc.h">
+      <Filter>nbframework\sintax</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\nb\sintax\NBSintaxParserCPProcDefs.h">
+      <Filter>nbframework\sintax</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\nb\sintax\NBSintaxParserCPProcUnit.h">
+      <Filter>nbframework\sintax</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\nb\sintax\NBSintaxParserCTokens.h">
+      <Filter>nbframework\sintax</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\nb\sintax\NBSintaxParserDefs.h">
+      <Filter>nbframework\sintax</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\nb\sintax\NBSintaxParserResults.h">
+      <Filter>nbframework\sintax</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\nb\sintax\NBSintaxParserRules.h">
+      <Filter>nbframework\sintax</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -5006,30 +5009,6 @@
     <ClCompile Include="..\..\..\src\core\NBDataPtrsStats.c">
       <Filter>nbframework\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\core\NBSintaxParser.c">
-      <Filter>nbframework\core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\core\NBSintaxParserC.c">
-      <Filter>nbframework\core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\core\NBSintaxParserCDefs.c">
-      <Filter>nbframework\core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\core\NBSintaxParserCPProc.c">
-      <Filter>nbframework\core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\core\NBSintaxParserCPProcUnit.c">
-      <Filter>nbframework\core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\core\NBSintaxParserCTokens.c">
-      <Filter>nbframework\core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\core\NBSintaxParserResults.c">
-      <Filter>nbframework\core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\core\NBSintaxParserRules.c">
-      <Filter>nbframework\core</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\core\NBThreadMutexRW.c">
       <Filter>nbframework\core</Filter>
     </ClCompile>
@@ -5893,6 +5872,30 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\ext\freetype\src\base\ftinit.c">
       <Filter>nbframework\ext\freetype\src\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\sintax\NBSintaxParser.c">
+      <Filter>nbframework\sintax</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\sintax\NBSintaxParserC.c">
+      <Filter>nbframework\sintax</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\sintax\NBSintaxParserCDefs.c">
+      <Filter>nbframework\sintax</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\sintax\NBSintaxParserCPProc.c">
+      <Filter>nbframework\sintax</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\sintax\NBSintaxParserCPProcUnit.c">
+      <Filter>nbframework\sintax</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\sintax\NBSintaxParserCTokens.c">
+      <Filter>nbframework\sintax</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\sintax\NBSintaxParserResults.c">
+      <Filter>nbframework\sintax</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\sintax\NBSintaxParserRules.c">
+      <Filter>nbframework\sintax</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

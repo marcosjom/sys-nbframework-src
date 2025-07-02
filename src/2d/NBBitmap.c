@@ -10,6 +10,37 @@
 //
 #include "nb/core/NBMemory.h"
 
+//LogLevel
+
+STNBEnumMapRecord NBBitmapColor_sharedEnumMapRecs[] = {
+    { ENNBBitmapColor_undef, "ENNBBitmapColor_undef", "undef" }
+    , { ENNBBitmapColor_ALPHA8, "ENNBBitmapColor_ALPHA8", "ALPHA8" }
+    , { ENNBBitmapColor_GRIS8, "ENNBBitmapColor_GRIS8", "GARY8" }
+    , { ENNBBitmapColor_GRISALPHA8, "ENNBBitmapColor_GRISALPHA8", "GRAYALPHA8" }
+    , { ENNBBitmapColor_RGB4, "ENNBBitmapColor_RGB4", "RGB4" }
+    , { ENNBBitmapColor_RGB8, "ENNBBitmapColor_RGB8", "RGB8" }
+    , { ENNBBitmapColor_RGBA4, "ENNBBitmapColor_RGBA4", "RGBA4" }
+    , { ENNBBitmapColor_RGBA8, "ENNBBitmapColor_RGBA8", "RGBA8" }
+    , { ENNBBitmapColor_ARGB4, "ENNBBitmapColor_ARGB4", "ARGB4" }
+    , { ENNBBitmapColor_ARGB8, "ENNBBitmapColor_ARGB8", "ARGB8" }
+    , { ENNBBitmapColor_BGRA8, "ENNBBitmapColor_BGRA8", "BGRA8" }
+    //
+    , { ENNBBitmapColor_SWF_PIX15, "ENNBBitmapColor_SWF_PIX15", "SWF_PIX15" }
+    , { ENNBBitmapColor_SWF_PIX24, "ENNBBitmapColor_SWF_PIX24", "SWF_PIX24" }
+};
+
+STNBEnumMap NBBitmapColor_sharedEnumMap = {
+    "ENNBBitmapColor"
+    , NBBitmapColor_sharedEnumMapRecs
+    , (sizeof(NBBitmapColor_sharedEnumMapRecs) / sizeof(NBBitmapColor_sharedEnumMapRecs[0]))
+};
+
+const STNBEnumMap* NBBitmapColor_getSharedEnumMap(void){
+    return &NBBitmapColor_sharedEnumMap;
+}
+
+//
+
 typedef struct STNBBitmapOpq_ {
 	STNBBitmapProps props;
 	BYTE*			data;
@@ -19,8 +50,8 @@ typedef struct STNBBitmapOpq_ {
 //Color functions pointers (optimizations)
 
 typedef struct STNBBitmapColorDesc_ {
-	UI8				bitsPerPx;
-	const char*		name;
+	UI8				    bitsPerPx;
+	const char*		    name;
 	NBBitmapGetPixFunc	getPixFunc;
 	NBBitmapSetPixFunc	setPixFunc;
 } STNBBitmapColorDesc;
@@ -926,6 +957,53 @@ BOOL NBBitmap_posterize(STNBBitmap* obj, const UI8 tonesDivider){
 
 //Paste pf bitmap (lower calculations)
 
+void NBBitmap_pasteValidatedSrcRect_(const STNBBitmapProps* dstPrps, STNBPointI* pos, const STNBBitmapProps* srcProps, STNBRectI* srcRect){
+    //Validate negative rect
+    {
+        if(srcRect->width < 0){
+            srcRect->x      += srcRect->width;
+            srcRect->width  = -srcRect->width;
+        }
+        if(srcRect->height < 0){
+            srcRect->y      += srcRect->height;
+            srcRect->height = -srcRect->height;
+        }
+    } NBASSERT(srcRect->width >= 0 && srcRect->height >= 0)
+    //Validate negative start
+    {
+        if(pos->x < 0){
+            srcRect->x      -= pos->x;
+            srcRect->width  += pos->x;
+            pos->x          = 0;
+        }
+        if(pos->y < 0){
+            srcRect->y      -= pos->y;
+            srcRect->height += pos->y;
+            pos->y          = 0;
+        }
+    } NBASSERT(srcRect->x >= 0 && srcRect->y >= 0 && srcRect->width >= 0 && srcRect->height >= 0)
+    //Validate against dst-rect
+    {
+        if((pos->x + srcRect->width) > dstPrps->size.width){
+            srcRect->width = (dstPrps->size.width - pos->x);
+        }
+        if((pos->y + srcRect->height) > dstPrps->size.height){
+            srcRect->height = (dstPrps->size.height - pos->y);
+        }
+    }
+}
+    
+BOOL NBBitmap_pasteValidatedSrcRect(STNBBitmap* obj, const STNBPointI pPos, const STNBBitmapProps srcProps, STNBRectI* pSrcRect){
+    BOOL r = FALSE;
+    STNBBitmapOpq* opq = (STNBBitmapOpq*)obj->opaque;
+    if(opq->data != NULL && pSrcRect->width != 0 && pSrcRect->height != 0){
+        STNBPointI pos = pPos;
+        NBBitmap_pasteValidatedSrcRect_(&opq->props, &pos, &srcProps, pSrcRect);
+        r = TRUE;
+    }
+    return r;
+}
+
 BOOL NBBitmap_pasteBitmap(STNBBitmap* obj, const STNBPointI pos, const STNBBitmap* src, const STNBColor8 color){
 	STNBBitmapOpq* opq2 = (STNBBitmapOpq*)src->opaque;
 	return NBBitmap_pasteBitmapDataRect(obj, pos, opq2->props, opq2->data, NBST_P(STNBRectI, 0, 0, opq2->props.size.width, opq2->props.size.height), color);
@@ -965,39 +1043,7 @@ BOOL NBBitmap_pasteBitmapDataRect(STNBBitmap* obj, const STNBPointI pPos, const 
 				{
 					STNBPointI pos = pPos;
 					STNBRectI srcRect = pSrcRect;
-					//Validate negative rect
-					{
-						if(srcRect.width < 0){
-							srcRect.x		+= srcRect.width;
-							srcRect.width	= -srcRect.width;
-						}
-						if(srcRect.height < 0){
-							srcRect.y		+= srcRect.height;
-							srcRect.height	= -srcRect.height;
-						}
-					} NBASSERT(srcRect.width >= 0 && srcRect.height >= 0)
-					//Validate negative start
-					{
-						if(pos.x < 0){
-							srcRect.x		-= pos.x;
-							srcRect.width	+= pos.x;
-							pos.x			= 0;
-						}
-						if(pos.y < 0){
-							srcRect.y		-= pos.y;
-							srcRect.height	+= pos.y;
-							pos.y			= 0;
-						}
-					} NBASSERT(srcRect.x >= 0 && srcRect.y >= 0 && srcRect.width >= 0 && srcRect.height >= 0)
-					//Validate against dst-rect
-					{
-						if((pos.x + srcRect.width) > dstPrps->size.width){
-							srcRect.width = (dstPrps->size.width - pos.x);
-						}
-						if((pos.y + srcRect.height) > dstPrps->size.height){
-							srcRect.height = (dstPrps->size.height - pos.y);
-						}
-					}
+                    NBBitmap_pasteValidatedSrcRect_(dstPrps, &pos, srcPrps, &srcRect);
 					//Copy content
 					if(srcRect.width <= 0 || srcRect.height <= 0){
 						//PRINTF_INFO("Bitmaqp omited.\n");

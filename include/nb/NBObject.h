@@ -78,6 +78,8 @@ const STNBClass* NBObject_getClass(void);
 //- and can be locked and retained)
 //----------
 
+#define STNBObjRef_Zero     { NULL }
+
 typedef struct STNBObjRef_ {
 	void*			opaque;
 } STNBObjRef;

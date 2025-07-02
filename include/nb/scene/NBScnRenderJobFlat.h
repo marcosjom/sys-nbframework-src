@@ -4,114 +4,14 @@
 #include "nb/NBFrameworkDefs.h"
 #include "nb/core/NBArray.h"
 #include "nb/2d/NBMatrix.h"
-#include "nb/2d/NBColor.h"
 //
 #include "nb/scene/NBScnRenderJobDefs.h"
 #include "nb/scene/NBScnRenderJobTree.h"
+#include "nb/scene/NBScnVertices.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-	//-------------------
-	//-- STNBScnVertexF
-	//-------------------
-
-	//These MACROs are useful for shader code.
-#define NBScnVertexF_IDX_x			0u
-#define NBScnVertexF_IDX_y			4u
-#define NBScnVertexF_IDX_color_r	8u
-#define NBScnVertexF_IDX_color_g	12u
-#define NBScnVertexF_IDX_color_b	16u
-#define NBScnVertexF_IDX_color_a	20u
-#define NBScnVertexF_SZ				24u
-
-	//Vertex without texture
-	typedef struct STNBScnVertexF_ {
-		float		x;
-		float		y;
-		STNBColor	color;
-	} STNBScnVertexF;
-
-	//--------------------
-	//-- STNBScnVertexTexF
-	//--------------------
-// 
-	//These MACROs are useful for shader code.
-#define NBScnVertexTexF_IDX_x		0u
-#define NBScnVertexTexF_IDX_y		4u
-#define NBScnVertexTexF_IDX_color_r	8u
-#define NBScnVertexTexF_IDX_color_g	12u
-#define NBScnVertexTexF_IDX_color_b	16u
-#define NBScnVertexTexF_IDX_color_a	20u
-#define NBScnVertexTexF_IDX_tex_x	24u
-#define NBScnVertexTexF_IDX_tex_y	28u
-#define NBScnVertexTexF_SZ			32u
-
-	//Vertex with one texture
-	typedef struct STNBScnVertexTexF_ {
-		float		x;
-		float		y;
-		STNBColor	color;
-		STNBPoint	tex;
-	} STNBScnVertexTexF;
-
-
-//--------------------
-//-- STNBScnVertexTex2F
-//--------------------
-
-//These MACROs are useful for shader code.
-#define NBScnVertexTex2F_IDX_x			0u
-#define NBScnVertexTex2F_IDX_y			4u
-#define NBScnVertexTex2F_IDX_color_r	8u
-#define NBScnVertexTex2F_IDX_color_g	12u
-#define NBScnVertexTex2F_IDX_color_b	16u
-#define NBScnVertexTex2F_IDX_color_a	20u
-#define NBScnVertexTex2F_IDX_tex_x		24u
-#define NBScnVertexTex2F_IDX_tex_y		28u
-#define NBScnVertexTex2F_IDX_tex2_x		32u
-#define NBScnVertexTex2F_IDX_tex2_y		36u
-#define NBScnVertexTex2F_SZ				40u
-
-	//Vertex with 2 textures
-	typedef struct STNBScnVertexTex2F_ {
-		float		x;
-		float		y;
-		STNBColor	color;
-		STNBPoint	tex;
-		STNBPoint	tex2;
-	} STNBScnVertexTex2F;
-
-	
-//--------------------
-//-- STNBScnVertexTex3F
-//--------------------
-
-//These MACROs are useful for shader code.
-#define NBScnVertexTex3F_IDX_x			0u
-#define NBScnVertexTex3F_IDX_y			4u
-#define NBScnVertexTex3F_IDX_color_r	8u
-#define NBScnVertexTex3F_IDX_color_g	12u
-#define NBScnVertexTex3F_IDX_color_b	16u
-#define NBScnVertexTex3F_IDX_color_a	20u
-#define NBScnVertexTex3F_IDX_tex_x		24u
-#define NBScnVertexTex3F_IDX_tex_y		28u
-#define NBScnVertexTex3F_IDX_tex2_x		32u
-#define NBScnVertexTex3F_IDX_tex2_y		36u
-#define NBScnVertexTex3F_IDX_tex3_x		40u
-#define NBScnVertexTex3F_IDX_tex3_y		44u
-#define NBScnVertexTex3F_SZ				48u
-
-	//Vertex with 3 textures
-	typedef struct STNBScnVertexTex3F_ {
-		float		x;
-		float		y;
-		STNBColor	color;
-		STNBPoint	tex;
-		STNBPoint	tex2;
-		STNBPoint	tex3;
-	} STNBScnVertexTex3F;
 
 	//---------------------
 	//-- STNBScnFlatNode
@@ -162,7 +62,7 @@ extern "C" {
 
 //Note: for hardware-compute all members must be 32-bits-aligned
 	typedef struct STNBScnFlatNode_ {
-		unsigned int	pck;		//packed (iDeepLvl, isDisabled, isHidden)
+        UI32	        pck;		//packed (iDeepLvl, isDisabled, isHidden)
 		STNBMatrix2D	matrix;		//matrix (render matrix)
 		STNBMatrix2D	matrixInv;	//matrixInv (render inverse matrix, used to convert scene to local coordinates)
 		STNBColor		color;

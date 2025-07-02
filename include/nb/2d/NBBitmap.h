@@ -37,6 +37,10 @@ extern "C" {
 		ENNBBitmapColor_SWF_PIX24,	//reserved+R+G+B
 		ENNBBitmapColor_Count
 	} ENNBBitmapColor;
+
+    const STNBEnumMap* NBBitmapColor_getSharedEnumMap(void);
+
+    //
 	
 	typedef struct STNBBitmapProps_ {
 		ENNBBitmapColor color;
@@ -98,6 +102,7 @@ extern "C" {
 	BOOL NBBitmap_posterize(STNBBitmap* obj, const UI8 tonesDivider);
 	
 	//Paste of bitmap (lowest calculations)
+    BOOL NBBitmap_pasteValidatedSrcRect(STNBBitmap* obj, const STNBPointI pos, const STNBBitmapProps srcProps, STNBRectI* srcRect);
 	BOOL NBBitmap_pasteBitmap(STNBBitmap* obj, const STNBPointI pos, const STNBBitmap* src, const STNBColor8 color);
 	BOOL NBBitmap_pasteBitmapRect(STNBBitmap* obj, const STNBPointI pos, const STNBBitmap* src, const STNBRectI srcRect, const STNBColor8 color);
 	BOOL NBBitmap_pasteBitmapRectWithMask(STNBBitmap* obj, const STNBPointI pos, const STNBBitmap* src, const STNBRectI srcRect, const STNBBitmap* msk, const STNBPointI mskLeftTop, const STNBColor8 color);

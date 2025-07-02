@@ -46,6 +46,20 @@
 void text_json_parseFile_(const char* filepath, const char* name, const BOOL printBasic, const BOOL printParsedStruct);
 void text_json_parseFiles_(STNBFilesystem* fs, const char* root, const BOOL printBasic, const BOOL printParsedStruct);
 
+//Memory Block
+#include "nb/core/NBMemoryBlock.h"
+
+void memBlock_testsRun_(const UI32 ammTests);
+void memblock_testRandomActions_(const UI32 blockSz, const UI32 ammPtrsMax, const UI32 ammActions);
+
+//Memory Blocks
+#include "nb/core/NBMemoryBlocks.h"
+
+void memBlocks_testsRun_(const UI32 ammTests);
+void memblocks_testRandomActions_(const UI32 blockSz, const UI32 ammPtrsMax, const UI32 ammActions);
+
+//main
+
 int main(int argc, const char * argv[]) {
 	NBMngrProcess_init();
 	NBMngrStructMaps_init();
@@ -73,6 +87,18 @@ int main(int argc, const char * argv[]) {
 		}
 #		endif
 	}
+    //memblock test
+    {
+        PRINTF_INFO("Start-of-memBlock_testsRun_.\n");
+        memBlock_testsRun_(100);
+        PRINTF_INFO("End-of-memBlock_testsRun_.\n");
+    }
+    //memblocks test
+    {
+        PRINTF_INFO("Start-of-memBlocks_testsRun_.\n");
+        memBlocks_testsRun_(100);
+        PRINTF_INFO("End-of-memBlocks_testsRun_.\n");
+    }
 	//
 	{
 		STNBFilesystem fs;
@@ -202,4 +228,179 @@ void text_json_parseFiles_(STNBFilesystem* fs, const char* root, const BOOL prin
 	NBArray_release(&files);
 	NBString_release(&strs);
 	NBString_release(&path);
+}
+
+//Memory Block
+
+void memBlock_testsRun_(const UI32 ammTests){
+    UI32 i; for(i = 0; i < ammTests; i++){
+        memblock_testRandomActions_(rand() % 1024 * 128, 1 + (rand() % 1024), 1 + (rand() % 1024));
+        if(((i + 1) % 10) == 0){
+            PRINTF_INFO("#%d/%d runs-of-memblock_testRandomActions_ (%.1f%%).\n", i + 1, ammTests, (float)i / (float)ammTests * 100.f);
+        }
+    }
+    PRINTF_INFO("%d/%d runs-of-memblock_testRandomActions_ (%.1f%%, END).\n", i, ammTests, (float)i / (float)ammTests * 100.f);
+}
+
+void memblock_testRandomActions_(const UI32 blockSz, const UI32 ammPtrsMax, const UI32 ammActions){
+    STNBAbsPtr* ptrs = (STNBAbsPtr*)NBMemory_alloc(sizeof(STNBAbsPtr) * ammPtrsMax);
+    NBMemory_set(ptrs, 0, sizeof(STNBAbsPtr) * ammPtrsMax);
+    //
+    {
+        STNBMemoryBlockRef mb = NBMemoryBlock_alloc(NULL);
+        STNBMemoryBlockCfg cfg = STNBMemoryBlockCfg_Zero;
+        cfg.size            = blockSz;
+        cfg.idxsAlign       = (rand() % 17);
+        cfg.sizeAlign       = (rand() % 257);
+        cfg.idxZeroIsValid  = (rand() % 2);
+        NBMemoryBlock_prepare(mb, &cfg, NULL);
+        {
+            //random actions
+            UI32 i; for(i = 0; i < ammActions; i++){
+                const UI32 iAct = (rand() % 128);
+                if(iAct < 124){
+                    //random action
+                    const UI32 iPtr = (rand() % ammPtrsMax);
+                    if(ptrs[iPtr].ptr != NULL){
+                        if(!NBMemoryBlock_mfree(mb, ptrs[iPtr])){
+                            NBASSERT(FALSE); //pointer should be freed
+                            break;
+                        } else {
+                            ptrs[iPtr].ptr = NULL;
+                            NBASSERT(NBMemoryBlock_validateIndex(mb))
+                        }
+                    } else {
+                        ptrs[iPtr] = NBMemoryBlock_malloc(mb, 1 + (rand() % (1 + blockSz)));
+                        NBASSERT(NBMemoryBlock_validateIndex(mb))
+                    }
+                } else if(iAct < 126){
+                    //remove all individually
+                    UI32 availSz = 0;
+                    UI32 i2; for(i2 = 0; i2 < ammPtrsMax && (availSz = NBMemoryBlock_mAvailSz(mb)) > 0; i2++){
+                        if(ptrs[i2].ptr != NULL){
+                            if(!NBMemoryBlock_mfree(mb, ptrs[i2])){
+                                NBASSERT(FALSE);
+                                break;
+                            } else {
+                                NBASSERT(NBMemoryBlock_validateIndex(mb))
+                                ptrs[i2].ptr = NULL;
+                            }
+                        }
+                    }
+                } else if(iAct < 127){
+                    //clear
+                    NBMemoryBlock_clear(mb);
+                    NBMemory_set(ptrs, 0, sizeof(STNBAbsPtr) * ammPtrsMax);
+                    NBASSERT(NBMemoryBlock_validateIndex(mb))
+                } else {
+                    //fill all
+                    STNBTimestampMicro end, start = NBTimestampMicro_getMonotonicFast();
+                    UI32 availSzStart = NBMemoryBlock_mAvailSz(mb);
+                    UI32 availSz = availSzStart;
+                    //PRINTF_INFO("memblock_testRandomActions_ filling all memory (START, %d bytes).\n", availSzStart);
+                    //
+                    NBMemoryBlock_prepareForNewMallocsActions(mb, availSz);
+                    //
+                    UI32 i2; for(i2 = 0; i2 < ammPtrsMax && (availSz = NBMemoryBlock_mAvailSz(mb)) > 0; i2++){
+                        if(ptrs[i2].ptr == NULL){
+                            ptrs[i2] = NBMemoryBlock_malloc(mb, 1);
+                            NBASSERT(NBMemoryBlock_validateIndex(mb))
+                            if(ptrs[i2].ptr == NULL){ //this happens when the block is too fragmented
+                                break;
+                            }
+                        }
+                    }
+                    while((availSz = NBMemoryBlock_mAvailSz(mb)) > 0){
+                        STNBAbsPtr ptr = NBMemoryBlock_malloc(mb, 1);
+                        NBASSERT(NBMemoryBlock_validateIndex(mb))
+                        if(ptr.ptr == NULL){ //this happens when the block is too fragmented
+                            break;
+                        }
+                    }
+                    end = NBTimestampMicro_getMonotonicFast();
+                    //PRINTF_INFO("memblock_testRandomActions_ filling all memory (DONE, %d bytes, %d ms).\n", availSzStart, NBTimestampMicro_getDiffInMs(&start, &end));
+                }
+            }
+        }
+        NBMemoryBlock_release(&mb);
+    }
+    //
+    NBMemory_free(ptrs);
+    ptrs = NULL;
+}
+
+//Memory Blocks
+
+void memBlocks_testsRun_(const UI32 ammTests){
+    UI32 i; for(i = 0; i < ammTests; i++){
+        memblocks_testRandomActions_(rand() % 1024 * 128, 1 + (rand() % 1024), 1 + (rand() % 1024));
+        if(((i + 1) % 10) == 0){
+            PRINTF_INFO("#%d/%d runs-of-memblocks_testRandomActions_ (%.1f%%).\n", i + 1, ammTests, (float)i / (float)ammTests * 100.f);
+        }
+    }
+    PRINTF_INFO("%d/%d runs-of-memblocks_testRandomActions_ (%.1f%%, END).\n", i, ammTests, (float)i / (float)ammTests * 100.f);
+}
+
+void memblocks_testRandomActions_(const UI32 blockSz, const UI32 ammPtrsMax, const UI32 ammActions){
+    STNBAbsPtr* ptrs = (STNBAbsPtr*)NBMemory_alloc(sizeof(STNBAbsPtr) * ammPtrsMax);
+    NBMemory_set(ptrs, 0, sizeof(STNBAbsPtr) * ammPtrsMax);
+    //
+    {
+        STNBMemoryBlocksRef mb = NBMemoryBlocks_alloc(NULL);
+        STNBMemoryBlocksCfg cfg = STNBMemoryBlocksCfg_Zero;
+        cfg.sizePerBlock    = blockSz;
+        cfg.sizeMax         = 0; //
+        cfg.idxsAlign       = (rand() % 17);
+        cfg.sizeAlign       = (rand() % 257);
+        cfg.idxZeroIsValid  = (rand() % 2);
+        if(blockSz > 0){
+            cfg.sizeInitial  = (rand() % 2) == 0 ? 0 : (rand() % blockSz) * (rand() % 3);
+        }
+        NBMemoryBlocks_prepare(mb, &cfg, NULL);
+        {
+            //random actions
+            UI32 i; for(i = 0; i < ammActions; i++){
+                const UI32 iAct = (rand() % 128);
+                if(iAct < 126){
+                    //random action
+                    const UI32 iPtr = (rand() % ammPtrsMax);
+                    if(ptrs[iPtr].ptr != NULL){
+                        if(!NBMemoryBlocks_mfree(mb, ptrs[iPtr])){
+                            NBASSERT(FALSE); //pointer should be freed
+                            break;
+                        } else {
+                            ptrs[iPtr].ptr = NULL;
+                            NBASSERT(NBMemoryBlocks_validateIndex(mb))
+                        }
+                    } else {
+                        ptrs[iPtr] = NBMemoryBlocks_malloc(mb, 1 + (rand() % (1 + blockSz)), NULL);
+                        NBASSERT(ptrs[iPtr].ptr != NULL) //should be allocated
+                        NBASSERT(NBMemoryBlocks_validateIndex(mb))
+                    }
+                } else if(iAct < 127){
+                    //remove all individually
+                    UI32 i2; for(i2 = 0; i2 < ammPtrsMax; i2++){
+                        if(ptrs[i2].ptr != NULL){
+                            if(!NBMemoryBlocks_mfree(mb, ptrs[i2])){
+                                NBASSERT(FALSE);
+                                break;
+                            } else {
+                                NBASSERT(NBMemoryBlocks_validateIndex(mb))
+                                ptrs[i2].ptr = NULL;
+                            }
+                        }
+                    }
+                } else {
+                    //clear
+                    NBMemoryBlocks_clear(mb);
+                    NBMemory_set(ptrs, 0, sizeof(STNBAbsPtr) * ammPtrsMax);
+                    NBASSERT(NBMemoryBlocks_validateIndex(mb))
+                }
+            }
+        }
+        NBMemoryBlocks_release(&mb);
+    }
+    //
+    NBMemory_free(ptrs);
+    ptrs = NULL;
 }

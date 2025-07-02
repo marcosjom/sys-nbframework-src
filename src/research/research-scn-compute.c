@@ -665,10 +665,10 @@ void research_scn_compute_convertTreeToPlainGpuAlgorithmToDst(const BYTE* hdr, c
 		float sx = *(float*)(&tree[trNdsOff + iNode * NBScnTreeNode_SZ + NBScnTreeNode_IDX_t_sX]);
 		float sy = *(float*)(&tree[trNdsOff + iNode * NBScnTreeNode_SZ + NBScnTreeNode_IDX_t_sY]);
 		UI32 c8 = *(UI32*)(&tree[trNdsOff + iNode * NBScnTreeNode_SZ + NBScnTreeNode_IDX_c]);
-		float r = (float)NBColor8_getRV(c8) / 255.f;
-		float g = (float)NBColor8_getGV(c8) / 255.f;
-		float b = (float)NBColor8_getBV(c8) / 255.f;
-		float a = (float)NBColor8_getAV(c8) / 255.f;
+		float r = (float)NBColor8_getR(c8) / 255.f;
+		float g = (float)NBColor8_getG(c8) / 255.f;
+		float b = (float)NBColor8_getB(c8) / 255.f;
+		float a = (float)NBColor8_getA(c8) / 255.f;
 		UI32 vsType = NBScnTreeNode_getVertsTypeV(pck);
 		UI32 vsFirstIdx = *(UI32*)(&tree[trNdsOff + iNode * NBScnTreeNode_SZ + NBScnTreeNode_IDX_vs_iFirst]);
 		UI32 vsCount = *(UI32*)(&tree[trNdsOff + iNode * NBScnTreeNode_SZ + NBScnTreeNode_IDX_vs_count]);
@@ -710,10 +710,10 @@ void research_scn_compute_convertTreeToPlainGpuAlgorithmToDst(const BYTE* hdr, c
 			m._m11 = (mP._m10 * mC._m01) + (mP._m11 * mC._m11) /*always-zero: + ( mP._m12 * mC._m21)*/;
 			m._m12 = (mP._m10 * mC._m02) + (mP._m11 * mC._m12) + (mP._m12 /*always-one: * mC._m22*/);
 			c8 = *(UI32*)(&tree[trNdsOff + iNode * NBScnTreeNode_SZ + NBScnTreeNode_IDX_c]);
-			r *= (float)NBColor8_getRV(c8) / 255.f;
-			g *= (float)NBColor8_getGV(c8) / 255.f;
-			b *= (float)NBColor8_getBV(c8) / 255.f;
-			a *= (float)NBColor8_getAV(c8) / 255.f;
+			r *= (float)NBColor8_getR(c8) / 255.f;
+			g *= (float)NBColor8_getG(c8) / 255.f;
+			b *= (float)NBColor8_getB(c8) / 255.f;
+			a *= (float)NBColor8_getA(c8) / 255.f;
 		}
 		//transform vertices
 		if (vsCount > 0) {
@@ -731,10 +731,10 @@ void research_scn_compute_convertTreeToPlainGpuAlgorithmToDst(const BYTE* hdr, c
 					vYP = (m._m10 * vX) + (m._m11 * vY) + m._m12;
 					//
 					c8 = *(UI32*)(&tree[trV0Off + vIdx * NBScnVertex_SZ + NBScnVertex_IDX_color]);
-					vCR = r * ((float)NBColor8_getRV(c8) / 255.f);
-					vCG = g * ((float)NBColor8_getGV(c8) / 255.f);
-					vCB = b * ((float)NBColor8_getBV(c8) / 255.f);
-					vCA = a * ((float)NBColor8_getAV(c8) / 255.f);
+					vCR = r * ((float)NBColor8_getR(c8) / 255.f);
+					vCG = g * ((float)NBColor8_getG(c8) / 255.f);
+					vCB = b * ((float)NBColor8_getB(c8) / 255.f);
+					vCA = a * ((float)NBColor8_getA(c8) / 255.f);
 					//
 					*(UI32*)&flat[flV0Off + vIdx * NBScnVertexF_SZ + NBScnVertexF_IDX_x] = *(UI32*)(&vXP);
 					*(UI32*)&flat[flV0Off + vIdx * NBScnVertexF_SZ + NBScnVertexF_IDX_y] = *(UI32*)(&vYP);
@@ -753,10 +753,10 @@ void research_scn_compute_convertTreeToPlainGpuAlgorithmToDst(const BYTE* hdr, c
 					vYP = (m._m10 * (vX)) + (m._m11 * (vY)) + m._m12;
 					//
 					c8 = *(UI32*)(&tree[trV1Off + vIdx * NBScnVertexTex_SZ + NBScnVertexTex_IDX_color]);
-					vCR = r * ((float)NBColor8_getRV(c8) / 255.f);
-					vCG = g * ((float)NBColor8_getGV(c8) / 255.f);
-					vCB = b * ((float)NBColor8_getBV(c8) / 255.f);
-					vCA = a * ((float)NBColor8_getAV(c8) / 255.f);
+					vCR = r * ((float)NBColor8_getR(c8) / 255.f);
+					vCG = g * ((float)NBColor8_getG(c8) / 255.f);
+					vCB = b * ((float)NBColor8_getB(c8) / 255.f);
+					vCA = a * ((float)NBColor8_getA(c8) / 255.f);
 					//
 					t1x = *(float*)(&tree[trV1Off + vIdx * NBScnVertexTex_SZ + NBScnVertexTex_IDX_tex_x]);
 					t1y = *(float*)(&tree[trV1Off + vIdx * NBScnVertexTex_SZ + NBScnVertexTex_IDX_tex_y]);
@@ -780,10 +780,10 @@ void research_scn_compute_convertTreeToPlainGpuAlgorithmToDst(const BYTE* hdr, c
 					vYP = (m._m10 * (vX)) + (m._m11 * (vY)) + m._m12;
 					//
 					c8 = *(UI32*)(&tree[trV2Off + vIdx * NBScnVertexTex2_SZ + NBScnVertexTex2_IDX_color]);
-					vCR = r * ((float)NBColor8_getRV(c8) / 255.f);
-					vCG = g * ((float)NBColor8_getGV(c8) / 255.f);
-					vCB = b * ((float)NBColor8_getBV(c8) / 255.f);
-					vCA = a * ((float)NBColor8_getAV(c8) / 255.f);
+					vCR = r * ((float)NBColor8_getR(c8) / 255.f);
+					vCG = g * ((float)NBColor8_getG(c8) / 255.f);
+					vCB = b * ((float)NBColor8_getB(c8) / 255.f);
+					vCA = a * ((float)NBColor8_getA(c8) / 255.f);
 					//
 					t1x = *(float*)(&tree[trV2Off + vIdx * NBScnVertexTex2_SZ + NBScnVertexTex2_IDX_tex_x]);
 					t1y = *(float*)(&tree[trV2Off + vIdx * NBScnVertexTex2_SZ + NBScnVertexTex2_IDX_tex_y]);
@@ -811,10 +811,10 @@ void research_scn_compute_convertTreeToPlainGpuAlgorithmToDst(const BYTE* hdr, c
 					vYP = (m._m10 * (vX)) + (m._m11 * (vY)) + m._m12;
 					//
 					c8 = *(UI32*)(&tree[trV3Off + vIdx * NBScnVertexTex3_SZ + NBScnVertexTex3_IDX_color]);
-					vCR = r * ((float)NBColor8_getRV(c8) / 255.f);
-					vCG = g * ((float)NBColor8_getGV(c8) / 255.f);
-					vCB = b * ((float)NBColor8_getBV(c8) / 255.f);
-					vCA = a * ((float)NBColor8_getAV(c8) / 255.f);
+					vCR = r * ((float)NBColor8_getR(c8) / 255.f);
+					vCG = g * ((float)NBColor8_getG(c8) / 255.f);
+					vCB = b * ((float)NBColor8_getB(c8) / 255.f);
+					vCA = a * ((float)NBColor8_getA(c8) / 255.f);
 					//
 					t1x = *(float*)(&tree[trV3Off + vIdx * NBScnVertexTex3_SZ + NBScnVertexTex3_IDX_tex_x]);
 					t1y = *(float*)(&tree[trV3Off + vIdx * NBScnVertexTex3_SZ + NBScnVertexTex3_IDX_tex_y]);

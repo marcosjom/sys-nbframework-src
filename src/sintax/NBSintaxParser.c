@@ -1,6 +1,6 @@
 
 #include "nb/NBFrameworkPch.h"
-#include "nb/core/NBSintaxParser.h"
+#include "nb/sintax/NBSintaxParser.h"
 //
 #include "nb/core/NBMemory.h"
 #include "nb/core/NBThreadMutex.h"
@@ -688,7 +688,7 @@ BOOL NBSintaxParser_feedByte_(STNBSintaxParser* obj, const char c, const BOOL is
 											//Just accumulate char
 											consumed = TRUE;
 										} else {
-											PRINTF_ERROR("NBSintaxParser, unconsumed char found.\n");
+                                            PRINTF_ERROR("NBSintaxParser, unconsumed char found: '%.*s'\n", parser->tree.unconsumed.str.str);
 											parser->errFnd = TRUE;
 										}
 									}
@@ -835,7 +835,7 @@ BOOL NBSintaxParser_feedTokenBytes_(STNBSintaxParser* obj, const UI32 iElem, con
 									}
 								}
 								if(!found){
-									PRINTF_ERROR("NBSintaxParser, unconsumed char found.\n");
+                                    PRINTF_ERROR("NBSintaxParser, unconsumed char found: '%.*s'\n", parser->tree.unconsumed.str.str);
 									parser->errFnd = TRUE;
 									break;
 								}
@@ -1017,7 +1017,7 @@ void NBSintaxParser_feedFlush_(STNBSintaxParser* obj){
 								}
 							}
 							if(!found){
-								PRINTF_ERROR("NBSintaxParser, unconsumed char found.\n");
+								PRINTF_ERROR("NBSintaxParser, unconsumed char found: '%s'\n", parser->tree.unconsumed.str.str);
 								parser->errFnd = TRUE;
 								break;
 							}

@@ -1463,8 +1463,6 @@
 		2C1332F925A4EE7200F9B076 /* NBRtsp.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C1332F625A4EE7100F9B076 /* NBRtsp.c */; };
 		2C1332FA25A4EE7200F9B076 /* NBRtspClientConn.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C1332F725A4EE7100F9B076 /* NBRtspClientConn.c */; };
 		2C1332FB25A4EE7200F9B076 /* NBRtspClientConn.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C1332F725A4EE7100F9B076 /* NBRtspClientConn.c */; };
-		2C136C342458DB990093047E /* NBSintaxParser.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C136C332458DB990093047E /* NBSintaxParser.c */; };
-		2C136C352458DB990093047E /* NBSintaxParser.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C136C332458DB990093047E /* NBSintaxParser.c */; };
 		2C1765F32734527D00AC2720 /* NBIOPollster.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C1765F22734527D00AC2720 /* NBIOPollster.c */; };
 		2C1765F42734527D00AC2720 /* NBIOPollster.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C1765F22734527D00AC2720 /* NBIOPollster.c */; };
 		2C1799332571680F00604752 /* lz4.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C17992A2571680E00604752 /* lz4.c */; settings = {COMPILER_FLAGS = "-DNB_LZ4 -I$(SRCROOT)/../../../src/ext/lz4/lib $(inherited)"; }; };
@@ -1483,14 +1481,13 @@
 		2C18384D25C36B8F00FAFDDA /* NBRtcpClient.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C18384925C36B8E00FAFDDA /* NBRtcpClient.c */; };
 		2C1990A0205E296600B5F48C /* NBAes256.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C19909E205E296600B5F48C /* NBAes256.c */; settings = {COMPILER_FLAGS = "-DNB_OPENSSL -w -I$(SRCROOT)/../../../include/nb/ext/openssl/include -I$(SRCROOT)/../../../src/ext/openssl/include"; }; };
 		2C1990A1205E298B00B5F48C /* NBAes256.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C19909E205E296600B5F48C /* NBAes256.c */; settings = {COMPILER_FLAGS = "-DNB_OPENSSL -w -I$(SRCROOT)/../../../include/nb/ext/openssl/include -I$(SRCROOT)/../../../src/ext/openssl/include"; }; };
+		2C19A1B52E10226800B4140F /* NBGpuBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C19A1B42E10226800B4140F /* NBGpuBuffer.c */; };
+		2C19A1B62E10226800B4140F /* NBGpuBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C19A1B42E10226800B4140F /* NBGpuBuffer.c */; };
+		2C19A1B82E10227600B4140F /* NBGpuBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C19A1B72E10227600B4140F /* NBGpuBuffer.h */; };
 		2C1A6A5E2724C4F9001EE349 /* NBWebSocketMessage.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C1A6A5C2724C4F8001EE349 /* NBWebSocketMessage.c */; };
 		2C1A6A5F2724C4F9001EE349 /* NBWebSocketMessage.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C1A6A5C2724C4F8001EE349 /* NBWebSocketMessage.c */; };
 		2C1A6A602724C4F9001EE349 /* NBWebSocketFrame.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C1A6A5D2724C4F8001EE349 /* NBWebSocketFrame.c */; };
 		2C1A6A612724C4F9001EE349 /* NBWebSocketFrame.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C1A6A5D2724C4F8001EE349 /* NBWebSocketFrame.c */; };
-		2C1DF82A24AD363200347D2D /* NBSintaxParserCTokens.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C1DF82924AD363200347D2D /* NBSintaxParserCTokens.c */; };
-		2C1DF82B24AD363200347D2D /* NBSintaxParserCTokens.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C1DF82924AD363200347D2D /* NBSintaxParserCTokens.c */; };
-		2C1DF82F24AFF6AC00347D2D /* NBSintaxParserCDefs.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C1DF82E24AFF6AB00347D2D /* NBSintaxParserCDefs.c */; };
-		2C1DF83024AFF6AC00347D2D /* NBSintaxParserCDefs.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C1DF82E24AFF6AB00347D2D /* NBSintaxParserCDefs.c */; };
 		2C1E5A7320E547A600740049 /* NBXmlParser.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E5A7120E547A600740049 /* NBXmlParser.c */; };
 		2C1E5A7420E547A600740049 /* NBXmlParser.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C1E5A7120E547A600740049 /* NBXmlParser.c */; };
 		2C227E5D204B332800D1B813 /* NBThread.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C227E2F204B30A900D1B813 /* NBThread.c */; };
@@ -2174,8 +2171,6 @@
 		2C3FD5962065BD71001D7061 /* NBPlistOld.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C3FD5922065BD70001D7061 /* NBPlistOld.c */; };
 		2C3FD5982065C308001D7061 /* NBPlistOld.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C3FD5922065BD70001D7061 /* NBPlistOld.c */; };
 		2C3FD5992065C30B001D7061 /* NBPlistOldParser.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C3FD5912065BD6F001D7061 /* NBPlistOldParser.c */; };
-		2C41038B24A1B43B00EDB1AA /* NBSintaxParserCPProc.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C41038A24A1B43B00EDB1AA /* NBSintaxParserCPProc.c */; };
-		2C41038C24A1B43B00EDB1AA /* NBSintaxParserCPProc.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C41038A24A1B43B00EDB1AA /* NBSintaxParserCPProc.c */; };
 		2C42606A27458AE600963949 /* NBStompFrame.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C42606927458AE600963949 /* NBStompFrame.c */; };
 		2C42606B27458AE600963949 /* NBStompFrame.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C42606927458AE600963949 /* NBStompFrame.c */; };
 		2C4299B120FD307100D09159 /* NBHttpHeader.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C4299AF20FD307100D09159 /* NBHttpHeader.c */; };
@@ -2223,6 +2218,18 @@
 		2C6FBD86211535CA00AFEB41 /* NBHttpProxy.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CAEFDEF2113D5CA00CDA0E7 /* NBHttpProxy.c */; };
 		2C6FBD87211535CA00AFEB41 /* NBHttpProxy.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CAEFDEF2113D5CA00CDA0E7 /* NBHttpProxy.c */; };
 		2C6FBD8B2116DB5A00AFEB41 /* NBCompare.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C7D515B2077169B005C6AB5 /* NBCompare.c */; };
+		2C702E892E1324FE009BFCAB /* NBScnNodeProps.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C702E862E1324FE009BFCAB /* NBScnNodeProps.c */; };
+		2C702E8A2E1324FE009BFCAB /* NBScnTransform.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C702E882E1324FE009BFCAB /* NBScnTransform.c */; };
+		2C702E8B2E1324FE009BFCAB /* NBScnNodeProps.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C702E862E1324FE009BFCAB /* NBScnNodeProps.c */; };
+		2C702E8C2E1324FE009BFCAB /* NBScnTransform.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C702E882E1324FE009BFCAB /* NBScnTransform.c */; };
+		2C702E8D2E1324FE009BFCAB /* NBScnTransform.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C702E872E1324FE009BFCAB /* NBScnTransform.h */; };
+		2C702E8E2E1324FE009BFCAB /* NBScnNodeProps.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C702E852E1324FE009BFCAB /* NBScnNodeProps.h */; };
+		2C702E942E15BF83009BFCAB /* NBGpuVertexBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C702E932E15BF83009BFCAB /* NBGpuVertexBuffer.c */; };
+		2C702E952E15BF83009BFCAB /* NBGpuVertexBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C702E922E15BF83009BFCAB /* NBGpuVertexBuffer.h */; };
+		2C702E962E15BF83009BFCAB /* NBGpuVertexBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C702E932E15BF83009BFCAB /* NBGpuVertexBuffer.c */; };
+		2C702E992E15C297009BFCAB /* NBGpuDataType.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C702E982E15C297009BFCAB /* NBGpuDataType.c */; };
+		2C702E9A2E15C297009BFCAB /* NBGpuDataType.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C702E982E15C297009BFCAB /* NBGpuDataType.c */; };
+		2C702E9B2E15C297009BFCAB /* NBGpuDataType.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C702E972E15C297009BFCAB /* NBGpuDataType.h */; };
 		2C712EAB22506035009EC8BF /* NBLinkedList.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C712EAA22506034009EC8BF /* NBLinkedList.c */; };
 		2C712EAC22506035009EC8BF /* NBLinkedList.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C712EAA22506034009EC8BF /* NBLinkedList.c */; };
 		2C718A33211105880000F260 /* NBHttpServicePort.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C718A31211105670000F260 /* NBHttpServicePort.c */; };
@@ -2231,10 +2238,6 @@
 		2C718A36211105880000F260 /* NBHttpMessage.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C718A2F211105670000F260 /* NBHttpMessage.c */; };
 		2C72ADA725C47A2600821502 /* NBRtspClientStats.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C72ADA625C47A2500821502 /* NBRtspClientStats.c */; };
 		2C72ADA825C47A2600821502 /* NBRtspClientStats.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C72ADA625C47A2500821502 /* NBRtspClientStats.c */; };
-		2C78DB46246DBCD90099DE81 /* NBSintaxParserC.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C78DB45246DBCD90099DE81 /* NBSintaxParserC.c */; };
-		2C78DB47246DBCD90099DE81 /* NBSintaxParserC.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C78DB45246DBCD90099DE81 /* NBSintaxParserC.c */; };
-		2C7CD1C324B2F032000FB0C3 /* NBSintaxParserCPProcUnit.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C7CD1C224B2F031000FB0C3 /* NBSintaxParserCPProcUnit.c */; };
-		2C7CD1C424B2F032000FB0C3 /* NBSintaxParserCPProcUnit.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C7CD1C224B2F031000FB0C3 /* NBSintaxParserCPProcUnit.c */; };
 		2C7D515C2077169C005C6AB5 /* NBCompare.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C7D515B2077169B005C6AB5 /* NBCompare.c */; };
 		2C7F5A992DE9AEEF007ADD93 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C7F5A982DE9AEEF007ADD93 /* Metal.framework */; };
 		2C7F5A9B2DE9AF43007ADD93 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C7F5A9A2DE9AF42007ADD93 /* Foundation.framework */; };
@@ -2330,6 +2333,31 @@
 		2C8F6CCE26E463DF00B039AD /* NBMp4.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C8F6CCC26E463DF00B039AD /* NBMp4.c */; };
 		2C8F7E3329F9A4600061A36C /* NBIO.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C8F7E3129F9A45F0061A36C /* NBIO.c */; };
 		2C8F7E3429F9A4600061A36C /* NBIO.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C8F7E3229F9A45F0061A36C /* NBIO.h */; };
+		2C90F7F32E0C04EA009964D3 /* NBSintaxParserCPProcUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C90F7EE2E0C04EA009964D3 /* NBSintaxParserCPProcUnit.h */; };
+		2C90F7F42E0C04EA009964D3 /* NBSintaxParserResults.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C90F7F12E0C04EA009964D3 /* NBSintaxParserResults.h */; };
+		2C90F7F52E0C04EA009964D3 /* NBSintaxParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C90F7E92E0C04EA009964D3 /* NBSintaxParser.h */; };
+		2C90F7F62E0C04EA009964D3 /* NBSintaxParserCTokens.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C90F7EF2E0C04EA009964D3 /* NBSintaxParserCTokens.h */; };
+		2C90F7F72E0C04EA009964D3 /* NBSintaxParserCDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C90F7EB2E0C04EA009964D3 /* NBSintaxParserCDefs.h */; };
+		2C90F7F82E0C04EA009964D3 /* NBSintaxParserDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C90F7F02E0C04EA009964D3 /* NBSintaxParserDefs.h */; };
+		2C90F7F92E0C04EA009964D3 /* NBSintaxParserC.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C90F7EA2E0C04EA009964D3 /* NBSintaxParserC.h */; };
+		2C90F7FA2E0C04EA009964D3 /* NBSintaxParserCPProc.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C90F7EC2E0C04EA009964D3 /* NBSintaxParserCPProc.h */; };
+		2C90F7FB2E0C04EA009964D3 /* NBSintaxParserRules.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C90F7F22E0C04EA009964D3 /* NBSintaxParserRules.h */; };
+		2C90F7FC2E0C04EA009964D3 /* NBSintaxParserCPProcDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C90F7ED2E0C04EA009964D3 /* NBSintaxParserCPProcDefs.h */; };
+		2C90F7FE2E0C2A68009964D3 /* NBScnRenderCmd.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C90F7FD2E0C2A68009964D3 /* NBScnRenderCmd.c */; };
+		2C90F7FF2E0C2A68009964D3 /* NBScnRenderCmd.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C90F7FD2E0C2A68009964D3 /* NBScnRenderCmd.c */; };
+		2C90F8012E0C2A7A009964D3 /* NBScnRenderCmd.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C90F8002E0C2A7A009964D3 /* NBScnRenderCmd.h */; };
+		2C90F8032E0C66D9009964D3 /* NBScnRenderJobBldr.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C90F8022E0C66D9009964D3 /* NBScnRenderJobBldr.c */; };
+		2C90F8042E0C66D9009964D3 /* NBScnRenderJobBldr.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C90F8022E0C66D9009964D3 /* NBScnRenderJobBldr.c */; };
+		2C90F8062E0C66F1009964D3 /* NBScnRenderJobBldr.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C90F8052E0C66F1009964D3 /* NBScnRenderJobBldr.h */; };
+		2C90F8082E0C68F4009964D3 /* NBScnVertices.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C90F8072E0C68F4009964D3 /* NBScnVertices.c */; };
+		2C90F8092E0C68F4009964D3 /* NBScnVertices.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C90F8072E0C68F4009964D3 /* NBScnVertices.c */; };
+		2C90F80B2E0C6902009964D3 /* NBScnVertices.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C90F80A2E0C6902009964D3 /* NBScnVertices.h */; };
+		2C90F80E2E0C80B3009964D3 /* NBMemoryBlock.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C90F80C2E0C80B3009964D3 /* NBMemoryBlock.c */; };
+		2C90F80F2E0C80B3009964D3 /* NBMemoryBlocks.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C90F80D2E0C80B3009964D3 /* NBMemoryBlocks.c */; };
+		2C90F8102E0C80B3009964D3 /* NBMemoryBlock.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C90F80C2E0C80B3009964D3 /* NBMemoryBlock.c */; };
+		2C90F8112E0C80B3009964D3 /* NBMemoryBlocks.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C90F80D2E0C80B3009964D3 /* NBMemoryBlocks.c */; };
+		2C90F8142E0C80CA009964D3 /* NBMemoryBlock.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C90F8122E0C80CA009964D3 /* NBMemoryBlock.h */; };
+		2C90F8152E0C80CA009964D3 /* NBMemoryBlocks.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C90F8132E0C80CA009964D3 /* NBMemoryBlocks.h */; };
 		2C93293A27432BD000A086EE /* NBBitstream.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C93293927432BD000A086EE /* NBBitstream.c */; };
 		2C93293B27432BD000A086EE /* NBBitstream.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C93293927432BD000A086EE /* NBBitstream.c */; };
 		2C99A6862362625C00D4D010 /* NBHttpStats.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C99A6842362625C00D4D010 /* NBHttpStats.c */; };
@@ -2434,6 +2462,22 @@
 		2C9D17F722409E2700C58D29 /* jaricom.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C9D179222409E2500C58D29 /* jaricom.c */; settings = {COMPILER_FLAGS = "-DNB_LIBJPEG -w -I$(SRCROOT)/../../../src/ext/libjpeg $(inherited)"; }; };
 		2C9D17FB22409EF600C58D29 /* NBJpeg.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C9D17F922409EF600C58D29 /* NBJpeg.c */; };
 		2C9D17FC22409EF600C58D29 /* NBJpeg.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C9D17F922409EF600C58D29 /* NBJpeg.c */; };
+		2C9E001A2E0832E80093DB96 /* NBSintaxParserCPProc.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C9E00142E0832E80093DB96 /* NBSintaxParserCPProc.c */; };
+		2C9E001B2E0832E80093DB96 /* NBSintaxParserCTokens.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C9E00162E0832E80093DB96 /* NBSintaxParserCTokens.c */; };
+		2C9E001C2E0832E80093DB96 /* NBSintaxParserResults.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C9E00172E0832E80093DB96 /* NBSintaxParserResults.c */; };
+		2C9E001D2E0832E80093DB96 /* NBSintaxParserRules.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C9E00182E0832E80093DB96 /* NBSintaxParserRules.c */; };
+		2C9E001E2E0832E80093DB96 /* NBSintaxParserCPProcUnit.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C9E00152E0832E80093DB96 /* NBSintaxParserCPProcUnit.c */; };
+		2C9E001F2E0832E80093DB96 /* NBSintaxParser.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C9E00112E0832E80093DB96 /* NBSintaxParser.c */; };
+		2C9E00202E0832E80093DB96 /* NBSintaxParserC.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C9E00122E0832E80093DB96 /* NBSintaxParserC.c */; };
+		2C9E00212E0832E80093DB96 /* NBSintaxParserCDefs.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C9E00132E0832E80093DB96 /* NBSintaxParserCDefs.c */; };
+		2C9E00222E0832E80093DB96 /* NBSintaxParserCPProc.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C9E00142E0832E80093DB96 /* NBSintaxParserCPProc.c */; };
+		2C9E00232E0832E80093DB96 /* NBSintaxParserCTokens.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C9E00162E0832E80093DB96 /* NBSintaxParserCTokens.c */; };
+		2C9E00242E0832E80093DB96 /* NBSintaxParserResults.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C9E00172E0832E80093DB96 /* NBSintaxParserResults.c */; };
+		2C9E00252E0832E80093DB96 /* NBSintaxParserRules.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C9E00182E0832E80093DB96 /* NBSintaxParserRules.c */; };
+		2C9E00262E0832E80093DB96 /* NBSintaxParserCPProcUnit.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C9E00152E0832E80093DB96 /* NBSintaxParserCPProcUnit.c */; };
+		2C9E00272E0832E80093DB96 /* NBSintaxParser.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C9E00112E0832E80093DB96 /* NBSintaxParser.c */; };
+		2C9E00282E0832E80093DB96 /* NBSintaxParserC.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C9E00122E0832E80093DB96 /* NBSintaxParserC.c */; };
+		2C9E00292E0832E80093DB96 /* NBSintaxParserCDefs.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C9E00132E0832E80093DB96 /* NBSintaxParserCDefs.c */; };
 		2C9F84962673D76C0078664A /* NBSdp.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F84952673D76C0078664A /* NBSdp.c */; };
 		2C9F84972673D76C0078664A /* NBSdp.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C9F84952673D76C0078664A /* NBSdp.c */; };
 		2CA11B5728D3B77200E979F6 /* NBHttpServiceRespRawLnk.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CA11B5528D3B77200E979F6 /* NBHttpServiceRespRawLnk.c */; };
@@ -2484,6 +2528,18 @@
 		2CBED1242E021817008B52D0 /* libvulkan.1.4.313.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CBED1222E021748008B52D0 /* libvulkan.1.4.313.dylib */; };
 		2CBED1252E021821008B52D0 /* libvulkan.1.4.313.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2CBED1202E021713008B52D0 /* libvulkan.1.4.313.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		2CBED1272E021958008B52D0 /* libMoltenVK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CBED1262E021958008B52D0 /* libMoltenVK.a */; };
+		2CBEEA9C2E1156FC00EB4AC9 /* NBGpuRenderbuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEEA9B2E1156FC00EB4AC9 /* NBGpuRenderbuffer.c */; };
+		2CBEEA9D2E1156FC00EB4AC9 /* NBGpuRenderbuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEEA9B2E1156FC00EB4AC9 /* NBGpuRenderbuffer.c */; };
+		2CBEEA9E2E1156FC00EB4AC9 /* NBGpuRenderbuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CBEEA9A2E1156FC00EB4AC9 /* NBGpuRenderbuffer.h */; };
+		2CBEEAA12E11599700EB4AC9 /* NBGpuFramebuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEEAA02E11599700EB4AC9 /* NBGpuFramebuffer.c */; };
+		2CBEEAA22E11599700EB4AC9 /* NBGpuFramebuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEEAA02E11599700EB4AC9 /* NBGpuFramebuffer.c */; };
+		2CBEEAA32E11599700EB4AC9 /* NBGpuFramebuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CBEEA9F2E11599700EB4AC9 /* NBGpuFramebuffer.h */; };
+		2CBEEAA62E115AED00EB4AC9 /* NBGpuTexture.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEEAA52E115AED00EB4AC9 /* NBGpuTexture.c */; };
+		2CBEEAA72E115AED00EB4AC9 /* NBGpuTexture.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEEAA52E115AED00EB4AC9 /* NBGpuTexture.c */; };
+		2CBEEAA82E115AED00EB4AC9 /* NBGpuTexture.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CBEEAA42E115AED00EB4AC9 /* NBGpuTexture.h */; };
+		2CBEEAAB2E11B3C100EB4AC9 /* NBScnRender.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEEAAA2E11B3C100EB4AC9 /* NBScnRender.c */; };
+		2CBEEAAC2E11B3C100EB4AC9 /* NBScnRender.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CBEEAA92E11B3C100EB4AC9 /* NBScnRender.h */; };
+		2CBEEAAD2E11B3C100EB4AC9 /* NBScnRender.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEEAAA2E11B3C100EB4AC9 /* NBScnRender.c */; };
 		2CBFF5C5213660CB0060B73A /* NBX500Name.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CBFF5C4213660CB0060B73A /* NBX500Name.c */; settings = {COMPILER_FLAGS = "-DNB_OPENSSL -w -I$(SRCROOT)/../../../include/nb/ext/openssl/include -I$(SRCROOT)/../../../src/ext/openssl/include"; }; };
 		2CBFF5C6213660CB0060B73A /* NBX500Name.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CBFF5C4213660CB0060B73A /* NBX500Name.c */; settings = {COMPILER_FLAGS = "-DNB_OPENSSL -w -I$(SRCROOT)/../../../include/nb/ext/openssl/include -I$(SRCROOT)/../../../src/ext/openssl/include"; }; };
 		2CBFF5CC21366B750060B73A /* NBEnumMap.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CBFF5CA21366B750060B73A /* NBEnumMap.c */; };
@@ -2498,8 +2554,6 @@
 		2CC1761E24ED9F7B00978CC3 /* NBRtcpParser.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1761B24ED9F7B00978CC3 /* NBRtcpParser.c */; };
 		2CC1761F24ED9F7B00978CC3 /* NBRtcp.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1761C24ED9F7B00978CC3 /* NBRtcp.c */; };
 		2CC1762024ED9F7B00978CC3 /* NBRtcp.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CC1761C24ED9F7B00978CC3 /* NBRtcp.c */; };
-		2CC3D5152490AC38007A90AB /* NBSintaxParserRules.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3D5142490AC38007A90AB /* NBSintaxParserRules.c */; };
-		2CC3D5162490AC38007A90AB /* NBSintaxParserRules.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CC3D5142490AC38007A90AB /* NBSintaxParserRules.c */; };
 		2CC7F34E240DF717005284A1 /* NBStorageCache.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7F34C240DF716005284A1 /* NBStorageCache.c */; };
 		2CC7F34F240DF717005284A1 /* NBStorageCache.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7F34C240DF716005284A1 /* NBStorageCache.c */; };
 		2CC7F350240DF717005284A1 /* NBStorages.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7F34D240DF716005284A1 /* NBStorages.c */; };
@@ -2538,8 +2592,6 @@
 		2CE8AB34204C9B2500DAA7CD /* NBThreadCond.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CE8AB30204C9B2500DAA7CD /* NBThreadCond.c */; };
 		2CE921D4251D889E00D6A39E /* NBAvc.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CE921D3251D889D00D6A39E /* NBAvc.c */; };
 		2CE921D5251D889E00D6A39E /* NBAvc.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CE921D3251D889D00D6A39E /* NBAvc.c */; };
-		2CEBB50D247A10B500C89E1A /* NBSintaxParserResults.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CEBB50C247A10B500C89E1A /* NBSintaxParserResults.c */; };
-		2CEBB50E247A10B500C89E1A /* NBSintaxParserResults.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CEBB50C247A10B500C89E1A /* NBSintaxParserResults.c */; };
 		2CECBB40220680F70090A2A5 /* packet.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CECBB3B220680F60090A2A5 /* packet.c */; settings = {COMPILER_FLAGS = "-DNB_OPENSSL -w -DOPENSSL_THREADS -DOPENSSL_NO_DYNAMIC_ENGINE -DOPENSSL_PIC -DOPENSSLDIR=\"\\\".\\\"\" -I$(SRCROOT)/../../../include/nb/ext/openssl/include -I$(SRCROOT)/../../../include/nb/ext/openssl/crypto -I$(SRCROOT)/../../../include/nb/ext/openssl/crypto/include -I$(SRCROOT)/../../../src/ext/openssl -I$(SRCROOT)/../../../src/ext/openssl/crypto/include -I$(SRCROOT)/../../../src/ext/openssl/include -I$(SRCROOT)/../../../src/ext/openssl/crypto -I$(SRCROOT)/../../../src/ext/openssl/crypto/modes -I$(SRCROOT)/../../../src/ext/openssl/crypto/ec/curve448 -I$(SRCROOT)/../../../src/ext/openssl/crypto/ec/curve448/arch_32"; }; };
 		2CECBB41220680F70090A2A5 /* packet.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CECBB3B220680F60090A2A5 /* packet.c */; settings = {COMPILER_FLAGS = "-DNB_OPENSSL -w -DOPENSSL_THREADS -DOPENSSL_NO_DYNAMIC_ENGINE -DOPENSSL_PIC -DOPENSSLDIR=\"\\\".\\\"\" -I$(SRCROOT)/../../../include/nb/ext/openssl/include -I$(SRCROOT)/../../../include/nb/ext/openssl/crypto -I$(SRCROOT)/../../../include/nb/ext/openssl/crypto/include -I$(SRCROOT)/../../../src/ext/openssl -I$(SRCROOT)/../../../src/ext/openssl/crypto/include -I$(SRCROOT)/../../../src/ext/openssl/include -I$(SRCROOT)/../../../src/ext/openssl/crypto -I$(SRCROOT)/../../../src/ext/openssl/crypto/modes -I$(SRCROOT)/../../../src/ext/openssl/crypto/ec/curve448 -I$(SRCROOT)/../../../src/ext/openssl/crypto/ec/curve448/arch_32"; }; };
 		2CECBB42220680F70090A2A5 /* tls13_enc.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CECBB3C220680F70090A2A5 /* tls13_enc.c */; settings = {COMPILER_FLAGS = "-DNB_OPENSSL -w -DOPENSSL_THREADS -DOPENSSL_NO_DYNAMIC_ENGINE -DOPENSSL_PIC -DOPENSSLDIR=\"\\\".\\\"\" -I$(SRCROOT)/../../../include/nb/ext/openssl/include -I$(SRCROOT)/../../../include/nb/ext/openssl/crypto -I$(SRCROOT)/../../../include/nb/ext/openssl/crypto/include -I$(SRCROOT)/../../../src/ext/openssl -I$(SRCROOT)/../../../src/ext/openssl/crypto/include -I$(SRCROOT)/../../../src/ext/openssl/include -I$(SRCROOT)/../../../src/ext/openssl/crypto -I$(SRCROOT)/../../../src/ext/openssl/crypto/modes -I$(SRCROOT)/../../../src/ext/openssl/crypto/ec/curve448 -I$(SRCROOT)/../../../src/ext/openssl/crypto/ec/curve448/arch_32"; }; };
@@ -3161,8 +3213,6 @@
 		2C1332F725A4EE7100F9B076 /* NBRtspClientConn.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NBRtspClientConn.c; sourceTree = "<group>"; };
 		2C13330025A4EE8A00F9B076 /* NBRtsp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBRtsp.h; path = ../../include/nb/net/NBRtsp.h; sourceTree = "<group>"; };
 		2C13330125A4EE8A00F9B076 /* NBRtspClientConn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBRtspClientConn.h; path = ../../include/nb/net/NBRtspClientConn.h; sourceTree = "<group>"; };
-		2C136C332458DB990093047E /* NBSintaxParser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NBSintaxParser.c; sourceTree = "<group>"; };
-		2C136C362458DBA90093047E /* NBSintaxParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBSintaxParser.h; path = ../../include/nb/core/NBSintaxParser.h; sourceTree = "<group>"; };
 		2C1765F22734527D00AC2720 /* NBIOPollster.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NBIOPollster.c; sourceTree = "<group>"; };
 		2C1765F52734528F00AC2720 /* NBIOPollster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBIOPollster.h; path = ../../include/nb/core/NBIOPollster.h; sourceTree = "<group>"; };
 		2C1799282571680D00604752 /* lz4frame_static.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lz4frame_static.h; sourceTree = "<group>"; };
@@ -3182,13 +3232,12 @@
 		2C18385325C36BA800FAFDDA /* NBRtcpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBRtcpClient.h; path = ../../include/nb/net/NBRtcpClient.h; sourceTree = "<group>"; };
 		2C19909D205E296500B5F48C /* NBAes256.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBAes256.h; path = ../../../include/nb/crypto/NBAes256.h; sourceTree = SOURCE_ROOT; };
 		2C19909E205E296600B5F48C /* NBAes256.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = NBAes256.c; path = ../../../src/crypto/NBAes256.c; sourceTree = SOURCE_ROOT; };
+		2C19A1B42E10226800B4140F /* NBGpuBuffer.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBGpuBuffer.c; path = ../../../src/gpu/NBGpuBuffer.c; sourceTree = SOURCE_ROOT; };
+		2C19A1B72E10227600B4140F /* NBGpuBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBGpuBuffer.h; path = ../../../include/nb/gpu/NBGpuBuffer.h; sourceTree = SOURCE_ROOT; };
 		2C1A6A5C2724C4F8001EE349 /* NBWebSocketMessage.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NBWebSocketMessage.c; sourceTree = "<group>"; };
 		2C1A6A5D2724C4F8001EE349 /* NBWebSocketFrame.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NBWebSocketFrame.c; sourceTree = "<group>"; };
 		2C1A6A622724C515001EE349 /* NBWebSocketMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBWebSocketMessage.h; path = ../../include/nb/net/NBWebSocketMessage.h; sourceTree = "<group>"; };
 		2C1A6A632724C515001EE349 /* NBWebSocketFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBWebSocketFrame.h; path = ../../include/nb/net/NBWebSocketFrame.h; sourceTree = "<group>"; };
-		2C1DF82924AD363200347D2D /* NBSintaxParserCTokens.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NBSintaxParserCTokens.c; sourceTree = "<group>"; };
-		2C1DF82C24AD363C00347D2D /* NBSintaxParserCTokens.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBSintaxParserCTokens.h; path = ../../include/nb/core/NBSintaxParserCTokens.h; sourceTree = "<group>"; };
-		2C1DF82E24AFF6AB00347D2D /* NBSintaxParserCDefs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NBSintaxParserCDefs.c; sourceTree = "<group>"; };
 		2C1E5A7020E547A600740049 /* NBXmlParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBXmlParser.h; path = ../../../include/nb/core/NBXmlParser.h; sourceTree = SOURCE_ROOT; };
 		2C1E5A7120E547A600740049 /* NBXmlParser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = NBXmlParser.c; path = ../../../src/core/NBXmlParser.c; sourceTree = SOURCE_ROOT; };
 		2C227E10204B308D00D1B813 /* NBHttpResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBHttpResponse.h; path = ../../../include/nb/net/NBHttpResponse.h; sourceTree = SOURCE_ROOT; };
@@ -3910,9 +3959,6 @@
 		2C3FD5922065BD70001D7061 /* NBPlistOld.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = NBPlistOld.c; path = ../../../src/core/NBPlistOld.c; sourceTree = SOURCE_ROOT; };
 		2C3FD5932065BD71001D7061 /* NBPlistOldParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBPlistOldParser.h; path = ../../../include/nb/core/NBPlistOldParser.h; sourceTree = SOURCE_ROOT; };
 		2C40B92E251BB7240096D032 /* NBObjCMethods.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBObjCMethods.h; path = ../../../include/nb/NBObjCMethods.h; sourceTree = SOURCE_ROOT; };
-		2C41038A24A1B43B00EDB1AA /* NBSintaxParserCPProc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NBSintaxParserCPProc.c; sourceTree = "<group>"; };
-		2C41038D24A1B44C00EDB1AA /* NBSintaxParserCPProc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBSintaxParserCPProc.h; path = ../../include/nb/core/NBSintaxParserCPProc.h; sourceTree = "<group>"; };
-		2C41038F24A1B64400EDB1AA /* NBSintaxParserCDefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBSintaxParserCDefs.h; path = ../../include/nb/core/NBSintaxParserCDefs.h; sourceTree = "<group>"; };
 		2C42606927458AE600963949 /* NBStompFrame.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NBStompFrame.c; sourceTree = "<group>"; };
 		2C42606C27458AF400963949 /* NBStompFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBStompFrame.h; path = ../../include/nb/net/NBStompFrame.h; sourceTree = "<group>"; };
 		2C4299AE20FD307100D09159 /* NBHttpHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBHttpHeader.h; path = ../../../include/nb/net/NBHttpHeader.h; sourceTree = SOURCE_ROOT; };
@@ -3972,6 +4018,14 @@
 		2C6F1B3321E01AFE000E6AED /* dso_conf_VC-WIN64A.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "dso_conf_VC-WIN64A.h"; path = "../../../include/nb/ext/openssl/crypto/include/internal/dso_conf_VC-WIN64A.h"; sourceTree = SOURCE_ROOT; };
 		2C6FA029216BEBF800E88946 /* NBRange.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = NBRange.c; path = ../../../src/core/NBRange.c; sourceTree = SOURCE_ROOT; };
 		2C6FA02A216BEBF900E88946 /* NBRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBRange.h; path = ../../../include/nb/core/NBRange.h; sourceTree = SOURCE_ROOT; };
+		2C702E852E1324FE009BFCAB /* NBScnNodeProps.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnNodeProps.h; path = "/Users/mortegam/Desktop/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/nb/scene/NBScnNodeProps.h"; sourceTree = "<absolute>"; };
+		2C702E862E1324FE009BFCAB /* NBScnNodeProps.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = NBScnNodeProps.c; sourceTree = "<group>"; };
+		2C702E872E1324FE009BFCAB /* NBScnTransform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnTransform.h; path = "/Users/mortegam/Desktop/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/nb/scene/NBScnTransform.h"; sourceTree = "<absolute>"; };
+		2C702E882E1324FE009BFCAB /* NBScnTransform.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = NBScnTransform.c; sourceTree = "<group>"; };
+		2C702E922E15BF83009BFCAB /* NBGpuVertexBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBGpuVertexBuffer.h; path = ../../../include/nb/gpu/NBGpuVertexBuffer.h; sourceTree = SOURCE_ROOT; };
+		2C702E932E15BF83009BFCAB /* NBGpuVertexBuffer.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBGpuVertexBuffer.c; path = ../../../src/gpu/NBGpuVertexBuffer.c; sourceTree = SOURCE_ROOT; };
+		2C702E972E15C297009BFCAB /* NBGpuDataType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBGpuDataType.h; path = ../../../include/nb/gpu/NBGpuDataType.h; sourceTree = SOURCE_ROOT; };
+		2C702E982E15C297009BFCAB /* NBGpuDataType.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBGpuDataType.c; path = ../../../src/gpu/NBGpuDataType.c; sourceTree = SOURCE_ROOT; };
 		2C712EA822506018009EC8BF /* NBLinkedList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBLinkedList.h; path = ../../../include/nb/core/NBLinkedList.h; sourceTree = SOURCE_ROOT; };
 		2C712EAA22506034009EC8BF /* NBLinkedList.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = NBLinkedList.c; path = ../../../src/core/NBLinkedList.c; sourceTree = SOURCE_ROOT; };
 		2C718A2F211105670000F260 /* NBHttpMessage.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBHttpMessage.c; path = ../../../src/net/NBHttpMessage.c; sourceTree = SOURCE_ROOT; };
@@ -3980,11 +4034,6 @@
 		2C718A32211105680000F260 /* NBHttpMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBHttpMessage.h; path = ../../../include/nb/net/NBHttpMessage.h; sourceTree = SOURCE_ROOT; };
 		2C72ADA625C47A2500821502 /* NBRtspClientStats.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NBRtspClientStats.c; sourceTree = "<group>"; };
 		2C72ADAD25C47A3B00821502 /* NBRtspClientStats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBRtspClientStats.h; path = ../../include/nb/net/NBRtspClientStats.h; sourceTree = "<group>"; };
-		2C78DB45246DBCD90099DE81 /* NBSintaxParserC.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NBSintaxParserC.c; sourceTree = "<group>"; };
-		2C78DB48246DBCEC0099DE81 /* NBSintaxParserC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBSintaxParserC.h; path = ../../include/nb/core/NBSintaxParserC.h; sourceTree = "<group>"; };
-		2C7CD1C224B2F031000FB0C3 /* NBSintaxParserCPProcUnit.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NBSintaxParserCPProcUnit.c; sourceTree = "<group>"; };
-		2C7CD1C524B2F03B000FB0C3 /* NBSintaxParserCPProcUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBSintaxParserCPProcUnit.h; path = ../../include/nb/core/NBSintaxParserCPProcUnit.h; sourceTree = "<group>"; };
-		2C7CD1C724B2F195000FB0C3 /* NBSintaxParserCPProcDefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBSintaxParserCPProcDefs.h; path = ../../include/nb/core/NBSintaxParserCPProcDefs.h; sourceTree = "<group>"; };
 		2C7D515B2077169B005C6AB5 /* NBCompare.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = NBCompare.c; path = ../../../src/core/NBCompare.c; sourceTree = SOURCE_ROOT; };
 		2C7F5A982DE9AEEF007ADD93 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		2C7F5A9A2DE9AF42007ADD93 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -4366,6 +4415,26 @@
 		2C8F6CCF26E463F100B039AD /* NBMp4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBMp4.h; path = ../../include/nb/files/NBMp4.h; sourceTree = "<group>"; };
 		2C8F7E3129F9A45F0061A36C /* NBIO.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NBIO.c; sourceTree = "<group>"; };
 		2C8F7E3229F9A45F0061A36C /* NBIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBIO.h; path = ../../include/nb/core/NBIO.h; sourceTree = "<group>"; };
+		2C90F7E92E0C04EA009964D3 /* NBSintaxParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBSintaxParser.h; path = ../../../include/nb/sintax/NBSintaxParser.h; sourceTree = SOURCE_ROOT; };
+		2C90F7EA2E0C04EA009964D3 /* NBSintaxParserC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBSintaxParserC.h; path = ../../../include/nb/sintax/NBSintaxParserC.h; sourceTree = SOURCE_ROOT; };
+		2C90F7EB2E0C04EA009964D3 /* NBSintaxParserCDefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBSintaxParserCDefs.h; path = ../../../include/nb/sintax/NBSintaxParserCDefs.h; sourceTree = SOURCE_ROOT; };
+		2C90F7EC2E0C04EA009964D3 /* NBSintaxParserCPProc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBSintaxParserCPProc.h; path = ../../../include/nb/sintax/NBSintaxParserCPProc.h; sourceTree = SOURCE_ROOT; };
+		2C90F7ED2E0C04EA009964D3 /* NBSintaxParserCPProcDefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBSintaxParserCPProcDefs.h; path = ../../../include/nb/sintax/NBSintaxParserCPProcDefs.h; sourceTree = SOURCE_ROOT; };
+		2C90F7EE2E0C04EA009964D3 /* NBSintaxParserCPProcUnit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBSintaxParserCPProcUnit.h; path = ../../../include/nb/sintax/NBSintaxParserCPProcUnit.h; sourceTree = SOURCE_ROOT; };
+		2C90F7EF2E0C04EA009964D3 /* NBSintaxParserCTokens.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBSintaxParserCTokens.h; path = ../../../include/nb/sintax/NBSintaxParserCTokens.h; sourceTree = SOURCE_ROOT; };
+		2C90F7F02E0C04EA009964D3 /* NBSintaxParserDefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBSintaxParserDefs.h; path = ../../../include/nb/sintax/NBSintaxParserDefs.h; sourceTree = SOURCE_ROOT; };
+		2C90F7F12E0C04EA009964D3 /* NBSintaxParserResults.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBSintaxParserResults.h; path = ../../../include/nb/sintax/NBSintaxParserResults.h; sourceTree = SOURCE_ROOT; };
+		2C90F7F22E0C04EA009964D3 /* NBSintaxParserRules.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBSintaxParserRules.h; path = ../../../include/nb/sintax/NBSintaxParserRules.h; sourceTree = SOURCE_ROOT; };
+		2C90F7FD2E0C2A68009964D3 /* NBScnRenderCmd.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBScnRenderCmd.c; path = ../../../src/scene/NBScnRenderCmd.c; sourceTree = SOURCE_ROOT; };
+		2C90F8002E0C2A7A009964D3 /* NBScnRenderCmd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderCmd.h; path = ../../../include/nb/scene/NBScnRenderCmd.h; sourceTree = SOURCE_ROOT; };
+		2C90F8022E0C66D9009964D3 /* NBScnRenderJobBldr.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBScnRenderJobBldr.c; path = ../../../src/scene/NBScnRenderJobBldr.c; sourceTree = SOURCE_ROOT; };
+		2C90F8052E0C66F1009964D3 /* NBScnRenderJobBldr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderJobBldr.h; path = ../../../include/nb/scene/NBScnRenderJobBldr.h; sourceTree = SOURCE_ROOT; };
+		2C90F8072E0C68F4009964D3 /* NBScnVertices.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = NBScnVertices.c; sourceTree = "<group>"; };
+		2C90F80A2E0C6902009964D3 /* NBScnVertices.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnVertices.h; path = "/Users/mortegam/Desktop/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/nb/scene/NBScnVertices.h"; sourceTree = "<absolute>"; };
+		2C90F80C2E0C80B3009964D3 /* NBMemoryBlock.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBMemoryBlock.c; path = ../../../src/core/NBMemoryBlock.c; sourceTree = SOURCE_ROOT; };
+		2C90F80D2E0C80B3009964D3 /* NBMemoryBlocks.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBMemoryBlocks.c; path = ../../../src/core/NBMemoryBlocks.c; sourceTree = SOURCE_ROOT; };
+		2C90F8122E0C80CA009964D3 /* NBMemoryBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBMemoryBlock.h; path = ../../../include/nb/core/NBMemoryBlock.h; sourceTree = SOURCE_ROOT; };
+		2C90F8132E0C80CA009964D3 /* NBMemoryBlocks.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBMemoryBlocks.h; path = ../../../include/nb/core/NBMemoryBlocks.h; sourceTree = SOURCE_ROOT; };
 		2C93293927432BD000A086EE /* NBBitstream.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NBBitstream.c; sourceTree = "<group>"; };
 		2C93293C27432BE400A086EE /* NBBitstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBBitstream.h; path = ../../include/nb/core/NBBitstream.h; sourceTree = "<group>"; };
 		2C99A6832362625B00D4D010 /* NBHttpStats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBHttpStats.h; path = ../../../include/nb/net/NBHttpStats.h; sourceTree = SOURCE_ROOT; };
@@ -4437,6 +4506,14 @@
 		2C9D179222409E2500C58D29 /* jaricom.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = jaricom.c; path = ../../../src/ext/libjpeg/jaricom.c; sourceTree = SOURCE_ROOT; };
 		2C9D17F922409EF600C58D29 /* NBJpeg.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBJpeg.c; path = ../../../src/2d/NBJpeg.c; sourceTree = SOURCE_ROOT; };
 		2C9D17FD22409F2100C58D29 /* NBJpeg.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBJpeg.h; path = ../../../include/nb/2d/NBJpeg.h; sourceTree = SOURCE_ROOT; };
+		2C9E00112E0832E80093DB96 /* NBSintaxParser.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBSintaxParser.c; path = ../../../src/sintax/NBSintaxParser.c; sourceTree = SOURCE_ROOT; };
+		2C9E00122E0832E80093DB96 /* NBSintaxParserC.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBSintaxParserC.c; path = ../../../src/sintax/NBSintaxParserC.c; sourceTree = SOURCE_ROOT; };
+		2C9E00132E0832E80093DB96 /* NBSintaxParserCDefs.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBSintaxParserCDefs.c; path = ../../../src/sintax/NBSintaxParserCDefs.c; sourceTree = SOURCE_ROOT; };
+		2C9E00142E0832E80093DB96 /* NBSintaxParserCPProc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBSintaxParserCPProc.c; path = ../../../src/sintax/NBSintaxParserCPProc.c; sourceTree = SOURCE_ROOT; };
+		2C9E00152E0832E80093DB96 /* NBSintaxParserCPProcUnit.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBSintaxParserCPProcUnit.c; path = ../../../src/sintax/NBSintaxParserCPProcUnit.c; sourceTree = SOURCE_ROOT; };
+		2C9E00162E0832E80093DB96 /* NBSintaxParserCTokens.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBSintaxParserCTokens.c; path = ../../../src/sintax/NBSintaxParserCTokens.c; sourceTree = SOURCE_ROOT; };
+		2C9E00172E0832E80093DB96 /* NBSintaxParserResults.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBSintaxParserResults.c; path = ../../../src/sintax/NBSintaxParserResults.c; sourceTree = SOURCE_ROOT; };
+		2C9E00182E0832E80093DB96 /* NBSintaxParserRules.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBSintaxParserRules.c; path = ../../../src/sintax/NBSintaxParserRules.c; sourceTree = SOURCE_ROOT; };
 		2C9F84952673D76C0078664A /* NBSdp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NBSdp.c; sourceTree = "<group>"; };
 		2C9F84982673D7840078664A /* NBSdp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBSdp.h; path = ../../include/nb/net/NBSdp.h; sourceTree = "<group>"; };
 		2CA11B5528D3B77200E979F6 /* NBHttpServiceRespRawLnk.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NBHttpServiceRespRawLnk.c; sourceTree = "<group>"; };
@@ -4472,14 +4549,14 @@
 		2CB6260A22E221EE000257B6 /* NBLocaleCfgAnlz.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBLocaleCfgAnlz.h; path = ../../../include/nb/core/NBLocaleCfgAnlz.h; sourceTree = SOURCE_ROOT; };
 		2CB6260E22E2227D000257B6 /* NBLocaleCfg.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = NBLocaleCfg.c; path = ../../../src/core/NBLocaleCfg.c; sourceTree = SOURCE_ROOT; };
 		2CB6260F22E2227D000257B6 /* NBLocaleCfg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBLocaleCfg.h; path = ../../../include/nb/core/NBLocaleCfg.h; sourceTree = SOURCE_ROOT; };
-		2CB75FCE2E01B50100D7E4FE /* NBScnRenderJobDefs.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = NBScnRenderJobDefs.c; sourceTree = "<group>"; };
-		2CB75FCF2E01B50100D7E4FE /* NBScnRenderJobFlat.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = NBScnRenderJobFlat.c; sourceTree = "<group>"; };
-		2CB75FD02E01B50100D7E4FE /* NBScnRenderJobTree.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = NBScnRenderJobTree.c; sourceTree = "<group>"; };
+		2CB75FCE2E01B50100D7E4FE /* NBScnRenderJobDefs.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBScnRenderJobDefs.c; path = ../../../src/scene/NBScnRenderJobDefs.c; sourceTree = SOURCE_ROOT; };
+		2CB75FCF2E01B50100D7E4FE /* NBScnRenderJobFlat.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBScnRenderJobFlat.c; path = ../../../src/scene/NBScnRenderJobFlat.c; sourceTree = SOURCE_ROOT; };
+		2CB75FD02E01B50100D7E4FE /* NBScnRenderJobTree.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBScnRenderJobTree.c; path = ../../../src/scene/NBScnRenderJobTree.c; sourceTree = SOURCE_ROOT; };
 		2CB75FD12E01B50100D7E4FE /* NBScnRenderJob.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = NBScnRenderJob.glsl; sourceTree = "<group>"; };
 		2CB75FD22E01B50100D7E4FE /* NBScnRenderJob.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = NBScnRenderJob.hlsl; sourceTree = "<group>"; };
-		2CB75FDA2E01B52F00D7E4FE /* NBScnRenderJobDefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderJobDefs.h; path = "/Users/mortegam/Desktop/NIBSA_proyectos/CltNicaraguaBinary/sys-nbframework/sys-nbframework-src/include/nb/scene/NBScnRenderJobDefs.h"; sourceTree = "<absolute>"; };
-		2CB75FDB2E01B52F00D7E4FE /* NBScnRenderJobFlat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderJobFlat.h; path = "/Users/mortegam/Desktop/NIBSA_proyectos/CltNicaraguaBinary/sys-nbframework/sys-nbframework-src/include/nb/scene/NBScnRenderJobFlat.h"; sourceTree = "<absolute>"; };
-		2CB75FDD2E01B52F00D7E4FE /* NBScnRenderJobTree.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderJobTree.h; path = "/Users/mortegam/Desktop/NIBSA_proyectos/CltNicaraguaBinary/sys-nbframework/sys-nbframework-src/include/nb/scene/NBScnRenderJobTree.h"; sourceTree = "<absolute>"; };
+		2CB75FDA2E01B52F00D7E4FE /* NBScnRenderJobDefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderJobDefs.h; path = ../../../include/nb/scene/NBScnRenderJobDefs.h; sourceTree = SOURCE_ROOT; };
+		2CB75FDB2E01B52F00D7E4FE /* NBScnRenderJobFlat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderJobFlat.h; path = ../../../include/nb/scene/NBScnRenderJobFlat.h; sourceTree = SOURCE_ROOT; };
+		2CB75FDD2E01B52F00D7E4FE /* NBScnRenderJobTree.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderJobTree.h; path = ../../../include/nb/scene/NBScnRenderJobTree.h; sourceTree = SOURCE_ROOT; };
 		2CB75FE22E01B54800D7E4FE /* NBScnRenderJob_cs_4_0.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderJob_cs_4_0.h; path = "/Users/mortegam/Desktop/NIBSA_proyectos/CltNicaraguaBinary/sys-nbframework/sys-nbframework-src/include/nb/scene/shaders/NBScnRenderJob_cs_4_0.h"; sourceTree = "<absolute>"; };
 		2CB75FE32E01B54800D7E4FE /* NBScnRenderJob_cs_5_0.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderJob_cs_5_0.h; path = "/Users/mortegam/Desktop/NIBSA_proyectos/CltNicaraguaBinary/sys-nbframework/sys-nbframework-src/include/nb/scene/shaders/NBScnRenderJob_cs_5_0.h"; sourceTree = "<absolute>"; };
 		2CB75FE42E01B54800D7E4FE /* NBScnRenderJob_glsl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderJob_glsl.h; path = "/Users/mortegam/Desktop/NIBSA_proyectos/CltNicaraguaBinary/sys-nbframework/sys-nbframework-src/include/nb/scene/shaders/NBScnRenderJob_glsl.h"; sourceTree = "<absolute>"; };
@@ -4502,6 +4579,14 @@
 		2CBED1202E021713008B52D0 /* libvulkan.1.4.313.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libvulkan.1.4.313.dylib; path = ../../../../../../../../VulkanSDK/1.4.313.1/macOS/lib/libvulkan.1.4.313.dylib; sourceTree = "<group>"; };
 		2CBED1222E021748008B52D0 /* libvulkan.1.4.313.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libvulkan.1.4.313.dylib; path = ../../../../../../../../VulkanSDK/1.4.313.1/macOS/lib/libvulkan.1.4.313.dylib; sourceTree = "<group>"; };
 		2CBED1262E021958008B52D0 /* libMoltenVK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMoltenVK.a; path = "../../../../../../../../VulkanSDK/1.4.313.1/macOS/lib/MoltenVK.xcframework/macos-arm64_x86_64/libMoltenVK.a"; sourceTree = "<group>"; };
+		2CBEEA9A2E1156FC00EB4AC9 /* NBGpuRenderbuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBGpuRenderbuffer.h; path = ../../../include/nb/gpu/NBGpuRenderbuffer.h; sourceTree = SOURCE_ROOT; };
+		2CBEEA9B2E1156FC00EB4AC9 /* NBGpuRenderbuffer.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBGpuRenderbuffer.c; path = ../../../src/gpu/NBGpuRenderbuffer.c; sourceTree = SOURCE_ROOT; };
+		2CBEEA9F2E11599700EB4AC9 /* NBGpuFramebuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBGpuFramebuffer.h; path = ../../../include/nb/gpu/NBGpuFramebuffer.h; sourceTree = SOURCE_ROOT; };
+		2CBEEAA02E11599700EB4AC9 /* NBGpuFramebuffer.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBGpuFramebuffer.c; path = ../../../src/gpu/NBGpuFramebuffer.c; sourceTree = SOURCE_ROOT; };
+		2CBEEAA42E115AED00EB4AC9 /* NBGpuTexture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBGpuTexture.h; path = ../../../include/nb/gpu/NBGpuTexture.h; sourceTree = SOURCE_ROOT; };
+		2CBEEAA52E115AED00EB4AC9 /* NBGpuTexture.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBGpuTexture.c; path = ../../../src/gpu/NBGpuTexture.c; sourceTree = SOURCE_ROOT; };
+		2CBEEAA92E11B3C100EB4AC9 /* NBScnRender.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRender.h; path = ../../../include/nb/scene/NBScnRender.h; sourceTree = SOURCE_ROOT; };
+		2CBEEAAA2E11B3C100EB4AC9 /* NBScnRender.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBScnRender.c; path = ../../../src/scene/NBScnRender.c; sourceTree = SOURCE_ROOT; };
 		2CBFF5C4213660CB0060B73A /* NBX500Name.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBX500Name.c; path = ../../../src/crypto/NBX500Name.c; sourceTree = SOURCE_ROOT; };
 		2CBFF5C7213660E60060B73A /* NBX500Name.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBX500Name.h; path = ../../../include/nb/crypto/NBX500Name.h; sourceTree = SOURCE_ROOT; };
 		2CBFF5C821366B520060B73A /* NBEnumMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBEnumMap.h; path = ../../../include/nb/core/NBEnumMap.h; sourceTree = SOURCE_ROOT; };
@@ -4516,8 +4601,6 @@
 		2CC1761C24ED9F7B00978CC3 /* NBRtcp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NBRtcp.c; sourceTree = "<group>"; };
 		2CC1762124ED9F9100978CC3 /* NBRtcp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBRtcp.h; path = ../../include/nb/net/NBRtcp.h; sourceTree = "<group>"; };
 		2CC1762224ED9F9100978CC3 /* NBRtcpParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBRtcpParser.h; path = ../../include/nb/net/NBRtcpParser.h; sourceTree = "<group>"; };
-		2CC3D5142490AC38007A90AB /* NBSintaxParserRules.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NBSintaxParserRules.c; sourceTree = "<group>"; };
-		2CC3D5172490AC72007A90AB /* NBSintaxParserRules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBSintaxParserRules.h; path = ../../include/nb/core/NBSintaxParserRules.h; sourceTree = "<group>"; };
 		2CC7F34C240DF716005284A1 /* NBStorageCache.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = NBStorageCache.c; path = ../../../src/storage/NBStorageCache.c; sourceTree = SOURCE_ROOT; };
 		2CC7F34D240DF716005284A1 /* NBStorages.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = NBStorages.c; path = ../../../src/storage/NBStorages.c; sourceTree = SOURCE_ROOT; };
 		2CC7F352240DF725005284A1 /* NBStorageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBStorageCache.h; path = ../../../include/nb/storage/NBStorageCache.h; sourceTree = SOURCE_ROOT; };
@@ -4565,9 +4648,6 @@
 		2CE8AB30204C9B2500DAA7CD /* NBThreadCond.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = NBThreadCond.c; path = ../../../src/core/NBThreadCond.c; sourceTree = SOURCE_ROOT; };
 		2CE921D3251D889D00D6A39E /* NBAvc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NBAvc.c; sourceTree = "<group>"; };
 		2CE921DA251D88AB00D6A39E /* NBAvc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBAvc.h; path = ../../include/nb/2d/NBAvc.h; sourceTree = "<group>"; };
-		2CEBB50C247A10B500C89E1A /* NBSintaxParserResults.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NBSintaxParserResults.c; sourceTree = "<group>"; };
-		2CEBB50F247A10D800C89E1A /* NBSintaxParserResults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBSintaxParserResults.h; path = ../../include/nb/core/NBSintaxParserResults.h; sourceTree = "<group>"; };
-		2CEBB511247A130700C89E1A /* NBSintaxParserDefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBSintaxParserDefs.h; path = ../../include/nb/core/NBSintaxParserDefs.h; sourceTree = "<group>"; };
 		2CECBB3B220680F60090A2A5 /* packet.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = packet.c; path = ../../../src/ext/openssl/ssl/packet.c; sourceTree = SOURCE_ROOT; };
 		2CECBB3C220680F70090A2A5 /* tls13_enc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = tls13_enc.c; path = ../../../src/ext/openssl/ssl/tls13_enc.c; sourceTree = SOURCE_ROOT; };
 		2CECBB49220681060090A2A5 /* ssl3_record_tls13.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ssl3_record_tls13.c; path = ../../../src/ext/openssl/ssl/record/ssl3_record_tls13.c; sourceTree = SOURCE_ROOT; };
@@ -5741,6 +5821,25 @@
 			path = lib;
 			sourceTree = "<group>";
 		};
+		2C19A1AF2E101AFE00B4140F /* gpu */ = {
+			isa = PBXGroup;
+			children = (
+				2C702E972E15C297009BFCAB /* NBGpuDataType.h */,
+				2C702E982E15C297009BFCAB /* NBGpuDataType.c */,
+				2C19A1B72E10227600B4140F /* NBGpuBuffer.h */,
+				2C19A1B42E10226800B4140F /* NBGpuBuffer.c */,
+				2C702E922E15BF83009BFCAB /* NBGpuVertexBuffer.h */,
+				2C702E932E15BF83009BFCAB /* NBGpuVertexBuffer.c */,
+				2CBEEAA42E115AED00EB4AC9 /* NBGpuTexture.h */,
+				2CBEEAA52E115AED00EB4AC9 /* NBGpuTexture.c */,
+				2CBEEA9A2E1156FC00EB4AC9 /* NBGpuRenderbuffer.h */,
+				2CBEEA9B2E1156FC00EB4AC9 /* NBGpuRenderbuffer.c */,
+				2CBEEA9F2E11599700EB4AC9 /* NBGpuFramebuffer.h */,
+				2CBEEAA02E11599700EB4AC9 /* NBGpuFramebuffer.c */,
+			);
+			path = gpu;
+			sourceTree = "<group>";
+		};
 		2C227E08204B2F3000D1B813 = {
 			isa = PBXGroup;
 			children = (
@@ -5780,10 +5879,12 @@
 				2CC7F34B240DF6F4005284A1 /* storage */,
 				2CFF087C24539E680058AEFF /* pdf */,
 				2C8DD8E6211F552F00FEEA09 /* 2d */,
+				2C19A1AF2E101AFE00B4140F /* gpu */,
 				2CB210B52DE365290014BB12 /* scene */,
 				2CB1F94221193415006F716E /* fonts */,
 				2CFFE74D2241999C00357FCB /* compress */,
 				2C0FA11D2225D8BD00976882 /* crypto */,
+				2C9E00192E0832E80093DB96 /* sintax */,
 				2C0FA11E2225DD4200976882 /* ssl */,
 				2C01286522120F7C004600BB /* ocr */,
 				2C227E75204B3B9C00D1B813 /* ext */,
@@ -5798,26 +5899,12 @@
 			children = (
 				2C227E22204B308F00D1B813 /* NBMemory.h */,
 				2C227E39204B30AE00D1B813 /* NBMemory.c */,
+				2C90F8122E0C80CA009964D3 /* NBMemoryBlock.h */,
+				2C90F80C2E0C80B3009964D3 /* NBMemoryBlock.c */,
+				2C90F8132E0C80CA009964D3 /* NBMemoryBlocks.h */,
+				2C90F80D2E0C80B3009964D3 /* NBMemoryBlocks.c */,
 				2C60DE4220730984005D4FBF /* NBCompare.h */,
 				2C7D515B2077169B005C6AB5 /* NBCompare.c */,
-				2CEBB511247A130700C89E1A /* NBSintaxParserDefs.h */,
-				2C136C362458DBA90093047E /* NBSintaxParser.h */,
-				2C136C332458DB990093047E /* NBSintaxParser.c */,
-				2CC3D5172490AC72007A90AB /* NBSintaxParserRules.h */,
-				2CC3D5142490AC38007A90AB /* NBSintaxParserRules.c */,
-				2CEBB50F247A10D800C89E1A /* NBSintaxParserResults.h */,
-				2CEBB50C247A10B500C89E1A /* NBSintaxParserResults.c */,
-				2C41038F24A1B64400EDB1AA /* NBSintaxParserCDefs.h */,
-				2C1DF82E24AFF6AB00347D2D /* NBSintaxParserCDefs.c */,
-				2C78DB48246DBCEC0099DE81 /* NBSintaxParserC.h */,
-				2C78DB45246DBCD90099DE81 /* NBSintaxParserC.c */,
-				2C1DF82C24AD363C00347D2D /* NBSintaxParserCTokens.h */,
-				2C1DF82924AD363200347D2D /* NBSintaxParserCTokens.c */,
-				2C7CD1C724B2F195000FB0C3 /* NBSintaxParserCPProcDefs.h */,
-				2C41038D24A1B44C00EDB1AA /* NBSintaxParserCPProc.h */,
-				2C41038A24A1B43B00EDB1AA /* NBSintaxParserCPProc.c */,
-				2C7CD1C524B2F03B000FB0C3 /* NBSintaxParserCPProcUnit.h */,
-				2C7CD1C224B2F031000FB0C3 /* NBSintaxParserCPProcUnit.c */,
 				2C6DDABD233C0B7800432919 /* NBMngrProcess.h */,
 				2C6DDABC233C0B7700432919 /* NBMngrProcess.c */,
 				2C227E12204B308D00D1B813 /* NBThread.h */,
@@ -7811,6 +7898,32 @@
 			path = ../../../src/ext/libjpeg;
 			sourceTree = SOURCE_ROOT;
 		};
+		2C9E00192E0832E80093DB96 /* sintax */ = {
+			isa = PBXGroup;
+			children = (
+				2C90F7E92E0C04EA009964D3 /* NBSintaxParser.h */,
+				2C90F7F02E0C04EA009964D3 /* NBSintaxParserDefs.h */,
+				2C9E00112E0832E80093DB96 /* NBSintaxParser.c */,
+				2C90F7EA2E0C04EA009964D3 /* NBSintaxParserC.h */,
+				2C9E00122E0832E80093DB96 /* NBSintaxParserC.c */,
+				2C90F7EB2E0C04EA009964D3 /* NBSintaxParserCDefs.h */,
+				2C9E00132E0832E80093DB96 /* NBSintaxParserCDefs.c */,
+				2C90F7ED2E0C04EA009964D3 /* NBSintaxParserCPProcDefs.h */,
+				2C90F7EC2E0C04EA009964D3 /* NBSintaxParserCPProc.h */,
+				2C9E00142E0832E80093DB96 /* NBSintaxParserCPProc.c */,
+				2C90F7EE2E0C04EA009964D3 /* NBSintaxParserCPProcUnit.h */,
+				2C9E00152E0832E80093DB96 /* NBSintaxParserCPProcUnit.c */,
+				2C90F7EF2E0C04EA009964D3 /* NBSintaxParserCTokens.h */,
+				2C9E00162E0832E80093DB96 /* NBSintaxParserCTokens.c */,
+				2C90F7F12E0C04EA009964D3 /* NBSintaxParserResults.h */,
+				2C9E00172E0832E80093DB96 /* NBSintaxParserResults.c */,
+				2C90F7F22E0C04EA009964D3 /* NBSintaxParserRules.h */,
+				2C9E00182E0832E80093DB96 /* NBSintaxParserRules.c */,
+			);
+			name = sintax;
+			path = ../../../src/sintax;
+			sourceTree = SOURCE_ROOT;
+		};
 		2CB1F94221193415006F716E /* fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -7862,12 +7975,24 @@
 			isa = PBXGroup;
 			children = (
 				2CB75FD32E01B50100D7E4FE /* shaders */,
+				2C702E872E1324FE009BFCAB /* NBScnTransform.h */,
+				2C702E882E1324FE009BFCAB /* NBScnTransform.c */,
+				2C702E852E1324FE009BFCAB /* NBScnNodeProps.h */,
+				2C702E862E1324FE009BFCAB /* NBScnNodeProps.c */,
+				2C90F8002E0C2A7A009964D3 /* NBScnRenderCmd.h */,
+				2C90F7FD2E0C2A68009964D3 /* NBScnRenderCmd.c */,
+				2C90F80A2E0C6902009964D3 /* NBScnVertices.h */,
+				2C90F8072E0C68F4009964D3 /* NBScnVertices.c */,
+				2CBEEAA92E11B3C100EB4AC9 /* NBScnRender.h */,
+				2CBEEAAA2E11B3C100EB4AC9 /* NBScnRender.c */,
 				2CB75FDA2E01B52F00D7E4FE /* NBScnRenderJobDefs.h */,
 				2CB75FCE2E01B50100D7E4FE /* NBScnRenderJobDefs.c */,
-				2CB75FDB2E01B52F00D7E4FE /* NBScnRenderJobFlat.h */,
-				2CB75FCF2E01B50100D7E4FE /* NBScnRenderJobFlat.c */,
+				2C90F8052E0C66F1009964D3 /* NBScnRenderJobBldr.h */,
+				2C90F8022E0C66D9009964D3 /* NBScnRenderJobBldr.c */,
 				2CB75FDD2E01B52F00D7E4FE /* NBScnRenderJobTree.h */,
 				2CB75FD02E01B50100D7E4FE /* NBScnRenderJobTree.c */,
+				2CB75FDB2E01B52F00D7E4FE /* NBScnRenderJobFlat.h */,
+				2CB75FCF2E01B50100D7E4FE /* NBScnRenderJobFlat.c */,
 			);
 			name = scene;
 			path = ../../../src/scene;
@@ -8163,8 +8288,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CB75FE92E01B54800D7E4FE /* NBScnRenderJob_opengl4_5_430.h in Headers */,
+				2C90F8012E0C2A7A009964D3 /* NBScnRenderCmd.h in Headers */,
 				2CB75FEA2E01B54800D7E4FE /* NBScnRenderJob_vulkan1_0_310es.h in Headers */,
+				2C90F7F32E0C04EA009964D3 /* NBSintaxParserCPProcUnit.h in Headers */,
+				2C90F80B2E0C6902009964D3 /* NBScnVertices.h in Headers */,
+				2CBEEAA82E115AED00EB4AC9 /* NBGpuTexture.h in Headers */,
+				2C90F7F42E0C04EA009964D3 /* NBSintaxParserResults.h in Headers */,
+				2C90F7F52E0C04EA009964D3 /* NBSintaxParser.h in Headers */,
+				2C90F7F62E0C04EA009964D3 /* NBSintaxParserCTokens.h in Headers */,
+				2C90F7F72E0C04EA009964D3 /* NBSintaxParserCDefs.h in Headers */,
+				2C90F7F82E0C04EA009964D3 /* NBSintaxParserDefs.h in Headers */,
+				2C90F7F92E0C04EA009964D3 /* NBSintaxParserC.h in Headers */,
+				2C90F7FA2E0C04EA009964D3 /* NBSintaxParserCPProc.h in Headers */,
+				2C90F7FB2E0C04EA009964D3 /* NBSintaxParserRules.h in Headers */,
+				2C90F7FC2E0C04EA009964D3 /* NBSintaxParserCPProcDefs.h in Headers */,
 				2CB75FEB2E01B54800D7E4FE /* NBScnRenderJob_cs_5_0.h in Headers */,
+				2C702E952E15BF83009BFCAB /* NBGpuVertexBuffer.h in Headers */,
 				2CB75FEC2E01B54800D7E4FE /* NBScnRenderJob_glsl.h in Headers */,
 				2CB75FED2E01B54800D7E4FE /* NBScnRenderJob_hlsl.h in Headers */,
 				2CB75FEE2E01B54800D7E4FE /* NBScnRenderJob_cs_4_0.h in Headers */,
@@ -8173,9 +8312,19 @@
 				2CB75FDF2E01B52F00D7E4FE /* NBScnRenderJobDefs.h in Headers */,
 				2CB75FE02E01B52F00D7E4FE /* NBScnRenderJobFlat.h in Headers */,
 				2CB75FE12E01B52F00D7E4FE /* NBScnRenderJobTree.h in Headers */,
+				2C19A1B82E10227600B4140F /* NBGpuBuffer.h in Headers */,
+				2CBEEAAC2E11B3C100EB4AC9 /* NBScnRender.h in Headers */,
 				2C3DBFDD2BC31CF6002D78BD /* NBThreadStoragePriv.h in Headers */,
+				2C90F8062E0C66F1009964D3 /* NBScnRenderJobBldr.h in Headers */,
+				2C702E8D2E1324FE009BFCAB /* NBScnTransform.h in Headers */,
+				2C702E8E2E1324FE009BFCAB /* NBScnNodeProps.h in Headers */,
+				2CBEEAA32E11599700EB4AC9 /* NBGpuFramebuffer.h in Headers */,
 				2CF835EC2BE6C04B00CCE771 /* NBHndl.h in Headers */,
+				2C702E9B2E15C297009BFCAB /* NBGpuDataType.h in Headers */,
+				2C90F8142E0C80CA009964D3 /* NBMemoryBlock.h in Headers */,
+				2C90F8152E0C80CA009964D3 /* NBMemoryBlocks.h in Headers */,
 				2CF835F12BE6C30E00CCE771 /* NBHndlNative.h in Headers */,
+				2CBEEA9E2E1156FC00EB4AC9 /* NBGpuRenderbuffer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8371,7 +8520,6 @@
 				2C8963EF235531DE00A4948D /* NBPngChunk.c in Sources */,
 				2CB3ADA1225BA4E800E62C1A /* NBThreadStorage.c in Sources */,
 				2CF835EF2BE6C30000CCE771 /* NBHndlNative.c in Sources */,
-				2C1DF82B24AD363200347D2D /* NBSintaxParserCTokens.c in Sources */,
 				2C8677502228E200006DEA0C /* NBSmtpClient.c in Sources */,
 				2C6CE99B227FC3C700B94749 /* NBPdfRenderDoc.c in Sources */,
 				2C8677532228F788006DEA0C /* NBSmtpBody.c in Sources */,
@@ -8386,6 +8534,7 @@
 				2CFF9B9F223A0FC200345C47 /* NBCallback.c in Sources */,
 				2C36941C2323A04E00130EFC /* NBStructMaps.c in Sources */,
 				2C99A6872362625C00D4D010 /* NBHttpStats.c in Sources */,
+				2C702E962E15BF83009BFCAB /* NBGpuVertexBuffer.c in Sources */,
 				2C712EAC22506035009EC8BF /* NBLinkedList.c in Sources */,
 				2C8DCED52357C94100E65985 /* NBHmac.c in Sources */,
 				2C8DCED92358240700E65985 /* NBMd4.c in Sources */,
@@ -8394,6 +8543,7 @@
 				2C610B8E241F42060091E288 /* NBContext.c in Sources */,
 				2CDBB8D32416D614007677D8 /* NBFrameworkDefs.c in Sources */,
 				2C8DCEDF2358E34900E65985 /* NBNtln.c in Sources */,
+				2C19A1B52E10226800B4140F /* NBGpuBuffer.c in Sources */,
 				2C8677452228C83F006DEA0C /* NBThreadMutexRW.c in Sources */,
 				2C9D17FC22409EF600C58D29 /* NBJpeg.c in Sources */,
 				2C8DCEB7211BBF4600FEEA09 /* NBFile.c in Sources */,
@@ -8452,18 +8602,11 @@
 				2C1E5A7420E547A600740049 /* NBXmlParser.c in Sources */,
 				2CFFDE6E27272B4B00190674 /* NBDataCursor.c in Sources */,
 				2C6B40D425196788009F6E29 /* NBAvcParser.c in Sources */,
-				2C41038C24A1B43B00EDB1AA /* NBSintaxParserCPProc.c in Sources */,
 				2CE921D5251D889E00D6A39E /* NBAvc.c in Sources */,
 				2CFF08802453D0150058AEFF /* NBClass.c in Sources */,
-				2CEBB50E247A10B500C89E1A /* NBSintaxParserResults.c in Sources */,
-				2C7CD1C424B2F032000FB0C3 /* NBSintaxParserCPProcUnit.c in Sources */,
-				2C136C352458DB990093047E /* NBSintaxParser.c in Sources */,
-				2C78DB47246DBCD90099DE81 /* NBSintaxParserC.c in Sources */,
-				2CC3D5162490AC38007A90AB /* NBSintaxParserRules.c in Sources */,
 				2CC1762024ED9F7B00978CC3 /* NBRtcp.c in Sources */,
 				2CD2EDB524EC47B000578A5C /* NBRtspClient.c in Sources */,
 				2CC1761624ED8EA300978CC3 /* NBRtp.c in Sources */,
-				2C1DF83024AFF6AC00347D2D /* NBSintaxParserCDefs.c in Sources */,
 				2CC1761E24ED9F7B00978CC3 /* NBRtcpParser.c in Sources */,
 				2CC1761424ED8EA300978CC3 /* NBRtpHeader.c in Sources */,
 				2CFF5E3B26B4CE04007A2B6B /* NBHttpCfg.c in Sources */,
@@ -8478,6 +8621,7 @@
 				2CD615A228F0D9D60058F91E /* NBStopFlag.c in Sources */,
 				2C1A6A612724C4F9001EE349 /* NBWebSocketFrame.c in Sources */,
 				2C2DDDC02649F7AC0016AFB1 /* NBDataPtrsStats.c in Sources */,
+				2C702E992E15C297009BFCAB /* NBGpuDataType.c in Sources */,
 				2CA11B5828D3B77200E979F6 /* NBHttpServiceRespRawLnk.c in Sources */,
 				2CE548C7263C8F1600DD018D /* NBThreadsPool.c in Sources */,
 				2C1332F925A4EE7200F9B076 /* NBRtsp.c in Sources */,
@@ -8856,6 +9000,14 @@
 				2C10BD89204BC8970076F706 /* async_null.c in Sources */,
 				2C10BD8A204BC8970076F706 /* async_posix.c in Sources */,
 				2C10BD8B204BC8970076F706 /* async_win.c in Sources */,
+				2C9E001A2E0832E80093DB96 /* NBSintaxParserCPProc.c in Sources */,
+				2C9E001B2E0832E80093DB96 /* NBSintaxParserCTokens.c in Sources */,
+				2C9E001C2E0832E80093DB96 /* NBSintaxParserResults.c in Sources */,
+				2C9E001D2E0832E80093DB96 /* NBSintaxParserRules.c in Sources */,
+				2C9E001E2E0832E80093DB96 /* NBSintaxParserCPProcUnit.c in Sources */,
+				2C9E001F2E0832E80093DB96 /* NBSintaxParser.c in Sources */,
+				2C9E00202E0832E80093DB96 /* NBSintaxParserC.c in Sources */,
+				2C9E00212E0832E80093DB96 /* NBSintaxParserCDefs.c in Sources */,
 				2C10BD8C204BC8970076F706 /* async_err.c in Sources */,
 				2C10BD8D204BC8970076F706 /* async_wait.c in Sources */,
 				2C10BD8E204BC8970076F706 /* async.c in Sources */,
@@ -9068,6 +9220,8 @@
 				2C10BE54204BC9130076F706 /* ecp_smpl.c in Sources */,
 				2C10BE55204BC9130076F706 /* ecx_meth.c in Sources */,
 				2C10BE56204BC9180076F706 /* err_all.c in Sources */,
+				2C702E892E1324FE009BFCAB /* NBScnNodeProps.c in Sources */,
+				2C702E8A2E1324FE009BFCAB /* NBScnTransform.c in Sources */,
 				2C10BE57204BC9180076F706 /* err_prn.c in Sources */,
 				2C10BE58204BC9180076F706 /* err.c in Sources */,
 				2C10BE59204BC9220076F706 /* bio_b64.c in Sources */,
@@ -9097,6 +9251,7 @@
 				2C10BE70204BC9220076F706 /* e_rc5.c in Sources */,
 				2C10BE71204BC9220076F706 /* e_seed.c in Sources */,
 				2C053BC12207402A001B0787 /* e_sm4.c in Sources */,
+				2C90F8042E0C66D9009964D3 /* NBScnRenderJobBldr.c in Sources */,
 				2C10BE72204BC9220076F706 /* e_xcbc_d.c in Sources */,
 				2C10BE73204BC9220076F706 /* encode.c in Sources */,
 				2C10BE74204BC9220076F706 /* evp_cnf.c in Sources */,
@@ -9172,6 +9327,7 @@
 				2C10BD39204BC8850076F706 /* o_fips.c in Sources */,
 				2C10BD3A204BC8850076F706 /* o_fopen.c in Sources */,
 				2C10BD3B204BC8850076F706 /* o_init.c in Sources */,
+				2C90F7FF2E0C2A68009964D3 /* NBScnRenderCmd.c in Sources */,
 				2C10BD3C204BC8850076F706 /* o_str.c in Sources */,
 				2C10BD3D204BC8850076F706 /* o_time.c in Sources */,
 				2C10BEB0204BC9410076F706 /* o_names.c in Sources */,
@@ -9263,6 +9419,8 @@
 				2C10BF06204BC96D0076F706 /* rsa_prn.c in Sources */,
 				2C10BF07204BC96D0076F706 /* rsa_pss.c in Sources */,
 				2C10BF08204BC96D0076F706 /* rsa_saos.c in Sources */,
+				2C90F8102E0C80B3009964D3 /* NBMemoryBlock.c in Sources */,
+				2C90F8112E0C80B3009964D3 /* NBMemoryBlocks.c in Sources */,
 				2C10BF09204BC96D0076F706 /* rsa_sign.c in Sources */,
 				2C10BF0A204BC96D0076F706 /* rsa_ssl.c in Sources */,
 				2C10BF0B204BC96D0076F706 /* rsa_x931.c in Sources */,
@@ -9309,6 +9467,7 @@
 				2C10BF20204BC9800076F706 /* ts_rsp_sign.c in Sources */,
 				2C10BF21204BC9800076F706 /* ts_rsp_utils.c in Sources */,
 				2C10BF22204BC9800076F706 /* ts_rsp_verify.c in Sources */,
+				2CBEEAA12E11599700EB4AC9 /* NBGpuFramebuffer.c in Sources */,
 				2C10BF23204BC9800076F706 /* ts_verify_ctx.c in Sources */,
 				2C10BF24204BC9880076F706 /* txt_db.c in Sources */,
 				2C10BF25204BC9880076F706 /* ui_err.c in Sources */,
@@ -9332,6 +9491,7 @@
 				2C10BF35204BC98E0076F706 /* x_pubkey.c in Sources */,
 				2C10BF36204BC98E0076F706 /* x_req.c in Sources */,
 				2C10BF37204BC98E0076F706 /* x_x509.c in Sources */,
+				2C90F8092E0C68F4009964D3 /* NBScnVertices.c in Sources */,
 				2C10BF38204BC98E0076F706 /* x_x509a.c in Sources */,
 				2C10BF39204BC98E0076F706 /* x509_att.c in Sources */,
 				2C10BF3A204BC98E0076F706 /* x509_cmp.c in Sources */,
@@ -9351,6 +9511,7 @@
 				2C10BF48204BC98E0076F706 /* x509_vpm.c in Sources */,
 				2C10BF49204BC98E0076F706 /* x509cset.c in Sources */,
 				2C10BF4A204BC98E0076F706 /* x509name.c in Sources */,
+				2CBEEAA62E115AED00EB4AC9 /* NBGpuTexture.c in Sources */,
 				2C10BF4B204BC98E0076F706 /* x509rset.c in Sources */,
 				2C10BF4C204BC98E0076F706 /* x509spki.c in Sources */,
 				2C10BF4D204BC98E0076F706 /* x509type.c in Sources */,
@@ -9399,6 +9560,7 @@
 				2CECBB41220680F70090A2A5 /* packet.c in Sources */,
 				2C10BF77204BC9A10076F706 /* pqueue.c in Sources */,
 				2C10BF8F204BC9A90076F706 /* dtls1_bitmap.c in Sources */,
+				2CBEEA9C2E1156FC00EB4AC9 /* NBGpuRenderbuffer.c in Sources */,
 				2C10BF90204BC9A90076F706 /* rec_layer_d1.c in Sources */,
 				2C10BF91204BC9A90076F706 /* rec_layer_s3.c in Sources */,
 				2C10BF92204BC9A90076F706 /* ssl3_buffer.c in Sources */,
@@ -9604,6 +9766,7 @@
 				2C01269A2211FB61004600BB /* edgloop.cpp in Sources */,
 				2C0126842211FB61004600BB /* equationdetectbase.cpp in Sources */,
 				2C01268E2211FB61004600BB /* fpchop.cpp in Sources */,
+				2CBEEAAD2E11B3C100EB4AC9 /* NBScnRender.c in Sources */,
 				2C0126A42211FB61004600BB /* gap_map.cpp in Sources */,
 				2C0126B62211FB61004600BB /* imagefind.cpp in Sources */,
 				2C0126962211FB61004600BB /* linefind.cpp in Sources */,
@@ -9690,7 +9853,6 @@
 				2CB3AD93225A71DB00E62C1A /* NBLocale.c in Sources */,
 				2C8963EE235531DE00A4948D /* NBPngChunk.c in Sources */,
 				2CB3ADA0225BA4E800E62C1A /* NBThreadStorage.c in Sources */,
-				2C1DF82A24AD363200347D2D /* NBSintaxParserCTokens.c in Sources */,
 				2C3694202323A06200130EFC /* NBStructMaps.c in Sources */,
 				2C86774F2228E200006DEA0C /* NBSmtpClient.c in Sources */,
 				2C6CE99A227FC3C700B94749 /* NBPdfRenderDoc.c in Sources */,
@@ -9706,6 +9868,7 @@
 				2CFF9B9E223A0FC100345C47 /* NBCallback.c in Sources */,
 				2CCFE4CB228B4F8600675D6D /* NBHttp2Parser.c in Sources */,
 				2C227E6D204B332800D1B813 /* NBArray.c in Sources */,
+				2C702E942E15BF83009BFCAB /* NBGpuVertexBuffer.c in Sources */,
 				2C227E6E204B332800D1B813 /* NBArraySorted.c in Sources */,
 				2C7D515C2077169C005C6AB5 /* NBCompare.c in Sources */,
 				2C0BC1D1213AA068007783AD /* NBDate.c in Sources */,
@@ -9714,6 +9877,7 @@
 				2CBFF5CC21366B750060B73A /* NBEnumMap.c in Sources */,
 				2C0128612212030D004600BB /* NBFrameworkPch.c in Sources */,
 				2C4299B620FD9D9A00D09159 /* NBHttpBody.c in Sources */,
+				2C19A1B62E10226800B4140F /* NBGpuBuffer.c in Sources */,
 				2CF545AB20FC0701008CFFE1 /* NBHttpBuilder.c in Sources */,
 				2CF545B120FC582A008CFFE1 /* NBHttpChunkExt.c in Sources */,
 				2C227E63204B332800D1B813 /* NBHttpClient.c in Sources */,
@@ -9771,18 +9935,11 @@
 				2C8DCEC3211CB08900FEEA09 /* NBFilesystemPkgs.c in Sources */,
 				2CFFDE6D27272B4B00190674 /* NBDataCursor.c in Sources */,
 				2C6B40D325196788009F6E29 /* NBAvcParser.c in Sources */,
-				2C41038B24A1B43B00EDB1AA /* NBSintaxParserCPProc.c in Sources */,
 				2CE921D4251D889E00D6A39E /* NBAvc.c in Sources */,
 				2CFF087F2453D0150058AEFF /* NBClass.c in Sources */,
-				2CEBB50D247A10B500C89E1A /* NBSintaxParserResults.c in Sources */,
-				2C7CD1C324B2F032000FB0C3 /* NBSintaxParserCPProcUnit.c in Sources */,
-				2C136C342458DB990093047E /* NBSintaxParser.c in Sources */,
-				2C78DB46246DBCD90099DE81 /* NBSintaxParserC.c in Sources */,
-				2CC3D5152490AC38007A90AB /* NBSintaxParserRules.c in Sources */,
 				2CC1761F24ED9F7B00978CC3 /* NBRtcp.c in Sources */,
 				2CD2EDB424EC47B000578A5C /* NBRtspClient.c in Sources */,
 				2CC1761524ED8EA300978CC3 /* NBRtp.c in Sources */,
-				2C1DF82F24AFF6AC00347D2D /* NBSintaxParserCDefs.c in Sources */,
 				2CC1761D24ED9F7B00978CC3 /* NBRtcpParser.c in Sources */,
 				2CC1761324ED8EA300978CC3 /* NBRtpHeader.c in Sources */,
 				2CFF5E3A26B4CE04007A2B6B /* NBHttpCfg.c in Sources */,
@@ -9798,6 +9955,7 @@
 				2C1A6A602724C4F9001EE349 /* NBWebSocketFrame.c in Sources */,
 				2C2DDDBF2649F7AB0016AFB1 /* NBDataPtrsStats.c in Sources */,
 				2CA11B5728D3B77200E979F6 /* NBHttpServiceRespRawLnk.c in Sources */,
+				2C702E9A2E15C297009BFCAB /* NBGpuDataType.c in Sources */,
 				2CE548C6263C8F1600DD018D /* NBThreadsPool.c in Sources */,
 				2C1332F825A4EE7200F9B076 /* NBRtsp.c in Sources */,
 				2C9F84962673D76C0078664A /* NBSdp.c in Sources */,
@@ -10176,6 +10334,14 @@
 				2C227F4A204B3F2400D1B813 /* async_null.c in Sources */,
 				2C227F4B204B3F2400D1B813 /* async_posix.c in Sources */,
 				2C227F4C204B3F2400D1B813 /* async_win.c in Sources */,
+				2C9E00222E0832E80093DB96 /* NBSintaxParserCPProc.c in Sources */,
+				2C9E00232E0832E80093DB96 /* NBSintaxParserCTokens.c in Sources */,
+				2C9E00242E0832E80093DB96 /* NBSintaxParserResults.c in Sources */,
+				2C9E00252E0832E80093DB96 /* NBSintaxParserRules.c in Sources */,
+				2C9E00262E0832E80093DB96 /* NBSintaxParserCPProcUnit.c in Sources */,
+				2C9E00272E0832E80093DB96 /* NBSintaxParser.c in Sources */,
+				2C9E00282E0832E80093DB96 /* NBSintaxParserC.c in Sources */,
+				2C9E00292E0832E80093DB96 /* NBSintaxParserCDefs.c in Sources */,
 				2C227F45204B3F0600D1B813 /* async_err.c in Sources */,
 				2C227F43204B3F0600D1B813 /* async_wait.c in Sources */,
 				2C227F44204B3F0600D1B813 /* async.c in Sources */,
@@ -10388,6 +10554,8 @@
 				2C2280FE204B64C700D1B813 /* ecp_nistputil.c in Sources */,
 				2C2280F9204B64C700D1B813 /* ecp_oct.c in Sources */,
 				2C22810A204B64C700D1B813 /* ecp_smpl.c in Sources */,
+				2C702E8B2E1324FE009BFCAB /* NBScnNodeProps.c in Sources */,
+				2C702E8C2E1324FE009BFCAB /* NBScnTransform.c in Sources */,
 				2C22810B204B64C700D1B813 /* ecx_meth.c in Sources */,
 				2C228118204B64D400D1B813 /* err_all.c in Sources */,
 				2C228119204B64D400D1B813 /* err_prn.c in Sources */,
@@ -10417,6 +10585,7 @@
 				2C228161204B650D00D1B813 /* e_rc4_hmac_md5.c in Sources */,
 				2C228183204B650E00D1B813 /* e_rc4.c in Sources */,
 				2C228157204B650D00D1B813 /* e_rc5.c in Sources */,
+				2C90F8032E0C66D9009964D3 /* NBScnRenderJobBldr.c in Sources */,
 				2C228178204B650E00D1B813 /* e_seed.c in Sources */,
 				2C053BC02207402A001B0787 /* e_sm4.c in Sources */,
 				2C22815F204B650D00D1B813 /* e_xcbc_d.c in Sources */,
@@ -10492,6 +10661,7 @@
 				2C2281C7204B65A300D1B813 /* xts128.c in Sources */,
 				2C2283C5204B6C5200D1B813 /* o_dir.c in Sources */,
 				2C2283BE204B6C5200D1B813 /* o_fips.c in Sources */,
+				2C90F7FE2E0C2A68009964D3 /* NBScnRenderCmd.c in Sources */,
 				2C2283CC204B6C5200D1B813 /* o_fopen.c in Sources */,
 				2C2283C3204B6C5200D1B813 /* o_init.c in Sources */,
 				2C2283BA204B6C5200D1B813 /* o_str.c in Sources */,
@@ -10583,6 +10753,8 @@
 				2C228276204B669800D1B813 /* rsa_pk1.c in Sources */,
 				2C228279204B669800D1B813 /* rsa_pmeth.c in Sources */,
 				2C22826F204B669800D1B813 /* rsa_prn.c in Sources */,
+				2C90F80E2E0C80B3009964D3 /* NBMemoryBlock.c in Sources */,
+				2C90F80F2E0C80B3009964D3 /* NBMemoryBlocks.c in Sources */,
 				2C22827A204B669800D1B813 /* rsa_pss.c in Sources */,
 				2C228278204B669800D1B813 /* rsa_saos.c in Sources */,
 				2C228272204B669800D1B813 /* rsa_sign.c in Sources */,
@@ -10629,6 +10801,7 @@
 				2C2282A8204B671200D1B813 /* ts_req_utils.c in Sources */,
 				2C2282AC204B671200D1B813 /* ts_rsp_print.c in Sources */,
 				2C2282AA204B671200D1B813 /* ts_rsp_sign.c in Sources */,
+				2CBEEAA22E11599700EB4AC9 /* NBGpuFramebuffer.c in Sources */,
 				2C2282B0204B671200D1B813 /* ts_rsp_utils.c in Sources */,
 				2C2282AE204B671200D1B813 /* ts_rsp_verify.c in Sources */,
 				2C2282B1204B671200D1B813 /* ts_verify_ctx.c in Sources */,
@@ -10652,6 +10825,7 @@
 				2C2282ED204B675C00D1B813 /* x_exten.c in Sources */,
 				2C2282F7204B675C00D1B813 /* x_name.c in Sources */,
 				2C2282EE204B675C00D1B813 /* x_pubkey.c in Sources */,
+				2C90F8082E0C68F4009964D3 /* NBScnVertices.c in Sources */,
 				2C2282F3204B675C00D1B813 /* x_req.c in Sources */,
 				2C2282F4204B675C00D1B813 /* x_x509.c in Sources */,
 				2C2282E3204B675C00D1B813 /* x_x509a.c in Sources */,
@@ -10671,6 +10845,7 @@
 				2C2282FE204B675C00D1B813 /* x509_v3.c in Sources */,
 				2C2282F2204B675C00D1B813 /* x509_vfy.c in Sources */,
 				2C2282FA204B675C00D1B813 /* x509_vpm.c in Sources */,
+				2CBEEAA72E115AED00EB4AC9 /* NBGpuTexture.c in Sources */,
 				2C2282E8204B675C00D1B813 /* x509cset.c in Sources */,
 				2C2282FB204B675C00D1B813 /* x509name.c in Sources */,
 				2C2282FD204B675C00D1B813 /* x509rset.c in Sources */,
@@ -10719,6 +10894,7 @@
 				2C22839E204B681300D1B813 /* d1_srtp.c in Sources */,
 				2C228394204B681300D1B813 /* methods.c in Sources */,
 				2CECBB40220680F70090A2A5 /* packet.c in Sources */,
+				2CBEEA9D2E1156FC00EB4AC9 /* NBGpuRenderbuffer.c in Sources */,
 				2C22838C204B681300D1B813 /* pqueue.c in Sources */,
 				2C22836A204B67EB00D1B813 /* dtls1_bitmap.c in Sources */,
 				2C228368204B67EB00D1B813 /* rec_layer_d1.c in Sources */,
@@ -10924,6 +11100,7 @@
 				2C0126A92211FB61004600BB /* edgblob.cpp in Sources */,
 				2C0126992211FB61004600BB /* edgloop.cpp in Sources */,
 				2C0126832211FB61004600BB /* equationdetectbase.cpp in Sources */,
+				2CBEEAAB2E11B3C100EB4AC9 /* NBScnRender.c in Sources */,
 				2C01268D2211FB61004600BB /* fpchop.cpp in Sources */,
 				2C0126A32211FB61004600BB /* gap_map.cpp in Sources */,
 				2C0126B52211FB61004600BB /* imagefind.cpp in Sources */,

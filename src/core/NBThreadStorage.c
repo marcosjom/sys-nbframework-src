@@ -93,7 +93,7 @@ void NBThreadStorage_destroyFromData(void* pData){
         //Destroy the key (avoid duplicate cleanup in systems where the key is automatically dstriyed at thread exit)
         {
 #           ifdef _WIN32
-            if(!TlsFree(cpy.parent->tlsIdx, NULL)){
+            if(!TlsFree(cpy.parent->tlsIdx)){
                 PRINTF_ERROR("ERROR, NBThreadStorage_destroyFromData, TlsFree failed.\n");
             } else {
                 //ToDo: implement
