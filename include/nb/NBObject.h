@@ -127,7 +127,7 @@ void NBObjRef_release_(STNBObjRef* ref);
 void NBObjRef_set_(STNBObjRef* ref, const STNBObjRef* other);
 #endif
 UI32 NBObjRef_retainCount(STNBObjRef ref);
-BOOL NBObjRef_isClass(STNBObjRef ref, const STNBClass* cls);
+BOOL NBObjRef_isClass(const STNBObjRef ref, const STNBClass* cls);
 
 //---------------------------------------------------
 //- Declares a class in a header file (.h-like)
@@ -283,12 +283,12 @@ BOOL NBObjRef_isClass(STNBObjRef ref, const STNBClass* cls);
 		NBObjRef_release(ref); \
 	} \
 	/*retainCount*/ \
-	UI32 CLS_NAME ##_retainCount(ST ## CLS_NAME ## Ref ref){ \
+	UI32 CLS_NAME ##_retainCount(const ST ## CLS_NAME ## Ref ref){ \
 		NBASSERT(!NBObjRef_isSet(ref) || NBObjRef_isClass(ref, & CLS_NAME ## _class_)) \
 		return NBObjRef_retainCount(ref); \
 	} \
 	/*isClass*/ \
-	BOOL CLS_NAME ##_isClass(ST ## CLS_NAME ## Ref ref){ \
+	BOOL CLS_NAME ##_isClass(const ST ## CLS_NAME ## Ref ref){ \
 		return NBObjRef_isSet(ref) && NBObjRef_isClass(ref, & CLS_NAME ## _class_); \
 	} \
     /*swap*/ \
@@ -305,12 +305,12 @@ BOOL NBObjRef_isClass(STNBObjRef ref, const STNBClass* cls);
 		NBObjRef_set(ref, other); \
 	} \
 	/*isSet*/ \
-	BOOL CLS_NAME ##_isSet(ST ## CLS_NAME ## Ref ref){ \
+	BOOL CLS_NAME ##_isSet(const ST ## CLS_NAME ## Ref ref){ \
 		NBASSERT(!NBObjRef_isSet(ref) || NBObjRef_isClass(ref, & CLS_NAME ## _class_)) \
 		return NBObjRef_isSet(ref); \
 	} \
 	/*isSame*/ \
-	BOOL CLS_NAME ##_isSame(ST ## CLS_NAME ## Ref ref, ST ## CLS_NAME ## Ref other){ \
+	BOOL CLS_NAME ##_isSame(const ST ## CLS_NAME ## Ref ref, const ST ## CLS_NAME ## Ref other){ \
 		NBASSERT(!NBObjRef_isSet(ref) || NBObjRef_isClass(ref, & CLS_NAME ## _class_)) \
 		NBASSERT(!NBObjRef_isSet(other) || NBObjRef_isClass(other, & CLS_NAME ## _class_)) \
 		return NBObjRef_isSame(ref, other); \

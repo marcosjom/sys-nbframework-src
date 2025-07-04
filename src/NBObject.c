@@ -324,7 +324,7 @@ UI32 NBObjRef_retainCount(STNBObjRef ref){
 	return ((STNBObject*)ref.opaque)->refCount;
 }
 
-BOOL NBObjRef_isClass(STNBObjRef ref, const STNBClass* cls){
+BOOL NBObjRef_isClass(const STNBObjRef ref, const STNBClass* cls){
 	BOOL r = FALSE;
 	STNBObject* obj2 = (STNBObject*)ref.opaque;
 	if(obj2 != NULL){

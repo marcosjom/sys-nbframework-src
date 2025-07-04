@@ -21,8 +21,11 @@ int main(int argc, const char * argv[]) {
 			PRINTF_INFO("argv[%d] = '%s'.\n", i, argv[i]);
 		}
 	}
-	NBMngrProcess_init();
-	NBMngrStructMaps_init();
+    //These could be automatically called by 'AUFrameworkBaseInicializar'
+    if(!NBMngrProcess_isInited()){
+        NBMngrProcess_init();
+        NBMngrStructMaps_init();
+    }
 	NBSocket_initEngine();
 	NBSocket_initWSA();
 	//start random

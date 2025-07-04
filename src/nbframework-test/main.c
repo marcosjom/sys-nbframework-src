@@ -61,8 +61,11 @@ void memblocks_testRandomActions_(const UI32 blockSz, const UI32 ammPtrsMax, con
 //main
 
 int main(int argc, const char * argv[]) {
-	NBMngrProcess_init();
-	NBMngrStructMaps_init();
+    //These could be automatically called by 'AUFrameworkBaseInicializar'
+    if(!NBMngrProcess_isInited()){
+        NBMngrProcess_init();
+        NBMngrStructMaps_init();
+    }
 	NBSocket_initEngine();
 	NBSocket_initWSA();
 	//
