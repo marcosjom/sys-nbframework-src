@@ -235,6 +235,7 @@ extern "C" {
 	//- NBMngrProcess
 	//---------------
 
+    BOOL NBMngrProcess_isInited(void);
 	void NBMngrProcess_init(void);
 	void NBMngrProcess_release(void);
 	

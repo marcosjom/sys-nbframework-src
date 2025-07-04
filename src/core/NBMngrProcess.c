@@ -105,7 +105,7 @@ static STNBStatePerThread _statePerThread = { PTHREAD_ONCE_INIT };
 void NBStatePerThreadCreateMthd_(void);
 void NBStatePerThreadDestroyDataMthd_(void* data); //automtically called in some systems.
 //
-struct STNBMngrProcessThread_* NBStatePerThread_get(const char* fullpath, const SI32 line, const char* func, const BOOL createIfNecesary);
+struct STNBMngrProcessThread_* NBStatePerThread_getLocked_(const char* fullpath, const SI32 line, const char* func, const BOOL createIfNecesary);
 #endif
 
 //Filesystem
@@ -446,8 +446,8 @@ typedef struct STNBMngrProcess_ {
 //-----------------
 
 #ifdef CONFIG_NB_INCLUDE_THREADS_ENABLED
-void NBMngrProcess_threadAdd_(STNBMngrProcess* obj, STNBMngrProcessThread* t);
-void NBMngrProcess_threadRemove_(STNBMngrProcess* obj, STNBMngrProcessThread* t);
+void NBMngrProcess_threadAddLocked_(STNBMngrProcess* obj, STNBMngrProcessThread* t);
+void NBMngrProcess_threadRemoveLocked_(STNBMngrProcess* obj, STNBMngrProcessThread* t);
 #endif
 
 //---------------
@@ -512,6 +512,10 @@ static UI32 __printfFmtTmpSz = 0;
 static char* __printfFinalTmp = NULL;
 static UI32 __printfFinalTmpSz = 0;
 
+BOOL NBMngrProcess_isInited(void){
+    return (__printfMutex != NULL);
+}
+    
 void NBMngrProcess_init(void){
 	//printf mutex
 	{
@@ -526,9 +530,11 @@ void NBMngrProcess_init(void){
 		//mutex
 		NBMngrProcessMutexx_init_(&obj->mutex);
 		//threads
+        NBMngrProcess_lock(obj);
 		{
-			obj->threads.main = NBStatePerThread_get(__FILE__, __LINE__, __func__, TRUE);
+			obj->threads.main = NBStatePerThread_getLocked_(__FILE__, __LINE__, __func__, TRUE);
 		}
+        NBMngrProcess_unlock(obj);
 		//stats
 #		ifdef CONFIG_NB_INCLUDE_THREADS_METRICS
 		{
@@ -718,7 +724,7 @@ void NBMngrProcess_assertFailed(const char* expression, const char* filepath, co
 		NBMngrProcess_lock(obj);
 #		ifdef CONFIG_NB_INCLUDE_THREADS_LOCKS_VALIDATION
 		{
-			STNBMngrProcessThread* st = NBStatePerThread_get(__FILE__, __LINE__, __func__, FALSE);
+			STNBMngrProcessThread* st = NBStatePerThread_getLocked_(__FILE__, __LINE__, __func__, FALSE);
 			if(st != NULL){
 				NBMngrProcessMutex_printLocksStackConsoleError("                 ", st->locks.stack, st->locks.use, obj->locks.arr, obj->locks.use, obj->locks.seqUIDs);
 			}
@@ -1076,7 +1082,7 @@ void NBMngrProcess_mutexLockPush(const UI64 lockId, const char* fullpath, const 
 	NB_STATIC_ASSERT(lockId > 0 && lockId <= obj->locks.seqUIDs);
 	//threads
 	{
-		STNBMngrProcessThread* st = NBStatePerThread_get(fullpath, line, func, TRUE);
+		STNBMngrProcessThread* st = NBStatePerThread_getLocked_(fullpath, line, func, TRUE);
 		//Analyze
 		if(st == NULL){
 			PRINTF_CONSOLE_ERROR("NBMngrProcess, NBMngrProcess_mutexLockPush, NBMngrProcess_getCurThreadLocked_ failed.\n");
@@ -1099,7 +1105,7 @@ void NBMngrProcess_mutexLockStarted(const UI64 lockId, const char* fullpath, con
 	NBMngrProcess_lock(obj);
 	NB_STATIC_ASSERT(lockId > 0 && lockId <= obj->locks.seqUIDs);
 	{
-		STNBMngrProcessThread* st = NBStatePerThread_get(fullpath, line, func, FALSE);
+		STNBMngrProcessThread* st = NBStatePerThread_getLocked_(fullpath, line, func, FALSE);
 		if(st == NULL){
 			PRINTF_CONSOLE_ERROR("NBMngrProcess, NBMngrProcess_mutexLockStarted, missing push.\n");
 			NB_STATIC_ASSERT(FALSE);
@@ -1119,7 +1125,7 @@ void NBMngrProcess_mutexLockPop(const UI64 lockId, const char* fullpath, const S
 	NB_STATIC_ASSERT(lockId > 0 && lockId <= obj->locks.seqUIDs);
 	//threads
 	{
-		STNBMngrProcessThread* st = NBStatePerThread_get(fullpath, line, func, FALSE);
+		STNBMngrProcessThread* st = NBStatePerThread_getLocked_(fullpath, line, func, FALSE);
 		if(st == NULL){
 			PRINTF_CONSOLE_ERROR("NBMngrProcess, NBMngrProcess_mutexLockPop, missing push.\n");
 			NB_STATIC_ASSERT(FALSE);
@@ -1322,7 +1328,7 @@ void NBMngrProcess_condWaitPush(const UI64 condId, const UI64 lockId, const char
 	NB_STATIC_ASSERT(cond != NULL)
 	//threads
 	{
-		STNBMngrProcessThread* st = NBStatePerThread_get(fullpath, line, func, TRUE);
+		STNBMngrProcessThread* st = NBStatePerThread_getLocked_(fullpath, line, func, TRUE);
 		if(st == NULL){
 			PRINTF_CONSOLE_ERROR("NBMngrProcess, NBMngrProcess_condWaitPush, NBMngrProcess_getCurThreadLocked_ failed.\n");
 			NB_STATIC_ASSERT(FALSE);
@@ -1380,7 +1386,7 @@ void NBMngrProcess_condWaitPop(const UI64 condId, const UI64 lockId, const char*
 	//threads
 #	ifdef CONFIG_NB_INCLUDE_THREADS_LOCKS_VALIDATION
 	{
-		STNBMngrProcessThread* st = NBStatePerThread_get(fullpath, line, func, FALSE);
+		STNBMngrProcessThread* st = NBStatePerThread_getLocked_(fullpath, line, func, FALSE);
 		if(st == NULL){
 			PRINTF_CONSOLE_ERROR("NBMngrProcess, NBMngrProcess_condWaitPop, missing push.\n");
 			NB_STATIC_ASSERT(FALSE);
@@ -1440,7 +1446,7 @@ void NBMngrProcess_condSignal(const UI64 condId, const char* fullpath, const SI3
 	NB_STATIC_ASSERT(cond != NULL)
 	//threads
 	{
-		STNBMngrProcessThread* st = NBStatePerThread_get(fullpath, line, func, TRUE);
+		STNBMngrProcessThread* st = NBStatePerThread_getLocked_(fullpath, line, func, TRUE);
 		if(st == NULL){
 			PRINTF_CONSOLE_ERROR("NBMngrProcess, NBMngrProcess_condSignal, NBMngrProcess_getCurThreadLocked_ failed.\n");
 			NB_STATIC_ASSERT(FALSE);
@@ -1487,7 +1493,7 @@ void NBMngrProcess_condBroadcast(const UI64 condId, const char* fullpath, const 
 	NB_STATIC_ASSERT(cond != NULL)
 	//threads
 	{
-		STNBMngrProcessThread* st = NBStatePerThread_get(fullpath, line, func, TRUE);
+		STNBMngrProcessThread* st = NBStatePerThread_getLocked_(fullpath, line, func, TRUE);
 		if(st == NULL){
 			PRINTF_CONSOLE_ERROR("NBMngrProcess, NBMngrProcess_condBroadcast, NBMngrProcess_getCurThreadLocked_ failed.\n");
 			NB_STATIC_ASSERT(FALSE);
@@ -1534,7 +1540,7 @@ void NBMngrProcess_memStatsEnabledThreadPush(const BOOL isEnabled, const char* f
 	NBMngrProcess_lock(obj);
 	//threads
 	{
-		STNBMngrProcessThread* st = NBStatePerThread_get(fullpath, line, func, TRUE);
+		STNBMngrProcessThread* st = NBStatePerThread_getLocked_(fullpath, line, func, TRUE);
 		if(st == NULL){
 			PRINTF_CONSOLE_ERROR("NBMngrProcess, NBMngrProcess_memStatsEnabledThreadPush, NBMngrProcess_getCurThreadLocked_ failed.\n");
 			NB_STATIC_ASSERT(FALSE);
@@ -1569,7 +1575,7 @@ void NBMngrProcess_memStatsEnabledThreadPop(const char* fullpath, const SI32 lin
 	NBMngrProcess_lock(obj);
 	//threads
 	{
-		STNBMngrProcessThread* st = NBStatePerThread_get(fullpath, line, func, TRUE);
+		STNBMngrProcessThread* st = NBStatePerThread_getLocked_(fullpath, line, func, TRUE);
 		if(st == NULL){
 			PRINTF_CONSOLE_ERROR("NBMngrProcess, NBMngrProcess_memStatsEnabledThreadPop, NBMngrProcess_getCurThreadLocked_ failed.\n");
 			NB_STATIC_ASSERT(FALSE);
@@ -1594,7 +1600,7 @@ void NBMngrProcess_memAllocated(const UI64 size, const char* fullpath, const SI3
 	NBMngrProcess_lock(obj);
 	//threads
 	{
-		STNBMngrProcessThread* st = NBStatePerThread_get(fullpath, line, func, TRUE);
+		STNBMngrProcessThread* st = NBStatePerThread_getLocked_(fullpath, line, func, TRUE);
 		if(st == NULL){
 			PRINTF_CONSOLE_ERROR("NBMngrProcess, NBMngrProcess_memAllocated, NBMngrProcess_getCurThreadLocked_ failed.\n");
 			NB_STATIC_ASSERT(FALSE);
@@ -1639,7 +1645,7 @@ void NBMngrProcess_memFreed(const char* fullpath, const SI32 line, const char* f
 	NBMngrProcess_lock(obj);
 	//threads
 	{
-		STNBMngrProcessThread* st = NBStatePerThread_get(fullpath, line, func, TRUE);
+		STNBMngrProcessThread* st = NBStatePerThread_getLocked_(fullpath, line, func, TRUE);
 		if(st == NULL){
 			PRINTF_CONSOLE_ERROR("NBMngrProcess, NBMngrProcess_memFreed, NBMngrProcess_getCurThreadLocked_ failed.\n");
 			NB_STATIC_ASSERT(FALSE);
@@ -1939,7 +1945,7 @@ UI64 NBMngrProcess_objCreated(const char* name, const char* fullpath, const SI32
                 NBMngrProcessObj_setFirstKnownFunc(itm, fullpath, line, func);
 #               ifdef CONFIG_NB_INCLUDE_THREADS_LOCKS_VALIDATION
                 {
-                    STNBMngrProcessThread* st = NBStatePerThread_get(fullpath, line, func, FALSE);
+                    STNBMngrProcessThread* st = NBStatePerThread_getLocked_(fullpath, line, func, FALSE);
                     if(st != NULL){
                         if(st->locks.use > 0){
                             STNBMngrProcessLockPos* lck = &st->locks.stack[st->locks.use - 1];
@@ -2120,7 +2126,7 @@ void NBMngrProcess_fsFolderCreated(const ENNBFilesystemStatsSrc iSrc, const ENNB
 		NBMngrProcess_lock(obj);
 		//threads
 		{
-			STNBMngrProcessThread* st = NBStatePerThread_get(NULL, 0, NULL, FALSE);
+			STNBMngrProcessThread* st = NBStatePerThread_getLocked_(NULL, 0, NULL, FALSE);
 			if(st != NULL){
 				//thread stats
 				{
@@ -2156,7 +2162,7 @@ void NBMngrProcess_fsFolderDeleted(const ENNBFilesystemStatsSrc iSrc, const ENNB
 		NBMngrProcess_lock(obj);
 		//threads
 		{
-			STNBMngrProcessThread* st = NBStatePerThread_get(NULL, 0, NULL, FALSE);
+			STNBMngrProcessThread* st = NBStatePerThread_getLocked_(NULL, 0, NULL, FALSE);
 			if(st != NULL){
 				//thread stats
 				{
@@ -2192,7 +2198,7 @@ void NBMngrProcess_fsFolderOpened(const ENNBFilesystemStatsSrc iSrc, const ENNBF
 		NBMngrProcess_lock(obj);
 		//threads
 		{
-			STNBMngrProcessThread* st = NBStatePerThread_get(NULL, 0, NULL, FALSE);
+			STNBMngrProcessThread* st = NBStatePerThread_getLocked_(NULL, 0, NULL, FALSE);
 			if(st != NULL){
 				//thread stats
 				{
@@ -2232,7 +2238,7 @@ void NBMngrProcess_fsFolderClosed(const ENNBFilesystemStatsSrc iSrc, const ENNBF
 		NBMngrProcess_lock(obj);
 		//threads
 		{
-			STNBMngrProcessThread* st = NBStatePerThread_get(NULL, 0, NULL, FALSE);
+			STNBMngrProcessThread* st = NBStatePerThread_getLocked_(NULL, 0, NULL, FALSE);
 			if(st != NULL){
 				//thread stats
 				{
@@ -2273,7 +2279,7 @@ void NBMngrProcess_fsFolderRead(const ENNBFilesystemStatsSrc iSrc, const ENNBFil
 		NBMngrProcess_lock(obj);
 		//threads
 		{
-			STNBMngrProcessThread* st = NBStatePerThread_get(NULL, 0, NULL, FALSE);
+			STNBMngrProcessThread* st = NBStatePerThread_getLocked_(NULL, 0, NULL, FALSE);
 			if(st != NULL){
 				//thread stats
 				{
@@ -2331,7 +2337,7 @@ void NBMngrProcess_fsFileOpened(const ENNBFilesystemStatsSrc iSrc, const ENNBFil
 		NBMngrProcess_lock(obj);
 		//threads
 		{
-			STNBMngrProcessThread* st = NBStatePerThread_get(NULL, 0, NULL, FALSE);
+			STNBMngrProcessThread* st = NBStatePerThread_getLocked_(NULL, 0, NULL, FALSE);
 			if(st != NULL){
 				//thread stats
 				{
@@ -2371,7 +2377,7 @@ void NBMngrProcess_fsFileClosed(const ENNBFilesystemStatsSrc iSrc, const ENNBFil
 		NBMngrProcess_lock(obj);
 		//threads
 		{
-			STNBMngrProcessThread* st = NBStatePerThread_get(NULL, 0, NULL, FALSE);
+			STNBMngrProcessThread* st = NBStatePerThread_getLocked_(NULL, 0, NULL, FALSE);
 			if(st != NULL){
 				//thread stats
 				{
@@ -2412,7 +2418,7 @@ void NBMngrProcess_fsFileRead(const ENNBFilesystemStatsSrc iSrc, const ENNBFiles
 		NBMngrProcess_lock(obj);
 		//threads
 		{
-			STNBMngrProcessThread* st = NBStatePerThread_get(NULL, 0, NULL, FALSE);
+			STNBMngrProcessThread* st = NBStatePerThread_getLocked_(NULL, 0, NULL, FALSE);
 			if(st != NULL){
 				//thread stats
 				{
@@ -2454,7 +2460,7 @@ void NBMngrProcess_fsFileWritten(const ENNBFilesystemStatsSrc iSrc, const ENNBFi
 		NBMngrProcess_lock(obj);
 		//threads
 		{
-			STNBMngrProcessThread* st = NBStatePerThread_get(NULL, 0, NULL, FALSE);
+			STNBMngrProcessThread* st = NBStatePerThread_getLocked_(NULL, 0, NULL, FALSE);
 			if(st != NULL){
 				//thread stats
 				{
@@ -2496,7 +2502,7 @@ void NBMngrProcess_fsFileSeeked(const ENNBFilesystemStatsSrc iSrc, const ENNBFil
 		NBMngrProcess_lock(obj);
 		//threads
 		{
-			STNBMngrProcessThread* st = NBStatePerThread_get(NULL, 0, NULL, FALSE);
+			STNBMngrProcessThread* st = NBStatePerThread_getLocked_(NULL, 0, NULL, FALSE);
 			if(st != NULL){
 				//thread stats
 				{
@@ -2532,7 +2538,7 @@ void NBMngrProcess_fsFileTell(const ENNBFilesystemStatsSrc iSrc, const ENNBFiles
 		NBMngrProcess_lock(obj);
 		//threads
 		{
-			STNBMngrProcessThread* st = NBStatePerThread_get(NULL, 0, NULL, FALSE);
+			STNBMngrProcessThread* st = NBStatePerThread_getLocked_(NULL, 0, NULL, FALSE);
 			if(st != NULL){
 				//thread stats
 				{
@@ -2568,7 +2574,7 @@ void NBMngrProcess_fsFileFlush(const ENNBFilesystemStatsSrc iSrc, const ENNBFile
 		NBMngrProcess_lock(obj);
 		//threads
 		{
-			STNBMngrProcessThread* st = NBStatePerThread_get(NULL, 0, NULL, FALSE);
+			STNBMngrProcessThread* st = NBStatePerThread_getLocked_(NULL, 0, NULL, FALSE);
 			if(st != NULL){
 				//thread stats
 				{
@@ -2604,7 +2610,7 @@ void NBMngrProcess_fsFileStat(const ENNBFilesystemStatsSrc iSrc, const ENNBFiles
 		NBMngrProcess_lock(obj);
 		//threads
 		{
-			STNBMngrProcessThread* st = NBStatePerThread_get(NULL, 0, NULL, FALSE);
+			STNBMngrProcessThread* st = NBStatePerThread_getLocked_(NULL, 0, NULL, FALSE);
 			if(st != NULL){
 				//thread stats
 				{
@@ -2640,7 +2646,7 @@ void NBMngrProcess_fsFileMoved(const ENNBFilesystemStatsSrc iSrc, const ENNBFile
 		NBMngrProcess_lock(obj);
 		//threads
 		{
-			STNBMngrProcessThread* st = NBStatePerThread_get(NULL, 0, NULL, FALSE);
+			STNBMngrProcessThread* st = NBStatePerThread_getLocked_(NULL, 0, NULL, FALSE);
 			if(st != NULL){
 				//thread stats
 				{
@@ -2676,7 +2682,7 @@ void NBMngrProcess_fsFileDeleted(const ENNBFilesystemStatsSrc iSrc, const ENNBFi
 		NBMngrProcess_lock(obj);
 		//threads
 		{
-			STNBMngrProcessThread* st = NBStatePerThread_get(NULL, 0, NULL, FALSE);
+			STNBMngrProcessThread* st = NBStatePerThread_getLocked_(NULL, 0, NULL, FALSE);
 			if(st != NULL){
 				//thread stats
 				{
@@ -4397,7 +4403,7 @@ void NBMngrProcess_getCurThreadStatsData(STNBMngrProcessStatsData* dst, const BO
 	if(dst != NULL){
 		NBMngrProcess_lock(obj);
 		{
-			STNBMngrProcessThread* st = NBStatePerThread_get(__FILE__, __LINE__, __func__, FALSE);
+			STNBMngrProcessThread* st = NBStatePerThread_getLocked_(__FILE__, __LINE__, __func__, FALSE);
 			if(st != NULL){
 				NBMngrProcessStatsData_add(dst, &st->stats.data, includeLocksByMethod);
 				if(resetAccum){
@@ -4438,20 +4444,30 @@ void NBMngrProcess_getThreadStatsDataByFirstKwnonFuncName(const char* funcName, 
 #ifdef CONFIG_NB_INCLUDE_THREADS_ENABLED
 UI64 NBMngrProcess_getCurThreadId_(const char* fullpath, const SI32 line, const char* func){
 	UI64 r = 0;
-	STNBMngrProcessThread* st = NBStatePerThread_get(fullpath, line, func, TRUE);
-	if(st != NULL){
-		r = (UI64)st;
-	}
+    STNBMngrProcess* obj = __nbMngrThreads;
+    NBMngrProcess_lock(obj);
+    {
+        STNBMngrProcessThread* st = NBStatePerThread_getLocked_(fullpath, line, func, TRUE);
+        if(st != NULL){
+            r = (UI64)st;
+        }
+    }
+    NBMngrProcess_unlock(obj);
 	return r;
 }
 #endif
 
 #ifdef CONFIG_NB_INCLUDE_THREADS_ENABLED
 void NBMngrProcess_setCurThreadAsExplicit_(const char* fullpath, const SI32 line, const char* func){
-	STNBMngrProcessThread* st = NBStatePerThread_get(fullpath, line, func, TRUE);
-	if(st != NULL){
-		st->isExplicit = TRUE;
-	}
+    STNBMngrProcess* obj = __nbMngrThreads;
+    NBMngrProcess_lock(obj);
+    {
+        STNBMngrProcessThread* st = NBStatePerThread_getLocked_(fullpath, line, func, TRUE);
+        if(st != NULL){
+            st->isExplicit = TRUE;
+        }
+    }
+    NBMngrProcess_unlock(obj);
 }
 #endif
 
@@ -4639,66 +4655,58 @@ void NBMngrProcess_mutexDestroyed(const UI64 lockId){
 //-----------------
 
 #ifdef CONFIG_NB_INCLUDE_THREADS_ENABLED
-void NBMngrProcess_threadAdd_(STNBMngrProcess* obj, STNBMngrProcessThread* t){
-    NBMngrProcess_lock(obj);
-    {
-        //Validate non-duplicated
-        SI32 i; for(i = 0; i < obj->threads.use; i++){
-            const STNBMngrProcessThread* t2 = obj->threads.arr[i];
-            NB_STATIC_ASSERT(t2 != t); //If fails, the thread attempted to add twice a record.
-        }
-        //Add
-        NB_STATIC_ASSERT(obj->threads.use <= obj->threads.size)
-        if(obj->threads.use >= obj->threads.size){
-            STNBMngrProcessThread** arrN;
-            obj->threads.size += 64;
-            arrN = NBMemory_allocUnmanaged(sizeof(STNBMngrProcessThread*) * obj->threads.size);
-            if(obj->threads.arr != NULL){
-                if(obj->threads.use > 0){
-                    memcpy(arrN, obj->threads.arr, sizeof(STNBMngrProcessThread*) * obj->threads.use);
-                }
-                NBMemory_freeUnmanaged(obj->threads.arr);
-            }
-            obj->threads.arr = arrN;
-        }
-        obj->threads.arr[obj->threads.use++] = t;
-        //PRINTF_INFO("NBMngrProcess_threadStateAdd_ stackSize(%d).\n", obj->threads.use);
+void NBMngrProcess_threadAddLocked_(STNBMngrProcess* obj, STNBMngrProcessThread* t){
+    //Validate non-duplicated
+    SI32 i; for(i = 0; i < obj->threads.use; i++){
+        const STNBMngrProcessThread* t2 = obj->threads.arr[i];
+        NB_STATIC_ASSERT(t2 != t); //If fails, the thread attempted to add twice a record.
     }
-    NBMngrProcess_unlock(obj);
+    //Add
+    NB_STATIC_ASSERT(obj->threads.use <= obj->threads.size)
+    if(obj->threads.use >= obj->threads.size){
+        STNBMngrProcessThread** arrN;
+        obj->threads.size += 64;
+        arrN = NBMemory_allocUnmanaged(sizeof(STNBMngrProcessThread*) * obj->threads.size);
+        if(obj->threads.arr != NULL){
+            if(obj->threads.use > 0){
+                memcpy(arrN, obj->threads.arr, sizeof(STNBMngrProcessThread*) * obj->threads.use);
+            }
+            NBMemory_freeUnmanaged(obj->threads.arr);
+        }
+        obj->threads.arr = arrN;
+    }
+    obj->threads.arr[obj->threads.use++] = t;
+    //PRINTF_INFO("NBMngrProcess_threadStateAdd_ stackSize(%d).\n", obj->threads.use);
 }
 #endif
 
 #ifdef CONFIG_NB_INCLUDE_THREADS_ENABLED
-void NBMngrProcess_threadRemove_(STNBMngrProcess* obj, STNBMngrProcessThread* t){
-	NBMngrProcess_lock(obj);
-	{
-		BOOL fnd = FALSE;
-		SI32 i; for(i = 0; i < obj->threads.use; i++){
-			const STNBMngrProcessThread* t2 = obj->threads.arr[i];
-			if(t2 == t){
-				//remove
-				{
-					SI32 i2; for(i2 = (i + 1); i2 < obj->threads.use; i2++){
-						obj->threads.arr[i2 - 1] = obj->threads.arr[i2];
-					}
-					obj->threads.use--;
-				}
-				fnd = TRUE;
-				break;
-			}
-		} NB_STATIC_ASSERT(fnd) //Must be found
-		//Broadcast
-		if(fnd){
-#           ifdef CONFIG_NB_INCLUDE_THREADS_STORAGE_CLEANUP
-            NBMngrProcessThread_storageDestroyAllLocked_(t);
-#           endif
-			if(obj->threads.waitingForAll){
-				NBMngrProcess_broadcast(obj);
-			}
-		}
-		//PRINTF_INFO("NBMngrProcess_threadRemove_ stackSize(%d).\n", obj->threads.use);
-	}
-	NBMngrProcess_unlock(obj);
+void NBMngrProcess_threadRemoveLocked_(STNBMngrProcess* obj, STNBMngrProcessThread* t){
+    BOOL fnd = FALSE;
+    SI32 i; for(i = 0; i < obj->threads.use; i++){
+        const STNBMngrProcessThread* t2 = obj->threads.arr[i];
+        if(t2 == t){
+            //remove
+            {
+                SI32 i2; for(i2 = (i + 1); i2 < obj->threads.use; i2++){
+                    obj->threads.arr[i2 - 1] = obj->threads.arr[i2];
+                }
+                obj->threads.use--;
+            }
+            fnd = TRUE;
+            break;
+        }
+    } NB_STATIC_ASSERT(fnd) //Must be found
+    //Broadcast
+    if(fnd){
+#       ifdef CONFIG_NB_INCLUDE_THREADS_STORAGE_CLEANUP
+        NBMngrProcessThread_storageDestroyAllLocked_(t);
+#       endif
+        if(obj->threads.waitingForAll){
+            NBMngrProcess_broadcast(obj);
+        }
+    }
+    //PRINTF_INFO("NBMngrProcess_threadRemove_ stackSize(%d).\n", obj->threads.use);
 }
 #endif
 
@@ -4728,7 +4736,7 @@ void NBStatePerThreadCreateMthd_(void){
 #endif
 
 #ifdef CONFIG_NB_INCLUDE_THREADS_ENABLED
-struct STNBMngrProcessThread_* NBStatePerThread_get(const char* fullpath, const SI32 line, const char* func, const BOOL createIfNecesary){
+struct STNBMngrProcessThread_* NBStatePerThread_getLocked_(const char* fullpath, const SI32 line, const char* func, const BOOL createIfNecesary){
     struct STNBMngrProcessThread_* r = NULL;
 #   ifdef _WIN32
     {
@@ -4744,10 +4752,10 @@ struct STNBMngrProcessThread_* NBStatePerThread_get(const char* fullpath, const 
                     NBMngrProcessThread_setFirstKnownFunc(r, fullpath, line, func);
                     if(!TlsSetValue(_statePerThread.tlsIdx, r)){
                         //ToDo: free(data) and return FALSE
-                        PRINTF_ERROR("ERROR, NBStatePerThread_get, TlsSetValue failed.\n");
+                        PRINTF_ERROR("ERROR, NBStatePerThread_getLocked_, TlsSetValue failed.\n");
                     } else {
                         //Add thread to global list
-                        NBMngrProcess_threadAdd_(__nbMngrThreads, r);
+                        NBMngrProcess_threadAddLocked_(__nbMngrThreads, r);
                     }
                 }
             }
@@ -4764,10 +4772,10 @@ struct STNBMngrProcessThread_* NBStatePerThread_get(const char* fullpath, const 
                 NBMngrProcessThread_setFirstKnownFunc(r, fullpath, line, func);
                 if(0 != pthread_setspecific(_statePerThread.key, r)){
                     //ToDo: free(data) and return FALSE
-                    PRINTF_ERROR("ERROR, NBStatePerThread_get, pthread_setspecific failed.\n");
+                    PRINTF_ERROR("ERROR, NBStatePerThread_getLocked_, pthread_setspecific failed.\n");
                 } else {
                     //Add thread to global list
-                    NBMngrProcess_threadAdd_(__nbMngrThreads, r);
+                    NBMngrProcess_threadAddLocked_(__nbMngrThreads, r);
                 }
             }
         }
@@ -4782,7 +4790,12 @@ void NBStatePerThreadDestroyDataMthd_(void* data){ //automtically called in some
     if(data != NULL){
         STNBMngrProcessThread* st = (STNBMngrProcessThread*)data;
         {
-            NBMngrProcess_threadRemove_(__nbMngrThreads, st);
+            STNBMngrProcess* obj = __nbMngrThreads;
+            NBMngrProcess_lock(obj);
+            {
+                NBMngrProcess_threadRemoveLocked_(obj, st);
+            }
+            NBMngrProcess_unlock(obj);
         }
         NBMngrProcessThread_release(st);
         NBMemory_freeUnmanaged(st);
@@ -5115,7 +5128,7 @@ void NBMngrProcess_mutexStackConcat(void* pDst /*STNBString*/, const char* itmSe
 		UI32 strTmpUse = 0, strTmpSz = 0;
 		NBMngrProcess_lock(obj);
 		{
-			STNBMngrProcessThread* st = NBStatePerThread_get(__FILE__, __LINE__, __func__, FALSE);
+			STNBMngrProcessThread* st = NBStatePerThread_getLocked_(__FILE__, __LINE__, __func__, FALSE);
 			if(st != NULL){
 				//calculate length
 				{
@@ -5176,7 +5189,7 @@ void NBMngrProcess_storageAddCreated(void* data /*STNBThreadStorageData*/){
     STNBMngrProcess* obj = __nbMngrThreads;
     NBMngrProcess_lock(obj);
     {
-        STNBMngrProcessThread* st = NBStatePerThread_get(__FILE__, __LINE__, __func__, FALSE);
+        STNBMngrProcessThread* st = NBStatePerThread_getLocked_(__FILE__, __LINE__, __func__, FALSE);
         if(st != NULL){
             //resize array
             while(st->storages.use >= st->storages.size){
@@ -5208,7 +5221,7 @@ void NBMngrProcess_storageAddCreated(void* data /*STNBThreadStorageData*/){
 
 #ifdef CONFIG_NB_INCLUDE_THREADS_STORAGE_CLEANUP
 void NBMngrProcess_storageRemoveDestroyedLocked_(STNBMngrProcess* obj, void* data /*STNBThreadStorageData*/){
-    STNBMngrProcessThread* st = NBStatePerThread_get(__FILE__, __LINE__, __func__, FALSE);
+    STNBMngrProcessThread* st = NBStatePerThread_getLocked_(__FILE__, __LINE__, __func__, FALSE);
     if(st != NULL){
         SI32 i; for(i = 0; i < st->storages.use; i++){
             void* d = st->storages.arr[i];
@@ -5241,7 +5254,7 @@ void NBMngrProcess_storageDestroyAll(void){ //at current thread
     STNBMngrProcess* obj = __nbMngrThreads;
     NBMngrProcess_lock(obj);
     {
-        STNBMngrProcessThread* st = NBStatePerThread_get(__FILE__, __LINE__, __func__, FALSE);
+        STNBMngrProcessThread* st = NBStatePerThread_getLocked_(__FILE__, __LINE__, __func__, FALSE);
         if(st != NULL){
             NBMngrProcessThread_storageDestroyAllLocked_(st);
         }

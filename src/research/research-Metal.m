@@ -96,8 +96,11 @@ int main() {
 #    else
     printf("_DEBUG is undefined.\n");
 #    endif
-    NBMngrProcess_init();
-    NBMngrStructMaps_init();
+    //These could be automatically called by 'AUFrameworkBaseInicializar'
+    if(!NBMngrProcess_isInited()){
+        NBMngrProcess_init();
+        NBMngrStructMaps_init();
+    }
     //
     {
         //unsigned int dval = 0;

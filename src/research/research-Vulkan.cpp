@@ -141,8 +141,11 @@ int main(){
 	_CrtMemState sDiff;
 	_CrtMemCheckpoint(&sOld); //take a snapshot
 #	endif
-	NBMngrProcess_init();
-	NBMngrStructMaps_init();
+    //These could be automatically called by 'AUFrameworkBaseInicializar'
+    if(!NBMngrProcess_isInited()){
+        NBMngrProcess_init();
+        NBMngrStructMaps_init();
+    }
 	//
 	STApp app;
 	App_init(&app);
