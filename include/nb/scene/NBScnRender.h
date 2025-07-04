@@ -16,6 +16,7 @@
 #include "nb/scene/NBScnVertices.h"
 #include "nb/scene/NBScnTransform.h"
 #include "nb/scene/NBScnRenderCmd.h"
+#include "nb/scene/NBScnVertexBuffs.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -43,51 +44,6 @@ typedef struct STNBScnRenderApiItf_ {
     STNBGpuFramebufferApiItf    fbuff;  //framebuffers
 } STNBScnRenderApiItf;
 
-//STNBScnVertexIdxPtr, abstract pointer
-
-#define STNBScnVertexIdxPtr_Zero { NULL, 0 }
-
-typedef struct STNBScnVertexIdxPtr_ {
-    STNBScnVertexIdx*   ptr;    //memory address
-    UI32                idx;    //abstract address
-} STNBScnVertexIdxPtr;
-
-//STNBScnVertexPtr, abstract pointer
-
-#define STNBScnVertexPtr_Zero { NULL, 0 }
-
-typedef struct STNBScnVertexPtr_ {
-    STNBScnVertex*  ptr;    //memory address
-    UI32            idx;    //abstract address
-} STNBScnVertexPtr;
-
-//STNBScnVertexTexPtr, abstract pointer
-
-#define STNBScnVertexTexPtr_Zero { NULL, 0 }
-
-typedef struct STNBScnVertexTexPtr_ {
-    STNBScnVertexTex*   ptr;    //memory address
-    UI32                idx;    //abstract address
-} STNBScnVertexTexPtr;
-
-//STNBScnVertexTex2Ptr, abstract pointer
-
-#define STNBScnVertexTex2Ptr_Zero { NULL, 0 }
-
-typedef struct STNBScnVertexTex2Ptr_ {
-    STNBScnVertexTex2*  ptr;    //memory address
-    UI32                idx;    //abstract address
-} STNBScnVertexTex2Ptr;
-
-//STNBScnVertexTex3Ptr, abstract pointer
-
-#define STNBScnVertexTex3Ptr_Zero { NULL, 0 }
-
-typedef struct STNBScnVertexTex3Ptr_ {
-    STNBScnVertexTex3*  ptr;    //memory address
-    UI32                idx;    //abstract address
-} STNBScnVertexTex3Ptr;
-
 //
 
 NB_OBJREF_HEADER(NBScnRender)
@@ -98,23 +54,8 @@ BOOL NBScnRender_prepare(STNBScnRenderRef ref, const STNBScnRenderApiItf* itf, v
 
 //Vertices
 
-STNBScnVertexIdxPtr     NBScnRender_vIdxsAlloc(STNBScnRenderRef ref, const UI32 amm);
-STNBScnVertexPtr        NBScnRender_vertsAlloc(STNBScnRenderRef ref, const UI32 amm);
-STNBScnVertexTexPtr     NBScnRender_vertsTexAlloc(STNBScnRenderRef ref, const UI32 amm);
-STNBScnVertexTex2Ptr    NBScnRender_vertsTex2Alloc(STNBScnRenderRef ref, const UI32 amm);
-STNBScnVertexTex3Ptr    NBScnRender_vertsTex3Alloc(STNBScnRenderRef ref, const UI32 amm);
-
-BOOL NBScnRender_vIdxsInvalidate(STNBScnRenderRef ref, const STNBScnVertexIdxPtr ptr, const UI32 sz);
-BOOL NBScnRender_vertsInvalidate(STNBScnRenderRef ref, const STNBScnVertexPtr ptr, const UI32 sz);
-BOOL NBScnRender_vertsTexInvalidate(STNBScnRenderRef ref, const STNBScnVertexTexPtr ptr, const UI32 sz);
-BOOL NBScnRender_vertsTex2Invalidate(STNBScnRenderRef ref, const STNBScnVertexTex2Ptr ptr, const UI32 sz);
-BOOL NBScnRender_vertsTex3Invalidate(STNBScnRenderRef ref, const STNBScnVertexTex3Ptr ptr, const UI32 sz);
-
-BOOL NBScnRender_vIdxsFree(STNBScnRenderRef ref, const STNBScnVertexIdxPtr ptr);
-BOOL NBScnRender_vertsFree(STNBScnRenderRef ref, const STNBScnVertexPtr ptr);
-BOOL NBScnRender_vertsTexFree(STNBScnRenderRef ref, const STNBScnVertexTexPtr ptr);
-BOOL NBScnRender_vertsTex2Free(STNBScnRenderRef ref, const STNBScnVertexTex2Ptr ptr);
-BOOL NBScnRender_vertsTex3Free(STNBScnRenderRef ref, const STNBScnVertexTex3Ptr ptr);
+STNBScnVertexBuffsRef NBScnRender_getDefaultVertexBuffs(STNBScnRenderRef ref);
+BOOL NBScnRender_createVertexBuffs(STNBScnRenderRef ref, STNBScnVertexBuffsRef* dst);
 
 //Buffers
 

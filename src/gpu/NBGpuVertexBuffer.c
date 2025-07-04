@@ -179,3 +179,21 @@ BOOL NBGpuVertexBuffer_deactivate(STNBGpuVertexBufferRef ref){
     return r;
 }
 
+//
+
+UI32 NBGpuVertexBuffer_getSzPerRecord(STNBGpuVertexBufferRef ref){
+    STNBGpuVertexBufferOpq* opq = (STNBGpuVertexBufferOpq*)ref.opaque;
+    return opq->cfg.szPerRecord;
+}
+
+STNBGpuBufferRef NBGpuVertexBuffer_getVertexBuff(STNBGpuVertexBufferRef ref){
+    STNBGpuVertexBufferOpq* opq = (STNBGpuVertexBufferOpq*)ref.opaque;
+    return opq->buffs.vertex;
+}
+
+STNBGpuBufferRef NBGpuVertexBuffer_getIdxsBuff(STNBGpuVertexBufferRef ref){
+    STNBGpuVertexBufferOpq* opq = (STNBGpuVertexBufferOpq*)ref.opaque;
+    return opq->buffs.idxs;
+}
+
+

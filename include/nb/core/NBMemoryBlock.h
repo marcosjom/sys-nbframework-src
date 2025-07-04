@@ -14,7 +14,7 @@ extern "C" {
 #define STNBAbsPtr_Zero { NULL, 0 }
 
 typedef struct STNBAbsPtr_ {
-    void*   ptr;        //memory address
+    void*   ptr;        //memory address, must be first element of struct to allow casting struct to a bare-pointer.
     UI32    idx;        //abstract address
     //Note: possible 4-bytes padding here.
 } STNBAbsPtr;

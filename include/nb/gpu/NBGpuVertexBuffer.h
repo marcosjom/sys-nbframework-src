@@ -63,6 +63,10 @@ BOOL NBGpuVertexBuffer_prepare(STNBGpuVertexBufferRef ref, const STNBGpuVertexBu
 BOOL NBGpuVertexBuffer_activate(STNBGpuVertexBufferRef ref);
 BOOL NBGpuVertexBuffer_deactivate(STNBGpuVertexBufferRef ref);
 
+UI32 NBGpuVertexBuffer_getSzPerRecord(STNBGpuVertexBufferRef ref);
+STNBGpuBufferRef NBGpuVertexBuffer_getVertexBuff(STNBGpuVertexBufferRef ref);
+STNBGpuBufferRef NBGpuVertexBuffer_getIdxsBuff(STNBGpuVertexBufferRef ref);
+
 #ifdef __cplusplus
 } //extern "C"
 #endif

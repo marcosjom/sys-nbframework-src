@@ -2230,6 +2230,9 @@
 		2C702E992E15C297009BFCAB /* NBGpuDataType.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C702E982E15C297009BFCAB /* NBGpuDataType.c */; };
 		2C702E9A2E15C297009BFCAB /* NBGpuDataType.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C702E982E15C297009BFCAB /* NBGpuDataType.c */; };
 		2C702E9B2E15C297009BFCAB /* NBGpuDataType.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C702E972E15C297009BFCAB /* NBGpuDataType.h */; };
+		2C702E9E2E168EFC009BFCAB /* NBScnVertexBuffs.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C702E9C2E168EFC009BFCAB /* NBScnVertexBuffs.h */; };
+		2C702E9F2E168EFC009BFCAB /* NBScnVertexBuffs.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C702E9D2E168EFC009BFCAB /* NBScnVertexBuffs.c */; };
+		2C702EA02E168EFC009BFCAB /* NBScnVertexBuffs.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C702E9D2E168EFC009BFCAB /* NBScnVertexBuffs.c */; };
 		2C712EAB22506035009EC8BF /* NBLinkedList.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C712EAA22506034009EC8BF /* NBLinkedList.c */; };
 		2C712EAC22506035009EC8BF /* NBLinkedList.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C712EAA22506034009EC8BF /* NBLinkedList.c */; };
 		2C718A33211105880000F260 /* NBHttpServicePort.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C718A31211105670000F260 /* NBHttpServicePort.c */; };
@@ -4026,6 +4029,8 @@
 		2C702E932E15BF83009BFCAB /* NBGpuVertexBuffer.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBGpuVertexBuffer.c; path = ../../../src/gpu/NBGpuVertexBuffer.c; sourceTree = SOURCE_ROOT; };
 		2C702E972E15C297009BFCAB /* NBGpuDataType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBGpuDataType.h; path = ../../../include/nb/gpu/NBGpuDataType.h; sourceTree = SOURCE_ROOT; };
 		2C702E982E15C297009BFCAB /* NBGpuDataType.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBGpuDataType.c; path = ../../../src/gpu/NBGpuDataType.c; sourceTree = SOURCE_ROOT; };
+		2C702E9C2E168EFC009BFCAB /* NBScnVertexBuffs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnVertexBuffs.h; path = "/Users/mortegam/Desktop/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/nb/scene/NBScnVertexBuffs.h"; sourceTree = "<absolute>"; };
+		2C702E9D2E168EFC009BFCAB /* NBScnVertexBuffs.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = NBScnVertexBuffs.c; sourceTree = "<group>"; };
 		2C712EA822506018009EC8BF /* NBLinkedList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBLinkedList.h; path = ../../../include/nb/core/NBLinkedList.h; sourceTree = SOURCE_ROOT; };
 		2C712EAA22506034009EC8BF /* NBLinkedList.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = NBLinkedList.c; path = ../../../src/core/NBLinkedList.c; sourceTree = SOURCE_ROOT; };
 		2C718A2F211105670000F260 /* NBHttpMessage.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBHttpMessage.c; path = ../../../src/net/NBHttpMessage.c; sourceTree = SOURCE_ROOT; };
@@ -7983,6 +7988,8 @@
 				2C90F7FD2E0C2A68009964D3 /* NBScnRenderCmd.c */,
 				2C90F80A2E0C6902009964D3 /* NBScnVertices.h */,
 				2C90F8072E0C68F4009964D3 /* NBScnVertices.c */,
+				2C702E9C2E168EFC009BFCAB /* NBScnVertexBuffs.h */,
+				2C702E9D2E168EFC009BFCAB /* NBScnVertexBuffs.c */,
 				2CBEEAA92E11B3C100EB4AC9 /* NBScnRender.h */,
 				2CBEEAAA2E11B3C100EB4AC9 /* NBScnRender.c */,
 				2CB75FDA2E01B52F00D7E4FE /* NBScnRenderJobDefs.h */,
@@ -8294,6 +8301,7 @@
 				2C90F80B2E0C6902009964D3 /* NBScnVertices.h in Headers */,
 				2CBEEAA82E115AED00EB4AC9 /* NBGpuTexture.h in Headers */,
 				2C90F7F42E0C04EA009964D3 /* NBSintaxParserResults.h in Headers */,
+				2C702E9E2E168EFC009BFCAB /* NBScnVertexBuffs.h in Headers */,
 				2C90F7F52E0C04EA009964D3 /* NBSintaxParser.h in Headers */,
 				2C90F7F62E0C04EA009964D3 /* NBSintaxParserCTokens.h in Headers */,
 				2C90F7F72E0C04EA009964D3 /* NBSintaxParserCDefs.h in Headers */,
@@ -9357,6 +9365,7 @@
 				2C10BEC8204BC94A0076F706 /* pem_xaux.c in Sources */,
 				2C10BEC9204BC94A0076F706 /* pvkfmt.c in Sources */,
 				2C10BECA204BC94F0076F706 /* p12_add.c in Sources */,
+				2C702EA02E168EFC009BFCAB /* NBScnVertexBuffs.c in Sources */,
 				2C10BECB204BC94F0076F706 /* p12_asn.c in Sources */,
 				2C10BECC204BC94F0076F706 /* p12_attr.c in Sources */,
 				2C10BECD204BC94F0076F706 /* p12_crpt.c in Sources */,
@@ -10691,6 +10700,7 @@
 				2C2281F9204B65E000D1B813 /* pem_sign.c in Sources */,
 				2C2281F6204B65E000D1B813 /* pem_x509.c in Sources */,
 				2C2281F8204B65E000D1B813 /* pem_xaux.c in Sources */,
+				2C702E9F2E168EFC009BFCAB /* NBScnVertexBuffs.c in Sources */,
 				2C2281FB204B65E000D1B813 /* pvkfmt.c in Sources */,
 				2C22820F204B65FD00D1B813 /* p12_add.c in Sources */,
 				2C228219204B65FD00D1B813 /* p12_asn.c in Sources */,

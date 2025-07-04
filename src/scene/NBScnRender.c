@@ -80,10 +80,11 @@ typedef struct STNBScnRenderOpq_ {
         UI32            iSeq;   //uid seq
         STNBArraySorted arr;    //STNBScnRenderBuff
     } buffs;
-    //buffs
+    //vertexBuffs
     struct {
-        UI32            iSeq;   //uid seq
-        STNBArraySorted arr;    //STNBScnRenderBuff
+        UI32                    iSeq;   //uid seq
+        STNBArraySorted         arr;    //STNBScnRenderVertexBuff
+        STNBScnVertexBuffsRef   def;    //default (vertices and indices allocator)
     } vertexBuffs;
     //job
     struct {
@@ -113,6 +114,7 @@ void NBScnRender_initZeroed(STNBObject* obj) {
     //vertexBuffers
     {
         NBArraySorted_initWithSz(&opq->vertexBuffs.arr, sizeof(STNBScnRenderVertexBuff), NBCompare_NBScnRenderVertexBuff, 0, 16, 0.1f);
+        opq->vertexBuffs.def = NBScnVertexBuffs_alloc(NULL); //default (vertices and indices allocator)
     }
     //job
     {
@@ -130,15 +132,23 @@ void NBScnRender_uninitLocked(STNBObject* obj){
     }
     //vertexBuffs
     {
-        STNBScnRenderVertexBuff* b = NBArraySorted_dataPtr(&opq->vertexBuffs.arr, STNBScnRenderVertexBuff);
-        const STNBScnRenderVertexBuff* bAfterEnd = b + opq->vertexBuffs.arr.use;
-        while(b < bAfterEnd){
-            NBScnRenderVertexBuff_release(b);
-            ++b;
+        //default
+        if(NBScnVertexBuffs_isSet(opq->vertexBuffs.def)){
+            NBScnVertexBuffs_release(&opq->vertexBuffs.def);
+            NBScnVertexBuffs_null(&opq->vertexBuffs.def);
         }
-        NBArraySorted_empty(&opq->vertexBuffs.arr);
-        NBArraySorted_release(&opq->vertexBuffs.arr);
-        opq->vertexBuffs.iSeq = 0;
+        //array
+        {
+            STNBScnRenderVertexBuff* b = NBArraySorted_dataPtr(&opq->vertexBuffs.arr, STNBScnRenderVertexBuff);
+            const STNBScnRenderVertexBuff* bAfterEnd = b + opq->vertexBuffs.arr.use;
+            while(b < bAfterEnd){
+                NBScnRenderVertexBuff_release(b);
+                ++b;
+            }
+            NBArraySorted_empty(&opq->vertexBuffs.arr);
+            NBArraySorted_release(&opq->vertexBuffs.arr);
+            opq->vertexBuffs.iSeq = 0;
+        }
     }
     //buffs
     {
@@ -164,6 +174,8 @@ void NBScnRender_uninitLocked(STNBObject* obj){
 
 //prepare
 
+BOOL NBScnRender_createVertexBuffsLockedOpq_(STNBScnRenderOpq* opq, STNBScnVertexBuffsRef* dst);
+
 BOOL NBScnRender_prepare(STNBScnRenderRef ref, const STNBScnRenderApiItf* itf, void* itfParam){
     BOOL r = FALSE;
     STNBScnRenderOpq* opq = (STNBScnRenderOpq*)ref.opaque;
@@ -175,76 +187,111 @@ BOOL NBScnRender_prepare(STNBScnRenderRef ref, const STNBScnRenderApiItf* itf, v
         opq->api.itf = *itf;
         opq->api.itfParam = itfParam;
         //initial bufffers
-        {
-            SI32 i; for(i = 0; i <= ENNBScnVertexType_Count; i++){
-                UI32 itmSz = 0, ammPerBock = 0;
-                switch(i){
-                    case ENNBScnVertexType_Color:
-                        itmSz = sizeof(STNBScnVertex);
-                        ammPerBock = 256;
-                        break;
-                    case ENNBScnVertexType_Tex:
-                        itmSz = sizeof(STNBScnVertexTex);
-                        ammPerBock = 1024;
-                        break;
-                    case ENNBScnVertexType_Tex2:
-                        itmSz = sizeof(STNBScnVertexTex2);
-                        ammPerBock = 256;
-                        break;
-                    case ENNBScnVertexType_Tex3:
-                        itmSz = sizeof(STNBScnVertexTex3);
-                        ammPerBock = 256;
-                        break;
-                    case ENNBScnVertexType_Count:
-                        itmSz = sizeof(STNBScnVertexIdx);
-                        ammPerBock = 2048;
-                        break;
-                    default: NBASSERT(FALSE); break;
-                }
+        if(!NBScnRender_createVertexBuffsLockedOpq_(opq, &opq->vertexBuffs.def)){
+            r = FALSE;
+        }
+    }
+    NBObject_unlock(opq);
+    return r;
+}
+
+//Vertices
+
+STNBScnVertexBuffsRef NBScnRender_getDefaultVertexBuffs(STNBScnRenderRef ref){
+    STNBScnRenderOpq* opq = (STNBScnRenderOpq*)ref.opaque;
+    return opq->vertexBuffs.def;
+}
+
+BOOL NBScnRender_createVertexBuffs(STNBScnRenderRef ref, STNBScnVertexBuffsRef* dst){
+    BOOL r = FALSE;
+    STNBScnRenderOpq* opq = (STNBScnRenderOpq*)ref.opaque;
+    NBASSERT(NBScnRender_isClass(ref))
+    NBObject_lock(opq);
+    {
+        r = NBScnRender_createVertexBuffsLockedOpq_(opq, dst);
+    }
+    NBObject_unlock(opq);
+    return r;
+}
+
+BOOL NBScnRender_createVertexBuffsLockedOpq_(STNBScnRenderOpq* opq, STNBScnVertexBuffsRef* dst){
+    BOOL r = TRUE;
+    const UI32 ammBuffsBef = opq->buffs.arr.use;
+    const UI32 ammVertsBuffsBef = opq->vertexBuffs.arr.use;
+    //initial bufffers
+    if(r){
+        SI32 i; for(i = 0; i <= ENNBScnVertexType_Count; i++){
+            UI32 itmSz = 0, ammPerBock = 0;
+            switch(i){
+                case ENNBScnVertexType_Color:
+                    itmSz = sizeof(STNBScnVertex);
+                    ammPerBock = 256;
+                    break;
+                case ENNBScnVertexType_Tex:
+                    itmSz = sizeof(STNBScnVertexTex);
+                    ammPerBock = 1024;
+                    break;
+                case ENNBScnVertexType_Tex2:
+                    itmSz = sizeof(STNBScnVertexTex2);
+                    ammPerBock = 256;
+                    break;
+                case ENNBScnVertexType_Tex3:
+                    itmSz = sizeof(STNBScnVertexTex3);
+                    ammPerBock = 256;
+                    break;
+                case ENNBScnVertexType_Count:
+                    itmSz = sizeof(STNBScnVertexIdx);
+                    ammPerBock = 2048;
+                    break;
+                default: NBASSERT(FALSE); r = FALSE; break;
+            }
+            if(r){
+                STNBGpuBufferCfg cfg    = STNBGpuBufferCfg_Zero;
+                cfg.type                = (ENNBScnVertexType)i;
+                cfg.mem.idxsAlign       = itmSz;
+                cfg.mem.sizeAlign       = 256;
+                cfg.mem.sizeInitial     = 0;
+                //calculate sizePerBlock
                 {
-                    STNBGpuBufferCfg cfg    = STNBGpuBufferCfg_Zero;
-                    cfg.type                = (ENNBScnVertexType)i;
-                    cfg.mem.idxsAlign       = itmSz;
-                    cfg.mem.sizeAlign       = 256;
-                    cfg.mem.sizeInitial     = 0;
-                    //calculate sizePerBlock
-                    {
-                        UI32 idxExtra = 0;
-                        cfg.mem.sizePerBlock = ((ammPerBock * cfg.mem.idxsAlign) + cfg.mem.sizeAlign - 1) / cfg.mem.sizeAlign * cfg.mem.sizeAlign;
-                        idxExtra = cfg.mem.sizePerBlock % cfg.mem.idxsAlign;
-                        if(idxExtra > 0){
-                            cfg.mem.sizePerBlock *= (cfg.mem.idxsAlign - idxExtra);
-                        }
-                        NBASSERT((cfg.mem.sizePerBlock % cfg.mem.idxsAlign) == 0)
-                        NBASSERT((cfg.mem.sizePerBlock % cfg.mem.sizeAlign) == 0)
+                    UI32 idxExtra = 0;
+                    cfg.mem.sizePerBlock = ((ammPerBock * cfg.mem.idxsAlign) + cfg.mem.sizeAlign - 1) / cfg.mem.sizeAlign * cfg.mem.sizeAlign;
+                    idxExtra = cfg.mem.sizePerBlock % cfg.mem.idxsAlign;
+                    if(idxExtra > 0){
+                        cfg.mem.sizePerBlock *= (cfg.mem.idxsAlign - idxExtra);
                     }
-                    STNBScnRenderBuff b = STNBScnRenderBuff_Zero;
-                    b.buff = NBGpuBuffer_alloc(NULL);
-                    if(!NBGpuBuffer_prepare(b.buff, &cfg, &opq->api.itf.buff, opq->api.itfParam)){
-                        //error
-                        NBASSERT(FALSE)
-                        r = FALSE;
-                    } else {
-                        b.uid = ++opq->buffs.iSeq;
-                        NBArraySorted_addValue(&opq->buffs.arr, b);
-                    }
+                    NBASSERT((cfg.mem.sizePerBlock % cfg.mem.idxsAlign) == 0)
+                    NBASSERT((cfg.mem.sizePerBlock % cfg.mem.sizeAlign) == 0)
+                }
+                STNBScnRenderBuff b = STNBScnRenderBuff_Zero;
+                b.buff = NBGpuBuffer_alloc(NULL);
+                if(!NBGpuBuffer_prepare(b.buff, &cfg, &opq->api.itf.buff, opq->api.itfParam)){
+                    //error
+                    NBASSERT(FALSE)
+                    r = FALSE;
+                } else {
+                    b.uid = ++opq->buffs.iSeq;
+                    NBArraySorted_addValue(&opq->buffs.arr, b);
                 }
             }
         }
-        //initial vertexBuffers
+    }
+    //initial vertexBuffers
+    if(r){
+        STNBGpuVertexBufferRef vbs[ENNBScnVertexType_Count];
+        NBMemory_set(vbs, 0, sizeof(vbs));
         {
             SI32 i; for(i = 0; i < ENNBScnVertexType_Count; i++){
                 STNBGpuVertexBufferCfg cfg = STNBGpuVertexBufferCfg_Zero;
-                STNBGpuBufferRef vertexBuff = NBArraySorted_itmPtrAtIndex(&opq->buffs.arr, STNBScnRenderBuff, i)->buff;
-                STNBGpuBufferRef idxsBuff = NBArraySorted_itmPtrAtIndex(&opq->buffs.arr, STNBScnRenderBuff, ENNBScnVertexType_Count)->buff;
+                STNBGpuBufferRef vertexBuff = NBArraySorted_itmPtrAtIndex(&opq->buffs.arr, STNBScnRenderBuff, ammBuffsBef + i)->buff;
+                STNBGpuBufferRef idxsBuff = NBArraySorted_itmPtrAtIndex(&opq->buffs.arr, STNBScnRenderBuff, ammBuffsBef + ENNBScnVertexType_Count)->buff;
                 //size
                 switch(i){
                     case ENNBScnVertexType_Tex3: cfg.szPerRecord = sizeof(STNBScnVertexTex3); break;
                     case ENNBScnVertexType_Tex2: cfg.szPerRecord = sizeof(STNBScnVertexTex2); break;
                     case ENNBScnVertexType_Tex: cfg.szPerRecord = sizeof(STNBScnVertexTex); break;
                     case ENNBScnVertexType_Color: cfg.szPerRecord = sizeof(STNBScnVertex); break;
-                    default: NBASSERT(FALSE) break;
-                }
+                    default: NBASSERT(FALSE) r = FALSE; break;
+                } NBASSERT((cfg.szPerRecord % 4) == 0)
                 //elems
                 switch(i){
                     case ENNBScnVertexType_Tex3:
@@ -276,263 +323,58 @@ BOOL NBScnRender_prepare(STNBScnRenderRef ref, const STNBScnRenderApiItf* itf, v
                         }
                         break;
                 }
-                {
-                    STNBScnRenderBuff b = STNBScnRenderBuff_Zero;
+                if(r){
+                    STNBScnRenderVertexBuff b = STNBScnRenderVertexBuff_Zero;
                     b.buff = NBGpuVertexBuffer_alloc(NULL);
                     if(!NBGpuVertexBuffer_prepare(b.buff, &cfg, vertexBuff, idxsBuff, &opq->api.itf.vertexBuff, opq->api.itfParam)){
                         //error
                         NBASSERT(FALSE)
                         r = FALSE;
                     } else {
+                        vbs[i] = b.buff;
                         b.uid = ++opq->vertexBuffs.iSeq;
                         NBArraySorted_addValue(&opq->vertexBuffs.arr, b);
                     }
                 }
             }
         }
+        //
+        if(r){
+            STNBScnVertexBuffsRef vbObj = NBScnVertexBuffs_alloc(NULL);
+            if(NBScnVertexBuffs_prepare(vbObj, vbs, sizeof(vbs) / sizeof(vbs[0]))){
+                NBScnVertexBuffs_set(dst, &vbObj);
+            } else {
+                r = FALSE;
+            }
+            NBScnVertexBuffs_release(&vbObj);
+            NBScnVertexBuffs_null(&vbObj);
+        }
     }
-    NBObject_unlock(opq);
-    return r;
-}
-
-//Vertices
-
-STNBScnVertexIdxPtr NBScnRender_vIdxsAlloc(STNBScnRenderRef ref, const UI32 amm){
-    STNBScnVertexIdxPtr r = STNBScnVertexIdxPtr_Zero;
-    STNBScnRenderOpq* opq = (STNBScnRenderOpq*)ref.opaque;
-    NBASSERT(NBScnRender_isClass(ref))
-    NBObject_lock(opq);
-    if(ENNBScnVertexType_Count < opq->buffs.arr.use){
-        STNBScnRenderBuff* b = NBArraySorted_itmPtrAtIndex(&opq->buffs.arr, STNBScnRenderBuff, ENNBScnVertexType_Count);
-        STNBAbsPtr ptr = NBGpuBuffer_malloc(b->buff, sizeof(r.ptr[0]) * amm);
-        r.idx = ptr.idx;
-        r.ptr = (STNBScnVertexIdx*)ptr.ptr;
+    //revert
+    if(!r){
+        //vertexBuffs
+        if(ammVertsBuffsBef < opq->vertexBuffs.arr.use){
+            STNBScnRenderVertexBuff* bStart = NBArraySorted_dataPtr(&opq->vertexBuffs.arr, STNBScnRenderVertexBuff);
+            const STNBScnRenderVertexBuff* bAfterEnd = bStart + opq->vertexBuffs.arr.use;
+            STNBScnRenderVertexBuff* b = bStart + ammVertsBuffsBef;
+            while(b < bAfterEnd){
+                NBScnRenderVertexBuff_release(b);
+                ++b;
+            }
+            NBArraySorted_removeItemsAtIndex(&opq->vertexBuffs.arr, ammVertsBuffsBef, opq->vertexBuffs.arr.use - ammVertsBuffsBef);
+        }
+        //buffs
+        if(ammBuffsBef < opq->buffs.arr.use){
+            STNBScnRenderBuff* bStart = NBArraySorted_dataPtr(&opq->buffs.arr, STNBScnRenderBuff);
+            const STNBScnRenderBuff* bAfterEnd = bStart + opq->buffs.arr.use;
+            STNBScnRenderBuff* b = bStart + ammBuffsBef;
+            while(b < bAfterEnd){
+                NBScnRenderBuff_release(b);
+                ++b;
+            }
+            NBArraySorted_removeItemsAtIndex(&opq->buffs.arr, ammBuffsBef, opq->buffs.arr.use - ammBuffsBef);
+        }
     }
-    NBObject_unlock(opq);
-    return r;
-}
-
-STNBScnVertexPtr NBScnRender_vertsAlloc(STNBScnRenderRef ref, const UI32 amm){
-    STNBScnVertexPtr r = STNBScnVertexIdxPtr_Zero;
-    STNBScnRenderOpq* opq = (STNBScnRenderOpq*)ref.opaque;
-    NBASSERT(NBScnRender_isClass(ref))
-    NBObject_lock(opq);
-    if(ENNBScnVertexType_Color < opq->buffs.arr.use){
-        STNBScnRenderBuff* b = NBArraySorted_itmPtrAtIndex(&opq->buffs.arr, STNBScnRenderBuff, ENNBScnVertexType_Color);
-        STNBAbsPtr ptr = NBGpuBuffer_malloc(b->buff, sizeof(r.ptr[0]) * amm);
-        r.idx = ptr.idx;
-        r.ptr = (STNBScnVertex*)ptr.ptr;
-    }
-    NBObject_unlock(opq);
-    return r;
-}
-
-STNBScnVertexTexPtr NBScnRender_vertsTexAlloc(STNBScnRenderRef ref, const UI32 amm){
-    STNBScnVertexTexPtr r = STNBScnVertexIdxPtr_Zero;
-    STNBScnRenderOpq* opq = (STNBScnRenderOpq*)ref.opaque;
-    NBASSERT(NBScnRender_isClass(ref))
-    NBObject_lock(opq);
-    if(ENNBScnVertexType_Tex < opq->buffs.arr.use){
-        STNBScnRenderBuff* b = NBArraySorted_itmPtrAtIndex(&opq->buffs.arr, STNBScnRenderBuff, ENNBScnVertexType_Tex);
-        STNBAbsPtr ptr = NBGpuBuffer_malloc(b->buff, sizeof(r.ptr[0]) * amm);
-        r.idx = ptr.idx;
-        r.ptr = (STNBScnVertexTex*)ptr.ptr;
-    }
-    NBObject_unlock(opq);
-    return r;
-}
-
-STNBScnVertexTex2Ptr NBScnRender_vertsTex2Alloc(STNBScnRenderRef ref, const UI32 amm){
-    STNBScnVertexTex2Ptr r = STNBScnVertexIdxPtr_Zero;
-    STNBScnRenderOpq* opq = (STNBScnRenderOpq*)ref.opaque;
-    NBASSERT(NBScnRender_isClass(ref))
-    NBObject_lock(opq);
-    if(ENNBScnVertexType_Tex2 < opq->buffs.arr.use){
-        STNBScnRenderBuff* b = NBArraySorted_itmPtrAtIndex(&opq->buffs.arr, STNBScnRenderBuff, ENNBScnVertexType_Tex2);
-        STNBAbsPtr ptr = NBGpuBuffer_malloc(b->buff, sizeof(r.ptr[0]) * amm);
-        r.idx = ptr.idx;
-        r.ptr = (STNBScnVertexTex2*)ptr.ptr;
-    }
-    NBObject_unlock(opq);
-    return r;
-}
-
-STNBScnVertexTex3Ptr NBScnRender_vertsTex3Alloc(STNBScnRenderRef ref, const UI32 amm){
-    STNBScnVertexTex3Ptr r = STNBScnVertexIdxPtr_Zero;
-    STNBScnRenderOpq* opq = (STNBScnRenderOpq*)ref.opaque;
-    NBASSERT(NBScnRender_isClass(ref))
-    NBObject_lock(opq);
-    if(ENNBScnVertexType_Tex3 < opq->buffs.arr.use){
-        STNBScnRenderBuff* b = NBArraySorted_itmPtrAtIndex(&opq->buffs.arr, STNBScnRenderBuff, ENNBScnVertexType_Tex3);
-        STNBAbsPtr ptr = NBGpuBuffer_malloc(b->buff, sizeof(r.ptr[0]) * amm);
-        r.idx = ptr.idx;
-        r.ptr = (STNBScnVertexTex3*)ptr.ptr;
-    }
-    NBObject_unlock(opq);
-    return r;
-}
-
-//
-
-BOOL NBScnRender_vIdxsInvalidate(STNBScnRenderRef ref, const STNBScnVertexIdxPtr ptr, const UI32 sz){
-    BOOL r = FALSE;
-    STNBScnRenderOpq* opq = (STNBScnRenderOpq*)ref.opaque;
-    NBASSERT(NBScnRender_isClass(ref))
-    NBObject_lock(opq);
-    if(ENNBScnVertexType_Count < opq->buffs.arr.use){
-        STNBScnRenderBuff* b = NBArraySorted_itmPtrAtIndex(&opq->buffs.arr, STNBScnRenderBuff, ENNBScnVertexType_Count);
-        STNBAbsPtr ptr2;
-        ptr2.idx = ptr.idx;
-        ptr2.ptr = ptr.ptr;
-        r = NBGpuBuffer_mInvalidate(b->buff, ptr2, sizeof(ptr.ptr[0]) * sz );
-    }
-    NBObject_unlock(opq);
-    return r;
-}
-
-BOOL NBScnRender_vertsInvalidate(STNBScnRenderRef ref, const STNBScnVertexPtr ptr, const UI32 sz){
-    BOOL r = FALSE;
-    STNBScnRenderOpq* opq = (STNBScnRenderOpq*)ref.opaque;
-    NBASSERT(NBScnRender_isClass(ref))
-    NBObject_lock(opq);
-    if(ENNBScnVertexType_Color < opq->buffs.arr.use){
-        STNBScnRenderBuff* b = NBArraySorted_itmPtrAtIndex(&opq->buffs.arr, STNBScnRenderBuff, ENNBScnVertexType_Color);
-        STNBAbsPtr ptr2;
-        ptr2.idx = ptr.idx;
-        ptr2.ptr = ptr.ptr;
-        r = NBGpuBuffer_mInvalidate(b->buff, ptr2, sizeof(ptr.ptr[0]) * sz );
-    }
-    NBObject_unlock(opq);
-    return r;
-}
-
-BOOL NBScnRender_vertsTexInvalidate(STNBScnRenderRef ref, const STNBScnVertexTexPtr ptr, const UI32 sz){
-    BOOL r = FALSE;
-    STNBScnRenderOpq* opq = (STNBScnRenderOpq*)ref.opaque;
-    NBASSERT(NBScnRender_isClass(ref))
-    NBObject_lock(opq);
-    if(ENNBScnVertexType_Tex < opq->buffs.arr.use){
-        STNBScnRenderBuff* b = NBArraySorted_itmPtrAtIndex(&opq->buffs.arr, STNBScnRenderBuff, ENNBScnVertexType_Tex);
-        STNBAbsPtr ptr2;
-        ptr2.idx = ptr.idx;
-        ptr2.ptr = ptr.ptr;
-        r = NBGpuBuffer_mInvalidate(b->buff, ptr2, sizeof(ptr.ptr[0]) * sz );
-    }
-    NBObject_unlock(opq);
-    return r;
-}
-
-BOOL NBScnRender_vertsTex2Invalidate(STNBScnRenderRef ref, const STNBScnVertexTex2Ptr ptr, const UI32 sz){
-    BOOL r = FALSE;
-    STNBScnRenderOpq* opq = (STNBScnRenderOpq*)ref.opaque;
-    NBASSERT(NBScnRender_isClass(ref))
-    NBObject_lock(opq);
-    if(ENNBScnVertexType_Tex2 < opq->buffs.arr.use){
-        STNBScnRenderBuff* b = NBArraySorted_itmPtrAtIndex(&opq->buffs.arr, STNBScnRenderBuff, ENNBScnVertexType_Tex2);
-        STNBAbsPtr ptr2;
-        ptr2.idx = ptr.idx;
-        ptr2.ptr = ptr.ptr;
-        r = NBGpuBuffer_mInvalidate(b->buff, ptr2, sizeof(ptr.ptr[0]) * sz );
-    }
-    NBObject_unlock(opq);
-    return r;
-}
-
-BOOL NBScnRender_vertsTex3Invalidate(STNBScnRenderRef ref, const STNBScnVertexTex3Ptr ptr, const UI32 sz){
-    BOOL r = FALSE;
-    STNBScnRenderOpq* opq = (STNBScnRenderOpq*)ref.opaque;
-    NBASSERT(NBScnRender_isClass(ref))
-    NBObject_lock(opq);
-    if(ENNBScnVertexType_Tex3 < opq->buffs.arr.use){
-        STNBScnRenderBuff* b = NBArraySorted_itmPtrAtIndex(&opq->buffs.arr, STNBScnRenderBuff, ENNBScnVertexType_Tex3);
-        STNBAbsPtr ptr2;
-        ptr2.idx = ptr.idx;
-        ptr2.ptr = ptr.ptr;
-        r = NBGpuBuffer_mInvalidate(b->buff, ptr2, sizeof(ptr.ptr[0]) * sz );
-    }
-    NBObject_unlock(opq);
-    return r;
-}
-
-//
-
-BOOL NBScnRender_vIdxsFree(STNBScnRenderRef ref, const STNBScnVertexIdxPtr ptr){
-    BOOL r = FALSE;
-    STNBScnRenderOpq* opq = (STNBScnRenderOpq*)ref.opaque;
-    NBASSERT(NBScnRender_isClass(ref))
-    NBObject_lock(opq);
-    if(ENNBScnVertexType_Count < opq->buffs.arr.use){
-        STNBScnRenderBuff* b = NBArraySorted_itmPtrAtIndex(&opq->buffs.arr, STNBScnRenderBuff, ENNBScnVertexType_Count);
-        STNBAbsPtr ptr2;
-        ptr2.idx = ptr.idx;
-        ptr2.ptr = ptr.ptr;
-        r = NBGpuBuffer_mfree(b->buff, ptr2);
-    }
-    NBObject_unlock(opq);
-    return r;
-}
-
-BOOL NBScnRender_vertsFree(STNBScnRenderRef ref, const STNBScnVertexPtr ptr){
-    BOOL r = FALSE;
-    STNBScnRenderOpq* opq = (STNBScnRenderOpq*)ref.opaque;
-    NBASSERT(NBScnRender_isClass(ref))
-    NBObject_lock(opq);
-    if(ENNBScnVertexType_Color < opq->buffs.arr.use){
-        STNBScnRenderBuff* b = NBArraySorted_itmPtrAtIndex(&opq->buffs.arr, STNBScnRenderBuff, ENNBScnVertexType_Color);
-        STNBAbsPtr ptr2;
-        ptr2.idx = ptr.idx;
-        ptr2.ptr = ptr.ptr;
-        r = NBGpuBuffer_mfree(b->buff, ptr2);
-    }
-    NBObject_unlock(opq);
-    return r;
-}
-
-BOOL NBScnRender_vertsTexFree(STNBScnRenderRef ref, const STNBScnVertexTexPtr ptr){
-    BOOL r = FALSE;
-    STNBScnRenderOpq* opq = (STNBScnRenderOpq*)ref.opaque;
-    NBASSERT(NBScnRender_isClass(ref))
-    NBObject_lock(opq);
-    if(ENNBScnVertexType_Tex < opq->buffs.arr.use){
-        STNBScnRenderBuff* b = NBArraySorted_itmPtrAtIndex(&opq->buffs.arr, STNBScnRenderBuff, ENNBScnVertexType_Tex);
-        STNBAbsPtr ptr2;
-        ptr2.idx = ptr.idx;
-        ptr2.ptr = ptr.ptr;
-        r = NBGpuBuffer_mfree(b->buff, ptr2);
-    }
-    NBObject_unlock(opq);
-    return r;
-}
-
-BOOL NBScnRender_vertsTex2Free(STNBScnRenderRef ref, const STNBScnVertexTex2Ptr ptr){
-    BOOL r = FALSE;
-    STNBScnRenderOpq* opq = (STNBScnRenderOpq*)ref.opaque;
-    NBASSERT(NBScnRender_isClass(ref))
-    NBObject_lock(opq);
-    if(ENNBScnVertexType_Tex2 < opq->buffs.arr.use){
-        STNBScnRenderBuff* b = NBArraySorted_itmPtrAtIndex(&opq->buffs.arr, STNBScnRenderBuff, ENNBScnVertexType_Tex2);
-        STNBAbsPtr ptr2;
-        ptr2.idx = ptr.idx;
-        ptr2.ptr = ptr.ptr;
-        r = NBGpuBuffer_mfree(b->buff, ptr2);
-    }
-    NBObject_unlock(opq);
-    return r;
-}
-
-BOOL NBScnRender_vertsTex3Free(STNBScnRenderRef ref, const STNBScnVertexTex3Ptr ptr){
-    BOOL r = FALSE;
-    STNBScnRenderOpq* opq = (STNBScnRenderOpq*)ref.opaque;
-    NBASSERT(NBScnRender_isClass(ref))
-    NBObject_lock(opq);
-    if(ENNBScnVertexType_Tex3 < opq->buffs.arr.use){
-        STNBScnRenderBuff* b = NBArraySorted_itmPtrAtIndex(&opq->buffs.arr, STNBScnRenderBuff, ENNBScnVertexType_Tex3);
-        STNBAbsPtr ptr2;
-        ptr2.idx = ptr.idx;
-        ptr2.ptr = ptr.ptr;
-        r = NBGpuBuffer_mfree(b->buff, ptr2);
-    }
-    NBObject_unlock(opq);
     return r;
 }
 
