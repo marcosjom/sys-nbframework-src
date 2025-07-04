@@ -18,6 +18,8 @@ extern "C" {
 	
 	char	NBBase64_token(const char idx);
 	BOOL	NBBase64_isToken(const char c);
+    SI32    NBBase64_tokenIdx(const char c);
+
 	void    NBBase64_code3Bytes(const void* bytes3, const SI32 numBytes, char* buffDst4Bytes);
 	UI8	    NBBase64_decode4Bytes(const char* bytes4, char* buff3Bytes);
 	
