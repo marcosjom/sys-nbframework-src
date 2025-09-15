@@ -7,6 +7,7 @@
 #include "nb/core/NBStructMap.h"
 #include "nb/2d/NBColor.h"
 #include "nb/scene/NBScnTransform.h"
+#include "ixrender/scene/ScnNode2dProps.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -25,7 +26,19 @@ typedef struct STNBScnNodeProps_ {
 
 const STNBStructMap* NBScnNodeProps_getSharedStructMap(void);
 
+#define STNBScnNodeProps_2_STScnNode2dProps(OBJ) \
+    { \
+        { (OBJ)->c8.r, (OBJ)->c8.g, (OBJ)->c8.b, (OBJ)->c8.a } \
+        , { \
+            (OBJ)->tform.sx, (OBJ)->tform.sy \
+            , (OBJ)->tform.tx, (OBJ)->tform.ty \
+            , (OBJ)->tform.rotacion \
+        } \
+    }
+
 #define NBPropiedadesEnEscena STNBScnNodeProps
+#define NBPropiedadesEnEscena_2_STScnNode2dProps(OBJ)   STNBScnNodeProps_2_STScnNode2dProps(OBJ)
+
 /*
 //Note: keeping temporary compatibility with 'NBPropiedadesEnEscena'
 struct NBPropiedadesEnEscena {

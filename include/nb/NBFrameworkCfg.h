@@ -5,15 +5,16 @@
 //-------------------------------
 //-- Definiciones de compilacion final
 //-------------------------------
-#define NB_COMPILE_DEVELOPMENT_VERSION		//full runtime validations
+//#define NB_COMPILE_DEVELOPMENT_VERSION		//full runtime validations
 //#define NB_COMPILE_DEVELOPMENT_VERSION_FAST	//minimal runtime validations
-//#define NB_COMPILE_RELEASE_VERSION			//no runtime validations
+#define NB_COMPILE_RELEASE_VERSION			//no runtime validations
 
-#define NB_ENABLE_OPENSSL
-#define NB_LIB_SSL
-#define NB_LIB_TESSERACT
-#define NB_LIB_LEPTONICA
+//#define NB_ENABLE_OPENSSL
+//#define NB_LIB_SSL
+//#define NB_LIB_TESSERACT
+//#define NB_LIB_LEPTONICA
 #define NB_LIB_FREETYPE
+
 #ifdef _WIN32
 //#	define NB_LIB_TESSERACT_SYSTEM
 //#	define NB_LIB_LEPTONICA_SYSTEM

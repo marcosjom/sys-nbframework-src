@@ -1463,6 +1463,96 @@
 		2C1332F925A4EE7200F9B076 /* NBRtsp.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C1332F625A4EE7100F9B076 /* NBRtsp.c */; };
 		2C1332FA25A4EE7200F9B076 /* NBRtspClientConn.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C1332F725A4EE7100F9B076 /* NBRtspClientConn.c */; };
 		2C1332FB25A4EE7200F9B076 /* NBRtspClientConn.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C1332F725A4EE7100F9B076 /* NBRtspClientConn.c */; };
+		2C142E882E4207D300A2F9C2 /* ScnRender.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E862E4207D300A2F9C2 /* ScnRender.c */; };
+		2C142E892E4207D300A2F9C2 /* ScnVertexbuff.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E802E4207D300A2F9C2 /* ScnVertexbuff.c */; };
+		2C142E8B2E4207D300A2F9C2 /* ScnArray.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E6A2E4207D300A2F9C2 /* ScnArray.c */; };
+		2C142E8C2E4207D300A2F9C2 /* ScnGpuDevice.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E742E4207D300A2F9C2 /* ScnGpuDevice.c */; };
+		2C142E8D2E4207D300A2F9C2 /* ScnSharedPtr.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E712E4207D300A2F9C2 /* ScnSharedPtr.c */; };
+		2C142E8E2E4207D300A2F9C2 /* ScnRenderCmd.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E7E2E4207D300A2F9C2 /* ScnRenderCmd.c */; };
+		2C142E8F2E4207D300A2F9C2 /* ScnFramebuff.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E7B2E4207D300A2F9C2 /* ScnFramebuff.c */; };
+		2C142E902E4207D300A2F9C2 /* ScnMutex.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E702E4207D300A2F9C2 /* ScnMutex.c */; };
+		2C142E912E4207D300A2F9C2 /* ScnApiMetal.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E672E4207D300A2F9C2 /* ScnApiMetal.m */; };
+		2C142E922E4207D300A2F9C2 /* ScnGpuBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E732E4207D300A2F9C2 /* ScnGpuBuffer.c */; };
+		2C142E932E4207D300A2F9C2 /* ScnBitmap.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E832E4207D300A2F9C2 /* ScnBitmap.c */; };
+		2C142E942E4207D300A2F9C2 /* ScnGpuFramebuff.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E752E4207D300A2F9C2 /* ScnGpuFramebuff.c */; };
+		2C142E952E4207D300A2F9C2 /* ScnModel2d.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E7C2E4207D300A2F9C2 /* ScnModel2d.c */; };
+		2C142E962E4207D300A2F9C2 /* ScnGpuVertexbuff.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E782E4207D300A2F9C2 /* ScnGpuVertexbuff.c */; };
+		2C142E972E4207D300A2F9C2 /* ScnGpuRenderbuff.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E762E4207D300A2F9C2 /* ScnGpuRenderbuff.c */; };
+		2C142E982E4207D300A2F9C2 /* ScnMemBlock.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E6D2E4207D300A2F9C2 /* ScnMemBlock.c */; };
+		2C142E992E4207D300A2F9C2 /* ScnTexture.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E7F2E4207D300A2F9C2 /* ScnTexture.c */; };
+		2C142E9A2E4207D300A2F9C2 /* ScnNode2d.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E7D2E4207D300A2F9C2 /* ScnNode2d.c */; };
+		2C142E9B2E4207D300A2F9C2 /* ScnVertexbuffs.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E812E4207D300A2F9C2 /* ScnVertexbuffs.c */; };
+		2C142E9C2E4207D300A2F9C2 /* ScnBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E7A2E4207D300A2F9C2 /* ScnBuffer.c */; };
+		2C142E9D2E4207D300A2F9C2 /* ScnVertices.metal in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E652E4207D300A2F9C2 /* ScnVertices.metal */; };
+		2C142E9E2E4207D300A2F9C2 /* ScnArraySorted.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E6B2E4207D300A2F9C2 /* ScnArraySorted.c */; };
+		2C142E9F2E4207D300A2F9C2 /* ScnRange.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E842E4207D300A2F9C2 /* ScnRange.c */; };
+		2C142EA02E4207D300A2F9C2 /* ScnMemElastic.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E6E2E4207D300A2F9C2 /* ScnMemElastic.c */; };
+		2C142EA12E4207D300A2F9C2 /* ScnContext.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E6C2E4207D300A2F9C2 /* ScnContext.c */; };
+		2C142EA22E4207D300A2F9C2 /* ScnGpuTexture.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E772E4207D300A2F9C2 /* ScnGpuTexture.c */; };
+		2C142EA32E4207D300A2F9C2 /* ScnRender.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E862E4207D300A2F9C2 /* ScnRender.c */; };
+		2C142EA42E4207D300A2F9C2 /* ScnVertexbuff.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E802E4207D300A2F9C2 /* ScnVertexbuff.c */; };
+		2C142EA62E4207D300A2F9C2 /* ScnArray.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E6A2E4207D300A2F9C2 /* ScnArray.c */; };
+		2C142EA72E4207D300A2F9C2 /* ScnGpuDevice.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E742E4207D300A2F9C2 /* ScnGpuDevice.c */; };
+		2C142EA82E4207D300A2F9C2 /* ScnSharedPtr.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E712E4207D300A2F9C2 /* ScnSharedPtr.c */; };
+		2C142EA92E4207D300A2F9C2 /* ScnRenderCmd.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E7E2E4207D300A2F9C2 /* ScnRenderCmd.c */; };
+		2C142EAA2E4207D300A2F9C2 /* ScnFramebuff.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E7B2E4207D300A2F9C2 /* ScnFramebuff.c */; };
+		2C142EAB2E4207D300A2F9C2 /* ScnMutex.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E702E4207D300A2F9C2 /* ScnMutex.c */; };
+		2C142EAC2E4207D300A2F9C2 /* ScnApiMetal.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E672E4207D300A2F9C2 /* ScnApiMetal.m */; };
+		2C142EAD2E4207D300A2F9C2 /* ScnGpuBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E732E4207D300A2F9C2 /* ScnGpuBuffer.c */; };
+		2C142EAE2E4207D300A2F9C2 /* ScnBitmap.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E832E4207D300A2F9C2 /* ScnBitmap.c */; };
+		2C142EAF2E4207D300A2F9C2 /* ScnGpuFramebuff.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E752E4207D300A2F9C2 /* ScnGpuFramebuff.c */; };
+		2C142EB02E4207D300A2F9C2 /* ScnModel2d.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E7C2E4207D300A2F9C2 /* ScnModel2d.c */; };
+		2C142EB12E4207D300A2F9C2 /* ScnGpuVertexbuff.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E782E4207D300A2F9C2 /* ScnGpuVertexbuff.c */; };
+		2C142EB22E4207D300A2F9C2 /* ScnGpuRenderbuff.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E762E4207D300A2F9C2 /* ScnGpuRenderbuff.c */; };
+		2C142EB32E4207D300A2F9C2 /* ScnMemBlock.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E6D2E4207D300A2F9C2 /* ScnMemBlock.c */; };
+		2C142EB42E4207D300A2F9C2 /* ScnTexture.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E7F2E4207D300A2F9C2 /* ScnTexture.c */; };
+		2C142EB52E4207D300A2F9C2 /* ScnNode2d.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E7D2E4207D300A2F9C2 /* ScnNode2d.c */; };
+		2C142EB62E4207D300A2F9C2 /* ScnVertexbuffs.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E812E4207D300A2F9C2 /* ScnVertexbuffs.c */; };
+		2C142EB72E4207D300A2F9C2 /* ScnBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E7A2E4207D300A2F9C2 /* ScnBuffer.c */; };
+		2C142EB82E4207D300A2F9C2 /* ScnVertices.metal in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E652E4207D300A2F9C2 /* ScnVertices.metal */; };
+		2C142EB92E4207D300A2F9C2 /* ScnArraySorted.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E6B2E4207D300A2F9C2 /* ScnArraySorted.c */; };
+		2C142EBA2E4207D300A2F9C2 /* ScnRange.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E842E4207D300A2F9C2 /* ScnRange.c */; };
+		2C142EBB2E4207D300A2F9C2 /* ScnMemElastic.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E6E2E4207D300A2F9C2 /* ScnMemElastic.c */; };
+		2C142EBC2E4207D300A2F9C2 /* ScnContext.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E6C2E4207D300A2F9C2 /* ScnContext.c */; };
+		2C142EBD2E4207D300A2F9C2 /* ScnGpuTexture.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C142E772E4207D300A2F9C2 /* ScnGpuTexture.c */; };
+		2C142EC62E42080900A2F9C2 /* ScnRange.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C142EC32E42080900A2F9C2 /* ScnRange.h */; };
+		2C142EC72E42080900A2F9C2 /* ScnSize.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C142EC52E42080900A2F9C2 /* ScnSize.h */; };
+		2C142EC82E42080900A2F9C2 /* ScnRect.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C142EC42E42080900A2F9C2 /* ScnRect.h */; };
+		2C142EC92E42080900A2F9C2 /* ScnMatrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C142EC12E42080900A2F9C2 /* ScnMatrix.h */; };
+		2C142ECA2E42080900A2F9C2 /* ScnAABBox.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C142EBE2E42080900A2F9C2 /* ScnAABBox.h */; };
+		2C142ECB2E42080900A2F9C2 /* ScnPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C142EC22E42080900A2F9C2 /* ScnPoint.h */; };
+		2C142ECC2E42080900A2F9C2 /* ScnBitmap.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C142EBF2E42080900A2F9C2 /* ScnBitmap.h */; };
+		2C142ECD2E42080900A2F9C2 /* ScnColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C142EC02E42080900A2F9C2 /* ScnColor.h */; };
+		2C142ED92E42081E00A2F9C2 /* ScnModel2d.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C142ED02E42081E00A2F9C2 /* ScnModel2d.h */; };
+		2C142EDA2E42081E00A2F9C2 /* ScnTexture.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C142ED42E42081E00A2F9C2 /* ScnTexture.h */; };
+		2C142EDC2E42081E00A2F9C2 /* ScnVertexbuff.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C142ED62E42081E00A2F9C2 /* ScnVertexbuff.h */; };
+		2C142EDD2E42081E00A2F9C2 /* ScnNode2d.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C142ED12E42081E00A2F9C2 /* ScnNode2d.h */; };
+		2C142EDE2E42081E00A2F9C2 /* ScnVertexbuffs.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C142ED72E42081E00A2F9C2 /* ScnVertexbuffs.h */; };
+		2C142EDF2E42081E00A2F9C2 /* ScnFramebuff.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C142ECF2E42081E00A2F9C2 /* ScnFramebuff.h */; };
+		2C142EE02E42081E00A2F9C2 /* ScnNode2dProps.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C142ED22E42081E00A2F9C2 /* ScnNode2dProps.h */; };
+		2C142EE12E42081E00A2F9C2 /* ScnRenderCmd.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C142ED32E42081E00A2F9C2 /* ScnRenderCmd.h */; };
+		2C142EE32E42081E00A2F9C2 /* ScnBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C142ECE2E42081E00A2F9C2 /* ScnBuffer.h */; };
+		2C142EED2E42082E00A2F9C2 /* ScnGpuBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C142EE42E42082E00A2F9C2 /* ScnGpuBuffer.h */; };
+		2C142EEE2E42082E00A2F9C2 /* ScnGpuFramebuff.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C142EE72E42082E00A2F9C2 /* ScnGpuFramebuff.h */; };
+		2C142EEF2E42082E00A2F9C2 /* ScnGpuVertexbuff.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C142EEC2E42082E00A2F9C2 /* ScnGpuVertexbuff.h */; };
+		2C142EF02E42082E00A2F9C2 /* ScnGpuModelProps2d.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C142EE92E42082E00A2F9C2 /* ScnGpuModelProps2d.h */; };
+		2C142EF12E42082E00A2F9C2 /* ScnGpuTexture.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C142EEB2E42082E00A2F9C2 /* ScnGpuTexture.h */; };
+		2C142EF22E42082E00A2F9C2 /* ScnGpuDataType.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C142EE52E42082E00A2F9C2 /* ScnGpuDataType.h */; };
+		2C142EF32E42082E00A2F9C2 /* ScnGpuRenderbuff.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C142EEA2E42082E00A2F9C2 /* ScnGpuRenderbuff.h */; };
+		2C142EF42E42082E00A2F9C2 /* ScnGpuFramebuffProps.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C142EE82E42082E00A2F9C2 /* ScnGpuFramebuffProps.h */; };
+		2C142EF52E42082E00A2F9C2 /* ScnGpuDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C142EE62E42082E00A2F9C2 /* ScnGpuDevice.h */; };
+		2C142F012E42084100A2F9C2 /* ScnCompare.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C142EF92E42084100A2F9C2 /* ScnCompare.h */; };
+		2C142F022E42084100A2F9C2 /* ScnContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C142EFA2E42084100A2F9C2 /* ScnContext.h */; };
+		2C142F032E42084100A2F9C2 /* ScnMemBlock.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C142EFB2E42084100A2F9C2 /* ScnMemBlock.h */; };
+		2C142F042E42084100A2F9C2 /* ScnArraySorted.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C142EF82E42084100A2F9C2 /* ScnArraySorted.h */; };
+		2C142F052E42084100A2F9C2 /* ScnSharedPtr.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C142F002E42084100A2F9C2 /* ScnSharedPtr.h */; };
+		2C142F062E42084100A2F9C2 /* ScnArray.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C142EF62E42084100A2F9C2 /* ScnArray.h */; };
+		2C142F082E42084100A2F9C2 /* ScnMemElastic.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C142EFC2E42084100A2F9C2 /* ScnMemElastic.h */; };
+		2C142F092E42084100A2F9C2 /* ScnMutex.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C142EFE2E42084100A2F9C2 /* ScnMutex.h */; };
+		2C142F0A2E42084100A2F9C2 /* ScnObjRef.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C142EFF2E42084100A2F9C2 /* ScnObjRef.h */; };
+		2C142F0B2E42084100A2F9C2 /* ScnArrayEmbed.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C142EF72E42084100A2F9C2 /* ScnArrayEmbed.h */; };
+		2C142F0D2E42086900A2F9C2 /* ScnApiMetal.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C142F0C2E42086900A2F9C2 /* ScnApiMetal.h */; };
+		2C142F0F2E42087800A2F9C2 /* ScnRender.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C142F0E2E42087800A2F9C2 /* ScnRender.h */; };
 		2C1765F32734527D00AC2720 /* NBIOPollster.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C1765F22734527D00AC2720 /* NBIOPollster.c */; };
 		2C1765F42734527D00AC2720 /* NBIOPollster.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C1765F22734527D00AC2720 /* NBIOPollster.c */; };
 		2C1799332571680F00604752 /* lz4.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C17992A2571680E00604752 /* lz4.c */; settings = {COMPILER_FLAGS = "-DNB_LZ4 -I$(SRCROOT)/../../../src/ext/lz4/lib $(inherited)"; }; };
@@ -1481,9 +1571,6 @@
 		2C18384D25C36B8F00FAFDDA /* NBRtcpClient.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C18384925C36B8E00FAFDDA /* NBRtcpClient.c */; };
 		2C1990A0205E296600B5F48C /* NBAes256.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C19909E205E296600B5F48C /* NBAes256.c */; settings = {COMPILER_FLAGS = "-DNB_OPENSSL -w -I$(SRCROOT)/../../../include/nb/ext/openssl/include -I$(SRCROOT)/../../../src/ext/openssl/include"; }; };
 		2C1990A1205E298B00B5F48C /* NBAes256.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C19909E205E296600B5F48C /* NBAes256.c */; settings = {COMPILER_FLAGS = "-DNB_OPENSSL -w -I$(SRCROOT)/../../../include/nb/ext/openssl/include -I$(SRCROOT)/../../../src/ext/openssl/include"; }; };
-		2C19A1B52E10226800B4140F /* NBGpuBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C19A1B42E10226800B4140F /* NBGpuBuffer.c */; };
-		2C19A1B62E10226800B4140F /* NBGpuBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C19A1B42E10226800B4140F /* NBGpuBuffer.c */; };
-		2C19A1B82E10227600B4140F /* NBGpuBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C19A1B72E10227600B4140F /* NBGpuBuffer.h */; };
 		2C1A6A5E2724C4F9001EE349 /* NBWebSocketMessage.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C1A6A5C2724C4F8001EE349 /* NBWebSocketMessage.c */; };
 		2C1A6A5F2724C4F9001EE349 /* NBWebSocketMessage.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C1A6A5C2724C4F8001EE349 /* NBWebSocketMessage.c */; };
 		2C1A6A602724C4F9001EE349 /* NBWebSocketFrame.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C1A6A5D2724C4F8001EE349 /* NBWebSocketFrame.c */; };
@@ -2164,6 +2251,12 @@
 		2C375E212063627700EDC5CA /* NBUrl.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C375E1D20635C6600EDC5CA /* NBUrl.c */; };
 		2C375E292065A73100EDC5CA /* NBCrc32.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C375E272065A73000EDC5CA /* NBCrc32.c */; settings = {COMPILER_FLAGS = "-DNB_OPENSSL -I$(SRCROOT)/../../../include/nb/ext/openssl/include -I$(SRCROOT)/../../../src/ext/openssl/include"; }; };
 		2C375E2A2065A75000EDC5CA /* NBCrc32.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C375E272065A73000EDC5CA /* NBCrc32.c */; settings = {COMPILER_FLAGS = "-DNB_OPENSSL -I$(SRCROOT)/../../../include/nb/ext/openssl/include -I$(SRCROOT)/../../../src/ext/openssl/include"; }; };
+		2C378DD72E466C5A00C73424 /* ScnGpuSampler.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C378DD62E466C5A00C73424 /* ScnGpuSampler.h */; };
+		2C378DD92E466C7800C73424 /* ScnGpuSampler.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C378DD82E466C7800C73424 /* ScnGpuSampler.c */; };
+		2C378DDA2E466C7800C73424 /* ScnGpuSampler.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C378DD82E466C7800C73424 /* ScnGpuSampler.c */; };
+		2C378E622E475A4500C73424 /* ixtli-defs.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C378E612E475A4500C73424 /* ixtli-defs.c */; };
+		2C378E632E475A4500C73424 /* ixtli-defs.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C378E612E475A4500C73424 /* ixtli-defs.c */; };
+		2C378E652E475A5200C73424 /* ixtli-defs.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C378E642E475A5200C73424 /* ixtli-defs.h */; };
 		2C3CD63928F49D1E00D27B5F /* NBObjectLnk.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C3CD63828F49D1E00D27B5F /* NBObjectLnk.c */; };
 		2C3CD63A28F49D1E00D27B5F /* NBObjectLnk.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C3CD63828F49D1E00D27B5F /* NBObjectLnk.c */; };
 		2C3DBFDD2BC31CF6002D78BD /* NBThreadStoragePriv.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C3DBFDC2BC31CF6002D78BD /* NBThreadStoragePriv.h */; };
@@ -2179,6 +2272,11 @@
 		2C4299B720FD9DAD00D09159 /* NBHttpBody.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C4299B420FD9D9900D09159 /* NBHttpBody.c */; };
 		2C44FAE92359162600CA76CD /* NBMsExchangeClt.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C44FAE72359162600CA76CD /* NBMsExchangeClt.c */; };
 		2C44FAEA2359162600CA76CD /* NBMsExchangeClt.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C44FAE72359162600CA76CD /* NBMsExchangeClt.c */; };
+		2C4755532E4A38AF008009FD /* ScnGpuRenderJob.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C4755522E4A38AF008009FD /* ScnGpuRenderJob.c */; };
+		2C4755542E4A38AF008009FD /* ScnGpuRenderJob.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C4755522E4A38AF008009FD /* ScnGpuRenderJob.c */; };
+		2C4BA8662E47636C000E02F7 /* ScnChangeRngs.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C4BA8652E47636C000E02F7 /* ScnChangeRngs.c */; };
+		2C4BA8672E47636C000E02F7 /* ScnChangeRngs.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C4BA8652E47636C000E02F7 /* ScnChangeRngs.c */; };
+		2C4BA8692E47637C000E02F7 /* ScnChangeRngs.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C4BA8682E47637C000E02F7 /* ScnChangeRngs.h */; };
 		2C4BD1B125D3A7540085B790 /* NBDataBuff.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C4BD1AE25D3A7520085B790 /* NBDataBuff.c */; };
 		2C4BD1B225D3A7540085B790 /* NBDataBuff.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C4BD1AE25D3A7520085B790 /* NBDataBuff.c */; };
 		2C4BD1B325D3A7540085B790 /* NBDataChunk.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C4BD1AF25D3A7530085B790 /* NBDataChunk.c */; };
@@ -2197,6 +2295,12 @@
 		2C5B74FD204E31310002D0BF /* NBThreadCond.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CE8AB30204C9B2500DAA7CD /* NBThreadCond.c */; };
 		2C5C35DE28E5068200F01680 /* NBIOPollstersPool.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C5C35DD28E5068200F01680 /* NBIOPollstersPool.c */; };
 		2C5C35DF28E5068200F01680 /* NBIOPollstersPool.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C5C35DD28E5068200F01680 /* NBIOPollstersPool.c */; };
+		2C608C912E61A0FB00BB5904 /* ScnMemoryItf.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C608C8F2E61A0FB00BB5904 /* ScnMemoryItf.c */; };
+		2C608C922E61A0FB00BB5904 /* ScnMutexItf.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C608C902E61A0FB00BB5904 /* ScnMutexItf.c */; };
+		2C608C932E61A0FB00BB5904 /* ScnContextItf.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C608C8E2E61A0FB00BB5904 /* ScnContextItf.c */; };
+		2C608C942E61A0FB00BB5904 /* ScnMemoryItf.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C608C8F2E61A0FB00BB5904 /* ScnMemoryItf.c */; };
+		2C608C952E61A0FB00BB5904 /* ScnMutexItf.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C608C902E61A0FB00BB5904 /* ScnMutexItf.c */; };
+		2C608C962E61A0FB00BB5904 /* ScnContextItf.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C608C8E2E61A0FB00BB5904 /* ScnContextItf.c */; };
 		2C610B87241F3F050091E288 /* NBObject.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C610B85241F3F050091E288 /* NBObject.c */; };
 		2C610B88241F3F050091E288 /* NBObject.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C610B85241F3F050091E288 /* NBObject.c */; };
 		2C610B8D241F42060091E288 /* NBContext.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C610B8B241F42060091E288 /* NBContext.c */; };
@@ -2224,15 +2328,6 @@
 		2C702E8C2E1324FE009BFCAB /* NBScnTransform.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C702E882E1324FE009BFCAB /* NBScnTransform.c */; };
 		2C702E8D2E1324FE009BFCAB /* NBScnTransform.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C702E872E1324FE009BFCAB /* NBScnTransform.h */; };
 		2C702E8E2E1324FE009BFCAB /* NBScnNodeProps.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C702E852E1324FE009BFCAB /* NBScnNodeProps.h */; };
-		2C702E942E15BF83009BFCAB /* NBGpuVertexBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C702E932E15BF83009BFCAB /* NBGpuVertexBuffer.c */; };
-		2C702E952E15BF83009BFCAB /* NBGpuVertexBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C702E922E15BF83009BFCAB /* NBGpuVertexBuffer.h */; };
-		2C702E962E15BF83009BFCAB /* NBGpuVertexBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C702E932E15BF83009BFCAB /* NBGpuVertexBuffer.c */; };
-		2C702E992E15C297009BFCAB /* NBGpuDataType.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C702E982E15C297009BFCAB /* NBGpuDataType.c */; };
-		2C702E9A2E15C297009BFCAB /* NBGpuDataType.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C702E982E15C297009BFCAB /* NBGpuDataType.c */; };
-		2C702E9B2E15C297009BFCAB /* NBGpuDataType.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C702E972E15C297009BFCAB /* NBGpuDataType.h */; };
-		2C702E9E2E168EFC009BFCAB /* NBScnVertexBuffs.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C702E9C2E168EFC009BFCAB /* NBScnVertexBuffs.h */; };
-		2C702E9F2E168EFC009BFCAB /* NBScnVertexBuffs.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C702E9D2E168EFC009BFCAB /* NBScnVertexBuffs.c */; };
-		2C702EA02E168EFC009BFCAB /* NBScnVertexBuffs.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C702E9D2E168EFC009BFCAB /* NBScnVertexBuffs.c */; };
 		2C712EAB22506035009EC8BF /* NBLinkedList.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C712EAA22506034009EC8BF /* NBLinkedList.c */; };
 		2C712EAC22506035009EC8BF /* NBLinkedList.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C712EAA22506034009EC8BF /* NBLinkedList.c */; };
 		2C718A33211105880000F260 /* NBHttpServicePort.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C718A31211105670000F260 /* NBHttpServicePort.c */; };
@@ -2241,6 +2336,7 @@
 		2C718A36211105880000F260 /* NBHttpMessage.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C718A2F211105670000F260 /* NBHttpMessage.c */; };
 		2C72ADA725C47A2600821502 /* NBRtspClientStats.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C72ADA625C47A2500821502 /* NBRtspClientStats.c */; };
 		2C72ADA825C47A2600821502 /* NBRtspClientStats.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C72ADA625C47A2500821502 /* NBRtspClientStats.c */; };
+		2C7401702E44D897004E8932 /* ScnResourceMode.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C74016F2E44D897004E8932 /* ScnResourceMode.h */; };
 		2C7D515C2077169C005C6AB5 /* NBCompare.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C7D515B2077169B005C6AB5 /* NBCompare.c */; };
 		2C7F5A992DE9AEEF007ADD93 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C7F5A982DE9AEEF007ADD93 /* Metal.framework */; };
 		2C7F5A9B2DE9AF43007ADD93 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C7F5A9A2DE9AF42007ADD93 /* Foundation.framework */; };
@@ -2346,12 +2442,6 @@
 		2C90F7FA2E0C04EA009964D3 /* NBSintaxParserCPProc.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C90F7EC2E0C04EA009964D3 /* NBSintaxParserCPProc.h */; };
 		2C90F7FB2E0C04EA009964D3 /* NBSintaxParserRules.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C90F7F22E0C04EA009964D3 /* NBSintaxParserRules.h */; };
 		2C90F7FC2E0C04EA009964D3 /* NBSintaxParserCPProcDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C90F7ED2E0C04EA009964D3 /* NBSintaxParserCPProcDefs.h */; };
-		2C90F7FE2E0C2A68009964D3 /* NBScnRenderCmd.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C90F7FD2E0C2A68009964D3 /* NBScnRenderCmd.c */; };
-		2C90F7FF2E0C2A68009964D3 /* NBScnRenderCmd.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C90F7FD2E0C2A68009964D3 /* NBScnRenderCmd.c */; };
-		2C90F8012E0C2A7A009964D3 /* NBScnRenderCmd.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C90F8002E0C2A7A009964D3 /* NBScnRenderCmd.h */; };
-		2C90F8032E0C66D9009964D3 /* NBScnRenderJobBldr.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C90F8022E0C66D9009964D3 /* NBScnRenderJobBldr.c */; };
-		2C90F8042E0C66D9009964D3 /* NBScnRenderJobBldr.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C90F8022E0C66D9009964D3 /* NBScnRenderJobBldr.c */; };
-		2C90F8062E0C66F1009964D3 /* NBScnRenderJobBldr.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C90F8052E0C66F1009964D3 /* NBScnRenderJobBldr.h */; };
 		2C90F8082E0C68F4009964D3 /* NBScnVertices.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C90F8072E0C68F4009964D3 /* NBScnVertices.c */; };
 		2C90F8092E0C68F4009964D3 /* NBScnVertices.c in Sources */ = {isa = PBXBuildFile; fileRef = 2C90F8072E0C68F4009964D3 /* NBScnVertices.c */; };
 		2C90F80B2E0C6902009964D3 /* NBScnVertices.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C90F80A2E0C6902009964D3 /* NBScnVertices.h */; };
@@ -2526,23 +2616,14 @@
 		2CB760092E01F39B00D7E4FE /* research-Metal.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB760082E01F39B00D7E4FE /* research-Metal.m */; };
 		2CB7600B2E01F3B700D7E4FE /* NBScnRenderJob.metal in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7600A2E01F3B700D7E4FE /* NBScnRenderJob.metal */; };
 		2CB7600D2E01F3F500D7E4FE /* research-Vulkan.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB7600C2E01F3F500D7E4FE /* research-Vulkan.cpp */; };
+		2CBB85742E462FF80049681D /* ScnBitmapProps.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CBB85732E462FF80049681D /* ScnBitmapProps.c */; };
+		2CBB85752E462FF80049681D /* ScnBitmapProps.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CBB85732E462FF80049681D /* ScnBitmapProps.c */; };
+		2CBB85772E4630070049681D /* ScnBitmapProps.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CBB85762E4630070049681D /* ScnBitmapProps.h */; };
 		2CBED11A2E02104D008B52D0 /* libnbframework-osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C227E58204B330400D1B813 /* libnbframework-osx.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		2CBED11D2E021437008B52D0 /* research-scn-compute.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CBED11C2E021437008B52D0 /* research-scn-compute.c */; };
 		2CBED1242E021817008B52D0 /* libvulkan.1.4.313.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CBED1222E021748008B52D0 /* libvulkan.1.4.313.dylib */; };
 		2CBED1252E021821008B52D0 /* libvulkan.1.4.313.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2CBED1202E021713008B52D0 /* libvulkan.1.4.313.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		2CBED1272E021958008B52D0 /* libMoltenVK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CBED1262E021958008B52D0 /* libMoltenVK.a */; };
-		2CBEEA9C2E1156FC00EB4AC9 /* NBGpuRenderbuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEEA9B2E1156FC00EB4AC9 /* NBGpuRenderbuffer.c */; };
-		2CBEEA9D2E1156FC00EB4AC9 /* NBGpuRenderbuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEEA9B2E1156FC00EB4AC9 /* NBGpuRenderbuffer.c */; };
-		2CBEEA9E2E1156FC00EB4AC9 /* NBGpuRenderbuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CBEEA9A2E1156FC00EB4AC9 /* NBGpuRenderbuffer.h */; };
-		2CBEEAA12E11599700EB4AC9 /* NBGpuFramebuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEEAA02E11599700EB4AC9 /* NBGpuFramebuffer.c */; };
-		2CBEEAA22E11599700EB4AC9 /* NBGpuFramebuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEEAA02E11599700EB4AC9 /* NBGpuFramebuffer.c */; };
-		2CBEEAA32E11599700EB4AC9 /* NBGpuFramebuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CBEEA9F2E11599700EB4AC9 /* NBGpuFramebuffer.h */; };
-		2CBEEAA62E115AED00EB4AC9 /* NBGpuTexture.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEEAA52E115AED00EB4AC9 /* NBGpuTexture.c */; };
-		2CBEEAA72E115AED00EB4AC9 /* NBGpuTexture.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEEAA52E115AED00EB4AC9 /* NBGpuTexture.c */; };
-		2CBEEAA82E115AED00EB4AC9 /* NBGpuTexture.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CBEEAA42E115AED00EB4AC9 /* NBGpuTexture.h */; };
-		2CBEEAAB2E11B3C100EB4AC9 /* NBScnRender.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEEAAA2E11B3C100EB4AC9 /* NBScnRender.c */; };
-		2CBEEAAC2E11B3C100EB4AC9 /* NBScnRender.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CBEEAA92E11B3C100EB4AC9 /* NBScnRender.h */; };
-		2CBEEAAD2E11B3C100EB4AC9 /* NBScnRender.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CBEEAAA2E11B3C100EB4AC9 /* NBScnRender.c */; };
 		2CBFF5C5213660CB0060B73A /* NBX500Name.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CBFF5C4213660CB0060B73A /* NBX500Name.c */; settings = {COMPILER_FLAGS = "-DNB_OPENSSL -w -I$(SRCROOT)/../../../include/nb/ext/openssl/include -I$(SRCROOT)/../../../src/ext/openssl/include"; }; };
 		2CBFF5C6213660CB0060B73A /* NBX500Name.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CBFF5C4213660CB0060B73A /* NBX500Name.c */; settings = {COMPILER_FLAGS = "-DNB_OPENSSL -w -I$(SRCROOT)/../../../include/nb/ext/openssl/include -I$(SRCROOT)/../../../src/ext/openssl/include"; }; };
 		2CBFF5CC21366B750060B73A /* NBEnumMap.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CBFF5CA21366B750060B73A /* NBEnumMap.c */; };
@@ -2581,12 +2662,24 @@
 		2CD615A228F0D9D60058F91E /* NBStopFlag.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CD615A028F0D9D60058F91E /* NBStopFlag.c */; };
 		2CD615A628F22E150058F91E /* NBIOBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CD615A528F22E150058F91E /* NBIOBuffer.c */; };
 		2CD615A728F22E150058F91E /* NBIOBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CD615A528F22E150058F91E /* NBIOBuffer.c */; };
+		2CDAC1D62E4A0989004ABB3A /* ScnRenderJob.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CDAC1D52E4A0989004ABB3A /* ScnRenderJob.c */; };
+		2CDAC1D72E4A0989004ABB3A /* ScnRenderCmds.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CDAC1D42E4A0989004ABB3A /* ScnRenderCmds.c */; };
+		2CDAC1D82E4A0989004ABB3A /* ScnRenderJob.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CDAC1D52E4A0989004ABB3A /* ScnRenderJob.c */; };
+		2CDAC1D92E4A0989004ABB3A /* ScnRenderCmds.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CDAC1D42E4A0989004ABB3A /* ScnRenderCmds.c */; };
+		2CDAC1DD2E4A09CF004ABB3A /* ScnTransform2d.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CDAC1DC2E4A09CF004ABB3A /* ScnTransform2d.h */; };
+		2CDAC1DE2E4A09CF004ABB3A /* ScnRenderCmds.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CDAC1DA2E4A09CF004ABB3A /* ScnRenderCmds.h */; };
+		2CDAC1DF2E4A09CF004ABB3A /* ScnRenderJob.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CDAC1DB2E4A09CF004ABB3A /* ScnRenderJob.h */; };
+		2CDAC1E32E4A0A08004ABB3A /* ScnGpuDeviceDesc.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CDAC1E02E4A0A08004ABB3A /* ScnGpuDeviceDesc.h */; };
+		2CDAC1E42E4A0A08004ABB3A /* ScnGpuModelProps2d.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CDAC1E12E4A0A08004ABB3A /* ScnGpuModelProps2d.h */; };
+		2CDAC1E52E4A0A08004ABB3A /* ScnGpuRenderJob.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CDAC1E22E4A0A08004ABB3A /* ScnGpuRenderJob.h */; };
 		2CDBB8D22416D614007677D8 /* NBFrameworkDefs.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CDBB8CE2416D1F3007677D8 /* NBFrameworkDefs.c */; };
 		2CDBB8D32416D614007677D8 /* NBFrameworkDefs.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CDBB8CE2416D1F3007677D8 /* NBFrameworkDefs.c */; };
 		2CE08CE7219F2FFF00839BCF /* NBTextCursor.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CE08CE6219F2FFF00839BCF /* NBTextCursor.c */; settings = {COMPILER_FLAGS = "-DNB_FREETYPE -w -I$(SRCROOT)/../../../src/ext/freetype/include"; }; };
 		2CE08CE8219F2FFF00839BCF /* NBTextCursor.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CE08CE6219F2FFF00839BCF /* NBTextCursor.c */; settings = {COMPILER_FLAGS = "-DNB_FREETYPE -w -I$(SRCROOT)/../../../src/ext/freetype/include"; }; };
 		2CE08CEA219F32F800839BCF /* NBText.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CE08CE9219F32F800839BCF /* NBText.c */; settings = {COMPILER_FLAGS = "-DNB_FREETYPE -w -I$(SRCROOT)/../../../src/ext/freetype/include"; }; };
 		2CE08CEB219F32F800839BCF /* NBText.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CE08CE9219F32F800839BCF /* NBText.c */; settings = {COMPILER_FLAGS = "-DNB_FREETYPE -w -I$(SRCROOT)/../../../src/ext/freetype/include"; }; };
+		2CE1E7792E4A39540097C926 /* ScnGpuDeviceDesc.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CE1E7772E4A39540097C926 /* ScnGpuDeviceDesc.h */; };
+		2CE1E77A2E4A39540097C926 /* ScnGpuRenderJob.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CE1E7782E4A39540097C926 /* ScnGpuRenderJob.h */; };
 		2CE548C6263C8F1600DD018D /* NBThreadsPool.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CE548C3263C8F1600DD018D /* NBThreadsPool.c */; };
 		2CE548C7263C8F1600DD018D /* NBThreadsPool.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CE548C3263C8F1600DD018D /* NBThreadsPool.c */; };
 		2CE84CD820F416020030508D /* NBUriParser.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CE84CD620F416010030508D /* NBUriParser.c */; };
@@ -2711,6 +2804,39 @@
 		2CFF7C4E26AF4A0C00D2A0DF /* NBHttpReqRule.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF7C4C26AF4A0C00D2A0DF /* NBHttpReqRule.c */; };
 		2CFF7C5226AF534B00D2A0DF /* NBHttpReqRules.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF7C5126AF534B00D2A0DF /* NBHttpReqRules.c */; };
 		2CFF7C5326AF534B00D2A0DF /* NBHttpReqRules.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF7C5126AF534B00D2A0DF /* NBHttpReqRules.c */; };
+		2CFF97E92E61A166003F0B26 /* ScnRenderFbuffState.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF97E72E61A166003F0B26 /* ScnRenderFbuffState.c */; };
+		2CFF97EA2E61A166003F0B26 /* ScnRenderJobObj.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF97E82E61A166003F0B26 /* ScnRenderJobObj.c */; };
+		2CFF97EB2E61A166003F0B26 /* ScnModel2dCmd.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF97E62E61A166003F0B26 /* ScnModel2dCmd.c */; };
+		2CFF97EC2E61A166003F0B26 /* ScnRenderFbuffState.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF97E72E61A166003F0B26 /* ScnRenderFbuffState.c */; };
+		2CFF97ED2E61A166003F0B26 /* ScnRenderJobObj.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF97E82E61A166003F0B26 /* ScnRenderJobObj.c */; };
+		2CFF97EE2E61A166003F0B26 /* ScnModel2dCmd.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF97E62E61A166003F0B26 /* ScnModel2dCmd.c */; };
+		2CFF98132E61A370003F0B26 /* ScnApiMetalBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF98022E61A370003F0B26 /* ScnApiMetalBuffer.m */; };
+		2CFF98142E61A370003F0B26 /* ScnApiMetalDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF98042E61A370003F0B26 /* ScnApiMetalDevice.m */; };
+		2CFF98152E61A370003F0B26 /* ScnApiMetalFramebuff.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF98062E61A370003F0B26 /* ScnApiMetalFramebuff.m */; };
+		2CFF98162E61A370003F0B26 /* ScnApiMetalRenderStates.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF980C2E61A370003F0B26 /* ScnApiMetalRenderStates.m */; };
+		2CFF98172E61A370003F0B26 /* ScnApiMetalVertexbuff.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF98122E61A370003F0B26 /* ScnApiMetalVertexbuff.m */; };
+		2CFF98182E61A370003F0B26 /* ScnApiMetalRenderJobState.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF980A2E61A370003F0B26 /* ScnApiMetalRenderJobState.m */; };
+		2CFF98192E61A370003F0B26 /* ScnApiMetalRenderJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF98082E61A370003F0B26 /* ScnApiMetalRenderJob.m */; };
+		2CFF981A2E61A370003F0B26 /* ScnApiMetalSampler.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF980E2E61A370003F0B26 /* ScnApiMetalSampler.m */; };
+		2CFF981B2E61A370003F0B26 /* ScnApiMetalTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF98102E61A370003F0B26 /* ScnApiMetalTexture.m */; };
+		2CFF981C2E61A370003F0B26 /* ScnApiMetalRenderJob.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFF98072E61A370003F0B26 /* ScnApiMetalRenderJob.h */; };
+		2CFF981D2E61A370003F0B26 /* ScnApiMetalTexture.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFF980F2E61A370003F0B26 /* ScnApiMetalTexture.h */; };
+		2CFF981E2E61A370003F0B26 /* ScnApiMetalSampler.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFF980D2E61A370003F0B26 /* ScnApiMetalSampler.h */; };
+		2CFF981F2E61A370003F0B26 /* ScnApiMetalRenderJobState.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFF98092E61A370003F0B26 /* ScnApiMetalRenderJobState.h */; };
+		2CFF98202E61A370003F0B26 /* ScnApiMetalFramebuff.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFF98052E61A370003F0B26 /* ScnApiMetalFramebuff.h */; };
+		2CFF98212E61A370003F0B26 /* ScnApiMetalBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFF98012E61A370003F0B26 /* ScnApiMetalBuffer.h */; };
+		2CFF98222E61A370003F0B26 /* ScnApiMetalDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFF98032E61A370003F0B26 /* ScnApiMetalDevice.h */; };
+		2CFF98232E61A370003F0B26 /* ScnApiMetalVertexbuff.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFF98112E61A370003F0B26 /* ScnApiMetalVertexbuff.h */; };
+		2CFF98242E61A370003F0B26 /* ScnApiMetalRenderStates.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CFF980B2E61A370003F0B26 /* ScnApiMetalRenderStates.h */; };
+		2CFF98252E61A370003F0B26 /* ScnApiMetalBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF98022E61A370003F0B26 /* ScnApiMetalBuffer.m */; };
+		2CFF98262E61A370003F0B26 /* ScnApiMetalDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF98042E61A370003F0B26 /* ScnApiMetalDevice.m */; };
+		2CFF98272E61A370003F0B26 /* ScnApiMetalFramebuff.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF98062E61A370003F0B26 /* ScnApiMetalFramebuff.m */; };
+		2CFF98282E61A370003F0B26 /* ScnApiMetalRenderStates.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF980C2E61A370003F0B26 /* ScnApiMetalRenderStates.m */; };
+		2CFF98292E61A370003F0B26 /* ScnApiMetalVertexbuff.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF98122E61A370003F0B26 /* ScnApiMetalVertexbuff.m */; };
+		2CFF982A2E61A370003F0B26 /* ScnApiMetalRenderJobState.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF980A2E61A370003F0B26 /* ScnApiMetalRenderJobState.m */; };
+		2CFF982B2E61A370003F0B26 /* ScnApiMetalRenderJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF98082E61A370003F0B26 /* ScnApiMetalRenderJob.m */; };
+		2CFF982C2E61A370003F0B26 /* ScnApiMetalSampler.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF980E2E61A370003F0B26 /* ScnApiMetalSampler.m */; };
+		2CFF982D2E61A370003F0B26 /* ScnApiMetalTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF98102E61A370003F0B26 /* ScnApiMetalTexture.m */; };
 		2CFF9B9E223A0FC100345C47 /* NBCallback.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF9B9A223A02E700345C47 /* NBCallback.c */; };
 		2CFF9B9F223A0FC200345C47 /* NBCallback.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF9B9A223A02E700345C47 /* NBCallback.c */; };
 		2CFFDE6D27272B4B00190674 /* NBDataCursor.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CFFDE6C27272B4B00190674 /* NBDataCursor.c */; };
@@ -3216,6 +3342,70 @@
 		2C1332F725A4EE7100F9B076 /* NBRtspClientConn.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NBRtspClientConn.c; sourceTree = "<group>"; };
 		2C13330025A4EE8A00F9B076 /* NBRtsp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBRtsp.h; path = ../../include/nb/net/NBRtsp.h; sourceTree = "<group>"; };
 		2C13330125A4EE8A00F9B076 /* NBRtspClientConn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBRtspClientConn.h; path = ../../include/nb/net/NBRtspClientConn.h; sourceTree = "<group>"; };
+		2C142E652E4207D300A2F9C2 /* ScnVertices.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = ScnVertices.metal; sourceTree = "<group>"; };
+		2C142E672E4207D300A2F9C2 /* ScnApiMetal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScnApiMetal.m; sourceTree = "<group>"; };
+		2C142E6A2E4207D300A2F9C2 /* ScnArray.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ScnArray.c; sourceTree = "<group>"; };
+		2C142E6B2E4207D300A2F9C2 /* ScnArraySorted.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ScnArraySorted.c; sourceTree = "<group>"; };
+		2C142E6C2E4207D300A2F9C2 /* ScnContext.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ScnContext.c; sourceTree = "<group>"; };
+		2C142E6D2E4207D300A2F9C2 /* ScnMemBlock.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ScnMemBlock.c; sourceTree = "<group>"; };
+		2C142E6E2E4207D300A2F9C2 /* ScnMemElastic.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ScnMemElastic.c; sourceTree = "<group>"; };
+		2C142E702E4207D300A2F9C2 /* ScnMutex.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ScnMutex.c; sourceTree = "<group>"; };
+		2C142E712E4207D300A2F9C2 /* ScnSharedPtr.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ScnSharedPtr.c; sourceTree = "<group>"; };
+		2C142E732E4207D300A2F9C2 /* ScnGpuBuffer.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ScnGpuBuffer.c; sourceTree = "<group>"; };
+		2C142E742E4207D300A2F9C2 /* ScnGpuDevice.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ScnGpuDevice.c; sourceTree = "<group>"; };
+		2C142E752E4207D300A2F9C2 /* ScnGpuFramebuff.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ScnGpuFramebuff.c; sourceTree = "<group>"; };
+		2C142E762E4207D300A2F9C2 /* ScnGpuRenderbuff.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ScnGpuRenderbuff.c; sourceTree = "<group>"; };
+		2C142E772E4207D300A2F9C2 /* ScnGpuTexture.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ScnGpuTexture.c; sourceTree = "<group>"; };
+		2C142E782E4207D300A2F9C2 /* ScnGpuVertexbuff.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ScnGpuVertexbuff.c; sourceTree = "<group>"; };
+		2C142E7A2E4207D300A2F9C2 /* ScnBuffer.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ScnBuffer.c; sourceTree = "<group>"; };
+		2C142E7B2E4207D300A2F9C2 /* ScnFramebuff.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ScnFramebuff.c; sourceTree = "<group>"; };
+		2C142E7C2E4207D300A2F9C2 /* ScnModel2d.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ScnModel2d.c; sourceTree = "<group>"; };
+		2C142E7D2E4207D300A2F9C2 /* ScnNode2d.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ScnNode2d.c; sourceTree = "<group>"; };
+		2C142E7E2E4207D300A2F9C2 /* ScnRenderCmd.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ScnRenderCmd.c; sourceTree = "<group>"; };
+		2C142E7F2E4207D300A2F9C2 /* ScnTexture.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ScnTexture.c; sourceTree = "<group>"; };
+		2C142E802E4207D300A2F9C2 /* ScnVertexbuff.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ScnVertexbuff.c; sourceTree = "<group>"; };
+		2C142E812E4207D300A2F9C2 /* ScnVertexbuffs.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ScnVertexbuffs.c; sourceTree = "<group>"; };
+		2C142E832E4207D300A2F9C2 /* ScnBitmap.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = ScnBitmap.c; path = ../../../src/ixrender/type/ScnBitmap.c; sourceTree = SOURCE_ROOT; };
+		2C142E842E4207D300A2F9C2 /* ScnRange.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = ScnRange.c; path = ../../../src/ixrender/type/ScnRange.c; sourceTree = SOURCE_ROOT; };
+		2C142E862E4207D300A2F9C2 /* ScnRender.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ScnRender.c; sourceTree = "<group>"; };
+		2C142EBE2E42080900A2F9C2 /* ScnAABBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnAABBox.h; path = ../../../include/ixrender/type/ScnAABBox.h; sourceTree = SOURCE_ROOT; };
+		2C142EBF2E42080900A2F9C2 /* ScnBitmap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnBitmap.h; path = ../../../include/ixrender/type/ScnBitmap.h; sourceTree = SOURCE_ROOT; };
+		2C142EC02E42080900A2F9C2 /* ScnColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnColor.h; path = ../../../include/ixrender/type/ScnColor.h; sourceTree = SOURCE_ROOT; };
+		2C142EC12E42080900A2F9C2 /* ScnMatrix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnMatrix.h; path = ../../../include/ixrender/type/ScnMatrix.h; sourceTree = SOURCE_ROOT; };
+		2C142EC22E42080900A2F9C2 /* ScnPoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnPoint.h; path = ../../../include/ixrender/type/ScnPoint.h; sourceTree = SOURCE_ROOT; };
+		2C142EC32E42080900A2F9C2 /* ScnRange.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnRange.h; path = ../../../include/ixrender/type/ScnRange.h; sourceTree = SOURCE_ROOT; };
+		2C142EC42E42080900A2F9C2 /* ScnRect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnRect.h; path = ../../../include/ixrender/type/ScnRect.h; sourceTree = SOURCE_ROOT; };
+		2C142EC52E42080900A2F9C2 /* ScnSize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnSize.h; path = ../../../include/ixrender/type/ScnSize.h; sourceTree = SOURCE_ROOT; };
+		2C142ECE2E42081E00A2F9C2 /* ScnBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnBuffer.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/scene/ScnBuffer.h"; sourceTree = "<absolute>"; };
+		2C142ECF2E42081E00A2F9C2 /* ScnFramebuff.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnFramebuff.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/scene/ScnFramebuff.h"; sourceTree = "<absolute>"; };
+		2C142ED02E42081E00A2F9C2 /* ScnModel2d.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnModel2d.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/scene/ScnModel2d.h"; sourceTree = "<absolute>"; };
+		2C142ED12E42081E00A2F9C2 /* ScnNode2d.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnNode2d.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/scene/ScnNode2d.h"; sourceTree = "<absolute>"; };
+		2C142ED22E42081E00A2F9C2 /* ScnNode2dProps.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnNode2dProps.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/scene/ScnNode2dProps.h"; sourceTree = "<absolute>"; };
+		2C142ED32E42081E00A2F9C2 /* ScnRenderCmd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnRenderCmd.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/scene/ScnRenderCmd.h"; sourceTree = "<absolute>"; };
+		2C142ED42E42081E00A2F9C2 /* ScnTexture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnTexture.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/scene/ScnTexture.h"; sourceTree = "<absolute>"; };
+		2C142ED62E42081E00A2F9C2 /* ScnVertexbuff.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnVertexbuff.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/scene/ScnVertexbuff.h"; sourceTree = "<absolute>"; };
+		2C142ED72E42081E00A2F9C2 /* ScnVertexbuffs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnVertexbuffs.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/scene/ScnVertexbuffs.h"; sourceTree = "<absolute>"; };
+		2C142EE42E42082E00A2F9C2 /* ScnGpuBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnGpuBuffer.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/gpu/ScnGpuBuffer.h"; sourceTree = "<absolute>"; };
+		2C142EE52E42082E00A2F9C2 /* ScnGpuDataType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnGpuDataType.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/gpu/ScnGpuDataType.h"; sourceTree = "<absolute>"; };
+		2C142EE62E42082E00A2F9C2 /* ScnGpuDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnGpuDevice.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/gpu/ScnGpuDevice.h"; sourceTree = "<absolute>"; };
+		2C142EE72E42082E00A2F9C2 /* ScnGpuFramebuff.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnGpuFramebuff.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/gpu/ScnGpuFramebuff.h"; sourceTree = "<absolute>"; };
+		2C142EE82E42082E00A2F9C2 /* ScnGpuFramebuffProps.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnGpuFramebuffProps.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/gpu/ScnGpuFramebuffProps.h"; sourceTree = "<absolute>"; };
+		2C142EE92E42082E00A2F9C2 /* ScnGpuModelProps2d.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnGpuModelProps2d.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/gpu/ScnGpuModelProps2d.h"; sourceTree = "<absolute>"; };
+		2C142EEA2E42082E00A2F9C2 /* ScnGpuRenderbuff.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnGpuRenderbuff.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/gpu/ScnGpuRenderbuff.h"; sourceTree = "<absolute>"; };
+		2C142EEB2E42082E00A2F9C2 /* ScnGpuTexture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnGpuTexture.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/gpu/ScnGpuTexture.h"; sourceTree = "<absolute>"; };
+		2C142EEC2E42082E00A2F9C2 /* ScnGpuVertexbuff.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnGpuVertexbuff.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/gpu/ScnGpuVertexbuff.h"; sourceTree = "<absolute>"; };
+		2C142EF62E42084100A2F9C2 /* ScnArray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnArray.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/core/ScnArray.h"; sourceTree = "<absolute>"; };
+		2C142EF72E42084100A2F9C2 /* ScnArrayEmbed.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnArrayEmbed.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/core/ScnArrayEmbed.h"; sourceTree = "<absolute>"; };
+		2C142EF82E42084100A2F9C2 /* ScnArraySorted.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnArraySorted.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/core/ScnArraySorted.h"; sourceTree = "<absolute>"; };
+		2C142EF92E42084100A2F9C2 /* ScnCompare.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnCompare.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/core/ScnCompare.h"; sourceTree = "<absolute>"; };
+		2C142EFA2E42084100A2F9C2 /* ScnContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnContext.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/core/ScnContext.h"; sourceTree = "<absolute>"; };
+		2C142EFB2E42084100A2F9C2 /* ScnMemBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnMemBlock.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/core/ScnMemBlock.h"; sourceTree = "<absolute>"; };
+		2C142EFC2E42084100A2F9C2 /* ScnMemElastic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnMemElastic.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/core/ScnMemElastic.h"; sourceTree = "<absolute>"; };
+		2C142EFE2E42084100A2F9C2 /* ScnMutex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnMutex.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/core/ScnMutex.h"; sourceTree = "<absolute>"; };
+		2C142EFF2E42084100A2F9C2 /* ScnObjRef.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnObjRef.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/core/ScnObjRef.h"; sourceTree = "<absolute>"; };
+		2C142F002E42084100A2F9C2 /* ScnSharedPtr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnSharedPtr.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/core/ScnSharedPtr.h"; sourceTree = "<absolute>"; };
+		2C142F0C2E42086900A2F9C2 /* ScnApiMetal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnApiMetal.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/api/ScnApiMetal.h"; sourceTree = "<absolute>"; };
+		2C142F0E2E42087800A2F9C2 /* ScnRender.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnRender.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/ScnRender.h"; sourceTree = "<absolute>"; };
 		2C1765F22734527D00AC2720 /* NBIOPollster.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NBIOPollster.c; sourceTree = "<group>"; };
 		2C1765F52734528F00AC2720 /* NBIOPollster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBIOPollster.h; path = ../../include/nb/core/NBIOPollster.h; sourceTree = "<group>"; };
 		2C1799282571680D00604752 /* lz4frame_static.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lz4frame_static.h; sourceTree = "<group>"; };
@@ -3235,8 +3425,6 @@
 		2C18385325C36BA800FAFDDA /* NBRtcpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBRtcpClient.h; path = ../../include/nb/net/NBRtcpClient.h; sourceTree = "<group>"; };
 		2C19909D205E296500B5F48C /* NBAes256.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBAes256.h; path = ../../../include/nb/crypto/NBAes256.h; sourceTree = SOURCE_ROOT; };
 		2C19909E205E296600B5F48C /* NBAes256.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = NBAes256.c; path = ../../../src/crypto/NBAes256.c; sourceTree = SOURCE_ROOT; };
-		2C19A1B42E10226800B4140F /* NBGpuBuffer.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBGpuBuffer.c; path = ../../../src/gpu/NBGpuBuffer.c; sourceTree = SOURCE_ROOT; };
-		2C19A1B72E10227600B4140F /* NBGpuBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBGpuBuffer.h; path = ../../../include/nb/gpu/NBGpuBuffer.h; sourceTree = SOURCE_ROOT; };
 		2C1A6A5C2724C4F8001EE349 /* NBWebSocketMessage.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NBWebSocketMessage.c; sourceTree = "<group>"; };
 		2C1A6A5D2724C4F8001EE349 /* NBWebSocketFrame.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NBWebSocketFrame.c; sourceTree = "<group>"; };
 		2C1A6A622724C515001EE349 /* NBWebSocketMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBWebSocketMessage.h; path = ../../include/nb/net/NBWebSocketMessage.h; sourceTree = "<group>"; };
@@ -3954,6 +4142,10 @@
 		2C375E2420645ED600EDC5CA /* NBFrameworkCfg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBFrameworkCfg.h; path = ../../../include/nb/NBFrameworkCfg.h; sourceTree = SOURCE_ROOT; };
 		2C375E262065A73000EDC5CA /* NBCrc32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBCrc32.h; path = ../../../include/nb/crypto/NBCrc32.h; sourceTree = SOURCE_ROOT; };
 		2C375E272065A73000EDC5CA /* NBCrc32.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = NBCrc32.c; path = ../../../src/crypto/NBCrc32.c; sourceTree = SOURCE_ROOT; };
+		2C378DD62E466C5A00C73424 /* ScnGpuSampler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnGpuSampler.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/gpu/ScnGpuSampler.h"; sourceTree = "<absolute>"; };
+		2C378DD82E466C7800C73424 /* ScnGpuSampler.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ScnGpuSampler.c; sourceTree = "<group>"; };
+		2C378E612E475A4500C73424 /* ixtli-defs.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "ixtli-defs.c"; sourceTree = "<group>"; };
+		2C378E642E475A5200C73424 /* ixtli-defs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "ixtli-defs.h"; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/ixtli-defs.h"; sourceTree = "<absolute>"; };
 		2C3CD63828F49D1E00D27B5F /* NBObjectLnk.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NBObjectLnk.c; sourceTree = "<group>"; };
 		2C3CD63B28F49D6700D27B5F /* NBObjectLnk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBObjectLnk.h; path = ../include/nb/NBObjectLnk.h; sourceTree = "<group>"; };
 		2C3DBFDC2BC31CF6002D78BD /* NBThreadStoragePriv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBThreadStoragePriv.h; sourceTree = "<group>"; };
@@ -3970,6 +4162,9 @@
 		2C4299B420FD9D9900D09159 /* NBHttpBody.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = NBHttpBody.c; path = ../../../src/net/NBHttpBody.c; sourceTree = SOURCE_ROOT; };
 		2C44FAE72359162600CA76CD /* NBMsExchangeClt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = NBMsExchangeClt.c; path = ../../../src/net/NBMsExchangeClt.c; sourceTree = SOURCE_ROOT; };
 		2C44FAE82359162600CA76CD /* NBMsExchangeClt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBMsExchangeClt.h; path = ../../../include/nb/net/NBMsExchangeClt.h; sourceTree = SOURCE_ROOT; };
+		2C4755522E4A38AF008009FD /* ScnGpuRenderJob.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ScnGpuRenderJob.c; sourceTree = "<group>"; };
+		2C4BA8652E47636C000E02F7 /* ScnChangeRngs.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = ScnChangeRngs.c; path = ../../../src/ixrender/type/ScnChangeRngs.c; sourceTree = SOURCE_ROOT; };
+		2C4BA8682E47637C000E02F7 /* ScnChangeRngs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnChangeRngs.h; path = ../../../include/ixrender/type/ScnChangeRngs.h; sourceTree = SOURCE_ROOT; };
 		2C4BD1AE25D3A7520085B790 /* NBDataBuff.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NBDataBuff.c; sourceTree = "<group>"; };
 		2C4BD1AF25D3A7530085B790 /* NBDataChunk.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NBDataChunk.c; sourceTree = "<group>"; };
 		2C4BD1B025D3A7540085B790 /* NBDataBuffsProvider.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NBDataBuffsProvider.c; sourceTree = "<group>"; };
@@ -3986,6 +4181,9 @@
 		2C54C5D225C5DDC600B779DD /* NBRtpQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBRtpQueue.h; path = ../../include/nb/net/NBRtpQueue.h; sourceTree = "<group>"; };
 		2C5C35DD28E5068200F01680 /* NBIOPollstersPool.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NBIOPollstersPool.c; sourceTree = "<group>"; };
 		2C5C35E028E5069D00F01680 /* NBIOPollstersPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBIOPollstersPool.h; path = ../../include/nb/core/NBIOPollstersPool.h; sourceTree = "<group>"; };
+		2C608C8E2E61A0FB00BB5904 /* ScnContextItf.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ScnContextItf.c; sourceTree = "<group>"; };
+		2C608C8F2E61A0FB00BB5904 /* ScnMemoryItf.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ScnMemoryItf.c; sourceTree = "<group>"; };
+		2C608C902E61A0FB00BB5904 /* ScnMutexItf.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ScnMutexItf.c; sourceTree = "<group>"; };
 		2C60DE4220730984005D4FBF /* NBCompare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBCompare.h; path = ../../../include/nb/core/NBCompare.h; sourceTree = SOURCE_ROOT; };
 		2C610B85241F3F050091E288 /* NBObject.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = NBObject.c; path = ../../../src/NBObject.c; sourceTree = SOURCE_ROOT; };
 		2C610B86241F3F050091E288 /* NBObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBObject.h; path = ../../../include/nb/NBObject.h; sourceTree = SOURCE_ROOT; };
@@ -4021,16 +4219,10 @@
 		2C6F1B3321E01AFE000E6AED /* dso_conf_VC-WIN64A.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "dso_conf_VC-WIN64A.h"; path = "../../../include/nb/ext/openssl/crypto/include/internal/dso_conf_VC-WIN64A.h"; sourceTree = SOURCE_ROOT; };
 		2C6FA029216BEBF800E88946 /* NBRange.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = NBRange.c; path = ../../../src/core/NBRange.c; sourceTree = SOURCE_ROOT; };
 		2C6FA02A216BEBF900E88946 /* NBRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBRange.h; path = ../../../include/nb/core/NBRange.h; sourceTree = SOURCE_ROOT; };
-		2C702E852E1324FE009BFCAB /* NBScnNodeProps.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnNodeProps.h; path = "/Users/mortegam/Desktop/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/nb/scene/NBScnNodeProps.h"; sourceTree = "<absolute>"; };
-		2C702E862E1324FE009BFCAB /* NBScnNodeProps.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = NBScnNodeProps.c; sourceTree = "<group>"; };
-		2C702E872E1324FE009BFCAB /* NBScnTransform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnTransform.h; path = "/Users/mortegam/Desktop/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/nb/scene/NBScnTransform.h"; sourceTree = "<absolute>"; };
-		2C702E882E1324FE009BFCAB /* NBScnTransform.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = NBScnTransform.c; sourceTree = "<group>"; };
-		2C702E922E15BF83009BFCAB /* NBGpuVertexBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBGpuVertexBuffer.h; path = ../../../include/nb/gpu/NBGpuVertexBuffer.h; sourceTree = SOURCE_ROOT; };
-		2C702E932E15BF83009BFCAB /* NBGpuVertexBuffer.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBGpuVertexBuffer.c; path = ../../../src/gpu/NBGpuVertexBuffer.c; sourceTree = SOURCE_ROOT; };
-		2C702E972E15C297009BFCAB /* NBGpuDataType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBGpuDataType.h; path = ../../../include/nb/gpu/NBGpuDataType.h; sourceTree = SOURCE_ROOT; };
-		2C702E982E15C297009BFCAB /* NBGpuDataType.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBGpuDataType.c; path = ../../../src/gpu/NBGpuDataType.c; sourceTree = SOURCE_ROOT; };
-		2C702E9C2E168EFC009BFCAB /* NBScnVertexBuffs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnVertexBuffs.h; path = "/Users/mortegam/Desktop/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/nb/scene/NBScnVertexBuffs.h"; sourceTree = "<absolute>"; };
-		2C702E9D2E168EFC009BFCAB /* NBScnVertexBuffs.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = NBScnVertexBuffs.c; sourceTree = "<group>"; };
+		2C702E852E1324FE009BFCAB /* NBScnNodeProps.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnNodeProps.h; path = ../../../include/nb/scene/NBScnNodeProps.h; sourceTree = SOURCE_ROOT; };
+		2C702E862E1324FE009BFCAB /* NBScnNodeProps.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBScnNodeProps.c; path = ../../../src/scene/NBScnNodeProps.c; sourceTree = SOURCE_ROOT; };
+		2C702E872E1324FE009BFCAB /* NBScnTransform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnTransform.h; path = ../../../include/nb/scene/NBScnTransform.h; sourceTree = SOURCE_ROOT; };
+		2C702E882E1324FE009BFCAB /* NBScnTransform.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBScnTransform.c; path = ../../../src/scene/NBScnTransform.c; sourceTree = SOURCE_ROOT; };
 		2C712EA822506018009EC8BF /* NBLinkedList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBLinkedList.h; path = ../../../include/nb/core/NBLinkedList.h; sourceTree = SOURCE_ROOT; };
 		2C712EAA22506034009EC8BF /* NBLinkedList.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = NBLinkedList.c; path = ../../../src/core/NBLinkedList.c; sourceTree = SOURCE_ROOT; };
 		2C718A2F211105670000F260 /* NBHttpMessage.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBHttpMessage.c; path = ../../../src/net/NBHttpMessage.c; sourceTree = SOURCE_ROOT; };
@@ -4039,6 +4231,7 @@
 		2C718A32211105680000F260 /* NBHttpMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBHttpMessage.h; path = ../../../include/nb/net/NBHttpMessage.h; sourceTree = SOURCE_ROOT; };
 		2C72ADA625C47A2500821502 /* NBRtspClientStats.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NBRtspClientStats.c; sourceTree = "<group>"; };
 		2C72ADAD25C47A3B00821502 /* NBRtspClientStats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBRtspClientStats.h; path = ../../include/nb/net/NBRtspClientStats.h; sourceTree = "<group>"; };
+		2C74016F2E44D897004E8932 /* ScnResourceMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnResourceMode.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/scene/ScnResourceMode.h"; sourceTree = "<absolute>"; };
 		2C7D515B2077169B005C6AB5 /* NBCompare.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = NBCompare.c; path = ../../../src/core/NBCompare.c; sourceTree = SOURCE_ROOT; };
 		2C7F5A982DE9AEEF007ADD93 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		2C7F5A9A2DE9AF42007ADD93 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -4430,12 +4623,8 @@
 		2C90F7F02E0C04EA009964D3 /* NBSintaxParserDefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBSintaxParserDefs.h; path = ../../../include/nb/sintax/NBSintaxParserDefs.h; sourceTree = SOURCE_ROOT; };
 		2C90F7F12E0C04EA009964D3 /* NBSintaxParserResults.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBSintaxParserResults.h; path = ../../../include/nb/sintax/NBSintaxParserResults.h; sourceTree = SOURCE_ROOT; };
 		2C90F7F22E0C04EA009964D3 /* NBSintaxParserRules.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBSintaxParserRules.h; path = ../../../include/nb/sintax/NBSintaxParserRules.h; sourceTree = SOURCE_ROOT; };
-		2C90F7FD2E0C2A68009964D3 /* NBScnRenderCmd.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBScnRenderCmd.c; path = ../../../src/scene/NBScnRenderCmd.c; sourceTree = SOURCE_ROOT; };
-		2C90F8002E0C2A7A009964D3 /* NBScnRenderCmd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderCmd.h; path = ../../../include/nb/scene/NBScnRenderCmd.h; sourceTree = SOURCE_ROOT; };
-		2C90F8022E0C66D9009964D3 /* NBScnRenderJobBldr.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBScnRenderJobBldr.c; path = ../../../src/scene/NBScnRenderJobBldr.c; sourceTree = SOURCE_ROOT; };
-		2C90F8052E0C66F1009964D3 /* NBScnRenderJobBldr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderJobBldr.h; path = ../../../include/nb/scene/NBScnRenderJobBldr.h; sourceTree = SOURCE_ROOT; };
-		2C90F8072E0C68F4009964D3 /* NBScnVertices.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = NBScnVertices.c; sourceTree = "<group>"; };
-		2C90F80A2E0C6902009964D3 /* NBScnVertices.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnVertices.h; path = "/Users/mortegam/Desktop/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/nb/scene/NBScnVertices.h"; sourceTree = "<absolute>"; };
+		2C90F8072E0C68F4009964D3 /* NBScnVertices.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBScnVertices.c; path = ../../../src/scene/NBScnVertices.c; sourceTree = SOURCE_ROOT; };
+		2C90F80A2E0C6902009964D3 /* NBScnVertices.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnVertices.h; path = ../../../include/nb/scene/NBScnVertices.h; sourceTree = SOURCE_ROOT; };
 		2C90F80C2E0C80B3009964D3 /* NBMemoryBlock.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBMemoryBlock.c; path = ../../../src/core/NBMemoryBlock.c; sourceTree = SOURCE_ROOT; };
 		2C90F80D2E0C80B3009964D3 /* NBMemoryBlocks.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBMemoryBlocks.c; path = ../../../src/core/NBMemoryBlocks.c; sourceTree = SOURCE_ROOT; };
 		2C90F8122E0C80CA009964D3 /* NBMemoryBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBMemoryBlock.h; path = ../../../include/nb/core/NBMemoryBlock.h; sourceTree = SOURCE_ROOT; };
@@ -4557,18 +4746,18 @@
 		2CB75FCE2E01B50100D7E4FE /* NBScnRenderJobDefs.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBScnRenderJobDefs.c; path = ../../../src/scene/NBScnRenderJobDefs.c; sourceTree = SOURCE_ROOT; };
 		2CB75FCF2E01B50100D7E4FE /* NBScnRenderJobFlat.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBScnRenderJobFlat.c; path = ../../../src/scene/NBScnRenderJobFlat.c; sourceTree = SOURCE_ROOT; };
 		2CB75FD02E01B50100D7E4FE /* NBScnRenderJobTree.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBScnRenderJobTree.c; path = ../../../src/scene/NBScnRenderJobTree.c; sourceTree = SOURCE_ROOT; };
-		2CB75FD12E01B50100D7E4FE /* NBScnRenderJob.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = NBScnRenderJob.glsl; sourceTree = "<group>"; };
-		2CB75FD22E01B50100D7E4FE /* NBScnRenderJob.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = NBScnRenderJob.hlsl; sourceTree = "<group>"; };
+		2CB75FD12E01B50100D7E4FE /* NBScnRenderJob.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; name = NBScnRenderJob.glsl; path = ../../../src/scene/shaders/NBScnRenderJob.glsl; sourceTree = SOURCE_ROOT; };
+		2CB75FD22E01B50100D7E4FE /* NBScnRenderJob.hlsl */ = {isa = PBXFileReference; lastKnownFileType = text; name = NBScnRenderJob.hlsl; path = ../../../src/scene/shaders/NBScnRenderJob.hlsl; sourceTree = SOURCE_ROOT; };
 		2CB75FDA2E01B52F00D7E4FE /* NBScnRenderJobDefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderJobDefs.h; path = ../../../include/nb/scene/NBScnRenderJobDefs.h; sourceTree = SOURCE_ROOT; };
 		2CB75FDB2E01B52F00D7E4FE /* NBScnRenderJobFlat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderJobFlat.h; path = ../../../include/nb/scene/NBScnRenderJobFlat.h; sourceTree = SOURCE_ROOT; };
 		2CB75FDD2E01B52F00D7E4FE /* NBScnRenderJobTree.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderJobTree.h; path = ../../../include/nb/scene/NBScnRenderJobTree.h; sourceTree = SOURCE_ROOT; };
-		2CB75FE22E01B54800D7E4FE /* NBScnRenderJob_cs_4_0.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderJob_cs_4_0.h; path = "/Users/mortegam/Desktop/NIBSA_proyectos/CltNicaraguaBinary/sys-nbframework/sys-nbframework-src/include/nb/scene/shaders/NBScnRenderJob_cs_4_0.h"; sourceTree = "<absolute>"; };
-		2CB75FE32E01B54800D7E4FE /* NBScnRenderJob_cs_5_0.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderJob_cs_5_0.h; path = "/Users/mortegam/Desktop/NIBSA_proyectos/CltNicaraguaBinary/sys-nbframework/sys-nbframework-src/include/nb/scene/shaders/NBScnRenderJob_cs_5_0.h"; sourceTree = "<absolute>"; };
-		2CB75FE42E01B54800D7E4FE /* NBScnRenderJob_glsl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderJob_glsl.h; path = "/Users/mortegam/Desktop/NIBSA_proyectos/CltNicaraguaBinary/sys-nbframework/sys-nbframework-src/include/nb/scene/shaders/NBScnRenderJob_glsl.h"; sourceTree = "<absolute>"; };
-		2CB75FE52E01B54800D7E4FE /* NBScnRenderJob_hlsl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderJob_hlsl.h; path = "/Users/mortegam/Desktop/NIBSA_proyectos/CltNicaraguaBinary/sys-nbframework/sys-nbframework-src/include/nb/scene/shaders/NBScnRenderJob_hlsl.h"; sourceTree = "<absolute>"; };
-		2CB75FE62E01B54800D7E4FE /* NBScnRenderJob_opengl4_5_430.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderJob_opengl4_5_430.h; path = "/Users/mortegam/Desktop/NIBSA_proyectos/CltNicaraguaBinary/sys-nbframework/sys-nbframework-src/include/nb/scene/shaders/NBScnRenderJob_opengl4_5_430.h"; sourceTree = "<absolute>"; };
-		2CB75FE72E01B54800D7E4FE /* NBScnRenderJob_vulkan1_0_310es.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderJob_vulkan1_0_310es.h; path = "/Users/mortegam/Desktop/NIBSA_proyectos/CltNicaraguaBinary/sys-nbframework/sys-nbframework-src/include/nb/scene/shaders/NBScnRenderJob_vulkan1_0_310es.h"; sourceTree = "<absolute>"; };
-		2CB75FE82E01B54800D7E4FE /* NBScnRenderJob_vulkan1_0_430.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderJob_vulkan1_0_430.h; path = "/Users/mortegam/Desktop/NIBSA_proyectos/CltNicaraguaBinary/sys-nbframework/sys-nbframework-src/include/nb/scene/shaders/NBScnRenderJob_vulkan1_0_430.h"; sourceTree = "<absolute>"; };
+		2CB75FE22E01B54800D7E4FE /* NBScnRenderJob_cs_4_0.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderJob_cs_4_0.h; path = ../../../include/nb/scene/shaders/NBScnRenderJob_cs_4_0.h; sourceTree = SOURCE_ROOT; };
+		2CB75FE32E01B54800D7E4FE /* NBScnRenderJob_cs_5_0.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderJob_cs_5_0.h; path = ../../../include/nb/scene/shaders/NBScnRenderJob_cs_5_0.h; sourceTree = SOURCE_ROOT; };
+		2CB75FE42E01B54800D7E4FE /* NBScnRenderJob_glsl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderJob_glsl.h; path = ../../../include/nb/scene/shaders/NBScnRenderJob_glsl.h; sourceTree = SOURCE_ROOT; };
+		2CB75FE52E01B54800D7E4FE /* NBScnRenderJob_hlsl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderJob_hlsl.h; path = ../../../include/nb/scene/shaders/NBScnRenderJob_hlsl.h; sourceTree = SOURCE_ROOT; };
+		2CB75FE62E01B54800D7E4FE /* NBScnRenderJob_opengl4_5_430.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderJob_opengl4_5_430.h; path = ../../../include/nb/scene/shaders/NBScnRenderJob_opengl4_5_430.h; sourceTree = SOURCE_ROOT; };
+		2CB75FE72E01B54800D7E4FE /* NBScnRenderJob_vulkan1_0_310es.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderJob_vulkan1_0_310es.h; path = ../../../include/nb/scene/shaders/NBScnRenderJob_vulkan1_0_310es.h; sourceTree = SOURCE_ROOT; };
+		2CB75FE82E01B54800D7E4FE /* NBScnRenderJob_vulkan1_0_430.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRenderJob_vulkan1_0_430.h; path = ../../../include/nb/scene/shaders/NBScnRenderJob_vulkan1_0_430.h; sourceTree = SOURCE_ROOT; };
 		2CB75FF42E01F21100D7E4FE /* research-Vulkan-osx */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "research-Vulkan-osx"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CB760082E01F39B00D7E4FE /* research-Metal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "research-Metal.m"; path = "../../../src/research/research-Metal.m"; sourceTree = SOURCE_ROOT; };
 		2CB7600A2E01F3B700D7E4FE /* NBScnRenderJob.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; name = NBScnRenderJob.metal; path = ../../../src/scene/shaders/NBScnRenderJob.metal; sourceTree = SOURCE_ROOT; };
@@ -4576,22 +4765,16 @@
 		2CB7600E2E01F57700D7E4FE /* research-Metal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "research-Metal.m"; sourceTree = "<group>"; };
 		2CB7600F2E01F57700D7E4FE /* research-Vulkan.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "research-Vulkan.cpp"; sourceTree = "<group>"; };
 		2CB760102E01FE6700D7E4FE /* research-DirectX11.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "research-DirectX11.cpp"; sourceTree = "<group>"; };
-		2CB760112E01FF7300D7E4FE /* NBScnRenderJob.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = NBScnRenderJob.metal; sourceTree = "<group>"; };
+		2CB760112E01FF7300D7E4FE /* NBScnRenderJob.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; name = NBScnRenderJob.metal; path = ../../../src/scene/shaders/NBScnRenderJob.metal; sourceTree = SOURCE_ROOT; };
 		2CB760122E020D6400D7E4FE /* vulkan.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = vulkan.framework; path = ../../../../../../../../VulkanSDK/1.4.313.1/macOS/Frameworks/vulkan.framework; sourceTree = "<group>"; };
+		2CBB85732E462FF80049681D /* ScnBitmapProps.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = ScnBitmapProps.c; path = ../../../src/ixrender/type/ScnBitmapProps.c; sourceTree = SOURCE_ROOT; };
+		2CBB85762E4630070049681D /* ScnBitmapProps.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnBitmapProps.h; path = ../../../include/ixrender/type/ScnBitmapProps.h; sourceTree = SOURCE_ROOT; };
 		2CBED11B2E02140B008B52D0 /* research-scn-compute.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "research-scn-compute.h"; path = "../../../include/nb/research/research-scn-compute.h"; sourceTree = SOURCE_ROOT; };
 		2CBED11C2E021437008B52D0 /* research-scn-compute.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "research-scn-compute.c"; path = "../../../src/research/research-scn-compute.c"; sourceTree = SOURCE_ROOT; };
 		2CBED11E2E021613008B52D0 /* libvulkan.1.4.313.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libvulkan.1.4.313.dylib; path = ../../../../../../../../VulkanSDK/1.4.313.1/macOS/lib/libvulkan.1.4.313.dylib; sourceTree = "<group>"; };
 		2CBED1202E021713008B52D0 /* libvulkan.1.4.313.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libvulkan.1.4.313.dylib; path = ../../../../../../../../VulkanSDK/1.4.313.1/macOS/lib/libvulkan.1.4.313.dylib; sourceTree = "<group>"; };
 		2CBED1222E021748008B52D0 /* libvulkan.1.4.313.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libvulkan.1.4.313.dylib; path = ../../../../../../../../VulkanSDK/1.4.313.1/macOS/lib/libvulkan.1.4.313.dylib; sourceTree = "<group>"; };
 		2CBED1262E021958008B52D0 /* libMoltenVK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMoltenVK.a; path = "../../../../../../../../VulkanSDK/1.4.313.1/macOS/lib/MoltenVK.xcframework/macos-arm64_x86_64/libMoltenVK.a"; sourceTree = "<group>"; };
-		2CBEEA9A2E1156FC00EB4AC9 /* NBGpuRenderbuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBGpuRenderbuffer.h; path = ../../../include/nb/gpu/NBGpuRenderbuffer.h; sourceTree = SOURCE_ROOT; };
-		2CBEEA9B2E1156FC00EB4AC9 /* NBGpuRenderbuffer.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBGpuRenderbuffer.c; path = ../../../src/gpu/NBGpuRenderbuffer.c; sourceTree = SOURCE_ROOT; };
-		2CBEEA9F2E11599700EB4AC9 /* NBGpuFramebuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBGpuFramebuffer.h; path = ../../../include/nb/gpu/NBGpuFramebuffer.h; sourceTree = SOURCE_ROOT; };
-		2CBEEAA02E11599700EB4AC9 /* NBGpuFramebuffer.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBGpuFramebuffer.c; path = ../../../src/gpu/NBGpuFramebuffer.c; sourceTree = SOURCE_ROOT; };
-		2CBEEAA42E115AED00EB4AC9 /* NBGpuTexture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBGpuTexture.h; path = ../../../include/nb/gpu/NBGpuTexture.h; sourceTree = SOURCE_ROOT; };
-		2CBEEAA52E115AED00EB4AC9 /* NBGpuTexture.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBGpuTexture.c; path = ../../../src/gpu/NBGpuTexture.c; sourceTree = SOURCE_ROOT; };
-		2CBEEAA92E11B3C100EB4AC9 /* NBScnRender.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBScnRender.h; path = ../../../include/nb/scene/NBScnRender.h; sourceTree = SOURCE_ROOT; };
-		2CBEEAAA2E11B3C100EB4AC9 /* NBScnRender.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBScnRender.c; path = ../../../src/scene/NBScnRender.c; sourceTree = SOURCE_ROOT; };
 		2CBFF5C4213660CB0060B73A /* NBX500Name.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBX500Name.c; path = ../../../src/crypto/NBX500Name.c; sourceTree = SOURCE_ROOT; };
 		2CBFF5C7213660E60060B73A /* NBX500Name.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBX500Name.h; path = ../../../include/nb/crypto/NBX500Name.h; sourceTree = SOURCE_ROOT; };
 		2CBFF5C821366B520060B73A /* NBEnumMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBEnumMap.h; path = ../../../include/nb/core/NBEnumMap.h; sourceTree = SOURCE_ROOT; };
@@ -4636,11 +4819,21 @@
 		2CD615A328F0D9EA0058F91E /* NBStopFlag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBStopFlag.h; path = ../../include/nb/core/NBStopFlag.h; sourceTree = "<group>"; };
 		2CD615A528F22E150058F91E /* NBIOBuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NBIOBuffer.c; sourceTree = "<group>"; };
 		2CD615A828F22E230058F91E /* NBIOBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBIOBuffer.h; path = ../../include/nb/core/NBIOBuffer.h; sourceTree = "<group>"; };
+		2CDAC1D42E4A0989004ABB3A /* ScnRenderCmds.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ScnRenderCmds.c; sourceTree = "<group>"; };
+		2CDAC1D52E4A0989004ABB3A /* ScnRenderJob.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ScnRenderJob.c; sourceTree = "<group>"; };
+		2CDAC1DA2E4A09CF004ABB3A /* ScnRenderCmds.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnRenderCmds.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/scene/ScnRenderCmds.h"; sourceTree = "<absolute>"; };
+		2CDAC1DB2E4A09CF004ABB3A /* ScnRenderJob.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnRenderJob.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/scene/ScnRenderJob.h"; sourceTree = "<absolute>"; };
+		2CDAC1DC2E4A09CF004ABB3A /* ScnTransform2d.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnTransform2d.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/scene/ScnTransform2d.h"; sourceTree = "<absolute>"; };
+		2CDAC1E02E4A0A08004ABB3A /* ScnGpuDeviceDesc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnGpuDeviceDesc.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/lib-ixtli-render/include/ixrender/gpu/ScnGpuDeviceDesc.h"; sourceTree = "<absolute>"; };
+		2CDAC1E12E4A0A08004ABB3A /* ScnGpuModelProps2d.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnGpuModelProps2d.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/lib-ixtli-render/include/ixrender/gpu/ScnGpuModelProps2d.h"; sourceTree = "<absolute>"; };
+		2CDAC1E22E4A0A08004ABB3A /* ScnGpuRenderJob.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnGpuRenderJob.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/lib-ixtli-render/include/ixrender/gpu/ScnGpuRenderJob.h"; sourceTree = "<absolute>"; };
 		2CDBB8CE2416D1F3007677D8 /* NBFrameworkDefs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = NBFrameworkDefs.c; path = ../../../src/NBFrameworkDefs.c; sourceTree = SOURCE_ROOT; };
 		2CE08CE5219F2FE300839BCF /* NBTextCursor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBTextCursor.h; path = ../../../include/nb/fonts/NBTextCursor.h; sourceTree = SOURCE_ROOT; };
 		2CE08CE6219F2FFF00839BCF /* NBTextCursor.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBTextCursor.c; path = ../../../src/fonts/NBTextCursor.c; sourceTree = SOURCE_ROOT; };
 		2CE08CE9219F32F800839BCF /* NBText.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBText.c; path = ../../../src/fonts/NBText.c; sourceTree = SOURCE_ROOT; };
 		2CE08CEC219F330B00839BCF /* NBText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBText.h; path = ../../../include/nb/fonts/NBText.h; sourceTree = SOURCE_ROOT; };
+		2CE1E7772E4A39540097C926 /* ScnGpuDeviceDesc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnGpuDeviceDesc.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/gpu/ScnGpuDeviceDesc.h"; sourceTree = "<absolute>"; };
+		2CE1E7782E4A39540097C926 /* ScnGpuRenderJob.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnGpuRenderJob.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/gpu/ScnGpuRenderJob.h"; sourceTree = "<absolute>"; };
 		2CE548C3263C8F1600DD018D /* NBThreadsPool.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NBThreadsPool.c; sourceTree = "<group>"; };
 		2CE548C9263C8F2E00DD018D /* NBThreadsPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBThreadsPool.h; path = ../../include/nb/core/NBThreadsPool.h; sourceTree = "<group>"; };
 		2CE84CD020F3ED6D0030508D /* NBHttpParser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = NBHttpParser.c; path = ../../../src/net/NBHttpParser.c; sourceTree = SOURCE_ROOT; };
@@ -4919,6 +5112,45 @@
 		2CFF7C4F26AF4A1E00D2A0DF /* NBHttpReqRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBHttpReqRule.h; path = ../../include/nb/net/NBHttpReqRule.h; sourceTree = "<group>"; };
 		2CFF7C5126AF534B00D2A0DF /* NBHttpReqRules.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NBHttpReqRules.c; sourceTree = "<group>"; };
 		2CFF7C5426AF535900D2A0DF /* NBHttpReqRules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NBHttpReqRules.h; path = ../../include/nb/net/NBHttpReqRules.h; sourceTree = "<group>"; };
+		2CFF97E62E61A166003F0B26 /* ScnModel2dCmd.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ScnModel2dCmd.c; sourceTree = "<group>"; };
+		2CFF97E72E61A166003F0B26 /* ScnRenderFbuffState.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ScnRenderFbuffState.c; sourceTree = "<group>"; };
+		2CFF97E82E61A166003F0B26 /* ScnRenderJobObj.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ScnRenderJobObj.c; sourceTree = "<group>"; };
+		2CFF97EF2E61A1CB003F0B26 /* ScnModel2dCmd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnModel2dCmd.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/scene/ScnModel2dCmd.h"; sourceTree = "<absolute>"; };
+		2CFF97F02E61A1CB003F0B26 /* ScnModelDrawCmdType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnModelDrawCmdType.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/scene/ScnModelDrawCmdType.h"; sourceTree = "<absolute>"; };
+		2CFF97F12E61A1CB003F0B26 /* ScnRenderFbuffState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnRenderFbuffState.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/scene/ScnRenderFbuffState.h"; sourceTree = "<absolute>"; };
+		2CFF97F22E61A1CB003F0B26 /* ScnRenderJobObj.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnRenderJobObj.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/scene/ScnRenderJobObj.h"; sourceTree = "<absolute>"; };
+		2CFF97F32E61A1CB003F0B26 /* ScnRenderJobPushMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnRenderJobPushMode.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/scene/ScnRenderJobPushMode.h"; sourceTree = "<absolute>"; };
+		2CFF97F42E61A1CB003F0B26 /* ScnRenderShape.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnRenderShape.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/scene/ScnRenderShape.h"; sourceTree = "<absolute>"; };
+		2CFF97F52E61A1CB003F0B26 /* ScnVertex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnVertex.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/scene/ScnVertex.h"; sourceTree = "<absolute>"; };
+		2CFF97F62E61A1CB003F0B26 /* ScnVertexType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnVertexType.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/scene/ScnVertexType.h"; sourceTree = "<absolute>"; };
+		2CFF97F72E61A1EA003F0B26 /* ScnBitmapColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnBitmapColor.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/type/ScnBitmapColor.h"; sourceTree = "<absolute>"; };
+		2CFF97F82E61A1EA003F0B26 /* ScnRngLimits.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnRngLimits.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/type/ScnRngLimits.h"; sourceTree = "<absolute>"; };
+		2CFF97F92E61A328003F0B26 /* ScnAbsPtr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnAbsPtr.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/core/ScnAbsPtr.h"; sourceTree = "<absolute>"; };
+		2CFF97FA2E61A328003F0B26 /* ScnContextItf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnContextItf.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/core/ScnContextItf.h"; sourceTree = "<absolute>"; };
+		2CFF97FB2E61A328003F0B26 /* ScnMemBlockAllocItf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnMemBlockAllocItf.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/core/ScnMemBlockAllocItf.h"; sourceTree = "<absolute>"; };
+		2CFF97FC2E61A328003F0B26 /* ScnMemBlockCfg.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnMemBlockCfg.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/core/ScnMemBlockCfg.h"; sourceTree = "<absolute>"; };
+		2CFF97FD2E61A328003F0B26 /* ScnMemBlockPtr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnMemBlockPtr.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/core/ScnMemBlockPtr.h"; sourceTree = "<absolute>"; };
+		2CFF97FE2E61A328003F0B26 /* ScnMemElasticCfg.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnMemElasticCfg.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/core/ScnMemElasticCfg.h"; sourceTree = "<absolute>"; };
+		2CFF97FF2E61A328003F0B26 /* ScnMemoryItf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnMemoryItf.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/core/ScnMemoryItf.h"; sourceTree = "<absolute>"; };
+		2CFF98002E61A328003F0B26 /* ScnMutexItf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ScnMutexItf.h; path = "/Volumes/MacSSD_HFS/NIBSA_proyectos/CltMarcosOrtega/sys-nbframework/sys-nbframework-src/include/ixrender/core/ScnMutexItf.h"; sourceTree = "<absolute>"; };
+		2CFF98012E61A370003F0B26 /* ScnApiMetalBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScnApiMetalBuffer.h; sourceTree = "<group>"; };
+		2CFF98022E61A370003F0B26 /* ScnApiMetalBuffer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScnApiMetalBuffer.m; sourceTree = "<group>"; };
+		2CFF98032E61A370003F0B26 /* ScnApiMetalDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScnApiMetalDevice.h; sourceTree = "<group>"; };
+		2CFF98042E61A370003F0B26 /* ScnApiMetalDevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScnApiMetalDevice.m; sourceTree = "<group>"; };
+		2CFF98052E61A370003F0B26 /* ScnApiMetalFramebuff.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScnApiMetalFramebuff.h; sourceTree = "<group>"; };
+		2CFF98062E61A370003F0B26 /* ScnApiMetalFramebuff.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScnApiMetalFramebuff.m; sourceTree = "<group>"; };
+		2CFF98072E61A370003F0B26 /* ScnApiMetalRenderJob.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScnApiMetalRenderJob.h; sourceTree = "<group>"; };
+		2CFF98082E61A370003F0B26 /* ScnApiMetalRenderJob.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScnApiMetalRenderJob.m; sourceTree = "<group>"; };
+		2CFF98092E61A370003F0B26 /* ScnApiMetalRenderJobState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScnApiMetalRenderJobState.h; sourceTree = "<group>"; };
+		2CFF980A2E61A370003F0B26 /* ScnApiMetalRenderJobState.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScnApiMetalRenderJobState.m; sourceTree = "<group>"; };
+		2CFF980B2E61A370003F0B26 /* ScnApiMetalRenderStates.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScnApiMetalRenderStates.h; sourceTree = "<group>"; };
+		2CFF980C2E61A370003F0B26 /* ScnApiMetalRenderStates.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScnApiMetalRenderStates.m; sourceTree = "<group>"; };
+		2CFF980D2E61A370003F0B26 /* ScnApiMetalSampler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScnApiMetalSampler.h; sourceTree = "<group>"; };
+		2CFF980E2E61A370003F0B26 /* ScnApiMetalSampler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScnApiMetalSampler.m; sourceTree = "<group>"; };
+		2CFF980F2E61A370003F0B26 /* ScnApiMetalTexture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScnApiMetalTexture.h; sourceTree = "<group>"; };
+		2CFF98102E61A370003F0B26 /* ScnApiMetalTexture.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScnApiMetalTexture.m; sourceTree = "<group>"; };
+		2CFF98112E61A370003F0B26 /* ScnApiMetalVertexbuff.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScnApiMetalVertexbuff.h; sourceTree = "<group>"; };
+		2CFF98122E61A370003F0B26 /* ScnApiMetalVertexbuff.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScnApiMetalVertexbuff.m; sourceTree = "<group>"; };
 		2CFF9B9A223A02E700345C47 /* NBCallback.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = NBCallback.c; path = ../../../src/core/NBCallback.c; sourceTree = SOURCE_ROOT; };
 		2CFF9B9D223A02FE00345C47 /* NBCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NBCallback.h; path = ../../../include/nb/core/NBCallback.h; sourceTree = SOURCE_ROOT; };
 		2CFFDE6C27272B4B00190674 /* NBDataCursor.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NBDataCursor.c; sourceTree = "<group>"; };
@@ -5794,6 +6026,196 @@
 			path = ../../../src/ssl;
 			sourceTree = SOURCE_ROOT;
 		};
+		2C142E662E4207D300A2F9C2 /* shaders */ = {
+			isa = PBXGroup;
+			children = (
+				2C142E652E4207D300A2F9C2 /* ScnVertices.metal */,
+			);
+			path = shaders;
+			sourceTree = "<group>";
+		};
+		2C142E682E4207D300A2F9C2 /* metal */ = {
+			isa = PBXGroup;
+			children = (
+				2C142E662E4207D300A2F9C2 /* shaders */,
+				2C142E672E4207D300A2F9C2 /* ScnApiMetal.m */,
+				2CFF98012E61A370003F0B26 /* ScnApiMetalBuffer.h */,
+				2CFF98022E61A370003F0B26 /* ScnApiMetalBuffer.m */,
+				2CFF98032E61A370003F0B26 /* ScnApiMetalDevice.h */,
+				2CFF98042E61A370003F0B26 /* ScnApiMetalDevice.m */,
+				2CFF98052E61A370003F0B26 /* ScnApiMetalFramebuff.h */,
+				2CFF98062E61A370003F0B26 /* ScnApiMetalFramebuff.m */,
+				2CFF98072E61A370003F0B26 /* ScnApiMetalRenderJob.h */,
+				2CFF98082E61A370003F0B26 /* ScnApiMetalRenderJob.m */,
+				2CFF98092E61A370003F0B26 /* ScnApiMetalRenderJobState.h */,
+				2CFF980A2E61A370003F0B26 /* ScnApiMetalRenderJobState.m */,
+				2CFF980B2E61A370003F0B26 /* ScnApiMetalRenderStates.h */,
+				2CFF980C2E61A370003F0B26 /* ScnApiMetalRenderStates.m */,
+				2CFF980D2E61A370003F0B26 /* ScnApiMetalSampler.h */,
+				2CFF980E2E61A370003F0B26 /* ScnApiMetalSampler.m */,
+				2CFF980F2E61A370003F0B26 /* ScnApiMetalTexture.h */,
+				2CFF98102E61A370003F0B26 /* ScnApiMetalTexture.m */,
+				2CFF98112E61A370003F0B26 /* ScnApiMetalVertexbuff.h */,
+				2CFF98122E61A370003F0B26 /* ScnApiMetalVertexbuff.m */,
+			);
+			path = metal;
+			sourceTree = "<group>";
+		};
+		2C142E692E4207D300A2F9C2 /* api */ = {
+			isa = PBXGroup;
+			children = (
+				2C142F0C2E42086900A2F9C2 /* ScnApiMetal.h */,
+				2C142E682E4207D300A2F9C2 /* metal */,
+			);
+			path = api;
+			sourceTree = "<group>";
+		};
+		2C142E722E4207D300A2F9C2 /* core */ = {
+			isa = PBXGroup;
+			children = (
+				2CFF97F92E61A328003F0B26 /* ScnAbsPtr.h */,
+				2CFF97FA2E61A328003F0B26 /* ScnContextItf.h */,
+				2CFF97FB2E61A328003F0B26 /* ScnMemBlockAllocItf.h */,
+				2CFF97FC2E61A328003F0B26 /* ScnMemBlockCfg.h */,
+				2CFF97FD2E61A328003F0B26 /* ScnMemBlockPtr.h */,
+				2CFF97FE2E61A328003F0B26 /* ScnMemElasticCfg.h */,
+				2CFF97FF2E61A328003F0B26 /* ScnMemoryItf.h */,
+				2CFF98002E61A328003F0B26 /* ScnMutexItf.h */,
+				2C608C8E2E61A0FB00BB5904 /* ScnContextItf.c */,
+				2C608C8F2E61A0FB00BB5904 /* ScnMemoryItf.c */,
+				2C608C902E61A0FB00BB5904 /* ScnMutexItf.c */,
+				2C142EF92E42084100A2F9C2 /* ScnCompare.h */,
+				2C142EFF2E42084100A2F9C2 /* ScnObjRef.h */,
+				2C142EF62E42084100A2F9C2 /* ScnArray.h */,
+				2C142E6A2E4207D300A2F9C2 /* ScnArray.c */,
+				2C142EF72E42084100A2F9C2 /* ScnArrayEmbed.h */,
+				2C142EF82E42084100A2F9C2 /* ScnArraySorted.h */,
+				2C142E6B2E4207D300A2F9C2 /* ScnArraySorted.c */,
+				2C142EFA2E42084100A2F9C2 /* ScnContext.h */,
+				2C142E6C2E4207D300A2F9C2 /* ScnContext.c */,
+				2C142EFB2E42084100A2F9C2 /* ScnMemBlock.h */,
+				2C142E6D2E4207D300A2F9C2 /* ScnMemBlock.c */,
+				2C142EFC2E42084100A2F9C2 /* ScnMemElastic.h */,
+				2C142E6E2E4207D300A2F9C2 /* ScnMemElastic.c */,
+				2C142EFE2E42084100A2F9C2 /* ScnMutex.h */,
+				2C142E702E4207D300A2F9C2 /* ScnMutex.c */,
+				2C142F002E42084100A2F9C2 /* ScnSharedPtr.h */,
+				2C142E712E4207D300A2F9C2 /* ScnSharedPtr.c */,
+			);
+			path = core;
+			sourceTree = "<group>";
+		};
+		2C142E792E4207D300A2F9C2 /* gpu */ = {
+			isa = PBXGroup;
+			children = (
+				2CE1E7772E4A39540097C926 /* ScnGpuDeviceDesc.h */,
+				2CE1E7782E4A39540097C926 /* ScnGpuRenderJob.h */,
+				2C4755522E4A38AF008009FD /* ScnGpuRenderJob.c */,
+				2CDAC1E02E4A0A08004ABB3A /* ScnGpuDeviceDesc.h */,
+				2CDAC1E12E4A0A08004ABB3A /* ScnGpuModelProps2d.h */,
+				2CDAC1E22E4A0A08004ABB3A /* ScnGpuRenderJob.h */,
+				2C142EE52E42082E00A2F9C2 /* ScnGpuDataType.h */,
+				2C142EE82E42082E00A2F9C2 /* ScnGpuFramebuffProps.h */,
+				2C142EE92E42082E00A2F9C2 /* ScnGpuModelProps2d.h */,
+				2C142EE42E42082E00A2F9C2 /* ScnGpuBuffer.h */,
+				2C142E732E4207D300A2F9C2 /* ScnGpuBuffer.c */,
+				2C142EE62E42082E00A2F9C2 /* ScnGpuDevice.h */,
+				2C142E742E4207D300A2F9C2 /* ScnGpuDevice.c */,
+				2C142EE72E42082E00A2F9C2 /* ScnGpuFramebuff.h */,
+				2C142E752E4207D300A2F9C2 /* ScnGpuFramebuff.c */,
+				2C142EEA2E42082E00A2F9C2 /* ScnGpuRenderbuff.h */,
+				2C142E762E4207D300A2F9C2 /* ScnGpuRenderbuff.c */,
+				2C378DD62E466C5A00C73424 /* ScnGpuSampler.h */,
+				2C378DD82E466C7800C73424 /* ScnGpuSampler.c */,
+				2C142EEB2E42082E00A2F9C2 /* ScnGpuTexture.h */,
+				2C142E772E4207D300A2F9C2 /* ScnGpuTexture.c */,
+				2C142EEC2E42082E00A2F9C2 /* ScnGpuVertexbuff.h */,
+				2C142E782E4207D300A2F9C2 /* ScnGpuVertexbuff.c */,
+			);
+			path = gpu;
+			sourceTree = "<group>";
+		};
+		2C142E822E4207D300A2F9C2 /* scene */ = {
+			isa = PBXGroup;
+			children = (
+				2CFF97F62E61A1CB003F0B26 /* ScnVertexType.h */,
+				2CFF97F52E61A1CB003F0B26 /* ScnVertex.h */,
+				2CFF97F02E61A1CB003F0B26 /* ScnModelDrawCmdType.h */,
+				2CFF97EF2E61A1CB003F0B26 /* ScnModel2dCmd.h */,
+				2CFF97E62E61A166003F0B26 /* ScnModel2dCmd.c */,
+				2CFF97E72E61A166003F0B26 /* ScnRenderFbuffState.c */,
+				2CFF97E82E61A166003F0B26 /* ScnRenderJobObj.c */,
+				2C74016F2E44D897004E8932 /* ScnResourceMode.h */,
+				2CDAC1DC2E4A09CF004ABB3A /* ScnTransform2d.h */,
+				2C142ED22E42081E00A2F9C2 /* ScnNode2dProps.h */,
+				2C142ECE2E42081E00A2F9C2 /* ScnBuffer.h */,
+				2C142E7A2E4207D300A2F9C2 /* ScnBuffer.c */,
+				2C142ECF2E42081E00A2F9C2 /* ScnFramebuff.h */,
+				2C142E7B2E4207D300A2F9C2 /* ScnFramebuff.c */,
+				2C142ED02E42081E00A2F9C2 /* ScnModel2d.h */,
+				2C142E7C2E4207D300A2F9C2 /* ScnModel2d.c */,
+				2C142ED12E42081E00A2F9C2 /* ScnNode2d.h */,
+				2C142E7D2E4207D300A2F9C2 /* ScnNode2d.c */,
+				2CFF97F42E61A1CB003F0B26 /* ScnRenderShape.h */,
+				2C142ED32E42081E00A2F9C2 /* ScnRenderCmd.h */,
+				2C142E7E2E4207D300A2F9C2 /* ScnRenderCmd.c */,
+				2CDAC1DA2E4A09CF004ABB3A /* ScnRenderCmds.h */,
+				2CDAC1D42E4A0989004ABB3A /* ScnRenderCmds.c */,
+				2CFF97F32E61A1CB003F0B26 /* ScnRenderJobPushMode.h */,
+				2CFF97F12E61A1CB003F0B26 /* ScnRenderFbuffState.h */,
+				2CFF97F22E61A1CB003F0B26 /* ScnRenderJobObj.h */,
+				2CDAC1DB2E4A09CF004ABB3A /* ScnRenderJob.h */,
+				2CDAC1D52E4A0989004ABB3A /* ScnRenderJob.c */,
+				2C142ED42E42081E00A2F9C2 /* ScnTexture.h */,
+				2C142E7F2E4207D300A2F9C2 /* ScnTexture.c */,
+				2C142ED62E42081E00A2F9C2 /* ScnVertexbuff.h */,
+				2C142E802E4207D300A2F9C2 /* ScnVertexbuff.c */,
+				2C142ED72E42081E00A2F9C2 /* ScnVertexbuffs.h */,
+				2C142E812E4207D300A2F9C2 /* ScnVertexbuffs.c */,
+			);
+			path = scene;
+			sourceTree = "<group>";
+		};
+		2C142E852E4207D300A2F9C2 /* type */ = {
+			isa = PBXGroup;
+			children = (
+				2CFF97F72E61A1EA003F0B26 /* ScnBitmapColor.h */,
+				2CFF97F82E61A1EA003F0B26 /* ScnRngLimits.h */,
+				2C142EBE2E42080900A2F9C2 /* ScnAABBox.h */,
+				2C142EC02E42080900A2F9C2 /* ScnColor.h */,
+				2C142EC12E42080900A2F9C2 /* ScnMatrix.h */,
+				2C142EC22E42080900A2F9C2 /* ScnPoint.h */,
+				2C142EC52E42080900A2F9C2 /* ScnSize.h */,
+				2C142EC42E42080900A2F9C2 /* ScnRect.h */,
+				2C142EC32E42080900A2F9C2 /* ScnRange.h */,
+				2C142E842E4207D300A2F9C2 /* ScnRange.c */,
+				2C4BA8682E47637C000E02F7 /* ScnChangeRngs.h */,
+				2C4BA8652E47636C000E02F7 /* ScnChangeRngs.c */,
+				2CBB85762E4630070049681D /* ScnBitmapProps.h */,
+				2CBB85732E462FF80049681D /* ScnBitmapProps.c */,
+				2C142EBF2E42080900A2F9C2 /* ScnBitmap.h */,
+				2C142E832E4207D300A2F9C2 /* ScnBitmap.c */,
+			);
+			path = type;
+			sourceTree = "<group>";
+		};
+		2C142E872E4207D300A2F9C2 /* ixrender */ = {
+			isa = PBXGroup;
+			children = (
+				2C378E642E475A5200C73424 /* ixtli-defs.h */,
+				2C378E612E475A4500C73424 /* ixtli-defs.c */,
+				2C142F0E2E42087800A2F9C2 /* ScnRender.h */,
+				2C142E862E4207D300A2F9C2 /* ScnRender.c */,
+				2C142E692E4207D300A2F9C2 /* api */,
+				2C142E722E4207D300A2F9C2 /* core */,
+				2C142E792E4207D300A2F9C2 /* gpu */,
+				2C142E822E4207D300A2F9C2 /* scene */,
+				2C142E852E4207D300A2F9C2 /* type */,
+			);
+			name = ixrender;
+			path = ../../../src/ixrender;
+			sourceTree = SOURCE_ROOT;
+		};
 		2C1799252571664C00604752 /* lz4 */ = {
 			isa = PBXGroup;
 			children = (
@@ -5826,31 +6248,13 @@
 			path = lib;
 			sourceTree = "<group>";
 		};
-		2C19A1AF2E101AFE00B4140F /* gpu */ = {
-			isa = PBXGroup;
-			children = (
-				2C702E972E15C297009BFCAB /* NBGpuDataType.h */,
-				2C702E982E15C297009BFCAB /* NBGpuDataType.c */,
-				2C19A1B72E10227600B4140F /* NBGpuBuffer.h */,
-				2C19A1B42E10226800B4140F /* NBGpuBuffer.c */,
-				2C702E922E15BF83009BFCAB /* NBGpuVertexBuffer.h */,
-				2C702E932E15BF83009BFCAB /* NBGpuVertexBuffer.c */,
-				2CBEEAA42E115AED00EB4AC9 /* NBGpuTexture.h */,
-				2CBEEAA52E115AED00EB4AC9 /* NBGpuTexture.c */,
-				2CBEEA9A2E1156FC00EB4AC9 /* NBGpuRenderbuffer.h */,
-				2CBEEA9B2E1156FC00EB4AC9 /* NBGpuRenderbuffer.c */,
-				2CBEEA9F2E11599700EB4AC9 /* NBGpuFramebuffer.h */,
-				2CBEEAA02E11599700EB4AC9 /* NBGpuFramebuffer.c */,
-			);
-			path = gpu;
-			sourceTree = "<group>";
-		};
 		2C227E08204B2F3000D1B813 = {
 			isa = PBXGroup;
 			children = (
 				2CBED1202E021713008B52D0 /* libvulkan.1.4.313.dylib */,
 				2CBED1222E021748008B52D0 /* libvulkan.1.4.313.dylib */,
 				2C9ACF3126F9421D00203CAA /* Packages */,
+				2C142E872E4207D300A2F9C2 /* ixrender */,
 				2C227E0F204B303F00D1B813 /* nbframework */,
 				2C2283D2204B940E00D1B813 /* nbframework-test-osx */,
 				2CFF087424522AA40058AEFF /* nbframework-test-http2-osx */,
@@ -5884,7 +6288,6 @@
 				2CC7F34B240DF6F4005284A1 /* storage */,
 				2CFF087C24539E680058AEFF /* pdf */,
 				2C8DD8E6211F552F00FEEA09 /* 2d */,
-				2C19A1AF2E101AFE00B4140F /* gpu */,
 				2CB210B52DE365290014BB12 /* scene */,
 				2CB1F94221193415006F716E /* fonts */,
 				2CFFE74D2241999C00357FCB /* compress */,
@@ -7984,18 +8387,10 @@
 				2C702E882E1324FE009BFCAB /* NBScnTransform.c */,
 				2C702E852E1324FE009BFCAB /* NBScnNodeProps.h */,
 				2C702E862E1324FE009BFCAB /* NBScnNodeProps.c */,
-				2C90F8002E0C2A7A009964D3 /* NBScnRenderCmd.h */,
-				2C90F7FD2E0C2A68009964D3 /* NBScnRenderCmd.c */,
 				2C90F80A2E0C6902009964D3 /* NBScnVertices.h */,
 				2C90F8072E0C68F4009964D3 /* NBScnVertices.c */,
-				2C702E9C2E168EFC009BFCAB /* NBScnVertexBuffs.h */,
-				2C702E9D2E168EFC009BFCAB /* NBScnVertexBuffs.c */,
-				2CBEEAA92E11B3C100EB4AC9 /* NBScnRender.h */,
-				2CBEEAAA2E11B3C100EB4AC9 /* NBScnRender.c */,
 				2CB75FDA2E01B52F00D7E4FE /* NBScnRenderJobDefs.h */,
 				2CB75FCE2E01B50100D7E4FE /* NBScnRenderJobDefs.c */,
-				2C90F8052E0C66F1009964D3 /* NBScnRenderJobBldr.h */,
-				2C90F8022E0C66D9009964D3 /* NBScnRenderJobBldr.c */,
 				2CB75FDD2E01B52F00D7E4FE /* NBScnRenderJobTree.h */,
 				2CB75FD02E01B50100D7E4FE /* NBScnRenderJobTree.c */,
 				2CB75FDB2E01B52F00D7E4FE /* NBScnRenderJobFlat.h */,
@@ -8295,44 +8690,94 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CB75FE92E01B54800D7E4FE /* NBScnRenderJob_opengl4_5_430.h in Headers */,
-				2C90F8012E0C2A7A009964D3 /* NBScnRenderCmd.h in Headers */,
 				2CB75FEA2E01B54800D7E4FE /* NBScnRenderJob_vulkan1_0_310es.h in Headers */,
 				2C90F7F32E0C04EA009964D3 /* NBSintaxParserCPProcUnit.h in Headers */,
 				2C90F80B2E0C6902009964D3 /* NBScnVertices.h in Headers */,
-				2CBEEAA82E115AED00EB4AC9 /* NBGpuTexture.h in Headers */,
+				2C142F0F2E42087800A2F9C2 /* ScnRender.h in Headers */,
 				2C90F7F42E0C04EA009964D3 /* NBSintaxParserResults.h in Headers */,
-				2C702E9E2E168EFC009BFCAB /* NBScnVertexBuffs.h in Headers */,
 				2C90F7F52E0C04EA009964D3 /* NBSintaxParser.h in Headers */,
+				2C4BA8692E47637C000E02F7 /* ScnChangeRngs.h in Headers */,
 				2C90F7F62E0C04EA009964D3 /* NBSintaxParserCTokens.h in Headers */,
 				2C90F7F72E0C04EA009964D3 /* NBSintaxParserCDefs.h in Headers */,
+				2C7401702E44D897004E8932 /* ScnResourceMode.h in Headers */,
 				2C90F7F82E0C04EA009964D3 /* NBSintaxParserDefs.h in Headers */,
+				2CDAC1E32E4A0A08004ABB3A /* ScnGpuDeviceDesc.h in Headers */,
+				2CDAC1E42E4A0A08004ABB3A /* ScnGpuModelProps2d.h in Headers */,
+				2CDAC1E52E4A0A08004ABB3A /* ScnGpuRenderJob.h in Headers */,
 				2C90F7F92E0C04EA009964D3 /* NBSintaxParserC.h in Headers */,
 				2C90F7FA2E0C04EA009964D3 /* NBSintaxParserCPProc.h in Headers */,
+				2C142F0D2E42086900A2F9C2 /* ScnApiMetal.h in Headers */,
 				2C90F7FB2E0C04EA009964D3 /* NBSintaxParserRules.h in Headers */,
+				2C142EC62E42080900A2F9C2 /* ScnRange.h in Headers */,
+				2C142EC72E42080900A2F9C2 /* ScnSize.h in Headers */,
+				2C378E652E475A5200C73424 /* ixtli-defs.h in Headers */,
+				2C142EC82E42080900A2F9C2 /* ScnRect.h in Headers */,
+				2C142EC92E42080900A2F9C2 /* ScnMatrix.h in Headers */,
+				2C142ECA2E42080900A2F9C2 /* ScnAABBox.h in Headers */,
+				2C142ECB2E42080900A2F9C2 /* ScnPoint.h in Headers */,
+				2C142ECC2E42080900A2F9C2 /* ScnBitmap.h in Headers */,
+				2C142ECD2E42080900A2F9C2 /* ScnColor.h in Headers */,
+				2C142F012E42084100A2F9C2 /* ScnCompare.h in Headers */,
+				2C142F022E42084100A2F9C2 /* ScnContext.h in Headers */,
+				2C142F032E42084100A2F9C2 /* ScnMemBlock.h in Headers */,
+				2C142F042E42084100A2F9C2 /* ScnArraySorted.h in Headers */,
+				2C142F052E42084100A2F9C2 /* ScnSharedPtr.h in Headers */,
+				2C142F062E42084100A2F9C2 /* ScnArray.h in Headers */,
+				2C142F082E42084100A2F9C2 /* ScnMemElastic.h in Headers */,
+				2C142F092E42084100A2F9C2 /* ScnMutex.h in Headers */,
+				2C142F0A2E42084100A2F9C2 /* ScnObjRef.h in Headers */,
+				2C142F0B2E42084100A2F9C2 /* ScnArrayEmbed.h in Headers */,
 				2C90F7FC2E0C04EA009964D3 /* NBSintaxParserCPProcDefs.h in Headers */,
 				2CB75FEB2E01B54800D7E4FE /* NBScnRenderJob_cs_5_0.h in Headers */,
-				2C702E952E15BF83009BFCAB /* NBGpuVertexBuffer.h in Headers */,
 				2CB75FEC2E01B54800D7E4FE /* NBScnRenderJob_glsl.h in Headers */,
 				2CB75FED2E01B54800D7E4FE /* NBScnRenderJob_hlsl.h in Headers */,
 				2CB75FEE2E01B54800D7E4FE /* NBScnRenderJob_cs_4_0.h in Headers */,
 				2CB75FEF2E01B54800D7E4FE /* NBScnRenderJob_vulkan1_0_430.h in Headers */,
 				2C8F7E3429F9A4600061A36C /* NBIO.h in Headers */,
 				2CB75FDF2E01B52F00D7E4FE /* NBScnRenderJobDefs.h in Headers */,
+				2C142ED92E42081E00A2F9C2 /* ScnModel2d.h in Headers */,
+				2C142EDA2E42081E00A2F9C2 /* ScnTexture.h in Headers */,
+				2C142EDC2E42081E00A2F9C2 /* ScnVertexbuff.h in Headers */,
+				2C142EDD2E42081E00A2F9C2 /* ScnNode2d.h in Headers */,
+				2C142EDE2E42081E00A2F9C2 /* ScnVertexbuffs.h in Headers */,
+				2C142EDF2E42081E00A2F9C2 /* ScnFramebuff.h in Headers */,
+				2C142EE02E42081E00A2F9C2 /* ScnNode2dProps.h in Headers */,
+				2C142EE12E42081E00A2F9C2 /* ScnRenderCmd.h in Headers */,
+				2C142EE32E42081E00A2F9C2 /* ScnBuffer.h in Headers */,
 				2CB75FE02E01B52F00D7E4FE /* NBScnRenderJobFlat.h in Headers */,
 				2CB75FE12E01B52F00D7E4FE /* NBScnRenderJobTree.h in Headers */,
-				2C19A1B82E10227600B4140F /* NBGpuBuffer.h in Headers */,
-				2CBEEAAC2E11B3C100EB4AC9 /* NBScnRender.h in Headers */,
+				2C378DD72E466C5A00C73424 /* ScnGpuSampler.h in Headers */,
 				2C3DBFDD2BC31CF6002D78BD /* NBThreadStoragePriv.h in Headers */,
-				2C90F8062E0C66F1009964D3 /* NBScnRenderJobBldr.h in Headers */,
 				2C702E8D2E1324FE009BFCAB /* NBScnTransform.h in Headers */,
 				2C702E8E2E1324FE009BFCAB /* NBScnNodeProps.h in Headers */,
-				2CBEEAA32E11599700EB4AC9 /* NBGpuFramebuffer.h in Headers */,
 				2CF835EC2BE6C04B00CCE771 /* NBHndl.h in Headers */,
-				2C702E9B2E15C297009BFCAB /* NBGpuDataType.h in Headers */,
+				2CBB85772E4630070049681D /* ScnBitmapProps.h in Headers */,
+				2C142EED2E42082E00A2F9C2 /* ScnGpuBuffer.h in Headers */,
+				2C142EEE2E42082E00A2F9C2 /* ScnGpuFramebuff.h in Headers */,
+				2C142EEF2E42082E00A2F9C2 /* ScnGpuVertexbuff.h in Headers */,
+				2C142EF02E42082E00A2F9C2 /* ScnGpuModelProps2d.h in Headers */,
+				2C142EF12E42082E00A2F9C2 /* ScnGpuTexture.h in Headers */,
+				2C142EF22E42082E00A2F9C2 /* ScnGpuDataType.h in Headers */,
+				2C142EF32E42082E00A2F9C2 /* ScnGpuRenderbuff.h in Headers */,
+				2CFF981C2E61A370003F0B26 /* ScnApiMetalRenderJob.h in Headers */,
+				2CFF981D2E61A370003F0B26 /* ScnApiMetalTexture.h in Headers */,
+				2CFF981E2E61A370003F0B26 /* ScnApiMetalSampler.h in Headers */,
+				2CFF981F2E61A370003F0B26 /* ScnApiMetalRenderJobState.h in Headers */,
+				2CFF98202E61A370003F0B26 /* ScnApiMetalFramebuff.h in Headers */,
+				2CFF98212E61A370003F0B26 /* ScnApiMetalBuffer.h in Headers */,
+				2CFF98222E61A370003F0B26 /* ScnApiMetalDevice.h in Headers */,
+				2CFF98232E61A370003F0B26 /* ScnApiMetalVertexbuff.h in Headers */,
+				2CFF98242E61A370003F0B26 /* ScnApiMetalRenderStates.h in Headers */,
+				2C142EF42E42082E00A2F9C2 /* ScnGpuFramebuffProps.h in Headers */,
+				2CE1E7792E4A39540097C926 /* ScnGpuDeviceDesc.h in Headers */,
+				2CE1E77A2E4A39540097C926 /* ScnGpuRenderJob.h in Headers */,
+				2C142EF52E42082E00A2F9C2 /* ScnGpuDevice.h in Headers */,
 				2C90F8142E0C80CA009964D3 /* NBMemoryBlock.h in Headers */,
 				2C90F8152E0C80CA009964D3 /* NBMemoryBlocks.h in Headers */,
 				2CF835F12BE6C30E00CCE771 /* NBHndlNative.h in Headers */,
-				2CBEEA9E2E1156FC00EB4AC9 /* NBGpuRenderbuffer.h in Headers */,
+				2CDAC1DD2E4A09CF004ABB3A /* ScnTransform2d.h in Headers */,
+				2CDAC1DE2E4A09CF004ABB3A /* ScnRenderCmds.h in Headers */,
+				2CDAC1DF2E4A09CF004ABB3A /* ScnRenderJob.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8542,7 +8987,6 @@
 				2CFF9B9F223A0FC200345C47 /* NBCallback.c in Sources */,
 				2C36941C2323A04E00130EFC /* NBStructMaps.c in Sources */,
 				2C99A6872362625C00D4D010 /* NBHttpStats.c in Sources */,
-				2C702E962E15BF83009BFCAB /* NBGpuVertexBuffer.c in Sources */,
 				2C712EAC22506035009EC8BF /* NBLinkedList.c in Sources */,
 				2C8DCED52357C94100E65985 /* NBHmac.c in Sources */,
 				2C8DCED92358240700E65985 /* NBMd4.c in Sources */,
@@ -8551,7 +8995,6 @@
 				2C610B8E241F42060091E288 /* NBContext.c in Sources */,
 				2CDBB8D32416D614007677D8 /* NBFrameworkDefs.c in Sources */,
 				2C8DCEDF2358E34900E65985 /* NBNtln.c in Sources */,
-				2C19A1B52E10226800B4140F /* NBGpuBuffer.c in Sources */,
 				2C8677452228C83F006DEA0C /* NBThreadMutexRW.c in Sources */,
 				2C9D17FC22409EF600C58D29 /* NBJpeg.c in Sources */,
 				2C8DCEB7211BBF4600FEEA09 /* NBFile.c in Sources */,
@@ -8629,7 +9072,6 @@
 				2CD615A228F0D9D60058F91E /* NBStopFlag.c in Sources */,
 				2C1A6A612724C4F9001EE349 /* NBWebSocketFrame.c in Sources */,
 				2C2DDDC02649F7AC0016AFB1 /* NBDataPtrsStats.c in Sources */,
-				2C702E992E15C297009BFCAB /* NBGpuDataType.c in Sources */,
 				2CA11B5828D3B77200E979F6 /* NBHttpServiceRespRawLnk.c in Sources */,
 				2CE548C7263C8F1600DD018D /* NBThreadsPool.c in Sources */,
 				2C1332F925A4EE7200F9B076 /* NBRtsp.c in Sources */,
@@ -8811,6 +9253,7 @@
 				2C0125282211D1C3004600BB /* fpix1.c in Sources */,
 				2C0124902211D1C2004600BB /* fpix2.c in Sources */,
 				2C01258A2211D1C3004600BB /* gifio.c in Sources */,
+				2CBB85752E462FF80049681D /* ScnBitmapProps.c in Sources */,
 				2C0124B42211D1C3004600BB /* gifiostub.c in Sources */,
 				2C0125AC2211D1C3004600BB /* gplot.c in Sources */,
 				2C0124CA2211D1C3004600BB /* graphics.c in Sources */,
@@ -8897,6 +9340,7 @@
 				2C0125122211D1C3004600BB /* scale2.c in Sources */,
 				2C0125782211D1C3004600BB /* seedfill.c in Sources */,
 				2C0124F22211D1C3004600BB /* sel1.c in Sources */,
+				2C4755542E4A38AF008009FD /* ScnGpuRenderJob.c in Sources */,
 				2C0125BA2211D1C3004600BB /* sel2.c in Sources */,
 				2C0125202211D1C3004600BB /* selgen.c in Sources */,
 				2C0125922211D1C3004600BB /* shear.c in Sources */,
@@ -8966,6 +9410,32 @@
 				2C10BD60204BC8920076F706 /* asn_mstbl.c in Sources */,
 				2C10BD61204BC8920076F706 /* asn_pack.c in Sources */,
 				2C10BD62204BC8920076F706 /* asn1_err.c in Sources */,
+				2C142E882E4207D300A2F9C2 /* ScnRender.c in Sources */,
+				2C142E892E4207D300A2F9C2 /* ScnVertexbuff.c in Sources */,
+				2C142E8B2E4207D300A2F9C2 /* ScnArray.c in Sources */,
+				2C142E8C2E4207D300A2F9C2 /* ScnGpuDevice.c in Sources */,
+				2C142E8D2E4207D300A2F9C2 /* ScnSharedPtr.c in Sources */,
+				2C142E8E2E4207D300A2F9C2 /* ScnRenderCmd.c in Sources */,
+				2C142E8F2E4207D300A2F9C2 /* ScnFramebuff.c in Sources */,
+				2C142E902E4207D300A2F9C2 /* ScnMutex.c in Sources */,
+				2C142E912E4207D300A2F9C2 /* ScnApiMetal.m in Sources */,
+				2C142E922E4207D300A2F9C2 /* ScnGpuBuffer.c in Sources */,
+				2C142E932E4207D300A2F9C2 /* ScnBitmap.c in Sources */,
+				2C142E942E4207D300A2F9C2 /* ScnGpuFramebuff.c in Sources */,
+				2C142E952E4207D300A2F9C2 /* ScnModel2d.c in Sources */,
+				2C142E962E4207D300A2F9C2 /* ScnGpuVertexbuff.c in Sources */,
+				2C142E972E4207D300A2F9C2 /* ScnGpuRenderbuff.c in Sources */,
+				2C142E982E4207D300A2F9C2 /* ScnMemBlock.c in Sources */,
+				2C142E992E4207D300A2F9C2 /* ScnTexture.c in Sources */,
+				2C142E9A2E4207D300A2F9C2 /* ScnNode2d.c in Sources */,
+				2C142E9B2E4207D300A2F9C2 /* ScnVertexbuffs.c in Sources */,
+				2C142E9C2E4207D300A2F9C2 /* ScnBuffer.c in Sources */,
+				2C142E9D2E4207D300A2F9C2 /* ScnVertices.metal in Sources */,
+				2C142E9E2E4207D300A2F9C2 /* ScnArraySorted.c in Sources */,
+				2C142E9F2E4207D300A2F9C2 /* ScnRange.c in Sources */,
+				2C142EA02E4207D300A2F9C2 /* ScnMemElastic.c in Sources */,
+				2C142EA12E4207D300A2F9C2 /* ScnContext.c in Sources */,
+				2C142EA22E4207D300A2F9C2 /* ScnGpuTexture.c in Sources */,
 				2C10BD63204BC8920076F706 /* asn1_gen.c in Sources */,
 				2CECBB64220683FA0090A2A5 /* asn1_item_list.c in Sources */,
 				2C10BD64204BC8920076F706 /* asn1_lib.c in Sources */,
@@ -9259,7 +9729,6 @@
 				2C10BE70204BC9220076F706 /* e_rc5.c in Sources */,
 				2C10BE71204BC9220076F706 /* e_seed.c in Sources */,
 				2C053BC12207402A001B0787 /* e_sm4.c in Sources */,
-				2C90F8042E0C66D9009964D3 /* NBScnRenderJobBldr.c in Sources */,
 				2C10BE72204BC9220076F706 /* e_xcbc_d.c in Sources */,
 				2C10BE73204BC9220076F706 /* encode.c in Sources */,
 				2C10BE74204BC9220076F706 /* evp_cnf.c in Sources */,
@@ -9285,6 +9754,9 @@
 				2C10BE87204BC9220076F706 /* p_enc.c in Sources */,
 				2C10BE88204BC9220076F706 /* p_lib.c in Sources */,
 				2C10BE89204BC9220076F706 /* p_open.c in Sources */,
+				2C608C912E61A0FB00BB5904 /* ScnMemoryItf.c in Sources */,
+				2C608C922E61A0FB00BB5904 /* ScnMutexItf.c in Sources */,
+				2C608C932E61A0FB00BB5904 /* ScnContextItf.c in Sources */,
 				2C10BE8A204BC9220076F706 /* p_seal.c in Sources */,
 				2C10BE8B204BC9220076F706 /* p_sign.c in Sources */,
 				2C10BE8C204BC9220076F706 /* p_verify.c in Sources */,
@@ -9328,6 +9800,7 @@
 				2C10BEAA204BC93E0076F706 /* cts128.c in Sources */,
 				2C10BEAB204BC93E0076F706 /* gcm128.c in Sources */,
 				2C10BEAC204BC93E0076F706 /* ocb128.c in Sources */,
+				2C378E632E475A4500C73424 /* ixtli-defs.c in Sources */,
 				2C10BEAD204BC93E0076F706 /* ofb128.c in Sources */,
 				2C10BEAE204BC93E0076F706 /* wrap128.c in Sources */,
 				2C10BEAF204BC93E0076F706 /* xts128.c in Sources */,
@@ -9335,7 +9808,6 @@
 				2C10BD39204BC8850076F706 /* o_fips.c in Sources */,
 				2C10BD3A204BC8850076F706 /* o_fopen.c in Sources */,
 				2C10BD3B204BC8850076F706 /* o_init.c in Sources */,
-				2C90F7FF2E0C2A68009964D3 /* NBScnRenderCmd.c in Sources */,
 				2C10BD3C204BC8850076F706 /* o_str.c in Sources */,
 				2C10BD3D204BC8850076F706 /* o_time.c in Sources */,
 				2C10BEB0204BC9410076F706 /* o_names.c in Sources */,
@@ -9365,7 +9837,6 @@
 				2C10BEC8204BC94A0076F706 /* pem_xaux.c in Sources */,
 				2C10BEC9204BC94A0076F706 /* pvkfmt.c in Sources */,
 				2C10BECA204BC94F0076F706 /* p12_add.c in Sources */,
-				2C702EA02E168EFC009BFCAB /* NBScnVertexBuffs.c in Sources */,
 				2C10BECB204BC94F0076F706 /* p12_asn.c in Sources */,
 				2C10BECC204BC94F0076F706 /* p12_attr.c in Sources */,
 				2C10BECD204BC94F0076F706 /* p12_crpt.c in Sources */,
@@ -9453,6 +9924,10 @@
 				2C053BEC22074376001B0787 /* sm2_sign.c in Sources */,
 				2C053BE22207435B001B0787 /* m_sm3.c in Sources */,
 				2C053BE42207435B001B0787 /* sm3.c in Sources */,
+				2CFF97E92E61A166003F0B26 /* ScnRenderFbuffState.c in Sources */,
+				2CFF97EA2E61A166003F0B26 /* ScnRenderJobObj.c in Sources */,
+				2CFF97EB2E61A166003F0B26 /* ScnModel2dCmd.c in Sources */,
+				2C4BA8672E47636C000E02F7 /* ScnChangeRngs.c in Sources */,
 				2C053BDE22074345001B0787 /* sm4.c in Sources */,
 				2C10BF16204BC97C0076F706 /* srp_lib.c in Sources */,
 				2C10BF17204BC97C0076F706 /* srp_vfy.c in Sources */,
@@ -9476,7 +9951,6 @@
 				2C10BF20204BC9800076F706 /* ts_rsp_sign.c in Sources */,
 				2C10BF21204BC9800076F706 /* ts_rsp_utils.c in Sources */,
 				2C10BF22204BC9800076F706 /* ts_rsp_verify.c in Sources */,
-				2CBEEAA12E11599700EB4AC9 /* NBGpuFramebuffer.c in Sources */,
 				2C10BF23204BC9800076F706 /* ts_verify_ctx.c in Sources */,
 				2C10BF24204BC9880076F706 /* txt_db.c in Sources */,
 				2C10BF25204BC9880076F706 /* ui_err.c in Sources */,
@@ -9504,11 +9978,14 @@
 				2C10BF38204BC98E0076F706 /* x_x509a.c in Sources */,
 				2C10BF39204BC98E0076F706 /* x509_att.c in Sources */,
 				2C10BF3A204BC98E0076F706 /* x509_cmp.c in Sources */,
+				2C378DD92E466C7800C73424 /* ScnGpuSampler.c in Sources */,
 				2C10BF3B204BC98E0076F706 /* x509_d2.c in Sources */,
 				2C10BF3C204BC98E0076F706 /* x509_def.c in Sources */,
 				2C10BF3D204BC98E0076F706 /* x509_err.c in Sources */,
 				2C10BF3E204BC98E0076F706 /* x509_ext.c in Sources */,
 				2C10BF3F204BC98E0076F706 /* x509_lu.c in Sources */,
+				2CDAC1D62E4A0989004ABB3A /* ScnRenderJob.c in Sources */,
+				2CDAC1D72E4A0989004ABB3A /* ScnRenderCmds.c in Sources */,
 				2C10BF40204BC98E0076F706 /* x509_obj.c in Sources */,
 				2C10BF41204BC98E0076F706 /* x509_r2x.c in Sources */,
 				2C10BF42204BC98E0076F706 /* x509_req.c in Sources */,
@@ -9520,7 +9997,6 @@
 				2C10BF48204BC98E0076F706 /* x509_vpm.c in Sources */,
 				2C10BF49204BC98E0076F706 /* x509cset.c in Sources */,
 				2C10BF4A204BC98E0076F706 /* x509name.c in Sources */,
-				2CBEEAA62E115AED00EB4AC9 /* NBGpuTexture.c in Sources */,
 				2C10BF4B204BC98E0076F706 /* x509rset.c in Sources */,
 				2C10BF4C204BC98E0076F706 /* x509spki.c in Sources */,
 				2C10BF4D204BC98E0076F706 /* x509type.c in Sources */,
@@ -9569,7 +10045,6 @@
 				2CECBB41220680F70090A2A5 /* packet.c in Sources */,
 				2C10BF77204BC9A10076F706 /* pqueue.c in Sources */,
 				2C10BF8F204BC9A90076F706 /* dtls1_bitmap.c in Sources */,
-				2CBEEA9C2E1156FC00EB4AC9 /* NBGpuRenderbuffer.c in Sources */,
 				2C10BF90204BC9A90076F706 /* rec_layer_d1.c in Sources */,
 				2C10BF91204BC9A90076F706 /* rec_layer_s3.c in Sources */,
 				2C10BF92204BC9A90076F706 /* ssl3_buffer.c in Sources */,
@@ -9664,6 +10139,15 @@
 				2C01263F2211FAB2004600BB /* tessbox.cpp in Sources */,
 				2C01263B2211FAB2004600BB /* tessedit.cpp in Sources */,
 				2C0126252211FAB2004600BB /* tesseractclass.cpp in Sources */,
+				2CFF98252E61A370003F0B26 /* ScnApiMetalBuffer.m in Sources */,
+				2CFF98262E61A370003F0B26 /* ScnApiMetalDevice.m in Sources */,
+				2CFF98272E61A370003F0B26 /* ScnApiMetalFramebuff.m in Sources */,
+				2CFF98282E61A370003F0B26 /* ScnApiMetalRenderStates.m in Sources */,
+				2CFF98292E61A370003F0B26 /* ScnApiMetalVertexbuff.m in Sources */,
+				2CFF982A2E61A370003F0B26 /* ScnApiMetalRenderJobState.m in Sources */,
+				2CFF982B2E61A370003F0B26 /* ScnApiMetalRenderJob.m in Sources */,
+				2CFF982C2E61A370003F0B26 /* ScnApiMetalSampler.m in Sources */,
+				2CFF982D2E61A370003F0B26 /* ScnApiMetalTexture.m in Sources */,
 				2C0126312211FAB2004600BB /* tessvars.cpp in Sources */,
 				2C0126052211FAB2004600BB /* tfacepp.cpp in Sources */,
 				2C01262D2211FAB2004600BB /* thresholder.cpp in Sources */,
@@ -9775,7 +10259,6 @@
 				2C01269A2211FB61004600BB /* edgloop.cpp in Sources */,
 				2C0126842211FB61004600BB /* equationdetectbase.cpp in Sources */,
 				2C01268E2211FB61004600BB /* fpchop.cpp in Sources */,
-				2CBEEAAD2E11B3C100EB4AC9 /* NBScnRender.c in Sources */,
 				2C0126A42211FB61004600BB /* gap_map.cpp in Sources */,
 				2C0126B62211FB61004600BB /* imagefind.cpp in Sources */,
 				2C0126962211FB61004600BB /* linefind.cpp in Sources */,
@@ -9877,7 +10360,6 @@
 				2CFF9B9E223A0FC100345C47 /* NBCallback.c in Sources */,
 				2CCFE4CB228B4F8600675D6D /* NBHttp2Parser.c in Sources */,
 				2C227E6D204B332800D1B813 /* NBArray.c in Sources */,
-				2C702E942E15BF83009BFCAB /* NBGpuVertexBuffer.c in Sources */,
 				2C227E6E204B332800D1B813 /* NBArraySorted.c in Sources */,
 				2C7D515C2077169C005C6AB5 /* NBCompare.c in Sources */,
 				2C0BC1D1213AA068007783AD /* NBDate.c in Sources */,
@@ -9886,7 +10368,6 @@
 				2CBFF5CC21366B750060B73A /* NBEnumMap.c in Sources */,
 				2C0128612212030D004600BB /* NBFrameworkPch.c in Sources */,
 				2C4299B620FD9D9A00D09159 /* NBHttpBody.c in Sources */,
-				2C19A1B62E10226800B4140F /* NBGpuBuffer.c in Sources */,
 				2CF545AB20FC0701008CFFE1 /* NBHttpBuilder.c in Sources */,
 				2CF545B120FC582A008CFFE1 /* NBHttpChunkExt.c in Sources */,
 				2C227E63204B332800D1B813 /* NBHttpClient.c in Sources */,
@@ -9964,7 +10445,6 @@
 				2C1A6A602724C4F9001EE349 /* NBWebSocketFrame.c in Sources */,
 				2C2DDDBF2649F7AB0016AFB1 /* NBDataPtrsStats.c in Sources */,
 				2CA11B5728D3B77200E979F6 /* NBHttpServiceRespRawLnk.c in Sources */,
-				2C702E9A2E15C297009BFCAB /* NBGpuDataType.c in Sources */,
 				2CE548C6263C8F1600DD018D /* NBThreadsPool.c in Sources */,
 				2C1332F825A4EE7200F9B076 /* NBRtsp.c in Sources */,
 				2C9F84962673D76C0078664A /* NBSdp.c in Sources */,
@@ -10146,6 +10626,7 @@
 				2C0125272211D1C3004600BB /* fpix1.c in Sources */,
 				2C01248F2211D1C2004600BB /* fpix2.c in Sources */,
 				2C0125892211D1C3004600BB /* gifio.c in Sources */,
+				2CBB85742E462FF80049681D /* ScnBitmapProps.c in Sources */,
 				2C0124B32211D1C3004600BB /* gifiostub.c in Sources */,
 				2C0125AB2211D1C3004600BB /* gplot.c in Sources */,
 				2C0124C92211D1C3004600BB /* graphics.c in Sources */,
@@ -10232,6 +10713,7 @@
 				2C0125112211D1C3004600BB /* scale2.c in Sources */,
 				2C0125772211D1C3004600BB /* seedfill.c in Sources */,
 				2C0124F12211D1C3004600BB /* sel1.c in Sources */,
+				2C4755532E4A38AF008009FD /* ScnGpuRenderJob.c in Sources */,
 				2C0125B92211D1C3004600BB /* sel2.c in Sources */,
 				2C01251F2211D1C3004600BB /* selgen.c in Sources */,
 				2C0125912211D1C3004600BB /* shear.c in Sources */,
@@ -10301,6 +10783,32 @@
 				2C227F24204B3EE900D1B813 /* asn_mstbl.c in Sources */,
 				2C227F3A204B3EE900D1B813 /* asn_pack.c in Sources */,
 				2C227F32204B3EE900D1B813 /* asn1_err.c in Sources */,
+				2C142EA32E4207D300A2F9C2 /* ScnRender.c in Sources */,
+				2C142EA42E4207D300A2F9C2 /* ScnVertexbuff.c in Sources */,
+				2C142EA62E4207D300A2F9C2 /* ScnArray.c in Sources */,
+				2C142EA72E4207D300A2F9C2 /* ScnGpuDevice.c in Sources */,
+				2C142EA82E4207D300A2F9C2 /* ScnSharedPtr.c in Sources */,
+				2C142EA92E4207D300A2F9C2 /* ScnRenderCmd.c in Sources */,
+				2C142EAA2E4207D300A2F9C2 /* ScnFramebuff.c in Sources */,
+				2C142EAB2E4207D300A2F9C2 /* ScnMutex.c in Sources */,
+				2C142EAC2E4207D300A2F9C2 /* ScnApiMetal.m in Sources */,
+				2C142EAD2E4207D300A2F9C2 /* ScnGpuBuffer.c in Sources */,
+				2C142EAE2E4207D300A2F9C2 /* ScnBitmap.c in Sources */,
+				2C142EAF2E4207D300A2F9C2 /* ScnGpuFramebuff.c in Sources */,
+				2C142EB02E4207D300A2F9C2 /* ScnModel2d.c in Sources */,
+				2C142EB12E4207D300A2F9C2 /* ScnGpuVertexbuff.c in Sources */,
+				2C142EB22E4207D300A2F9C2 /* ScnGpuRenderbuff.c in Sources */,
+				2C142EB32E4207D300A2F9C2 /* ScnMemBlock.c in Sources */,
+				2C142EB42E4207D300A2F9C2 /* ScnTexture.c in Sources */,
+				2C142EB52E4207D300A2F9C2 /* ScnNode2d.c in Sources */,
+				2C142EB62E4207D300A2F9C2 /* ScnVertexbuffs.c in Sources */,
+				2C142EB72E4207D300A2F9C2 /* ScnBuffer.c in Sources */,
+				2C142EB82E4207D300A2F9C2 /* ScnVertices.metal in Sources */,
+				2C142EB92E4207D300A2F9C2 /* ScnArraySorted.c in Sources */,
+				2C142EBA2E4207D300A2F9C2 /* ScnRange.c in Sources */,
+				2C142EBB2E4207D300A2F9C2 /* ScnMemElastic.c in Sources */,
+				2C142EBC2E4207D300A2F9C2 /* ScnContext.c in Sources */,
+				2C142EBD2E4207D300A2F9C2 /* ScnGpuTexture.c in Sources */,
 				2C227F17204B3EE900D1B813 /* asn1_gen.c in Sources */,
 				2CECBB63220683FA0090A2A5 /* asn1_item_list.c in Sources */,
 				2C227F18204B3EE900D1B813 /* asn1_lib.c in Sources */,
@@ -10594,7 +11102,6 @@
 				2C228161204B650D00D1B813 /* e_rc4_hmac_md5.c in Sources */,
 				2C228183204B650E00D1B813 /* e_rc4.c in Sources */,
 				2C228157204B650D00D1B813 /* e_rc5.c in Sources */,
-				2C90F8032E0C66D9009964D3 /* NBScnRenderJobBldr.c in Sources */,
 				2C228178204B650E00D1B813 /* e_seed.c in Sources */,
 				2C053BC02207402A001B0787 /* e_sm4.c in Sources */,
 				2C22815F204B650D00D1B813 /* e_xcbc_d.c in Sources */,
@@ -10620,6 +11127,9 @@
 				2C228173204B650E00D1B813 /* names.c in Sources */,
 				2C228156204B650D00D1B813 /* p_dec.c in Sources */,
 				2C22817F204B650E00D1B813 /* p_enc.c in Sources */,
+				2C608C942E61A0FB00BB5904 /* ScnMemoryItf.c in Sources */,
+				2C608C952E61A0FB00BB5904 /* ScnMutexItf.c in Sources */,
+				2C608C962E61A0FB00BB5904 /* ScnContextItf.c in Sources */,
 				2C228155204B650D00D1B813 /* p_lib.c in Sources */,
 				2C22817B204B650E00D1B813 /* p_open.c in Sources */,
 				2C228189204B650E00D1B813 /* p_seal.c in Sources */,
@@ -10663,6 +11173,7 @@
 				2C2281C5204B65A300D1B813 /* cfb128.c in Sources */,
 				2C2281C2204B65A300D1B813 /* ctr128.c in Sources */,
 				2C2281C3204B65A300D1B813 /* cts128.c in Sources */,
+				2C378E622E475A4500C73424 /* ixtli-defs.c in Sources */,
 				2C2281BE204B65A300D1B813 /* gcm128.c in Sources */,
 				2C2281BF204B65A300D1B813 /* ocb128.c in Sources */,
 				2C2281C0204B65A300D1B813 /* ofb128.c in Sources */,
@@ -10670,7 +11181,6 @@
 				2C2281C7204B65A300D1B813 /* xts128.c in Sources */,
 				2C2283C5204B6C5200D1B813 /* o_dir.c in Sources */,
 				2C2283BE204B6C5200D1B813 /* o_fips.c in Sources */,
-				2C90F7FE2E0C2A68009964D3 /* NBScnRenderCmd.c in Sources */,
 				2C2283CC204B6C5200D1B813 /* o_fopen.c in Sources */,
 				2C2283C3204B6C5200D1B813 /* o_init.c in Sources */,
 				2C2283BA204B6C5200D1B813 /* o_str.c in Sources */,
@@ -10700,7 +11210,6 @@
 				2C2281F9204B65E000D1B813 /* pem_sign.c in Sources */,
 				2C2281F6204B65E000D1B813 /* pem_x509.c in Sources */,
 				2C2281F8204B65E000D1B813 /* pem_xaux.c in Sources */,
-				2C702E9F2E168EFC009BFCAB /* NBScnVertexBuffs.c in Sources */,
 				2C2281FB204B65E000D1B813 /* pvkfmt.c in Sources */,
 				2C22820F204B65FD00D1B813 /* p12_add.c in Sources */,
 				2C228219204B65FD00D1B813 /* p12_asn.c in Sources */,
@@ -10788,6 +11297,10 @@
 				2C053BED22074376001B0787 /* sm2_err.c in Sources */,
 				2C053BE922074376001B0787 /* sm2_pmeth.c in Sources */,
 				2C053BEB22074376001B0787 /* sm2_sign.c in Sources */,
+				2CFF97EC2E61A166003F0B26 /* ScnRenderFbuffState.c in Sources */,
+				2CFF97ED2E61A166003F0B26 /* ScnRenderJobObj.c in Sources */,
+				2CFF97EE2E61A166003F0B26 /* ScnModel2dCmd.c in Sources */,
+				2C4BA8662E47636C000E02F7 /* ScnChangeRngs.c in Sources */,
 				2C053BE12207435B001B0787 /* m_sm3.c in Sources */,
 				2C053BE32207435B001B0787 /* sm3.c in Sources */,
 				2C053BDD22074345001B0787 /* sm4.c in Sources */,
@@ -10811,7 +11324,6 @@
 				2C2282A8204B671200D1B813 /* ts_req_utils.c in Sources */,
 				2C2282AC204B671200D1B813 /* ts_rsp_print.c in Sources */,
 				2C2282AA204B671200D1B813 /* ts_rsp_sign.c in Sources */,
-				2CBEEAA22E11599700EB4AC9 /* NBGpuFramebuffer.c in Sources */,
 				2C2282B0204B671200D1B813 /* ts_rsp_utils.c in Sources */,
 				2C2282AE204B671200D1B813 /* ts_rsp_verify.c in Sources */,
 				2C2282B1204B671200D1B813 /* ts_verify_ctx.c in Sources */,
@@ -10839,11 +11351,14 @@
 				2C2282F3204B675C00D1B813 /* x_req.c in Sources */,
 				2C2282F4204B675C00D1B813 /* x_x509.c in Sources */,
 				2C2282E3204B675C00D1B813 /* x_x509a.c in Sources */,
+				2C378DDA2E466C7800C73424 /* ScnGpuSampler.c in Sources */,
 				2C2282EF204B675C00D1B813 /* x509_att.c in Sources */,
 				2C228301204B675C00D1B813 /* x509_cmp.c in Sources */,
 				2C2282E7204B675C00D1B813 /* x509_d2.c in Sources */,
 				2C2282F6204B675C00D1B813 /* x509_def.c in Sources */,
 				2C2282F9204B675C00D1B813 /* x509_err.c in Sources */,
+				2CDAC1D82E4A0989004ABB3A /* ScnRenderJob.c in Sources */,
+				2CDAC1D92E4A0989004ABB3A /* ScnRenderCmds.c in Sources */,
 				2C228303204B675C00D1B813 /* x509_ext.c in Sources */,
 				2C2282FF204B675C00D1B813 /* x509_lu.c in Sources */,
 				2C228305204B675C00D1B813 /* x509_obj.c in Sources */,
@@ -10855,7 +11370,6 @@
 				2C2282FE204B675C00D1B813 /* x509_v3.c in Sources */,
 				2C2282F2204B675C00D1B813 /* x509_vfy.c in Sources */,
 				2C2282FA204B675C00D1B813 /* x509_vpm.c in Sources */,
-				2CBEEAA72E115AED00EB4AC9 /* NBGpuTexture.c in Sources */,
 				2C2282E8204B675C00D1B813 /* x509cset.c in Sources */,
 				2C2282FB204B675C00D1B813 /* x509name.c in Sources */,
 				2C2282FD204B675C00D1B813 /* x509rset.c in Sources */,
@@ -10904,7 +11418,6 @@
 				2C22839E204B681300D1B813 /* d1_srtp.c in Sources */,
 				2C228394204B681300D1B813 /* methods.c in Sources */,
 				2CECBB40220680F70090A2A5 /* packet.c in Sources */,
-				2CBEEA9D2E1156FC00EB4AC9 /* NBGpuRenderbuffer.c in Sources */,
 				2C22838C204B681300D1B813 /* pqueue.c in Sources */,
 				2C22836A204B67EB00D1B813 /* dtls1_bitmap.c in Sources */,
 				2C228368204B67EB00D1B813 /* rec_layer_d1.c in Sources */,
@@ -10999,6 +11512,15 @@
 				2C01261C2211FAB2004600BB /* resultiterator.cpp in Sources */,
 				2C0126342211FAB2004600BB /* superscript.cpp in Sources */,
 				2C01263E2211FAB2004600BB /* tessbox.cpp in Sources */,
+				2CFF98132E61A370003F0B26 /* ScnApiMetalBuffer.m in Sources */,
+				2CFF98142E61A370003F0B26 /* ScnApiMetalDevice.m in Sources */,
+				2CFF98152E61A370003F0B26 /* ScnApiMetalFramebuff.m in Sources */,
+				2CFF98162E61A370003F0B26 /* ScnApiMetalRenderStates.m in Sources */,
+				2CFF98172E61A370003F0B26 /* ScnApiMetalVertexbuff.m in Sources */,
+				2CFF98182E61A370003F0B26 /* ScnApiMetalRenderJobState.m in Sources */,
+				2CFF98192E61A370003F0B26 /* ScnApiMetalRenderJob.m in Sources */,
+				2CFF981A2E61A370003F0B26 /* ScnApiMetalSampler.m in Sources */,
+				2CFF981B2E61A370003F0B26 /* ScnApiMetalTexture.m in Sources */,
 				2C01263A2211FAB2004600BB /* tessedit.cpp in Sources */,
 				2C0126242211FAB2004600BB /* tesseractclass.cpp in Sources */,
 				2C0126302211FAB2004600BB /* tessvars.cpp in Sources */,
@@ -11110,7 +11632,6 @@
 				2C0126A92211FB61004600BB /* edgblob.cpp in Sources */,
 				2C0126992211FB61004600BB /* edgloop.cpp in Sources */,
 				2C0126832211FB61004600BB /* equationdetectbase.cpp in Sources */,
-				2CBEEAAB2E11B3C100EB4AC9 /* NBScnRender.c in Sources */,
 				2C01268D2211FB61004600BB /* fpchop.cpp in Sources */,
 				2C0126A32211FB61004600BB /* gap_map.cpp in Sources */,
 				2C0126B52211FB61004600BB /* imagefind.cpp in Sources */,
@@ -11262,9 +11783,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -11311,7 +11830,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -11327,7 +11845,10 @@
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				MTL_HEADER_SEARCH_PATHS = "$(SRCROOT)/../../../include";
+				ONLY_ACTIVE_ARCH = YES;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../../../include";
 				USE_HEADERMAP = NO;
 			};
@@ -11338,7 +11859,9 @@
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				MTL_HEADER_SEARCH_PATHS = "$(SRCROOT)/../../../include";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../../../include";
 				USE_HEADERMAP = NO;
 			};
@@ -11391,7 +11914,6 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -11489,7 +12011,6 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 			};
@@ -11596,7 +12117,6 @@
 				MTL_COMPILER_FLAGS = "-fmetal-enable-logging";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 			};
@@ -11716,7 +12236,6 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 			};
@@ -11830,7 +12349,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 			};
