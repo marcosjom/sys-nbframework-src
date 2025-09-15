@@ -63,7 +63,7 @@ extern "C" {
 #define NBColor8_getA(V32)          (((V32) / NB_COLOR8_A_BIT_FIRST) % (NB_COLOR8_A_MSK_MAX + 1u))
 
 
-#define STNBColor8_Zero  { 0, 0, 0, 0 }
+#define STNBColor8_Zero  { 0u, 0u, 0u, 0u }
 
 	typedef struct STNBColor8_ {
 		union {

@@ -50,6 +50,24 @@ const STNBStructMap* NBSizeI_getSharedStructMap(void){
 
 //
 
+STNBStructMapsRec NBSizeU_sharedStructMap = STNBStructMapsRec_empty;
+
+const STNBStructMap* NBSizeU_getSharedStructMap(void){
+    NBMngrStructMaps_lock(&NBSizeU_sharedStructMap);
+    if(NBSizeU_sharedStructMap.map == NULL){
+        STNBSizeU s;
+        STNBStructMap* map = NBMngrStructMaps_allocTypeM(STNBSizeU);
+        NBStructMap_init(map, sizeof(s));
+        NBStructMap_addUIntM(map, s, width);
+        NBStructMap_addUIntM(map, s, height);
+        NBSizeU_sharedStructMap.map = map;
+    }
+    NBMngrStructMaps_unlock(&NBSizeU_sharedStructMap);
+    return NBSizeU_sharedStructMap.map;
+}
+
+//
+
 STNBStructMapsRec NBSizeI16_sharedStructMap = STNBStructMapsRec_empty;
 
 const STNBStructMap* NBSizeI16_getSharedStructMap(void){
@@ -64,6 +82,24 @@ const STNBStructMap* NBSizeI16_getSharedStructMap(void){
 	}
 	NBMngrStructMaps_unlock(&NBSizeI16_sharedStructMap);
 	return NBSizeI16_sharedStructMap.map;
+}
+
+//
+
+STNBStructMapsRec NBSizeU16_sharedStructMap = STNBStructMapsRec_empty;
+
+const STNBStructMap* NBSizeU16_getSharedStructMap(void){
+    NBMngrStructMaps_lock(&NBSizeU16_sharedStructMap);
+    if(NBSizeU16_sharedStructMap.map == NULL){
+        STNBSizeU16 s;
+        STNBStructMap* map = NBMngrStructMaps_allocTypeM(STNBSizeU16);
+        NBStructMap_init(map, sizeof(s));
+        NBStructMap_addUIntM(map, s, width);
+        NBStructMap_addUIntM(map, s, height);
+        NBSizeU16_sharedStructMap.map = map;
+    }
+    NBMngrStructMaps_unlock(&NBSizeU16_sharedStructMap);
+    return NBSizeU16_sharedStructMap.map;
 }
 
 //

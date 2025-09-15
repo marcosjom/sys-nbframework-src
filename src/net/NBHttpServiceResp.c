@@ -110,6 +110,7 @@ BOOL NBHttpServiceResp_httpReqRespAddHeaderField_(const char* name, const char* 
 BOOL NBHttpServiceResp_httpReqRespEndHeader_(void* usrData); //optional, mostly used when empty-body; the header is auto-ended when the body is started.
 
 //response-body
+BOOL NBHttpServiceResp_httpReqRespSetContentType_(const char* mimeType, void* usrData);
 BOOL NBHttpServiceResp_httpReqRespSetContentLength_(const UI64 contentLength, void* usrData); //optimization, when size is known buffer is not used (data is send inmediatly)
 BOOL NBHttpServiceResp_httpReqRespUnsetContentLength_(void* usrData); //reverse of 'setContentLength'
 BOOL NBHttpServiceResp_httpReqRespConcatBody_(const char* str, void* usrData);
@@ -253,6 +254,7 @@ void NBHttpServiceResp_getRespItf(STNBHttpServiceRespRef ref, STNBHttpServiceRes
         dstItf->httpReqRespAddHeaderField   = NBHttpServiceResp_httpReqRespAddHeaderField_;
         dstItf->httpReqRespEndHeader        = NBHttpServiceResp_httpReqRespEndHeader_;
         //response-body
+        dstItf->httpReqRespSetContentType   = NBHttpServiceResp_httpReqRespSetContentType_;
         dstItf->httpReqRespSetContentLength = NBHttpServiceResp_httpReqRespSetContentLength_;
         dstItf->httpReqRespUnsetContentLength = NBHttpServiceResp_httpReqRespUnsetContentLength_;
         dstItf->httpReqRespConcatBody       = NBHttpServiceResp_httpReqRespConcatBody_;
@@ -454,6 +456,10 @@ BOOL NBHttpServiceResp_endHeaderOpq_(STNBHttpServiceRespOpq* opq){
 }
 
 //body
+
+BOOL NBHttpServiceResp_setContentTypeOpq_(STNBHttpServiceRespOpq* opq, const char* mimeType){
+    return NBHttpServiceResp_addHeaderFieldOpq_(opq, "Content-Type", mimeType);
+}
 
 BOOL NBHttpServiceResp_setContentLengthOpq_(STNBHttpServiceRespOpq* opq, const UI64 contentLength){
     BOOL r = FALSE;
@@ -913,6 +919,11 @@ BOOL NBHttpServiceResp_endHeader(STNBHttpServiceRespRef ref){
 
 //response-body
 
+BOOL NBHttpServiceResp_setContentType(STNBHttpServiceRespRef ref, const char* mimeType){
+    STNBHttpServiceRespOpq* opq = (STNBHttpServiceRespOpq*)ref.opaque; NBASSERT(NBHttpServiceResp_isClass(ref))
+    return NBHttpServiceResp_setContentTypeOpq_(opq, mimeType);
+}
+
 BOOL NBHttpServiceResp_setContentLength(STNBHttpServiceRespRef ref, const UI64 contentLength){
     STNBHttpServiceRespOpq* opq = (STNBHttpServiceRespOpq*)ref.opaque; NBASSERT(NBHttpServiceResp_isClass(ref))
     return NBHttpServiceResp_setContentLengthOpq_(opq, contentLength);
@@ -982,6 +993,11 @@ BOOL NBHttpServiceResp_httpReqRespEndHeader_(void* usrData){ //optional, mostly 
 }
 
 //response-body
+
+BOOL NBHttpServiceResp_httpReqRespSetContentType_(const char* mimeType, void* usrData){
+    return NBHttpServiceResp_setContentTypeOpq_((STNBHttpServiceRespOpq*)usrData, mimeType);
+}
+
 BOOL NBHttpServiceResp_httpReqRespSetContentLength_(const UI64 contentLength, void* usrData){ //optimization, when size is known buffer is not used (data is send inmediatly)
     return NBHttpServiceResp_setContentLengthOpq_((STNBHttpServiceRespOpq*)usrData, contentLength);
 }

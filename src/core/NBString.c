@@ -953,6 +953,21 @@ BOOL NBString_strIsLower(const char* str1, const char* str2){
 	return (*str1 < *str2);
 }
 
+BOOL NBString_strIsLowerLike(const char* str1, const char* str2){
+    char c1, c2;
+    while(*str1 != 0 && *str2 != 0){
+        c1 = *str1; c2 = *str2;
+        if((c1 - (c1 >= 'a' && c1 <= 'z' ? 32 : 0)) < (c2 - (c2 >= 'a' && c2 <= 'z' ? 32 : 0))){
+            return TRUE;
+        } else if((c1 - (c1 >= 'a' && c1 <= 'z' ? 32 : 0)) > (c2 - (c2 >= 'a' && c2 <= 'z' ? 32 : 0))){
+            return FALSE;
+        }
+        str1++; str2++;
+    }
+    c1 = *str1; c2 = *str2;
+    return (c1 - (c1 >= 'a' && c1 <= 'z' ? 32 : 0)) < (c2 - (c2 >= 'a' && c2 <= 'z' ? 32 : 0));
+}
+
 BOOL NBString_strIsLowerBytes(const char* str1, const UI32 len1, const char* str2, const UI32 len2){
 	const char* str1After = str1 + len1;
 	const char* str2After = str2 + len2;
@@ -967,6 +982,24 @@ BOOL NBString_strIsLowerBytes(const char* str1, const UI32 len1, const char* str
 	return ((str1 == str1After ? '\0' : *str1) < (str2 == str2After ? '\0' : *str2));
 }
 
+BOOL NBString_strIsLowerBytesLike(const char* str1, const UI32 len1, const char* str2, const UI32 len2){
+    char c1, c2;
+    const char* str1After = str1 + len1;
+    const char* str2After = str2 + len2;
+    while(str1 < str1After && str2 < str2After){
+        c1 = *str1; c2 = *str2;
+        if((c1 - (c1 >= 'a' && c1 <= 'z' ? 32 : 0)) < (c2 - (c2 >= 'a' && c2 <= 'z' ? 32 : 0))){
+            return TRUE;
+        } else if((c1 - (c1 >= 'a' && c1 <= 'z' ? 32 : 0)) > (c2 - (c2 >= 'a' && c2 <= 'z' ? 32 : 0))){
+            return FALSE;
+        }
+        str1++; str2++;
+    }
+    c1 = (str1 == str1After ? '\0' : *str1);
+    c2 = (str2 == str2After ? '\0' : *str2);
+    return (c1 - (c1 >= 'a' && c1 <= 'z' ? 32 : 0)) < (c2 - (c2 >= 'a' && c2 <= 'z' ? 32 : 0));
+}
+
 BOOL NBString_strIsLowerStrBytes(const char* str1, const char* str2, const UI32 len2){
 	const char* str2After = str2 + len2;
 	while(*str1 != '\0' && str2 < str2After){
@@ -978,6 +1011,23 @@ BOOL NBString_strIsLowerStrBytes(const char* str1, const char* str2, const UI32 
 		str1++; str2++;
 	}
 	return (*str1 < (str2 == str2After ? '\0' : *str2));
+}
+
+BOOL NBString_strIsLowerStrBytesLike(const char* str1, const char* str2, const UI32 len2){
+    char c1, c2;
+    const char* str2After = str2 + len2;
+    while(*str1 != '\0' && str2 < str2After){
+        c1 = *str1; c2 = *str2;
+        if((c1 - (c1 >= 'a' && c1 <= 'z' ? 32 : 0)) < (c2 - (c2 >= 'a' && c2 <= 'z' ? 32 : 0))){
+            return TRUE;
+        } else if((c1 - (c1 >= 'a' && c1 <= 'z' ? 32 : 0)) > (c2 - (c2 >= 'a' && c2 <= 'z' ? 32 : 0))){
+            return FALSE;
+        }
+        str1++; str2++;
+    }
+    c1 = *str1;
+    c2 = (str2 == str2After ? '\0' : *str2);
+    return ((c1 - (c1 >= 'a' && c1 <= 'z' ? 32 : 0)) < (c2 - (c2 >= 'a' && c2 <= 'z' ? 32 : 0)));
 }
 
 BOOL NBString_strIsLowerOrEqual(const char* str1, const char* str2){
@@ -1739,6 +1789,10 @@ BOOL NBString_isLikeBytes(const STNBString* string, const char* string2, const U
 
 BOOL NBString_isLower(const STNBString* string, const char* str2){
 	return NBString_strIsLower(string->str, str2);
+}
+
+BOOL NBString_isLowerLike(const STNBString* string, const char* str2){
+    return NBString_strIsLowerLike(string->str, str2);
 }
 
 BOOL NBString_isLowerOrEqual(const STNBString* string, const char* str2){

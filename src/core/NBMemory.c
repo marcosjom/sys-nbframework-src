@@ -75,16 +75,20 @@ void  NBMemory_freeUnmanaged(void* ptr){
 
 #ifdef CONFIG_NB_INCLUDE_THREADS_METRICS
 void* NBMemory_alloc_(const UI32 sz, const char* fullpath, const SI32 line, const char* func){
-	NBMngrProcess_memAllocated((UI64)sz, fullpath, line, func);
+    void* r = NULL;
 #	ifdef NB_COMPILE_DRIVER_MODE
 #		ifdef _WIN32
-		return ExAllocatePoolWithTag(0 /*(NonPagedPool*/, sz, NB_COMPILE_DRIVER_MODE_ALLOC_TAG); //Win2000+
+		r = ExAllocatePoolWithTag(0 /*(NonPagedPool*/, sz, NB_COMPILE_DRIVER_MODE_ALLOC_TAG); //Win2000+
 #		else
-		return malloc(sz);
+		r = malloc(sz);
 #		endif
 #	else
-	return malloc(sz);
+	r = malloc(sz);
 #	endif
+    if(r != NULL){
+        NBMngrProcess_memAllocated((UI64)sz, fullpath, line, func);
+    }
+    return r;
 }
 #else
 void* NBMemory_alloc_(const UI32 sz){
@@ -97,6 +101,39 @@ void* NBMemory_alloc_(const UI32 sz){
 #	else
 	return malloc(sz);
 #	endif
+}
+#endif
+
+#ifdef CONFIG_NB_INCLUDE_THREADS_METRICS
+void* NBMemory_realloc_(void* ptr, const UI32 sz, const char* fullpath, const SI32 line, const char* func){
+    void* r = NULL;
+    NBMngrProcess_memAllocated((UI64)sz, fullpath, line, func);
+#   ifdef NB_COMPILE_DRIVER_MODE
+#       ifdef _WIN32
+        NBASSERT(FALSE) //ToDo: implement
+#       else
+        r = realloc(ptr, sz);
+#       endif
+#   else
+    r = realloc(ptr, sz);
+#   endif
+    if(r != NULL){
+        NBMngrProcess_memFreed(fullpath, line, func);
+        NBMngrProcess_memAllocated((UI64)sz, fullpath, line, func);
+    }
+    return r;
+}
+#else
+void* NBMemory_realloc_(void* ptr, const UI32 sz){
+#   ifdef NB_COMPILE_DRIVER_MODE
+#       ifdef _WIN32
+        NBASSERT(FALSE) //ToDo: implement
+#       else
+        return realloc(ptr, sz);
+#       endif
+#   else
+    return realloc(ptr, sz);
+#   endif
 }
 #endif
 

@@ -16,6 +16,8 @@
 #include "nb/2d/NBRect.h"
 #include "nb/2d/NBAABox.h"
 #include "nb/2d/NBMatrix.h"
+//
+#include "ixrender/type/ScnBitmap.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -40,14 +42,35 @@ extern "C" {
 
     const STNBEnumMap* NBBitmapColor_getSharedEnumMap(void);
 
+    inline static ENScnBitmapColor ENNBBitmapColor_2_ENScnBitmapColor(const ENNBBitmapColor color){
+        switch(color){
+            case ENNBBitmapColor_ALPHA8:    return ENScnBitmapColor_ALPHA8;
+            case ENNBBitmapColor_GRIS8:     return ENScnBitmapColor_GRAY8;
+            case ENNBBitmapColor_GRISALPHA8: return ENScnBitmapColor_GRAYALPHA8;
+            case ENNBBitmapColor_RGB8:      return ENScnBitmapColor_RGB8;
+            case ENNBBitmapColor_RGBA8:     return ENScnBitmapColor_RGBA8;
+            default: return ENScnBitmapColor_undef;
+        }
+        return ENScnBitmapColor_undef;
+    }
+    
+
     //
 	
 	typedef struct STNBBitmapProps_ {
 		ENNBBitmapColor color;
-		STNBSizeI		size;
-		SI32			bitsPerPx;
-		SI32			bytesPerLine;
+		STNBSizeU16		size;
+		ScnUI16			bitsPerPx;
+        ScnUI16			bytesPerLine;
 	} STNBBitmapProps;
+
+#   define STNBBitmapProps_2_STScnBitmapProps(P)   \
+    { \
+        ENNBBitmapColor_2_ENScnBitmapColor((P)->color) \
+        , (STScnSize2DU16){ (P)->size.width, (P)->size.height } \
+        , (P)->bitsPerPx \
+        , (P)->bytesPerLine \
+    } \
 	
 	typedef void (*NBBitmapGetPixFunc)(const STNBBitmapProps* props, const BYTE* data, const UI32 x, const UI32 y, STNBColor8* dstColor);
 	typedef void (*NBBitmapSetPixFunc)(const STNBBitmapProps* props, BYTE* data, const UI32 x, const UI32 y, const STNBColor8 color);

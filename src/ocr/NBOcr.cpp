@@ -458,6 +458,7 @@ bool NBOcr_funcCancel_(void* cancel_this, int words){
 	return r;
 }*/
 
+#ifdef NB_LIB_TESSERACT
 bool NBOcr_funcProgress2_(ETEXT_DESC* desc, int left, int right, int top, int bottom) {
 	bool r = false;
 	//PRINTF_INFO("NBOcr_progress_: progress(%d), left(%d), right(%d), top(%d), bottom(%d).\n", progress, left, right, top, bottom);
@@ -475,6 +476,7 @@ bool NBOcr_funcProgress2_(ETEXT_DESC* desc, int left, int right, int top, int bo
 	}
 	return r;
 }
+#endif
 
 //Sync-exec
 

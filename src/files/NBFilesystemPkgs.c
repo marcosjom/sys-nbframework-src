@@ -221,6 +221,19 @@ BOOL NBFilesystemPkgs_open(STNBFilesystemPkgs* obj, const char* filepath, const 
 	return NBFilesystemPkgs_open_(opq, &opq->def.itf, 1, ENNBFilesystemRoot_PkgsDir, filepath, mode, dst);
 }
 
+SI32 NBFilesystemPkgs_getFilePkgIndex(STNBFilesystemPkgs* obj, const char* filepath){
+    SI32 r = -1;
+    STNBFilesystemPkgsOpq* opq = (STNBFilesystemPkgsOpq*)obj->opaque;
+    UI32 i; for(i = 0 ; i < opq->pkgs.use; i++){
+        STNBFilesystemPkgsPkg* pkg = NBArray_itmPtrAtIndex(&opq->pkgs, STNBFilesystemPkgsPkg, i);
+        if(NBFilesPkg_fileExists(&pkg->pkg, filepath)){
+            r = i;
+            break;
+        }
+    }
+    return r;
+}
+
 BOOL NBFilesystemPkgs_getFiles(const STNBFilesystemPkgs* obj, const char* folderpath, const BOOL includeStats, STNBString* dstStrs, STNBArray* dstFiles /*STNBFilesystemFile*/){
 	STNBFilesystemPkgsOpq* opq = (STNBFilesystemPkgsOpq*)obj->opaque;
 	return NBFilesystemPkgs_getFiles_(opq, &opq->def.itf, 1, ENNBFilesystemRoot_PkgsDir, folderpath, includeStats, dstStrs, dstFiles);

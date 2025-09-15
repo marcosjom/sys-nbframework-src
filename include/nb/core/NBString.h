@@ -116,6 +116,7 @@ extern "C" {
 	BOOL NBString_isLike(const STNBString* string, const char* string2);
 	BOOL NBString_isLikeBytes(const STNBString* string, const char* string2, const UI32 len);
 	BOOL NBString_isLower(const STNBString* string, const char* str2);
+    BOOL NBString_isLowerLike(const STNBString* string, const char* str2);
 	BOOL NBString_isLowerOrEqual(const STNBString* string, const char* str2);
 	BOOL NBString_isGreater(const STNBString* string, const char* str2);
 	BOOL NBString_isGreaterOrEqual(const STNBString* string, const char* str2);
@@ -147,8 +148,11 @@ extern "C" {
 	BOOL NBString_strIsLikeStrBytes(const char* string1, const char* string2, const UI32 len2);
 	//is lower
 	BOOL NBString_strIsLower(const char* str1, const char* str2);
+    BOOL NBString_strIsLowerLike(const char* str1, const char* str2);
 	BOOL NBString_strIsLowerBytes(const char* str1, const UI32 len1, const char* str2, const UI32 len2);
+    BOOL NBString_strIsLowerBytesLike(const char* str1, const UI32 len1, const char* str2, const UI32 len2);
 	BOOL NBString_strIsLowerStrBytes(const char* str1, const char* str2, const UI32 len2);
+    BOOL NBString_strIsLowerStrBytesLike(const char* str1, const char* str2, const UI32 len2);
 	//is lower or equal
 	BOOL NBString_strIsLowerOrEqual(const char* str1, const char* str2);
 	BOOL NBString_strIsLowerOrEqualBytes(const char* str1, const UI32 len1, const char* str2, const UI32 len2);

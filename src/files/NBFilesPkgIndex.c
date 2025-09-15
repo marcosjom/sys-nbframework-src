@@ -138,7 +138,7 @@ UI32 NBFilesPkgIndex_getRecordId(STNBFilesPkgIndex* obj, const char* path){
 						STNBFilesPkgIndexRecord* rc = NBArraySorted_itmPtrAtIndex(&grp->records, STNBFilesPkgIndexRecord, i);
 						const char* fpath = &opq->strs.str[rc->record.filepath];
 						if(NBString_strIsEqual(fpath, path)){
-							r =rc->fileId;
+							r = rc->fileId;
 							break;
 						}
 					}

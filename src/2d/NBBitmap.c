@@ -47,14 +47,7 @@ typedef struct STNBBitmapOpq_ {
 	UI32			retainCount;
 } STNBBitmapOpq;
 
-//Color functions pointers (optimizations)
-
-typedef struct STNBBitmapColorDesc_ {
-	UI8				    bitsPerPx;
-	const char*		    name;
-	NBBitmapGetPixFunc	getPixFunc;
-	NBBitmapSetPixFunc	setPixFunc;
-} STNBBitmapColorDesc;
+//
 
 void NBBitmap_getPixelAlpha8_(const STNBBitmapProps* props, const BYTE* data, const UI32 x, const UI32 y, STNBColor8* dstColor);
 void NBBitmap_getPixelGray8_(const STNBBitmapProps* props, const BYTE* data, const UI32 x, const UI32 y, STNBColor8* dstColor);
@@ -72,6 +65,15 @@ void NBBitmap_setPixelRGBA8_(const STNBBitmapProps* props, BYTE* data, const UI3
 void NBBitmap_setPixelARGB8_(const STNBBitmapProps* props, BYTE* data, const UI32 x, const UI32 y, const STNBColor8 color);
 void NBBitmap_setPixelBGRA8_(const STNBBitmapProps* props, BYTE* data, const UI32 x, const UI32 y, const STNBColor8 color);
 	
+//Color functions pointers (optimizations)
+
+typedef struct STNBBitmapColorDesc_ {
+    UI8                    bitsPerPx;
+    const char*            name;
+    NBBitmapGetPixFunc    getPixFunc;
+    NBBitmapSetPixFunc    setPixFunc;
+} STNBBitmapColorDesc;
+
 static const STNBBitmapColorDesc NBBitmap_colorMap[] = {
 	{0, "undef", NULL, NULL},
 	{8, "ALPHA8", NBBitmap_getPixelAlpha8_, NBBitmap_setPixelAlpha8_},
@@ -162,7 +164,7 @@ STNBBitmapProps NBBitmap_propsForBitmap(const UI32 width, const UI32 height, con
 		} else {
 			r.bitsPerPx		= d->bitsPerPx;
 			{
-			const UI32 bitsPerLine = (width * d->bitsPerPx);
+                const UI32 bitsPerLine = (width * d->bitsPerPx);
 				//align to byte
 				r.bytesPerLine	= (bitsPerLine / 8) + ((bitsPerLine % 8) != 0 ? 1 : 0);
 				//align to word (4 bytes)

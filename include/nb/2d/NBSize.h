@@ -32,6 +32,15 @@ extern "C" {
 	
 	const STNBStructMap* NBSizeI_getSharedStructMap(void);
 
+    //
+
+    typedef struct STNBSizeU_ {
+        UI32    width;
+        UI32    height;
+    } STNBSizeU;
+
+    const STNBStructMap* NBSizeU_getSharedStructMap(void);
+
 	//
 
 	typedef struct STNBSizeI16_ {
@@ -41,6 +50,15 @@ extern "C" {
 
 	const STNBStructMap* NBSizeI16_getSharedStructMap(void);
 	
+    //
+
+    typedef struct STNBSizeU16_ {
+        UI16    width;
+        UI16    height;
+    } STNBSizeU16;
+
+    const STNBStructMap* NBSizeU16_getSharedStructMap(void);
+
 	//
 	
 	BOOL NBCompare_NBSize(const ENCompareMode mode, const void* data1, const void* data2, const UI32 dataSz);

@@ -24,6 +24,7 @@ extern "C" {
         BOOL (*httpReqRespAddHeaderField)(const char* name, const char* value, void* usrData); //optional
         BOOL (*httpReqRespEndHeader)(void* usrData); //optional, mostly used when empty-body; the header is auto-ended when the body is started.
         //response-body
+        BOOL (*httpReqRespSetContentType)(const char* mimeType, void* usrData);
         BOOL (*httpReqRespSetContentLength)(const UI64 contentLength, void* usrData); //optimization, when size is known buffer is not used (data is send inmediatly)
         BOOL (*httpReqRespUnsetContentLength)(void* usrData); //reverse of 'setContentLength'
         BOOL (*httpReqRespConcatBody)(const char* str, void* usrData);
@@ -49,6 +50,7 @@ extern "C" {
     BOOL NBHttpServiceRespLnk_addHeaderField(const STNBHttpServiceRespLnk* obj, const char* name, const char* value); //optional
     BOOL NBHttpServiceRespLnk_endHeader(const STNBHttpServiceRespLnk* obj); //optional, mostly used when empty-body; the header is auto-ended when the body is started.
     //response-body
+    BOOL NBHttpServiceRespLnk_setContentType(const STNBHttpServiceRespLnk* obj, const char* mimeType);
     BOOL NBHttpServiceRespLnk_setContentLength(const STNBHttpServiceRespLnk* obj, const UI64 contentLength); //optimization, when size is known buffer is not used (data is send inmediatly)
     BOOL NBHttpServiceRespLnk_unsetContentLength(const STNBHttpServiceRespLnk* obj); //reverse of 'setContentLength'
     BOOL NBHttpServiceRespLnk_concatBody(const STNBHttpServiceRespLnk* obj, const char* str);

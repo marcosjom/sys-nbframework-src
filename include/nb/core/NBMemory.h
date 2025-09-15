@@ -21,11 +21,13 @@ extern const UI32 _nbZeroesArr[128];
 #	define NBMemory_alloc(BYTES)			NBMemory_alloc_((UI32)(BYTES), __FILE__, __LINE__, __func__)
 #	define NBMemory_allocType(TYPE)			(TYPE*)NBMemory_alloc_((UI32)sizeof(TYPE), __FILE__, __LINE__, __func__)
 #	define NBMemory_allocTypes(TYPE, AMM)	(TYPE*)NBMemory_alloc_((UI32)(sizeof(TYPE) * (AMM)), __FILE__, __LINE__, __func__)
+#   define NBMemory_realloc(PTR, BYTES)     NBMemory_realloc_(PTR, (UI32)(BYTES), __FILE__, __LINE__, __func__)
 #	define NBMemory_free(PTR)				NBMemory_free_(PTR, __FILE__, __LINE__, __func__)
 #else
 #	define NBMemory_alloc(BYTES)			NBMemory_alloc_((UI32)(BYTES))
 #	define NBMemory_allocType(TYPE)			(TYPE*)NBMemory_alloc_((UI32)sizeof(TYPE))
 #	define NBMemory_allocTypes(TYPE, AMM)	(TYPE*)NBMemory_alloc_((UI32)(sizeof(TYPE) * (UI64)(AMM)))
+#   define NBMemory_realloc(PTR, BYTES)     NBMemory_realloc_(PTR, (UI32)(BYTES))
 #	define NBMemory_free(PTR)				NBMemory_free_(PTR)
 #endif
 
@@ -45,13 +47,16 @@ extern const UI32 _nbZeroesArr[128];
 
 #ifdef CONFIG_NB_INCLUDE_THREADS_METRICS
 void* NBMemory_alloc_(const UI32 sz, const char* fullpath, const SI32 line, const char* func);
+void* NBMemory_realloc_(void* ptr, const UI32 sz, const char* fullpath, const SI32 line, const char* func);
 void  NBMemory_free_(void* ptr, const char* fullpath, const SI32 line, const char* func);
 #else
 void* NBMemory_alloc_(const UI32 sz);
+void* NBMemory_realloc_(void* ptr, const UI32 sz);
 void  NBMemory_free_(void* ptr);
 #endif
 
 void* NBMemory_allocUnmanaged(const UI32 sz);
+void* NBMemory_rellocUnmanaged(void* ptr, const UI32 sz);
 void  NBMemory_freeUnmanaged(void* ptr);
 
 void NBMemory_set_(void* ptr, SI32 v, UI32 sz);

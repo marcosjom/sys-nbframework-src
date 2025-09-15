@@ -60,6 +60,14 @@ BOOL NBHttpServiceRespLnk_endHeader(const STNBHttpServiceRespLnk* obj){ //option
 
 //response-body
 
+BOOL NBHttpServiceRespLnk_setContentType(const STNBHttpServiceRespLnk* obj, const char* mimeType){
+    BOOL r = FALSE;
+    if(obj != NULL && obj->itf.httpReqRespSetContentType != NULL){
+        r = (*obj->itf.httpReqRespSetContentType)(mimeType, obj->itfParam);
+    }
+    return r;
+}
+
 BOOL NBHttpServiceRespLnk_setContentLength(const STNBHttpServiceRespLnk* obj, const UI64 contentLength){ //optimization, when size is known buffer is not used (data is send inmediatly)
     BOOL r = FALSE;
     if(obj != NULL && obj->itf.httpReqRespSetContentLength != NULL){

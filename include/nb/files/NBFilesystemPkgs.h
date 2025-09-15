@@ -40,6 +40,7 @@ BOOL NBFilesystemPkgs_createFolder(STNBFilesystemPkgs* obj, const char* folderpa
 
 //Files
 BOOL NBFilesystemPkgs_open(STNBFilesystemPkgs* obj, const char* filepath, const ENNBFileMode mode, STNBFileRef dst);
+SI32 NBFilesystemPkgs_getFilePkgIndex(STNBFilesystemPkgs* obj, const char* filepath);
 BOOL NBFilesystemPkgs_getFiles(const STNBFilesystemPkgs* obj, const char* folderpath, const BOOL includeStats, STNBString* dstStrs, STNBArray* dstFiles /*STNBFilesystemFile*/);
 BOOL NBFilesystemPkgs_moveFile(STNBFilesystemPkgs* obj, const char* srcFilepath, const ENNBFilesystemRoot dstRoot, const char* dstFilepath);
 BOOL NBFilesystemPkgs_deleteFile(STNBFilesystemPkgs* obj, const char* filepath);
