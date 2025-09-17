@@ -768,7 +768,7 @@ BOOL NBHttpServicePort_httpConnReqArrived_(STNBHttpServiceConnRef pConn, const S
 			}
 		}
         //port-level redirection
-        if(!reqCnsmd && opq->cfg.def.redirect != NULL && opq->cfg.def.redirect->protocol != NULL){
+        if(!reqCnsmd && reqDesc.header != NULL && opq->cfg.def.redirect != NULL && opq->cfg.def.redirect->protocol != NULL){
             //ToDo: validate recursive redirection
             UI32 redirErrCode = 0;
             STNBString redirLoc;
