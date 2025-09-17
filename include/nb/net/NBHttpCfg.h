@@ -102,7 +102,17 @@ typedef struct STNBHttpSslCfg_ {
 } STNBHttpSslCfg;
 
 const STNBStructMap* NBHttpSslCfg_getSharedStructMap(void);
-	
+
+//redirect cfg
+
+typedef struct STNBHttpRedirectCfg_ {
+    char*       protocol;   //required, protocol for the redirection
+    char*       host;       //optional, host to be swapped/injected into the requested URL
+    UI16        port;       //optional, port to be swapped/injected into the requested URL
+} STNBHttpRedirectCfg;
+
+const STNBStructMap* NBHttpRedirectCfg_getSharedStructMap(void);
+
 //http port cfg
 
 typedef struct STNBHttpPortCfg_ {
@@ -112,7 +122,8 @@ typedef struct STNBHttpPortCfg_ {
     STNBHttpLimitsCfg       conns;
     STNBHttpConnCfg         perConn;
 	STNBHttpSslCfg			ssl;
-    STNBHttpReqRulesDef*    reqsRules;   //dummy struct to warn about old design, and to move this code to user's side.
+    STNBHttpRedirectCfg*    redirect;   //if present, requested URL will be presented as moved-to.
+    STNBHttpReqRulesDef*    reqsRules;  //dummy struct to warn about old design, and to move this code to user's side.
 } STNBHttpPortCfg;
 
 const STNBStructMap* NBHttpPortCfg_getSharedStructMap(void);

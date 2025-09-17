@@ -748,49 +748,113 @@ void NBHttpServicePort_httpConnStopped_(STNBHttpServiceConnRef pConn, void* usrD
 }
 
 BOOL NBHttpServicePort_httpConnReqArrived_(STNBHttpServiceConnRef pConn, const STNBHttpServiceReqDesc reqDesc, STNBHttpServiceReqArrivalLnk reqLnk, void* usrData){
-    BOOL r = FALSE;
+    BOOL r = FALSE, reqCnsmd = FALSE;
     STNBHttpServicePortOpq* opq = (STNBHttpServicePortOpq*)usrData; NBASSERT(NBHttpServicePort_isClass(NBObjRef_fromOpqPtr(opq)))
     {
+        STNBString absPath, query, fragment;
+        NBString_initWithSz(&absPath, 0, 128, 0.10f);
+        NBString_initWithSz(&query, 0, 128, 0.10f);
+        NBString_initWithSz(&fragment, 0, 128, 0.10f);
 		//stats-request
 		if (reqDesc.header != NULL && reqDesc.body != NULL) {
 			if (reqDesc.header->requestLine != NULL) {
-				STNBString absPath;
-				NBString_init(&absPath);
-				if (NBHttpHeader_parseRequestTarget(reqDesc.header, &absPath, NULL, NULL)) {
+				if (NBHttpHeader_parseRequestTarget(reqDesc.header, &absPath, &query, &fragment)) {
 					NBObject_lock(opq);
 					{
 						NBHttpStatsData_accumRequest(&opq->stats.upd, absPath.str);
 					}
 					NBObject_unlock(opq);
 				}
-				NBString_release(&absPath);
 			}
 		}
+        //port-level redirection
+        if(!reqCnsmd && opq->cfg.def.redirect != NULL && opq->cfg.def.redirect->protocol != NULL){
+            //ToDo: validate recursive redirection
+            UI32 redirErrCode = 0;
+            STNBString redirLoc;
+            NBString_initWithSz(&redirLoc, 0, 128, 0.10f);
+            //protocol
+            NBString_concat(&redirLoc, opq->cfg.def.redirect->protocol);
+            NBString_concat(&redirLoc, "://");
+            //host
+            if(opq->cfg.def.redirect->host != NULL){
+                //explicit redirect host
+                NBString_concat(&redirLoc, opq->cfg.def.redirect->host);
+            } else {
+                //implicit redirect host (host header)
+                const char* hostFld = NBHttpHeader_getField(reqDesc.header, "host");
+                if(hostFld == NULL){
+                    //error
+                    redirErrCode = 400;
+                    r = NBHttpServiceReqArrivalLnk_setDefaultResponseCode(&reqLnk, redirErrCode, "Host-header is required")
+                        && NBHttpServiceReqArrivalLnk_setDefaultResponseBodyStr(&reqLnk, "Host-header is required");
+                    reqCnsmd = TRUE;
+                } else {
+                    UI32 hostLen = 0;
+                    //parse 'host' field
+                    const UI32 hostFldLen = NBString_strLenBytes(hostFld);
+                    SI32 iPortPos = NBString_strLastIndexOf(hostFld, ":", hostFldLen - 1);
+                    if(iPortPos < 0){
+                        hostLen = hostFldLen;
+                    } else {
+                        hostLen = iPortPos;
+                    }
+                    if(hostLen == 0){
+                        //error
+                        redirErrCode = 400;
+                        r = NBHttpServiceReqArrivalLnk_setDefaultResponseCode(&reqLnk, redirErrCode, "Empty host-header")
+                            && NBHttpServiceReqArrivalLnk_setDefaultResponseBodyStr(&reqLnk, "Empty host-header");
+                        reqCnsmd = TRUE;
+                    } else {
+                        NBString_concatBytes(&redirLoc, hostFld, hostLen);
+                    }
+                }
+            }
+            //complete
+            if(redirErrCode == 0){
+                //port
+                if(opq->cfg.def.redirect->port > 0){
+                    NBString_concatByte(&redirLoc, ':');
+                    NBString_concatUI32(&redirLoc, opq->cfg.def.redirect->port);
+                }
+                //target
+                NBString_concatBytes(&redirLoc, absPath.str, absPath.length);
+                NBString_concatBytes(&redirLoc, query.str, query.length);
+                NBString_concatBytes(&redirLoc, fragment.str, fragment.length);
+                //
+                r = NBHttpServiceReqArrivalLnk_setDefaultResponseCode(&reqLnk, 301, "Moved Permanently")
+                    && NBHttpServiceReqArrivalLnk_setDefaultResponseBodyStr(&reqLnk, "Moved Permanently")
+                    && NBHttpServiceReqArrivalLnk_setDefaultResponseField(&reqLnk, "Location", redirLoc.str);
+                //
+                //PRINTF_INFO("Redirecting from port(%d) to '%s'.\n", opq->cfg.port, redirLoc.str);
+                reqCnsmd = TRUE;
+            }
+            //
+            NBString_release(&redirLoc);
+        }
 		//consume
-        if(opq->lstnr.itf.httpPortCltReqArrived != NULL){
+        if(!reqCnsmd && opq->lstnr.itf.httpPortCltReqArrived != NULL){
             r = (*opq->lstnr.itf.httpPortCltReqArrived)(NBHttpServicePort_fromOpqPtr(opq), pConn, reqDesc, reqLnk, opq->lstnr.usrData);
         }
         //stats-response
         if(reqDesc.header != NULL && reqDesc.body != NULL){
             if(reqDesc.header->requestLine != NULL){
-                STNBString absPath;
-                NBString_init(&absPath);
-                if(NBHttpHeader_parseRequestTarget(reqDesc.header, &absPath, NULL, NULL)){
-                    NBObject_lock(opq);
+                NBObject_lock(opq);
+                {
+                    STNBString respReason;
+                    NBString_init(&respReason);
                     {
-                        STNBString respReason;
-                        NBString_init(&respReason);
-                        {
-                            const UI32 respCode = NBHttpServiceReqArrivalLnk_getDefaultResponseCodeAndReason(&reqLnk, &respReason);
-                            NBHttpStatsData_accumResponse(&opq->stats.upd, absPath.str, respCode, respReason.str);
-                        }
-                        NBString_release(&respReason);
+                        const UI32 respCode = NBHttpServiceReqArrivalLnk_getDefaultResponseCodeAndReason(&reqLnk, &respReason);
+                        NBHttpStatsData_accumResponse(&opq->stats.upd, absPath.str, respCode, respReason.str);
                     }
-                    NBObject_unlock(opq);
+                    NBString_release(&respReason);
                 }
-                NBString_release(&absPath);
+                NBObject_unlock(opq);
             }
         }
+        NBString_release(&absPath);
+        NBString_release(&query);
+        NBString_release(&fragment);
     }
     return r;
 }

@@ -194,6 +194,24 @@ const STNBStructMap* NBHttpSslCfg_getSharedStructMap(void){
 	return NBHttpSslCfg_sharedStructMap.map;
 }
 
+//redirect cfg
+
+STNBStructMapsRec NBHttpRedirectCfg_sharedStructMap = STNBStructMapsRec_empty;
+
+const STNBStructMap* NBHttpRedirectCfg_getSharedStructMap(void){
+    NBMngrStructMaps_lock(&NBHttpRedirectCfg_sharedStructMap);
+    if(NBHttpRedirectCfg_sharedStructMap.map == NULL){
+        STNBHttpRedirectCfg s;
+        STNBStructMap* map = NBMngrStructMaps_allocTypeM(STNBHttpRedirectCfg);
+        NBStructMap_init(map, sizeof(s));
+        NBStructMap_addStrPtrM(map, s, protocol);   //required, protocol for the redirection
+        NBStructMap_addStrPtrM(map, s, host);       //optional, host to be swapped/injected into the requested URL
+        NBStructMap_addUIntM(map, s, port);         //optional, port to be swapped/injected into the requested URL
+        NBHttpRedirectCfg_sharedStructMap.map = map;
+    }
+    NBMngrStructMaps_unlock(&NBHttpRedirectCfg_sharedStructMap);
+    return NBHttpRedirectCfg_sharedStructMap.map;
+}
 //Http port cfg
 
 STNBStructMapsRec NBHttpPortCfg_sharedStructMap = STNBStructMapsRec_empty;
@@ -210,6 +228,7 @@ const STNBStructMap* NBHttpPortCfg_getSharedStructMap(void){
         NBStructMap_addStructM(map, s, conns, NBHttpLimitsCfg_getSharedStructMap());
         NBStructMap_addStructM(map, s, perConn, NBHttpConnCfg_getSharedStructMap());
 		NBStructMap_addStructM(map, s, ssl, NBHttpSslCfg_getSharedStructMap());
+        NBStructMap_addStructPtrM(map, s, redirect, NBHttpRedirectCfg_getSharedStructMap()); //if present, requested URL will be presented as moved-to.
 		NBStructMap_addStructPtrM(map, s, reqsRules, NBHttpReqRulesDef_getSharedStructMap());
 		NBHttpPortCfg_sharedStructMap.map = map;
 	}
