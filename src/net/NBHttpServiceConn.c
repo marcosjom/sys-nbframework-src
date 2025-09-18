@@ -634,6 +634,17 @@ BOOL NBHttpServiceConn_isSocket(STNBHttpServiceConnRef ref, STNBSocketRef socket
 	return r;
 }
 
+BOOL NBHttpServiceConn_isSslEnabled(STNBHttpServiceConnRef ref){
+    BOOL r = FALSE;
+    STNBHttpServiceConnOpq* opq = (STNBHttpServiceConnOpq*)ref.opaque; NBASSERT(NBHttpServiceConn_isClass(ref))
+    NBObject_lock(opq);
+    {
+        r = NBSsl_isSet(opq->net.ssl.conn);
+    }
+    NBObject_unlock(opq);
+    return r;
+}
+
 //
 
 ENNBSslResult NBHttpServiceConn_sslAcceptTick_(STNBHttpServiceConnOpq* opq, STNBSslRef* ssl){

@@ -137,6 +137,7 @@ extern "C" {
 	BOOL NBHttpServiceConn_isCertSignedByCA(STNBHttpServiceConnRef ref);
 	BOOL NBHttpServiceConn_getCert(STNBHttpServiceConnRef ref, STNBX509* dst, BOOL* dstIsSignedByCA);
 	BOOL NBHttpServiceConn_isSocket(STNBHttpServiceConnRef ref, STNBSocketRef socket);
+    BOOL NBHttpServiceConn_isSslEnabled(STNBHttpServiceConnRef ref);
 
 	//
 

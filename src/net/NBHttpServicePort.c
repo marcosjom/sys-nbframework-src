@@ -819,14 +819,20 @@ BOOL NBHttpServicePort_httpConnReqArrived_(STNBHttpServiceConnRef pConn, const S
                 }
                 //target
                 NBString_concatBytes(&redirLoc, absPath.str, absPath.length);
-                NBString_concatBytes(&redirLoc, query.str, query.length);
-                NBString_concatBytes(&redirLoc, fragment.str, fragment.length);
+                if(query.length > 0){
+                    NBString_concatByte(&redirLoc, '?');
+                    NBString_concatBytes(&redirLoc, query.str, query.length);
+                }
+                if(fragment.length > 0){
+                    NBString_concatByte(&redirLoc, '#');
+                    NBString_concatBytes(&redirLoc, fragment.str, fragment.length);
+                }
                 //
                 r = NBHttpServiceReqArrivalLnk_setDefaultResponseCode(&reqLnk, 301, "Moved Permanently")
                     && NBHttpServiceReqArrivalLnk_setDefaultResponseBodyStr(&reqLnk, "Moved Permanently")
                     && NBHttpServiceReqArrivalLnk_setDefaultResponseField(&reqLnk, "Location", redirLoc.str);
                 //
-                //PRINTF_INFO("Redirecting from port(%d) to '%s'.\n", opq->cfg.port, redirLoc.str);
+                //PRINTF_INFO("Redirecting from port(%d) res('%s%s%s%s%s') to '%s'.\n", port, absPath.str, query.length > 0 ? "?" : "", query.str, fragment.length > 0 ? "#" : "", fragment.str, redirLoc.str);
                 reqCnsmd = TRUE;
             }
             //
