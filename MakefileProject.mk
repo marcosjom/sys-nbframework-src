@@ -7,9 +7,9 @@ $(eval $(call nbCall,nbInitProject))
 
 NB_PROJECT_NAME             := nbframework
 
-NB_PROJECT_CFLAGS           :=
+NB_PROJECT_CFLAGS           +=
 
-NB_PROJECT_CXXFLAGS         :=
+NB_PROJECT_CXXFLAGS         +=
 
 #Add debug specific
 ifeq ($(NB_WORKSPACE_BLD_CFG),debug)
@@ -90,7 +90,7 @@ NB_CODE_GRP_INCLUDES        += \
     include/nb/ext/leptonica \
     src/ext/leptonica/src
    
-NB_CODE_GRP_SRCS            := \
+NB_CODE_GRP_SRCS            += \
     src/ocr/NBOcr.cpp
 
 $(eval $(call nbCall,nbBuildCodeGrpRules))
@@ -116,7 +116,7 @@ NB_CODE_GRP_CXXFLAGS        += \
     -DNDEBUG \
     -std=c++20
    
-NB_CODE_GRP_SRCS            := \
+NB_CODE_GRP_SRCS            += \
     src/ocr/NBOcr.cpp
 
 $(eval $(call nbCall,nbBuildCodeGrpRules))
@@ -133,7 +133,7 @@ NB_CODE_GRP_FLAGS_REQUIRED  += NB_LIB_PNG
 
 NB_CODE_GRP_FLAGS_ENABLES   += NB_LIB_Z
 
-NB_CODE_GRP_SRCS            := \
+NB_CODE_GRP_SRCS            += \
     src/2d/NBPngChunk.c \
     src/2d/NBPng.c
 
@@ -151,7 +151,7 @@ NB_CODE_GRP_FLAGS_REQUIRED  += NB_LIB_JPEG
 
 NB_CODE_GRP_FLAGS_FORBIDDEN += NB_LIB_JPEG_SYSTEM
 
-NB_CODE_GRP_SRCS            := \
+NB_CODE_GRP_SRCS            += \
     src/2d/NBJpegRead.c \
     src/2d/NBJpegWrite.c \
     src/2d/NBJpeg.c
@@ -171,7 +171,7 @@ NB_CODE_GRP_NAME            := libjpeg-glue-lib
 
 NB_CODE_GRP_FLAGS_REQUIRED  += NB_LIB_JPEG NB_LIB_JPEG_SYSTEM
 
-NB_CODE_GRP_SRCS            := \
+NB_CODE_GRP_SRCS            += \
    src/2d/NBJpegRead.c \
    src/2d/NBJpegWrite.c \
    src/2d/NBJpeg.c
@@ -194,7 +194,7 @@ NB_CODE_GRP_INCLUDES        += \
     include/nb/ext/openssl/include \
     src/ext/openssl/include
 
-NB_CODE_GRP_SRCS            := \
+NB_CODE_GRP_SRCS            += \
     src/crypto/NBAes256.c \
     src/crypto/NBPkcs12.c \
     src/crypto/NBPKey.c \
@@ -216,7 +216,7 @@ NB_CODE_GRP_NAME            := openssl-glue-lib
 
 NB_CODE_GRP_FLAGS_REQUIRED  += NB_LIB_SSL NB_LIB_SSL_SYSTEM
 
-NB_CODE_GRP_SRCS            := \
+NB_CODE_GRP_SRCS            += \
     src/crypto/NBAes256.c \
     src/crypto/NBPkcs12.c \
     src/crypto/NBPKey.c \
@@ -243,7 +243,7 @@ NB_CODE_GRP_FLAGS_FORBIDDEN += NB_LIB_FREETYPE_SYSTEM
 NB_CODE_GRP_INCLUDES        += \
     src/ext/freetype/include
 
-NB_CODE_GRP_SRCS            := \
+NB_CODE_GRP_SRCS            += \
     src/fonts/NBFontBitmaps.c \
     src/fonts/NBFontCodesMap.c \
     src/fonts/NBFontGlyphs.c \
@@ -273,7 +273,7 @@ NB_CODE_GRP_INCLUDES        += \
     /usr/include/freetype2 \
     /usr/include/freetype2/freetype
 
-NB_CODE_GRP_SRCS            := \
+NB_CODE_GRP_SRCS            += \
     src/fonts/NBFontBitmaps.c \
     src/fonts/NBFontCodesMap.c \
     src/fonts/NBFontGlyphs.c \
@@ -299,7 +299,7 @@ NB_CODE_GRP_NAME            := core
  
 NB_CODE_GRP_LIBS            += pthread m
 
-NB_CODE_GRP_SRCS            := \
+NB_CODE_GRP_SRCS            += \
   src/NBFrameworkDefs.c \
   src/NBFrameworkPch.c \
   src/NBClass.c \
@@ -486,7 +486,7 @@ NB_CODE_GRP_FLAGS_REQUIRED  += NB_LIB_Z
 
 NB_CODE_GRP_FLAGS_FORBIDDEN += NB_LIB_Z_SYSTEM
 
-NB_CODE_GRP_SRCS            := \
+NB_CODE_GRP_SRCS            += \
     src/compress/NBZlib.c \
     src/compress/NBZInflate.c \
     src/compress/NBZDeflate.c
@@ -507,7 +507,7 @@ NB_CODE_GRP_NAME            := zlib-glue-lib
 
 NB_CODE_GRP_FLAGS_REQUIRED  += NB_LIB_Z NB_LIB_Z_SYSTEM
  
-NB_CODE_GRP_SRCS            := \
+NB_CODE_GRP_SRCS            += \
   src/compress/NBZlib.c \
   src/compress/NBZInflate.c \
   src/compress/NBZDeflate.c
@@ -529,7 +529,7 @@ NB_CODE_GRP_FLAGS_FORBIDDEN += NB_LIB_JPEG_SYSTEM
 NB_CODE_GRP_INCLUDES        += \
     src/ext/libjpeg
 
-NB_CODE_GRP_SRCS            := \
+NB_CODE_GRP_SRCS            += \
     src/ext/libjpeg/jaricom.c \
     src/ext/libjpeg/jcapimin.c \
     src/ext/libjpeg/jcapistd.c \
@@ -608,7 +608,7 @@ NB_CODE_GRP_FLAGS_FORBIDDEN += NB_LIB_FREETYPE_SYSTEM
 NB_CODE_GRP_INCLUDES        += \
     src/ext/freetype/include
 
-NB_CODE_GRP_SRCS            := \
+NB_CODE_GRP_SRCS            += \
     src/ext/freetype/src/autofit/autofit.c \
     src/ext/freetype/src/base/ftbase.c \
     src/ext/freetype/src/base/ftbitmap.c \
@@ -687,7 +687,7 @@ NB_CODE_GRP_INCLUDES        += \
     src/ext/openssl/crypto/ec/curve448 \
     src/ext/openssl/crypto/ec/curve448/arch_32
     
-NB_CODE_GRP_SRCS            := \
+NB_CODE_GRP_SRCS            += \
     src/ext/openssl/crypto/aes/aes_cbc.c \
     src/ext/openssl/crypto/aes/aes_cfb.c \
     src/ext/openssl/crypto/aes/aes_core.c \
@@ -1383,7 +1383,7 @@ else
         include/nb/ext/leptonica \
         include/nb/ext/leptonica/private \
     src/ext/leptonica/src
-    NB_CODE_GRP_SRCS        := \
+    NB_CODE_GRP_SRCS        += \
     src/ext/leptonica/src/adaptmap.c \
     src/ext/leptonica/src/affine.c \
     src/ext/leptonica/src/affinecompose.c \
@@ -1609,7 +1609,7 @@ ifeq ($(NB_LIB_LEPTONICA_SYSTEM),)
         src/ext/leptonica/src
 endif
 
-NB_CODE_GRP_SRCS            := \
+NB_CODE_GRP_SRCS            += \
     src/ext/tesseract/src/api/altorenderer.cpp \
     src/ext/tesseract/src/api/baseapi.cpp \
     src/ext/tesseract/src/api/capi.cpp \
@@ -1852,7 +1852,7 @@ NB_CODE_GRP_INCLUDES        += \
     include/nb/ext/zlib \
     src/ext/zlib
     
-NB_CODE_GRP_SRCS            := \
+NB_CODE_GRP_SRCS            += \
     src/ext/zlib/adler32.c \
     src/ext/zlib/compress.c \
     src/ext/zlib/crc32.c \
@@ -1901,7 +1901,7 @@ NB_CODE_GRP_FLAGS_FORBIDDEN += NB_LIB_LZ4_SYSTEM
 NB_CODE_GRP_INCLUDES        += \
     src/ext/lz4/lib
         
-NB_CODE_GRP_SRCS            := \
+NB_CODE_GRP_SRCS            += \
     src/ext/lz4/lib/lz4hc.c \
     src/ext/lz4/lib/lz4frame.c \
     src/ext/lz4/lib/xxhash.c \
@@ -1938,7 +1938,7 @@ NB_CODE_GRP_FLAGS_REQUIRED += NB_LIB_QUIRC
 NB_CODE_GRP_INCLUDES       += \
    src/ext/quirc
 
-NB_CODE_GRP_SRCS           := \
+NB_CODE_GRP_SRCS           += \
   src/ext/quirc/quirc.c \
   src/ext/quirc/version_db.c \
   src/ext/quirc/identify.c \

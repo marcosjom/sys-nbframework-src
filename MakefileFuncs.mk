@@ -501,9 +501,9 @@ define nbInitProject
     #############
     NB_PROJECT_REL_DIR          := $(dir $(lastword $(MAKEFILE_LIST)))
     NB_PROJECT_NAME             :=
-    NB_PROJECT_CFLAGS           :=
-    NB_PROJECT_CXXFLAGS         :=
-    NB_PROJECT_LDFLAGS          :=
+    NB_PROJECT_CFLAGS           := $(CFLAGS)
+    NB_PROJECT_CXXFLAGS         := $(CPPFLAGS)
+    NB_PROJECT_LDFLAGS          := $(LDFLAGS)
     NB_PROJECT_INCLUDES         :=
     NB_PROJECT_LIBS_PATHS       :=
     NB_PROJECT_DEPEND_FLAGS     :=
@@ -540,9 +540,9 @@ define nbBuildProjectRules
     #############
     NB_PROJECT_REL_DIR          := $(dir $(lastword $(MAKEFILE_LIST)))
     NB_PROJECT_NAME             :=
-    NB_PROJECT_CFLAGS           :=
-    NB_PROJECT_CXXFLAGS         :=
-    NB_PROJECT_LDFLAGS          :=
+    NB_PROJECT_CFLAGS           := $(CFLAGS)
+    NB_PROJECT_CXXFLAGS         := $(CPPFLAGS)
+    NB_PROJECT_LDFLAGS          := $(LDFLAGS)
     NB_PROJECT_INCLUDES         :=
     NB_PROJECT_LIBS_PATHS       :=
     NB_PROJECT_DEPEND_FLAGS     :=
@@ -1107,7 +1107,7 @@ define nbDefsTargetRootRulesDefault
         ,$(if\
             $(filter exe,$($(1)_NB_TARGET_TYPE)),
                 $(NB_WORKSPACE_OUT_DIR_BIN)/$($(1)_NB_TARGET_PREFIX)$($(1)_NB_TARGET_NAME)$($(1)_NB_TARGET_SUFIX): .folders.$($(1)_NB_TARGET_NAME) .cfgs.$($(1)_NB_TARGET_NAME) $($(3)) end-of-target
-	            $$(CC) $$(filter %.o, $$^) $(addprefix -L,$($(6))) $(addprefix -l,$($(7))) $(addprefix -l,$($(8))) $(addprefix -l,$(subst ",,$($(5)))) $(addprefix -framework ,$($(1)_NB_TARGET_FRAMEWORKS)) -o $$@
+	            $$(CC) $($(1)_NB_TARGET_LDFLAGS) $$(filter %.o, $$^) $(addprefix -L,$($(6))) $(addprefix -l,$($(7))) $(addprefix -l,$($(8))) $(addprefix -l,$(subst ",,$($(5)))) $(addprefix -framework ,$($(1)_NB_TARGET_FRAMEWORKS)) -o $$@
             ,$(error\
                 unexpected NB_TARGET_TYPE: '$($(1)_NB_TARGET_TYPE)' for '$(1)' at nbDefsTargetRootRules)\
             )\
