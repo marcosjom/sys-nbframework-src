@@ -24,6 +24,7 @@
 #include "nb/core/NBThread.h"
 #include "nb/scene/shaders/NBScnRenderJob_hlsl.h"
 #include "nb/scene/shaders/NBScnRenderJob_cs_5_0.h"
+#include "nb/scene/shaders/NBScnRenderJob_cs_4_0.h"
 #include "nb/research/research-scn-compute.h"
 //
 #pragma comment(lib,"d3d11.lib")
@@ -676,13 +677,13 @@ void App_d3d_compute_print_msgs_queue(STApp* app, const char* opHint) {
 				} else {
 					switch (message->Severity) {
 					case D3D11_MESSAGE_SEVERITY_CORRUPTION:
-						printf("D3D, corruption: %s, %.*s.\n", opHint, message->DescriptionByteLength, message->pDescription);
+						printf("D3D, corruption: %s, %.*s.\n", opHint, (UI32)message->DescriptionByteLength, message->pDescription);
 						break;
 					case D3D11_MESSAGE_SEVERITY_ERROR:
-						printf("D3D, error: %s, %.*s.\n", opHint, message->DescriptionByteLength, message->pDescription);
+						printf("D3D, error: %s, %.*s.\n", opHint, (UI32)message->DescriptionByteLength, message->pDescription);
 						break;
 					case D3D11_MESSAGE_SEVERITY_WARNING:
-						printf("D3D, warning: %s, %.*s.\n", opHint, message->DescriptionByteLength, message->pDescription);
+						printf("D3D, warning: %s, %.*s.\n", opHint, (UI32)message->DescriptionByteLength, message->pDescription);
 						break;
 					default:
 						//D3D11_MESSAGE_SEVERITY_INFO
@@ -697,13 +698,13 @@ void App_d3d_compute_print_msgs_queue(STApp* app, const char* opHint) {
 	}
 }
 
-//bool App_d3d_compute_isSupported(ID3D11Device* dev);
+bool App_d3d_compute_isSupported(ID3D11Device* dev);
 
 bool App_d3d_compute_create(STApp* app) {
 	bool r = false;
 	HRESULT hr;
 	///DirectX10 cs_4_0 only supports one UAV buffer slot.
-	const D3D_FEATURE_LEVEL lvl[] = { /*D3D_FEATURE_LEVEL_11_1,*/ D3D_FEATURE_LEVEL_11_0 };
+	const D3D_FEATURE_LEVEL lvl[] = { /*D3D_FEATURE_LEVEL_11_1,*/ D3D_FEATURE_LEVEL_11_0, D3D_FEATURE_LEVEL_11_0 };
 	UINT createDeviceFlags = 0;
 #	ifdef _DEBUG
 	createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
@@ -728,57 +729,66 @@ bool App_d3d_compute_create(STApp* app) {
 		printf("D3D, error, D3D11CreateDevice failed with %08X.\n", hr);
 	} else {
 		printf("D3D, device created.\n");
-		if (featLvl < D3D_FEATURE_LEVEL_11_0) {
+		if (!(featLvl >= D3D_FEATURE_LEVEL_11_0) && !App_d3d_compute_isSupported(dev)) {
 			//Note: DirectX10 cs_4_0 only supports one UAV buffer slot.
 			printf("D3D, error, DirectCompute is not supported by this pre-DX11-device.\n");
 		} else {
 			printf("D3D, DirectCompute is supported.\n");
-				ID3D11ComputeShader* cs = NULL;
-				if ((hr = dev->CreateComputeShader(NBScnRenderJob_cs_5_0, sizeof(NBScnRenderJob_cs_5_0) / sizeof(NBScnRenderJob_cs_5_0[0]), nullptr, &cs)) < 0) {
-					printf("D3D, error, CreateComputeShader failed.\n");
+			ID3D11ComputeShader* cs = NULL;
+			const unsigned char* shader = NULL;
+			UI32 shaderSz = 0;
+			if (featLvl >= D3D_FEATURE_LEVEL_11_0) {
+				shader		= NBScnRenderJob_cs_5_0;
+				shaderSz	= sizeof(NBScnRenderJob_cs_5_0) / sizeof(NBScnRenderJob_cs_5_0[0]);
+			} else {
+				shader		= NBScnRenderJob_cs_4_0;
+				shaderSz	= sizeof(NBScnRenderJob_cs_4_0) / sizeof(NBScnRenderJob_cs_4_0[0]);
+			}
+			if ((hr = dev->CreateComputeShader(shader, shaderSz, nullptr, &cs)) < 0) {
+				printf("D3D, error, CreateComputeShader failed.\n");
+			} else {
+				ID3D11InfoQueue* infoQueue;
+				printf("D3D, CreateComputeShader success.\n");
+				if ((hr = dev->QueryInterface(__uuidof(ID3D11InfoQueue), (void**)&infoQueue)) < 0){
+					printf("D3D, error, QueryInterface(c) failed.\n");
 				} else {
-					ID3D11InfoQueue* infoQueue;
-					printf("D3D, CreateComputeShader success.\n");
-					if ((hr = dev->QueryInterface(__uuidof(ID3D11InfoQueue), (void**)&infoQueue)) < 0){
-						printf("D3D, error, QueryInterface(c) failed.\n");
-					} else {
-						printf("D3D, ID3D11InfoQueue gotten.\n");
-						//Unfiltering info-queue
-						infoQueue->PushEmptyStorageFilter();
-						//consume
-						if (app->d3d.compute.shader.obj != NULL) {
-							app->d3d.compute.shader.obj->Release();
-							app->d3d.compute.shader.obj = NULL;
-						}
-						if (app->d3d.compute.dev.infoQueue != NULL) {
-							app->d3d.compute.dev.infoQueue->Release();
-							app->d3d.compute.dev.infoQueue = NULL;
-						}
-						if (app->d3d.compute.dev.ctx != NULL) {
-							app->d3d.compute.dev.ctx->Release();
-							app->d3d.compute.dev.ctx = NULL;
-						}
-						if (app->d3d.compute.dev.obj != NULL) {
-							app->d3d.compute.dev.obj->Release();
-							app->d3d.compute.dev.obj = NULL;
-						}
-						app->d3d.compute.dev.obj = dev; dev = NULL;
-						app->d3d.compute.dev.ctx = ctx; ctx = NULL;
-						app->d3d.compute.dev.infoQueue = infoQueue; infoQueue = NULL;
-						app->d3d.compute.shader.obj = cs; cs = NULL;
-						r = true;
+					printf("D3D, ID3D11InfoQueue gotten.\n");
+					//Unfiltering info-queue
+					infoQueue->PushEmptyStorageFilter();
+					//consume
+					if (app->d3d.compute.shader.obj != NULL) {
+						app->d3d.compute.shader.obj->Release();
+						app->d3d.compute.shader.obj = NULL;
 					}
-					//release (if not consumed)
-					if (infoQueue != NULL) {
-						infoQueue->Release();
-						infoQueue = NULL;
+					if (app->d3d.compute.dev.infoQueue != NULL) {
+						app->d3d.compute.dev.infoQueue->Release();
+						app->d3d.compute.dev.infoQueue = NULL;
 					}
-					//release (if not consumed)
-					if (cs != NULL) {
-						cs->Release();
-						cs = NULL;
+					if (app->d3d.compute.dev.ctx != NULL) {
+						app->d3d.compute.dev.ctx->Release();
+						app->d3d.compute.dev.ctx = NULL;
 					}
+					if (app->d3d.compute.dev.obj != NULL) {
+						app->d3d.compute.dev.obj->Release();
+						app->d3d.compute.dev.obj = NULL;
+					}
+					app->d3d.compute.dev.obj = dev; dev = NULL;
+					app->d3d.compute.dev.ctx = ctx; ctx = NULL;
+					app->d3d.compute.dev.infoQueue = infoQueue; infoQueue = NULL;
+					app->d3d.compute.shader.obj = cs; cs = NULL;
+					r = true;
 				}
+				//release (if not consumed)
+				if (infoQueue != NULL) {
+					infoQueue->Release();
+					infoQueue = NULL;
+				}
+				//release (if not consumed)
+				if (cs != NULL) {
+					cs->Release();
+					cs = NULL;
+				}
+			}
 		}
 		//release(if not conusmed)
 		if (ctx != NULL) {
@@ -793,7 +803,7 @@ bool App_d3d_compute_create(STApp* app) {
 	return r;
 }
 
-/*bool App_d3d_compute_isSupported(ID3D11Device* dev) {
+bool App_d3d_compute_isSupported(ID3D11Device* dev) {
 	bool r = false;
 	const D3D_FEATURE_LEVEL feaLvl = dev->GetFeatureLevel();
 	if (feaLvl >= D3D_FEATURE_LEVEL_11_0) {
@@ -808,7 +818,7 @@ bool App_d3d_compute_create(STApp* app) {
 		}
 	}
 	return r;
-}*/
+}
 
 bool App_d3d_compute_create_raw_buff(ID3D11Device* pDevice, UINT uSize, void* pInitData, ID3D11Buffer** ppBufOut) {
 	bool r = false;
